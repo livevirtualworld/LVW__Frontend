@@ -30,9 +30,11 @@ import frame113 from "../../assets/Frame 113.png"
 import frame115 from "../../assets/Frame 115.png"
 import image13 from "../../assets/image 13.png"
 import image14 from "../../assets/image 14.png"
+import image31 from '../../assets/image 3 (1).png'
 function TourDetails() {
     const [lang , setLang] = useState("english")
     const [tap,setTap] = useState("about")
+    const [menu,setMenu] = useState(false)
   return (
     <div>
       <nav>
@@ -54,7 +56,19 @@ function TourDetails() {
                 </ul>
               </div>
               <div className={style["menu"]}>
-                <i id="menu"  className={style["fa-solid fa-bars"]}/>
+              <i onClick={()=>{
+                if(menu ==false){
+                setMenu(true)
+                console.log(true)
+                }
+                else{
+                  setMenu(false)
+                  console.log(false)
+                }
+
+              }} className="fas fa-bars" />
+              {
+                menu == true &&
                 <div className={style["drobdown"]}>
                   <ul className={style["nav__link"]} id="drobDown">
                     <li><a href="#">Home</a></li>
@@ -64,6 +78,7 @@ function TourDetails() {
                     <li><a href="#">Contact Us</a></li>
                   </ul>
                 </div>
+              }
               </div>
               <div className={style["nav__left"]}> 
                 <div className={style["nav__langs"]}>
@@ -153,10 +168,11 @@ function TourDetails() {
                     setTap("similar")
                   }}>Similar Tours</a>
                 </div>
-                <div className={style["main-content"]}>
+            
                   {
                     tap == "about" &&
                     <>
+                    <div className={style["main-content"]}>
                   <div className={style["btns"]}>
                     <a><img src={icon} /> Cairo, Egypt</a>
                     <a><img src={icon1} /> 2 Hours</a>
@@ -177,11 +193,13 @@ function TourDetails() {
                   <div className={style["media"]}>
                     <img src={frame111} />
                   </div>
+                  </div>
                   </>
                   }
                   {
                     tap == "reviews" &&
                     <>
+                    <div className={style["main-content"]}>
                     <div className={style["review"]}>
           <h3>John Carter</h3>
           <div className={style["stars"]}>
@@ -222,15 +240,19 @@ function TourDetails() {
           <h5>23 May 2023</h5>
         </div>
         <a href="#">View More Reviews</a>
+        </div>
                     </>
                   }
                   {
                     tap == "instructions" &&
+                    <div className={style["main-content"]}>
                     <h5>No Instructions for this tour</h5>
+                    </div>
                   }
                   {
                     tap == "media" &&
                     <>
+                    <div className={style["main-content"]}>
                      <div className={style["main-image"]} >
                       <img src={frame142} />
         </div>
@@ -240,14 +262,16 @@ function TourDetails() {
           <img src={frame115} />
           <img src={frame113} />
         </div>
+        </div>
                     </>
                   }
                   {
                     tap === "similar" &&
                     <>
+                  <div className={style["main-conten"]}>
                     <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -266,7 +290,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -285,7 +309,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -304,7 +328,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -323,7 +347,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -342,7 +366,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -361,7 +385,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -380,7 +404,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -399,7 +423,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -418,7 +442,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -437,7 +461,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -456,7 +480,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -475,7 +499,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -494,7 +518,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -513,7 +537,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -532,7 +556,7 @@ function TourDetails() {
         </div>
         <div className={style["card"]}>
           <div className={style["image"]}>
-            <img src="assets/images/image 3 (1).png" />
+            <img src={image31} />
             <div className={style["btns"]}>
               <a>Public</a>
               <a>Live Now</a>
@@ -549,11 +573,12 @@ function TourDetails() {
           <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
           <h5>Cairo, Egypt</h5>
         </div>
-        
+        </div>
                     </>
+
                   }
-                </div>
-              </div>
+                  </div>
+
               {
                 tap !="similar" &&
                 <>

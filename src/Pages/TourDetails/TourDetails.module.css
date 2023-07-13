@@ -160,7 +160,6 @@ nav .menu i{
     left: 7.5%;
     color: white;
     padding: 20px 30px;
-    display: none;
 }
 .nav__link li:not(:last-of-type){
     margin-bottom: 15px;
@@ -385,29 +384,39 @@ nav .menu i{
 .details__about .main-content .other-media img{
     width: 24%;
 }
-.details__about .main-content .card{
+.details__about .main-conten{
+    width: 156%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+.details__about .main-conten .card{
     width: 24%;
     margin-bottom: 15px;
     transition: 0.5s;
 
 }
-.details__about .main-content .card:hover{
+.details__about .main-conten .card:hover{
     transform: scale(1.05);
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.details__about .main-content .card .image{
+.details__about .main-conten .card .image{
     position: relative;
 }
-.details__about .main-content .card .image img{
+.details__about .main-conten .card .image img{
     width: 100%;
     border-radius: 12px;
 }
-.details__about .main-content .card .btns{
+.details__about .main-conten .card .btns{
     position: absolute;
     bottom: 10px;
     left: 10px;
 }
-.details__about .main-content .card .btns a{
+.details__about .main-conten .card .btns a{
     height: 30px;
     font-size: 14px;
     font-weight: 400;
@@ -417,37 +426,37 @@ nav .menu i{
     display: inline-block;
     border-radius: 12px;
 }
-.details__about .main-content .card .btns a:first-of-type{
+.details__about .main-conten .card .btns a:first-of-type{
     width: 56px;
     background-color: rgba(18, 36, 58, 1);
     margin-right: 4px;
 }
-.details__about .main-content .card .btns a:last-of-type{
+.details__about .main-conten .card .btns a:last-of-type{
     width: 75px;
     background-color: rgba(254, 38, 41, 1);
 }
-.details__about .main-content .card .stars{
+.details__about .main-conten .card .stars{
     display: flex;
     align-items: center;
     margin: 10px 0;
 }
-.details__about .main-content .card .stars img{
+.details__about .main-conten .card .stars img{
     margin-right: 4px;
 }
-.details__about .main-content .card .stars h5{
+.details__about .main-conten .card .stars h5{
     font-size: 14px;
     font-weight: 400;
     color: rgba(0, 0, 0, 1);
     margin-left: 10px;
 }
-.details__about .main-content .card h3{
+.details__about .main-conten .card h3{
     font-size: 18px;
     font-weight: 700;
     line-height: 25px;
     color: rgba(6, 12, 19, 0.87);
     margin-bottom: 10px;
 }
-.details__about .main-content .card h5{
+.details__about .main-conten .card h5{
     font-size: 16;
     font-weight: 400;
     color: rgba(6, 12, 19, 0.6);
@@ -804,6 +813,9 @@ footer{
     width: 100%;
     margin-bottom: 15px;
 }
+.details__about .main-conten{
+    width: 100%;
+}
 .hero__text h2{
     font-size: 18px;
 }
@@ -811,7 +823,7 @@ footer{
     width: 70%;
     margin: 0 auto;
 }
-.details__about .main-content .card{
+.details__about .main-conten .card{
     width: 32%;
 }
 }
@@ -827,7 +839,7 @@ footer{
 .details__about .tabs a{
     width: 93px;
 }
-.details__about .main-content .card{
+.details__about .main-conten .card{
     width: 49%;
 }
 }
@@ -872,7 +884,7 @@ footer{
     .hero__content > img{
         height: 190px;
     }
-    .details__about .main-content .card{
+    .details__about .main-conten .card{
         width: 100%;
     }
 }

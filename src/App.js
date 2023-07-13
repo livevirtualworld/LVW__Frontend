@@ -5,7 +5,7 @@ import TourDetails from './Pages/TourDetails/TourDetails';
 
 function App() {
   return (
-    <TourDetails />
+    <UserProfile />
   );
 }
 

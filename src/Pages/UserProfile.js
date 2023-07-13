@@ -21,6 +21,7 @@ import frame98 from '../assets/Frame 39498.png'
 function UserProfile() {
   const [lang , setLang] = useState("english")
   const [tap , setTap] = useState("about")
+  const [menu,setMenu] = useState(false)
   return (
     <div>
         <nav>
@@ -42,7 +43,19 @@ function UserProfile() {
                 </ul>
               </div>
               <div className={style["menu"]}>
-                <i id="menu"  className={style["fa-solid fa-bars"]}/>
+              <i onClick={()=>{
+                if(menu ==false){
+                setMenu(true)
+                console.log(true)
+                }
+                else{
+                  setMenu(false)
+                  console.log(false)
+                }
+
+              }} className="fas fa-bars" />
+              {
+                menu == true &&
                 <div className={style["drobdown"]}>
                   <ul className={style["nav__link"]} id="drobDown">
                     <li><a href="#">Home</a></li>
@@ -52,6 +65,7 @@ function UserProfile() {
                     <li><a href="#">Contact Us</a></li>
                   </ul>
                 </div>
+              }
               </div>
               <div className={style["nav__left"]}> 
                 <div className={style["nav__langs"]}>
