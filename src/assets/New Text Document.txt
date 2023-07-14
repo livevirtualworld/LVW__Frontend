@@ -1,0 +1,20 @@
+next arrow blue and white circle
+
+<i class="fa-solid fa-chevron-right" style="color: #345998;"></i>
+
+next arrow white and blue circle
+
+<i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i>
+
+========================================================================================
+
+two next arrow blue and white circle
+
+<i class="fa-solid fa-angles-right" style="color: #325186;"></i>
+
+two next arrow white and blue circle
+
+<i class="fa-solid fa-angles-right" style="color: #ffffff;"></i>
+
+========================================================================================
+

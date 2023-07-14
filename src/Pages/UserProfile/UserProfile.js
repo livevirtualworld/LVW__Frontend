@@ -1,23 +1,23 @@
 import React, { useState } from 'react'
 import style from './userProfile.module.css'
-import Vector from '../assets/Vector.svg'
-import Vector1 from '../assets/Vector (1).svg'
-import logo from '../assets/logo.png'
-import United_Kingdom from '../assets/United Kingdom (GB).png'
-import egypt from "../assets/Egypt (EG).png"
-import egypt1 from "../assets/Egypt (EG) (1).png"
-import frame27 from "../assets/Frame 27.png"
-import image1 from "../assets/01.png"
-import rounded from "../assets/Line Rounded.png"
-import group66 from "../assets/Group 39466.svg"
-import logo1 from "../assets/logo (1).png"
-import facebook from "../assets/Facebook.svg"
-import twitter from "../assets/Twitter.svg"
-import youtube from "../assets/YouTube.svg"
-import linked from "../assets/LinkedIn.svg"
-import instagram from "../assets/Instagram.svg"
-import frame97 from '../assets/Frame 39497.png'
-import frame98 from '../assets/Frame 39498.png'
+import Vector from '../../assets/Vector.svg'
+import Vector1 from '../../assets/Vector (1).svg'
+import logo from '../../assets/logo.png'
+import United_Kingdom from '../../assets/United Kingdom (GB).png'
+import egypt from "../../assets/Egypt (EG).png"
+import egypt1 from "../../assets/Egypt (EG) (1).png"
+import frame27 from "../../assets/Frame 27.png"
+import image1 from "../../assets/01.png"
+import rounded from "../../assets/Line Rounded.png"
+import group66 from "../../assets/Group 39466.svg"
+import logo1 from "../../assets/logo (1).png"
+import facebook from "../../assets/Facebook.svg"
+import twitter from "../../assets/Twitter.svg"
+import youtube from "../../assets/YouTube.svg"
+import linked from "../../assets/LinkedIn.svg"
+import instagram from "../../assets/Instagram.svg"
+import frame97 from '../../assets/Frame 39497.png'
+import frame98 from '../../assets/Frame 39498.png'
 function UserProfile() {
   const [lang , setLang] = useState("english")
   const [tap , setTap] = useState("about")
