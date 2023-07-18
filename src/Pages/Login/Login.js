@@ -4,6 +4,7 @@ import Logo from '../../assets/logo.svg'
 import Vector from '../../assets/Group 39467.svg'
 
 function Login() {
+  
     return (
         <main>
         <div className={style["form__box"]}>
