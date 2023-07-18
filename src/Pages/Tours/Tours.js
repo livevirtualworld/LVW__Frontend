@@ -159,7 +159,7 @@ function Tours() {
                             <button className={style["search__bar__btn"]}>
                                 <div className={style["btn__info"]}>
                                     <span>Location</span>
-                                    <i className={style["fa-solid fa-location-dot "]} id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
+                                    <i className="fa-solid fa-location-dot " id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
                                 </div>
                                 <ul className={style["location__dropdown"]}>
                                     <li className={style["active"]}><a href="#">Italy</a></li>
@@ -170,7 +170,7 @@ function Tours() {
                             <button className={style["topic__btn"]}>
                                 <div className={style["btn__info"]}>
                                     <span>Location</span>
-                                    <i className={style["fa-solid fa-location-dot "]} id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
+                                    <i className="fa-solid fa-location-dot " id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
                                 </div>
                                 <ul className={style["topic__dropdown"]}>
                                     <li className={style["active"]}><a href="#">Education</a></li>
@@ -181,7 +181,7 @@ function Tours() {
                             <button className={style["search__bar__btn"]}>
                                 <div className={style["btn__info"]}>
                                     <span>Location</span>
-                                    <i className={style["fa-solid fa-location-dot "]} id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
+                                    <i className="fa-solid fa-location-dot " id={style["myicon"]} style={{ color: '#060c13', fontSize: '20px' }} />
                                 </div>
                                 <ul className={style["language__dropdown"]}>
                                     <li className={style["active"]}><a href="#">Italian</a></li>
@@ -190,8 +190,8 @@ function Tours() {
                                 </ul>
                             </button>
                             <div className={style["live__now__search"]}>
-                                <a href="" className={style["tumbler"]}>.</a>
-                                <a href="" className={style["second"]}>Live Now Only</a>
+                                <a  className={style["tumbler"]}>.</a>
+                                <a  className={style["second"]}>Live Now Only</a>
 
                             </div>
                         </div>
@@ -237,11 +237,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -261,11 +261,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -285,11 +285,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -309,11 +309,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -333,11 +333,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -357,11 +357,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -381,11 +381,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -405,11 +405,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -429,11 +429,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -453,11 +453,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -477,11 +477,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -501,11 +501,11 @@ function Tours() {
                             <div className={style["tour__card__content"]}>
                                 <div className={style["tour__card__rate"]}>
                                     <div className={style["card__rate__icons"]}>
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                        <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
+                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
                                     </div>
                                     <span>(5.0)</span>
                                 </div>
@@ -519,8 +519,8 @@ function Tours() {
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
-                        <li className={style["paginator__next"]}><a href="#"><i className={style["fa-solid fa-chevron-right"]} style={{ color: '#ffffff' }} /></a></li>
-                        <li><a href="#"><i className={style["fa-solid fa-angles-right"]} style={{ color: '#325186' }} /></a></li>
+                        <li className={style["paginator__next"]}><a href="#"><i className="fa-solid fa-chevron-right" style={{ color: '#ffffff' }} /></a></li>
+                        <li><a href="#"><i className="fa-solid fa-angles-right" style={{ color: '#325186' }} /></a></li>
                     </ul>
                 </div>
             </section>
