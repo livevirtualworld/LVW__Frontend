@@ -24,166 +24,195 @@ a {
 
 /********************* Navbar Style *********************/
 
-nav{
-  background-color: #0A0812;
-  padding: 20px 0;
+nav {
+    background-color: #0A0812;
+    padding: 20px 0;
 }
-.nav__content{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+
+.nav__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
-.nav__right{
-  display: flex;
-  align-items: center;
+
+.nav__right {
+    display: flex;
+    align-items: center;
 }
-.nav__logo{
-  margin-right: 40px;
+
+.nav__logo {
+    margin-right: 40px;
 }
-.nav__search{
-  margin-right: 150px;
-  background-image: url("../../assets/Search.svg");
-  background-repeat: no-repeat;
-  background-position-x: 10px;
-  background-position-y: 12px;
+
+.nav__search {
+    margin-right: 150px;
+    background-image: url("../../assets/Search.svg");
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 12px;
 }
-.nav__search input{
-  background-color: rgba(83, 83, 83, 0.6);
-  width: 233px;
-  height: 48px;
-  border-radius: 12px;
-  padding: 0 12px 0 44px;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-  border: none;
-  outline: none;
+
+.nav__search input {
+    background-color: rgba(83, 83, 83, 0.6);
+    width: 233px;
+    height: 48px;
+    border-radius: 12px;
+    padding: 0 12px 0 44px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    outline: none;
 }
-.nav__search  input::placeholder{
-  color: rgba(255, 255, 255, 0.6);
+
+.nav__search input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
 }
-.nav__links{
-  display: flex;
-  color: white;
+
+.nav__links {
+    display: flex;
+    color: white;
 }
-.nav__links li{
-  margin-right: 13px;
-  position: relative;
-  transition: 0.3s;
+
+.nav__links li {
+    margin-right: 13px;
+    position: relative;
+    transition: 0.3s;
 }
-.nav__links li.active::after{
-  position: absolute;
-  content: '';
-  width: 80%;
-  left: 10%;
-  height: 1.8px;
-  bottom: -7px;
-  background-color: rgba(119, 161, 213, 1);
+
+.nav__links li.active::after {
+    position: absolute;
+    content: '';
+    width: 80%;
+    left: 10%;
+    height: 1.8px;
+    bottom: -7px;
+    background-color: rgba(119, 161, 213, 1);
 }
-.nav__links li:hover a{
-  color: white;
+
+.nav__links li:hover a {
+    color: white;
 }
-.nav__links li:hover::after{
-  position: absolute;
-  content: '';
-  width: 80%;
-  left: 10%;
-  height: 1.8px;
-  bottom: -7px;
-  background-color: rgba(119, 161, 213, 1);
-  transition: 0.3s;
+
+.nav__links li:hover::after {
+    position: absolute;
+    content: '';
+    width: 80%;
+    left: 10%;
+    height: 1.8px;
+    bottom: -7px;
+    background-color: rgba(119, 161, 213, 1);
+    transition: 0.3s;
 }
-.nav__links a{
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
+
+.nav__links a {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
 }
-.nav__links li.active a{
-  color: white;
+
+.nav__links li.active a {
+    color: white;
 }
-.nav__join a{
-  width: 137px;
-  height: 48px;
-  background-color: rgba(54, 109, 175, 1);
-  color: white;
-  text-align: center;
-  line-height: 48px;
-  display: block;
-  border-radius: 12px;
-  margin-left: 15px;
+
+.nav__join a {
+    width: 137px;
+    height: 48px;
+    background-color: rgba(54, 109, 175, 1);
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    margin-left: 15px;
 }
-.nav__langs{
-  display: flex;
-  
-}
-.nav__langs ul{
-  display: none;
-position: absolute; 
-top: 65px;
-  border-radius: 12px;
-}
-.nav__langs:hover > ul{
-  display: block;
+
+.nav__langs {
+    display: flex;
 
 }
-.nav__langs ul li  a{
-  border-radius: 0;
-  position: relative;
-  display: inline-block;
+
+.nav__langs ul {
+    display: none;
+    position: absolute;
+    top: 65px;
+    border-radius: 12px;
 }
-.nav__langs ul li:hover a{
-  transform: translateX(5px);
+
+.nav__langs:hover>ul {
+    display: block;
+
 }
-.nav__langs ul li:not(:last-of-type) a::after{
-  position: absolute;
-  content: "";
-  width: 100%;
-  left: 0;
-  height: 1px;
-  bottom: 2px;
-  background-color: black;
+
+.nav__langs ul li a {
+    border-radius: 0;
+    position: relative;
+    display: inline-block;
 }
-.nav__langs  a{
-  margin-left: 15px;
-  display: flex;
-  width: 120px;
-  height: 40px;
-  background-color: rgb(235, 226, 238);
-  display: block;
-  text-align: center;
-  line-height: 40px;
-  align-items: center;
-  border-radius: 12px;
+
+.nav__langs ul li:hover a {
+    transform: translateX(5px);
 }
-.nav__langs > a{
-  background-color: rgb(195, 138, 214);
+
+.nav__langs ul li:not(:last-of-type) a::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    height: 1px;
+    bottom: 2px;
+    background-color: black;
 }
-.nav__langs a img{
-  margin-right: 5px;
+
+.nav__langs a {
+    margin-left: 15px;
+    display: flex;
+    width: 120px;
+    height: 40px;
+    background-color: rgb(235, 226, 238);
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    align-items: center;
+    border-radius: 12px;
 }
-.nav__left{
-  display: flex;
-  align-items: center;
+
+.nav__langs>a {
+    background-color: rgb(195, 138, 214);
 }
-nav .menu{
-  display: none;
+
+.nav__langs a img {
+    margin-right: 5px;
 }
-nav .menu i{
-  color: white;
-  font-size: 30px;
+
+.nav__left {
+    display: flex;
+    align-items: center;
 }
-.nav__link{
-  position: absolute;
-  width: 85%;
-  top: 33%;
-  background-color: #0A0812;
-  left: 7.5%;
-  color: white;
-  padding: 20px 30px;
+
+nav .menu {
+    display: none;
 }
-.nav__link li:not(:last-of-type){
-  margin-bottom: 15px;
+
+nav .menu i {
+    color: white;
+    font-size: 30px;
 }
-.nav__link li a{
-  color: white;
+
+.nav__link {
+    position: absolute;
+    width: 85%;
+    top: 33%;
+    background-color: #0A0812;
+    left: 7.5%;
+    color: white;
+    padding: 20px 30px;
+}
+
+.nav__link li:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+
+.nav__link li a {
+    color: white;
 }
 
 /********************* Hero banner Style *********************/
@@ -284,9 +313,120 @@ nav .menu i{
 
 .chat__preview {
     position: absolute;
-    top: 224px;
-    right: 16px;
+    top: 238px;
+    right: 77px;
     display: none;
+}
+
+.chat__box {
+    width: 335px;
+    height: 360px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+}
+
+.chat__header {
+    background-color: #D1C9E8;
+    height: 70px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.header__name__img img {
+    /* width: 24%;
+    height: 45px; */
+    border-radius: 25%;
+}
+
+.header__content {
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header__name__img {
+    display: flex;
+    gap: 10px;
+    align-content: center;
+}
+
+/* .chat__bot__name {
+    margin-top: 5px;
+} */
+
+.chat__bot__name h3 {
+    color: #060C13DE;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0px;
+}
+
+.chat__bot__name h5 {
+    color: #060C1399;
+}
+
+.header__content i {
+    margin-top: 5px;
+}
+
+.chat__body {
+    padding: 15px;
+}
+
+.start__left__side {
+    background-color: #F0EDF7;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* .start__left__side p{
+    
+} */
+
+.start__left__side:first-child {
+    margin-top: 0;
+}
+
+.right__side {
+    float: right;
+    background-color: #F0EDF7;
+    padding: 10px;
+    width: fit-content;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.write__message__box {
+    padding: 20px;
+    position: relative;
+}
+
+.write__message__box Textarea {
+    font-size: 18px;
+    width: 100%;
+    resize: none;
+    height: 50px;
+    padding-top: 14px;
+    padding-left: 24px;
+    border-radius: 12px;
+    border: 1px solid #060C1352;
+    outline: none;
+    color: #060C1399;
+    background-color: #F0EDF7;
+    border: 1px solid #060C1352
+}
+
+.send__icon {
+    position: absolute;
+    bottom: 35px;
+    right: 40px;
+    cursor: pointer;
 }
 
 /********************* Counter Style *********************/
@@ -1000,6 +1140,7 @@ footer {
     .review__date {
         margin-top: 44px;
     }
+
     .map__search__bar {
         top: 94px;
         left: 86px;
@@ -1067,54 +1208,65 @@ footer {
     .tourism__text {
         font-size: 30px;
     }
+
     .map__search__bar {
         top: 94px;
         left: 70px;
     }
+
     .location__one {
         top: 65%;
         left: 23%;
         width: 6%;
     }
+
     .location__two {
         top: 56%;
         left: 54%;
         width: 6%;
     }
+
     .location__three {
         top: 70%;
         left: 65%;
         width: 6%;
     }
+
     .map__bottom__icons {
         right: 33px;
         bottom: 15px;
         gap: 5px;
     }
+
     .cursor__pointer__icon {
         width: 21%;
     }
-    .map__search__icon{
+
+    .map__search__icon {
         width: 7%;
     }
+
     .map__search__bar input {
         padding: 7px 5px 7px 30px;
     }
 }
 
 @media(max-width:576px) {
-    body{
+    body {
         overflow-x: hidden;
     }
+
     .map__search__bar {
         top: 94px;
         left: 54px;
     }
+
     .location__one {
         top: 65%;
         left: 23%;
         width: 8%;
     }
+
     .location__three {
         top: 51%;
         width: 8%;
@@ -1135,7 +1287,7 @@ footer {
         right: 4px;
     }
 
-    .chat__preview img{
+    .chat__preview img {
         width: 60%
     }
 
@@ -1144,7 +1296,7 @@ footer {
         top: 86%;
     }
 
-    .chat__icon img{
+    .chat__icon img {
         width: 60%;
     }
 
@@ -1155,9 +1307,11 @@ footer {
     .counter__content h2 {
         font-size: 26px;
     }
+
     .counter__content h2>span {
         font-size: 30px;
     }
+
     .counter__content p {
         margin-top: -3px;
         font-size: 15px;
@@ -1168,7 +1322,7 @@ footer {
         align-items: center;
         gap: 10px;
     }
-    
+
     .swiper-button-prev {
         left: 200px;
     }
@@ -1219,30 +1373,37 @@ footer {
     .left__vector {
         width: 23%;
     }
+
     .map__search__icon {
         width: 5%;
     }
+
     .map__search__bar input {
         width: 64%;
         height: 27px;
         padding-left: 28px;
         border-radius: 9px;
     }
+
     .map__search__bar {
         top: 124px;
         left: 53px;
     }
+
     .location__one {
         top: 72%;
         width: 6%;
     }
+
     .location__three {
         top: 65%;
         width: 6%;
     }
+
     .cursor__pointer__icon {
         width: 17%;
     }
+
     .map__bottom__icons {
         gap: 4px;
         right: 0px;
@@ -1332,4 +1493,3 @@ footer {
         width: 35px;
     }
 }
-
