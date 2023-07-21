@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './Login.module.css'
 import Logo from '../../assets/logo.svg'
 import Vector from '../../assets/Group 39467.svg'
 
 function Login() {
+  const [tap,setTap] = useState("signUp")
+  const [hi,setHi] = useState(false)
     return (
-        <main>
+        <main className={`${hi === true ? style.signn : ""}`}>
         <div className={style["form__box"]}>
           <div className={style["inner-box"]}>
             <div className={style["forms-wrap"]}>
@@ -17,7 +19,10 @@ function Login() {
                 <div className={style["heading"]}>
                   <h2>Welcome Back</h2>
                   <h6>Not registred yet?</h6>
-                  <a href="#" className={style["toggle"]} id="signIn">Sign up</a>
+                  <a className={style["toggle"]} onClick={()=>{
+                    hi?setHi(false):setHi(true)
+                    setTap("signUp")
+                  }}>Sign up</a>
                 </div>
                 <div className={style["actual-form"]}>
                   <div className={style["input-wrap"]}>
@@ -31,13 +36,18 @@ function Login() {
                     <small />
                   </div>
                   <input type="submit" defaultValue="Login" className={style["sign-btn"]} />
-                  <p className="text">
+                  <p className={style["forgo"]}>
                     Forget your password?
-                    <a id="forg" href="#">Click here</a>
+                    <a onClick={()=>{
+                      hi?setHi(false):setHi(true)
+                      setTap("forget")
+                    }} >Click here</a>
                   </p>
                 </div>
               </form>
               {/*--------------------- Sign up Form-----------------------*/}
+              {
+                tap == "signUp" && 
               <form className={style["sign-up-form"]} id="sign__up__form">
                 <div className={style["logo sign__logo"]}>
                   <img src={Logo} alt="" />
@@ -45,7 +55,10 @@ function Login() {
                 <div className={style["heading"]}>
                   <h2>Get Started</h2>
                   <h6>Already have an account?</h6>
-                  <a href="#" className={style["toggle"]} id="signUp">Login</a>
+                  <a onClick={()=>{
+                    hi?setHi(false):setHi(true)
+                    setTap("login")
+                  }} className={style["toggle"]} id="signUp">Login</a>
                 </div>
                 <div className={style["actual-form sign__form"]}>
                   <div className={style["input-wrap"]}>
@@ -71,7 +84,10 @@ function Login() {
                   </p>
                 </div>
               </form>
+              }
               {/*--------------------- Forget Password Form-----------------------*/}
+              {
+                tap == "forget" &&
               <form className={style["sign-up-form"]} id="forgForm">
                 <div className={style["logo logo__forg"]}>
                   <img src={Logo} alt="" />
@@ -84,13 +100,14 @@ function Login() {
                   <label>Password</label>
                   <small />
                 </div>
-                <div className="input-wrap">
+                <div className={style["input-wrap"]}>
                   <input type="password" className={style["input-field"]} id="confirm__pass" />
                   <label>Confirm Password</label>
                   <small />
                 </div>
-                <input type="submit" defaultValue="Reset Password" className={style["sign-btn"]} />
+                <input type="submit" defaultValue="Reset Password" className={style["sign-btnn"]} />
               </form>
+              }
             </div>
             <div className={style["carousel"]}>
               <div className={style["carousel__welcome"]}>

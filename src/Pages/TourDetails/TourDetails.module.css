@@ -637,7 +637,7 @@ select {
     color: #f39c12;
   }
 
-form input {
+.details__book .form input {
   width: 100%;
   padding: 20px;
   height: 24px;
