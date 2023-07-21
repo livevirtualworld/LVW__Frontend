@@ -1,0 +1,1335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #F0EDF7;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+/********************* Navbar Style *********************/
+
+nav{
+  background-color: #0A0812;
+  padding: 20px 0;
+}
+.nav__content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav__right{
+  display: flex;
+  align-items: center;
+}
+.nav__logo{
+  margin-right: 40px;
+}
+.nav__search{
+  margin-right: 150px;
+  background-image: url("../../assets/Search.svg");
+  background-repeat: no-repeat;
+  background-position-x: 10px;
+  background-position-y: 12px;
+}
+.nav__search input{
+  background-color: rgba(83, 83, 83, 0.6);
+  width: 233px;
+  height: 48px;
+  border-radius: 12px;
+  padding: 0 12px 0 44px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+  outline: none;
+}
+.nav__search  input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
+}
+.nav__links{
+  display: flex;
+  color: white;
+}
+.nav__links li{
+  margin-right: 13px;
+  position: relative;
+  transition: 0.3s;
+}
+.nav__links li.active::after{
+  position: absolute;
+  content: '';
+  width: 80%;
+  left: 10%;
+  height: 1.8px;
+  bottom: -7px;
+  background-color: rgba(119, 161, 213, 1);
+}
+.nav__links li:hover a{
+  color: white;
+}
+.nav__links li:hover::after{
+  position: absolute;
+  content: '';
+  width: 80%;
+  left: 10%;
+  height: 1.8px;
+  bottom: -7px;
+  background-color: rgba(119, 161, 213, 1);
+  transition: 0.3s;
+}
+.nav__links a{
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+.nav__links li.active a{
+  color: white;
+}
+.nav__join a{
+  width: 137px;
+  height: 48px;
+  background-color: rgba(54, 109, 175, 1);
+  color: white;
+  text-align: center;
+  line-height: 48px;
+  display: block;
+  border-radius: 12px;
+  margin-left: 15px;
+}
+.nav__langs{
+  display: flex;
+  
+}
+.nav__langs ul{
+  display: none;
+position: absolute; 
+top: 65px;
+  border-radius: 12px;
+}
+.nav__langs:hover > ul{
+  display: block;
+
+}
+.nav__langs ul li  a{
+  border-radius: 0;
+  position: relative;
+  display: inline-block;
+}
+.nav__langs ul li:hover a{
+  transform: translateX(5px);
+}
+.nav__langs ul li:not(:last-of-type) a::after{
+  position: absolute;
+  content: "";
+  width: 100%;
+  left: 0;
+  height: 1px;
+  bottom: 2px;
+  background-color: black;
+}
+.nav__langs  a{
+  margin-left: 15px;
+  display: flex;
+  width: 120px;
+  height: 40px;
+  background-color: rgb(235, 226, 238);
+  display: block;
+  text-align: center;
+  line-height: 40px;
+  align-items: center;
+  border-radius: 12px;
+}
+.nav__langs > a{
+  background-color: rgb(195, 138, 214);
+}
+.nav__langs a img{
+  margin-right: 5px;
+}
+.nav__left{
+  display: flex;
+  align-items: center;
+}
+nav .menu{
+  display: none;
+}
+nav .menu i{
+  color: white;
+  font-size: 30px;
+}
+.nav__link{
+  position: absolute;
+  width: 85%;
+  top: 33%;
+  background-color: #0A0812;
+  left: 7.5%;
+  color: white;
+  padding: 20px 30px;
+}
+.nav__link li:not(:last-of-type){
+  margin-bottom: 15px;
+}
+.nav__link li a{
+  color: white;
+}
+
+/********************* Hero banner Style *********************/
+
+.hero__banner__section {
+    position: relative;
+    padding-top: 85px;
+    margin-bottom: 140px;
+}
+
+.header__background__img {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    filter: blur(6px);
+}
+
+.hero__banner__content {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero__banner__video {
+    width: 40%;
+}
+
+.hero__banner__video img {
+    width: 100%;
+}
+
+.hero__banner__text {
+    width: 50%;
+}
+
+.hero__banner__text h1,
+.explore,
+.world,
+.couch {
+    display: block;
+    font-size: 60px;
+    font-weight: 800;
+    line-height: 73px;
+    color: #060C13DE;
+}
+
+.hero__banner__text p {
+    margin: 16px 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+    color: #060C1399;
+}
+
+.hero__banner__buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.find__tour__btn {
+    width: Hug (154px);
+    height: Fixed (56px);
+    padding: 15px 29px 15px 29px;
+    border-radius: 12px;
+    /* background: linear-gradient(90deg, rgba(54, 109, 175, 1) 100%, rgba(65, 138, 226, 1) 100%); */
+    background: rgba(54, 109, 175, 1);
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: right;
+    color: rgba(255, 255, 255, 1);
+}
+
+.join__us__btn {
+    width: Hug (154px);
+    height: Fixed (56px);
+    padding: 15px 29px 15px 29px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: right;
+    color: rgba(54, 109, 175, 1);
+}
+
+.chat__preview {
+    position: absolute;
+    top: 224px;
+    right: 16px;
+    display: none;
+}
+
+/********************* Counter Style *********************/
+
+.counter__section {
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.counter__content {
+    width: Fill (1, 224px);
+    height: Hug (154px);
+    padding: 50px 0px 34px 0px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.counter__content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.counter__content h2 {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 48px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: rgba(6, 12, 19, 0.87);
+}
+
+.counter__content h2>span {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 48px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: rgba(254, 27, 30, 1);
+}
+
+.counter__content p {
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: center;
+    color: rgba(6, 12, 19, 0.6);
+}
+
+.chat__icon {
+    position: absolute;
+    top: 0;
+    right: 75px;
+}
+
+/********************* Map Style *********************/
+
+.map__section {
+    position: relative;
+    margin-bottom: 100px;
+}
+
+.map__section h2 {
+    color: rgba(6, 12, 19, 0.87);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.map__img img {
+    width: 100%;
+    align-items: center;
+    border-radius: 15px;
+    border: 4px solid rgba(255, 255, 255, 0.32);
+    box-shadow: 2px 4px 20px 8px rgba(10, 8, 18, 0.09);
+}
+
+.map__search__bar {
+    position: absolute;
+    top: 105px;
+    left: 155px;
+}
+
+.map__search__bar input {
+    position: relative;
+    width: Fixed (280px);
+    height: Hug (48px);
+    padding: 12px 18px 12px 45px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 1);
+    border: none;
+    outline: none;
+}
+
+.map__search__icon {
+    position: absolute;
+    top: 48%;
+    left: 10px;
+    transform: translateY(-50%);
+    z-index: 1;
+    /* color:rgba(6, 12, 19, 0.6); */
+
+}
+
+.location__one {
+    position: absolute;
+    top: 57%;
+    left: 23%;
+    cursor: pointer;
+}
+
+.location__two {
+    position: absolute;
+    top: 35%;
+    left: 54%;
+    cursor: pointer;
+}
+
+.location__three {
+    position: absolute;
+    top: 67%;
+    left: 65%;
+    cursor: pointer;
+}
+
+.map__bottom__icons {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    right: 140px;
+    bottom: 25px;
+}
+
+.cursor__pointer__icon {
+    cursor: pointer;
+}
+
+
+/********************* Live Tours Style *********************/
+
+.live__tours__section {
+    margin-bottom: 100px;
+}
+
+.live__tours__section h2 {
+    color: rgba(6, 12, 19, 0.87);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.live__tours__section .card-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.live__tours__section .slide-container {
+    padding-bottom: 92px;
+}
+
+.live__tours__section .slide-content {
+    /* margin: 0 40px; */
+    /* overflow: hidden; */
+    margin-right: 215px;
+    border-radius: 25px;
+}
+
+.live__tours__section .card {
+    border-radius: 25px;
+    padding-bottom: 50px;
+}
+
+.trip__image__buttons {
+    position: relative;
+    width: 26%;
+}
+
+.trip__image__buttons span {
+    position: absolute;
+    top: 5px;
+    right: 35px;
+    color: #fe2629;
+}
+
+.card__buttons {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    gap: 10px;
+    display: flex;
+}
+
+.public__btn {
+    color: white;
+    width: Hug (56px);
+    height: Hug (30px);
+    padding: 4px 9px 4px 9px;
+    border-radius: 8px;
+    background: #12243A;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.live__now__btn {
+    color: white;
+    width: Hug (56px);
+    height: Hug (30px);
+    padding: 4px 9px 4px 9px;
+    border-radius: 8px;
+    background: #fe2629;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.trip__image__buttons img {
+    width: 93%;
+    height: 215px;
+    border-radius: 15px;
+}
+
+.card__rate {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 7px;
+}
+
+.card__rate__icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+.card__content h4 {
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 19px;
+    color: #060C13DE;
+}
+
+.card__content p {
+    margin-top: 10px;
+    color: #060C1399;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.swiper-button-next {
+    right: 10px;
+    top: 490px;
+}
+
+.swiper-button-prev {
+    left: 1170px;
+    top: 490px;
+}
+
+.swiper-pagination-bullet {
+    background-color: #6E93f7;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #4070F4;
+}
+
+/********************* Popular Tours Style *********************/
+
+.popular__tour__section {
+    margin-bottom: 100px;
+}
+
+.popular__tour__section h2 {
+    color: rgba(6, 12, 19, 0.87);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+/********************* Popular Topics Style *********************/
+
+.popular__topics__section {
+    margin-bottom: 100px;
+}
+
+.popular__topics__section h2 {
+    color: rgba(6, 12, 19, 0.87);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.popular__topics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.popular__topics__item {
+    position: relative;
+    width: 33%;
+}
+
+.popular__topics__item img {
+    border-radius: 15px;
+    filter: blur(3px);
+    width: 100%;
+}
+
+.education__text {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 45px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.shopping__text {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 45px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.tourism__text {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 45px;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+/********************* Travellars Reviews Style *********************/
+
+.travellers__reviews__section {
+    margin-bottom: 100px;
+}
+
+.travellers__reviews__section h2 {
+    color: rgba(6, 12, 19, 0.87);
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.review__card {
+    background-color: #ffffff;
+    width: Fixed (395px);
+    height: Hug (260px);
+    padding: 10px 14px 0px 14px;
+    border-radius: 16px;
+    margin-right: 15px;
+    margin-bottom: 25px;
+}
+
+.review__card h3 {
+    color: #060C13DE;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.review__card__rate {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 3px;
+    margin-bottom: 12px;
+}
+
+.review__rate__icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2px;
+}
+
+.review__card p {
+    color: #060C1399;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 12px;
+
+    height: 112px;
+}
+
+.review__date {
+    color: #060C1399;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-top: 54px;
+    display: inline-block;
+}
+
+/********************* Email Newsletter Style *********************/
+
+.email__newsletter__section {
+    margin-bottom: 100px;
+}
+
+.email__newsletter__content {
+    width: 100%;
+    height: 370px;
+    background-color: #D1C9E8;
+    position: relative;
+    border-radius: 15px;
+}
+
+.email__newsletter__text {
+    text-align: center;
+    align-items: center;
+    padding-top: 60px;
+}
+
+.email__newsletter__text h2 {
+    color: #060C13DE;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 48px;
+    letter-spacing: 0px;
+    text-align: center;
+    padding: 0 285px;
+    margin-bottom: 30px;
+}
+
+.email__input__and__btn {
+    margin-left: 109px;
+    margin-top: 45px;
+}
+
+.email__input {
+    position: relative;
+    background: #FFFFFF;
+    padding: 16px 190px 16px 10px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+}
+
+.subscribe__btn {
+    position: relative;
+    top: 50%;
+    right: 107px;
+    padding: 10px 16px 10px 16px;
+    border-radius: 8px;
+    background: rgba(54, 109, 175, 1);
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+}
+
+.icon__text__newsletter {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 40px;
+    align-items: center;
+}
+
+.icon__text__newsletter {
+    color: #060C1399;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0em;
+}
+
+.left__vector {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+.right__vector {
+    position: absolute;
+    bottom: 0;
+    right: 11px;
+}
+
+/********************* Footer Style *********************/
+
+footer {
+    background-color: rgba(6, 12, 19, 1);
+    padding: 50px 0;
+}
+
+.footer__content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.footer__content ul {
+    width: 16%;
+}
+
+.footer__content ul:first-of-type {
+    width: 34%;
+}
+
+.footer__content ul:first-of-type li {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 15px 0;
+    line-height: 28px;
+    padding-right: 130px;
+}
+
+.footer__content .links a {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(83, 83, 83, 0.6);
+    display: inline-block;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 12px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.footer__content ul li:first-of-type {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 1);
+    font-weight: 700;
+    margin-bottom: 18px;
+    margin-top: 15px;
+}
+
+.footer__content ul li:not(:first-of-type) {
+    font-size: 16;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+}
+
+.footer__footer h4 {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 60px;
+    position: relative;
+}
+
+.footer__footer h4::after {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: -30px;
+    background-color: rgba(255, 255, 255, 0.32);
+    content: "";
+}
+
+@media (max-width: 1400px) {
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        display: block;
+        font-size: 59px;
+        font-weight: 800;
+        line-height: 73px;
+        color: #060C13DE;
+    }
+
+    .swiper-button-prev {
+        left: 1090px;
+    }
+}
+
+@media(max-width:1200px) {
+
+    .nav__links {
+        display: none;
+    }
+
+    .nav__left {
+        display: none;
+    }
+
+    nav .menu {
+        display: block;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        font-size: 46px;
+    }
+
+    .hero__banner__text p {
+        padding-right: 25px;
+    }
+
+    .swiper-button-prev {
+        left: 920px;
+    }
+
+    .card__content h4 {
+        padding-right: 38px;
+    }
+
+    .review__card p {
+        padding-right: 0;
+    }
+
+    .review__date {
+        margin-top: 73px;
+        display: inline-block;
+    }
+}
+
+@media(max-width:992px) {
+    .footer__content ul:first-of-type li {
+        padding-right: 50px;
+    }
+
+    .hero__banner__text {
+        width: 100%;
+        order: 2;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        width: 100%;
+        font-size: 60px;
+        text-align: center;
+    }
+
+    .hero__banner__text p {
+        text-align: center;
+        font-size: 20px;
+        width: 78%;
+        margin-left: 100px;
+    }
+
+    .hero__banner__buttons {
+        justify-content: center;
+    }
+
+    .hero__banner__video {
+        margin: 0 auto;
+        margin-bottom: 20px;
+        width: 60%;
+    }
+
+    .swiper-button-prev {
+        left: 740px;
+    }
+
+    .card__content h4 {
+        padding-right: 40px;
+    }
+
+    .email__newsletter__text h2 {
+        padding: 0 100px;
+    }
+
+    .review__card p {
+        padding-right: 0px;
+    }
+
+    .review__date {
+        margin-top: 44px;
+    }
+    .map__search__bar {
+        top: 94px;
+        left: 86px;
+    }
+
+    .map__bottom__icons {
+        right: 89px;
+        bottom: 18px;
+    }
+}
+
+@media(max-width:768px) {
+    .swiper-button-prev {
+        left: 550px;
+    }
+
+    .email__newsletter__text h2 {
+        font-size: 30px;
+    }
+
+    .email__input__and__btn {
+        margin-top: 26px;
+    }
+
+    .email__input {
+        padding: 16px 127px 16px 10px;
+    }
+
+    .right__vector {
+        width: 25%;
+    }
+
+    .left__vector {
+        width: 25%;
+    }
+
+    .review__card p {
+        padding-right: 0px;
+    }
+
+    .review__date {
+        margin-top: 45px;
+    }
+
+    .card__content h4 {
+        padding-right: 0px;
+    }
+
+    .footer__content ul:first-of-type {
+        width: 50%;
+    }
+
+    .footer__content ul {
+        width: 25%;
+    }
+
+    .education__text {
+        font-size: 30px;
+    }
+
+    .shopping__text {
+        font-size: 30px;
+    }
+
+    .tourism__text {
+        font-size: 30px;
+    }
+    .map__search__bar {
+        top: 94px;
+        left: 70px;
+    }
+    .location__one {
+        top: 65%;
+        left: 23%;
+        width: 6%;
+    }
+    .location__two {
+        top: 56%;
+        left: 54%;
+        width: 6%;
+    }
+    .location__three {
+        top: 70%;
+        left: 65%;
+        width: 6%;
+    }
+    .map__bottom__icons {
+        right: 33px;
+        bottom: 15px;
+        gap: 5px;
+    }
+    .cursor__pointer__icon {
+        width: 21%;
+    }
+    .map__search__icon{
+        width: 7%;
+    }
+    .map__search__bar input {
+        padding: 7px 5px 7px 30px;
+    }
+}
+
+@media(max-width:576px) {
+    body{
+        overflow-x: hidden;
+    }
+    .map__search__bar {
+        top: 94px;
+        left: 54px;
+    }
+    .location__one {
+        top: 65%;
+        left: 23%;
+        width: 8%;
+    }
+    .location__three {
+        top: 51%;
+        width: 8%;
+    }
+
+    .cursor__pointer__icon {
+        width: 22%;
+    }
+
+    .map__bottom__icons {
+        gap: 6px;
+        right: 23px;
+        bottom: 15px;
+    }
+
+    .chat__icon {
+        top: -17px;
+        right: 4px;
+    }
+
+    .chat__preview img{
+        width: 60%
+    }
+
+    .chat__preview {
+        right: -168px;
+        top: 86%;
+    }
+
+    .chat__icon img{
+        width: 60%;
+    }
+
+    .counter__content {
+        padding: 30px 0px 25px 0px;
+    }
+
+    .counter__content h2 {
+        font-size: 26px;
+    }
+    .counter__content h2>span {
+        font-size: 30px;
+    }
+    .counter__content p {
+        margin-top: -3px;
+        font-size: 15px;
+    }
+
+    .popular__topics {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .swiper-button-prev {
+        left: 200px;
+    }
+
+    .swiper-button-next {
+        right: 183px;
+        top: 490px;
+    }
+
+    .footer__content ul:last-of-type {
+        width: 50%;
+    }
+
+    .nav__search input {
+        width: 150px;
+    }
+
+    .email__newsletter__text h2 {
+        padding: 0 35px;
+        font-size: 25px;
+    }
+
+    .email__input {
+        width: 275px;
+        margin-bottom: 0px;
+    }
+
+    .location__two {
+        display: none;
+    }
+
+    .card__buttons {
+        flex-direction: column;
+    }
+
+    .card__content h4 {
+        padding-right: 34px;
+    }
+
+    .review__date {
+        margin-top: 80px;
+    }
+
+    .right__vector {
+        width: 23%;
+    }
+
+    .left__vector {
+        width: 23%;
+    }
+    .map__search__icon {
+        width: 5%;
+    }
+    .map__search__bar input {
+        width: 64%;
+        height: 27px;
+        padding-left: 28px;
+        border-radius: 9px;
+    }
+    .map__search__bar {
+        top: 124px;
+        left: 53px;
+    }
+    .location__one {
+        top: 72%;
+        width: 6%;
+    }
+    .location__three {
+        top: 65%;
+        width: 6%;
+    }
+    .cursor__pointer__icon {
+        width: 17%;
+    }
+    .map__bottom__icons {
+        gap: 4px;
+        right: 0px;
+        bottom: 13px;
+    }
+
+}
+
+@media(max-width:414px) {
+    .details__about .main-content .btns a {
+        width: 48%;
+        margin-bottom: 5px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .details__about .tabs a {
+        width: 79px;
+        font-size: 10px;
+    }
+
+    .path__content h3 {
+        font-size: 10px;
+    }
+
+    .nav__search {
+        margin-right: 0;
+    }
+
+    figure img {
+        width: 100%;
+    }
+
+    .review__date {
+        margin-top: 228px;
+    }
+
+    .hero__banner__video {
+        width: 100%;
+    }
+}
+
+@media(max-width:319px) {
+    .footer__content {
+        text-align: center;
+    }
+
+    .footer__content ul {
+        width: 100%;
+    }
+
+    .footer__content ul:first-of-type {
+        width: 100%;
+    }
+
+    .footer__content ul:last-of-type {
+        width: 100%;
+    }
+
+    .footer__content ul:first-of-type li {
+        padding-right: 0;
+    }
+
+    .details__about .tabs a {
+        width: 60px;
+    }
+
+    .hero__content>img {
+        height: 190px;
+    }
+
+    .email__newsletter__section {
+        display: none;
+    }
+
+    .map__search__bar input {
+        width: 146px;
+    }
+
+    .location__one {
+        width: 35px;
+    }
+
+    .location__three {
+        width: 35px;
+    }
+}
+

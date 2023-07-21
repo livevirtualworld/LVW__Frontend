@@ -24,6 +24,7 @@ import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 function Tours() {
+  const [menu,setMenu] = useState(false)
     const [lang, setLang] = useState("english")
     const handleFirstClick = () => {
         if ($('.second').hasClass('on') && $('.tumbler').hasClass('on')) {
@@ -65,68 +66,81 @@ function Tours() {
     return (
         <>
             <nav>
-                <div className={style["container"]}>
-                    <div className={style["nav__content"]}>
-                        <div className={style["nav__right"]}>
-                            <div className={style["nav__logo"]}>
-                                <img src={logo} alt="logo" />
-                            </div>
-                            <div className={style["nav__search"]}>
-                                <input type="text" placeholder="Tour name or location..." />
-                            </div>
-                            <ul className={style["nav__links"]}>
-                                <li><a>Home</a></li>
-                                <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                                </li>
-                                <li><a href="#">Our Mission</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                        <div className={style["menu"]}>
-                            <i id="menu" className="fa-solid fa-bars" />
-                            <div className={style["drobdown"]}>
-                                <ul className={style["nav__link"]} id="drobDown">
-                                    <li><a href="#">Home</a></li>
-                                    <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                                    </li>
-                                    <li><a href="#">Our Mission</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className={style["nav__left"]}>
-                            <div className={style["nav__langs"]}>
-                                {
-                                    lang == "english" &&
-                                    <a><img src={United_Kingdom} alt='' /> English</a>
-                                }
-                                {
-                                    lang == "arabic" &&
-                                    <a href="#"><img src={egypt} alt='' /> العربية</a>
-                                }
-                                {
-                                    lang == "italiano" &&
-                                    <a href="#"><img src={United_Kingdom} alt='' /> Italiano</a>
-                                }
-                                <ul>
-                                    <li onClick={() => {
-                                        setLang("english")
-                                    }}><a href="#"><img src={United_Kingdom} alt='' /> English</a></li>
-                                    <li onClick={() => {
-                                        setLang("arabic")
-                                    }}><a href="#"><img src={egypt} alt='' /> العربية</a></li>
-                                    <li onClick={() => {
-                                        setLang("italiano")
-                                    }}><a href="#"><img src={United_Kingdom} alt='' /> Italiano</a></li>
-                                </ul>
-                            </div>
-                            <div className={style["nav__join"]}>
-                                <a href="#">Join Us Now</a>
-                            </div>
-                        </div>
-                    </div>
+          <div className={style["container"]}>
+            <div className={style["nav__content"]}>
+              <div className={style["nav__right"]}>
+                <div className={style["nav__logo"]}>
+                  <img src={logo} alt="logo" />
                 </div>
-            </nav>
+                <div className={style["nav__search"]}>
+                  <input type="text" placeholder="Tour name or location..." />
+                </div>
+                <ul className={style["nav__links"]}>
+                  <li><a>Home</a></li>
+                  <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
+                  </li>
+                  <li><a href="#">Our Mission</a></li>
+                  <li><a href="#">Contact Us</a></li>
+                </ul>
+              </div>
+              <div className={style["menu"]}>
+              <i onClick={()=>{
+                if(menu ==false){
+                setMenu(true)
+                console.log(true)
+                }
+                else{
+                  setMenu(false)
+                  console.log(false)
+                }
+
+              }} className="fas fa-bars" />
+              {
+                menu == true &&
+                <div className={style["drobdown"]}>
+                  <ul className={style["nav__link"]} id="drobDown">
+                    <li><a href="#">Home</a></li>
+                    <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
+                    </li>
+                    <li><a href="#">Our Mission</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              }
+              </div>
+              <div className={style["nav__left"]}> 
+                <div className={style["nav__langs"]}>
+                  {
+                    lang =="english" &&
+                  <a><img src={United_Kingdom} alt=''/> English</a>
+                  }
+                  {
+                    lang =="arabic" &&
+                    <a href="#"><img src={egypt} alt=''/> العربية</a>
+                  }
+                  {
+                    lang =="italiano" &&
+                    <a href="#"><img src={United_Kingdom} alt=''/> Italiano</a>
+                  }
+                  <ul>
+                    <li onClick={()=>{
+                      setLang("english")
+                    }}><a href="#"><img src={United_Kingdom} alt=''/> English</a></li>
+                    <li onClick={()=>{
+                      setLang("arabic")
+                    }}><a href="#"><img src={egypt} alt=''/> العربية</a></li>
+                    <li onClick={()=>{
+                      setLang("italiano")
+                    }}><a href="#"><img src={United_Kingdom} alt=''/> Italiano</a></li>
+                  </ul>
+                </div>
+                <div className={style["nav__join"]}>
+                  <a href="#">Join Us Now</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
 
             <div className={style["path"]}>
                 <div className={style["container"]}>
