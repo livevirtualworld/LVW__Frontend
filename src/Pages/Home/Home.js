@@ -16,8 +16,6 @@ import LocationThree from "../../assets/Doctor.svg"
 import BtnOne from '../../assets/btn.svg'
 import BtnTwo from '../../assets/btn (1).svg'
 import BtnThree from '../../assets/btn (2).svg'
-import CardImg from "../../assets/image3.png"
-import CardImg2 from "../../assets/image4.png"
 import Education from "../../assets/image 5.png"
 import Shopping from "../../assets/image 6.png"
 import Tourism from "../../assets/image 7.png"
@@ -33,9 +31,12 @@ import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import ChatBot from '../../assets/girl.png'
 import SendIcon from "../../assets/live/Send.svg"
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import LiveToursCard from './LiveToursCard'
+import PopularToursCard from './PopularToursCards'
+import ReviewCard from './ReviewCard'
 
-
-import Swiper from 'swiper';
 
 function Home() {
     const [menu, setMenu] = useState(false)
@@ -46,47 +47,28 @@ function Home() {
         setIsChatOpen(!isChatOpen);
     };
 
-    const swiperContainer = useRef(null);
+
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 576 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 576, min: 0 },
+            items: 1
+        }
+    };
 
 
-    useEffect(() => {
-        window.addEventListener('DOMContentLoaded', (event) => {
-
-            const swiper = new Swiper(swiperContainer.current, {
-                slidesPerView: 4,
-                // spaceBetween: 0,
-                loop: false,
-                centerSlide: 'true',
-                fade: 'true',
-                grabCursor: 'true',
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                    dynamicBullets: true,
-                },
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-
-                breakpoints: {
-                    1200: {
-
-                        slidesPerView: 3,
-                    },
-                    992: {
-                        slidesPerView: 2,
-                    },
-                    0: {
-                        slidesPerView: 0,
-                    },
-                },
-            });
-            return () => {
-                swiper.destroy(); // Cleanup Swiper instance when component unmounts
-            };
-        });
-    }, []);
 
     return (
         <>
@@ -270,130 +252,36 @@ function Home() {
             </section>
 
             {/*------------------------Live Tours Section--------------------*/}
-            {/* <section className={style["live__tours__section"]}>
+            <section className={style["live__tours__section"]}>
                 <div className={style["container"]}>
                     <h2>Live tours to join now</h2>
-                    <div ref={swiperContainer} className="swiper-container slide-container">
-                        <div className="slide-content">
-                            <div className="swiper-wrapper card-wrapper">
+                    <Carousel responsive={responsive}>
+                        <LiveToursCard />
+                        <LiveToursCard />
+                        <LiveToursCard />
+                        <LiveToursCard />
+                        <LiveToursCard />
+                        <LiveToursCard />
 
-                                <div className="swiper-slide card">
-                                    <div className={style["trip__image__buttons"]}>
-                                        <img src={CardImg} alt="" className={style["card-img"]} />
-                                        <span>FREE</span>
-                                        <div className={style["card__buttons"]}>
-                                            <button className={style["public__btn"]}>Public</button>
-                                            <button className={style["live__now__btn"]}>Live Now</button>
-                                        </div>
-                                    </div>
-                                    <div className={style["card__content"]}>
-                                        <div className={style["card__rate"]}>
-                                            <div className={style["card__rate__icons"]}>
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                            </div>
-                                            <span>(5.0)</span>
-                                        </div>
-                                        <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                        <p>Cairo, Egypt
-                                        </p></div>
-                                </div>
-
-                                <div className="swiper-slide card">
-                                    <div className={style["trip__image__buttons"]}>
-                                        <img src={CardImg} alt="" className={style["card-img"]} />
-                                        <span>FREE</span>
-                                        <div className={style["card__buttons"]}>
-                                            <button className={style["public__btn"]}>Public</button>
-                                            <button className={style["live__now__btn"]}>Live Now</button>
-                                        </div>
-                                    </div>
-                                    <div className={style["card__content"]}>
-                                        <div className={style["card__rate"]}>
-                                            <div className={style["card__rate__icons"]}>
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                            </div>
-                                            <span>(5.0)</span>
-                                        </div>
-                                        <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                        <p>Cairo, Egypt
-                                        </p></div>
-                                </div>
-
-                                <div className="swiper-slide card">
-                                    <div className={style["trip__image__buttons"]}>
-                                        <img src={CardImg} alt="" className={style["card-img"]} />
-                                        <span>FREE</span>
-                                        <div className={style["card__buttons"]}>
-                                            <button className={style["public__btn"]}>Public</button>
-                                            <button className={style["live__now__btn"]}>Live Now</button>
-                                        </div>
-                                    </div>
-                                    <div className={style["card__content"]}>
-                                        <div className={style["card__rate"]}>
-                                            <div className={style["card__rate__icons"]}>
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                            </div>
-                                            <span>(5.0)</span>
-                                        </div>
-                                        <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                        <p>Cairo, Egypt
-                                        </p></div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="swiper-button-next swiper-navBtn" />
-                        <div className="swiper-button-prev swiper-navBtn" />
-                    </div>
+                    </Carousel>
                 </div>
-            </section> */}
+            </section>
 
             {/*------------------------Popular Tours Section-----------------*/}
-            {/* <section className={style["popular__tour__section"]}>
+            <section className={style["popular__tour__section"]}>
                 <div className={style["container"]}>
                     <h2>Popular tour to book</h2>
-                    <div ref={swiperContainer} className="swiper-container slide-container">
-                        <div className="slide-content">
-                            <div className="swiper-wrapper card-wrapper">
-                                <div className={style["card swiper-slide"]}>
-                                    <div className={style["trip__image__buttons"]}>
-                                        <img src={CardImg2} alt="" className={style["card-img"]} />
-                                    </div>
-                                    <div className={style["card__content"]}>
-                                        <div className={style["card__rate"]}>
-                                            <div className={style["card__rate__icons"]}>
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                                <i className={style["fa-solid fa-star"]} style={{ color: '#fe2629' }} />
-                                            </div>
-                                            <span>(5.0)</span>
-                                        </div>
-                                        <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                        <p>Cairo, Egypt</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="swiper-button-next swiper-navBtn" />
-                        <div className="swiper-button-prev swiper-navBtn" />
-                        <div className="swiper-pagination" />
-                    </div>
+                    <Carousel responsive={responsive}>
+                        <PopularToursCard />
+                        <PopularToursCard />
+                        <PopularToursCard />
+                        <PopularToursCard />
+                        <PopularToursCard />
+                        <PopularToursCard />
+
+                    </Carousel>
                 </div>
-            </section > */}
+            </section >
 
 
             {/*------------------------Popular Topics Section-----------------*/}
@@ -418,38 +306,20 @@ function Home() {
             </section >
 
             {/*------------------------Travellers Reviews Section-------------*/}
-            {/* <section className={style["travellers__reviews__section"]}>
-        <div className={style["container"]}>
-          <h2>What our travelers say</h2>
-          <div ref={swiperContainer} className="swiper-container slide-container">
-            <div className={style["slide-content"]}>
-              <div className="card-wrapper swiper-wrapper">
-                <div className={style["review__card swiper-slide"]}>
-                  <div className={style["review__card"]}>
-                    <h3>John Carter</h3>
-                    <div className={style["review__card__rate"]}>
-                      <div className={style["review__rate__icons"]}>
-                        <i className={style["fa-solid fa-star"]} style={{color: '#fe2629'}} />
-                        <i className={style["fa-solid fa-star"]} style={{color: '#fe2629'}} />
-                        <i className={style["fa-solid fa-star"]} style={{color: '#fe2629'}} />
-                        <i className={style["fa-solid fa-star"]} style={{color: '#fe2629'}} />
-                        <i className={style["fa-solid fa-star"]} style={{color: '#fe2629'}} />
-                      </div>
-                      <span>(5.0)</span>
-                    </div>
-                    <p>“Lorem ipsum dolor sit amet conse ctetur adipiscing lectus a nunc mauris scelerisque
-                      sed egestas pharetraol quis pharetra arcu pharetra blandit.”</p>
-                    <span className={style["review__date"]}>23 May 2023</span>
-                  </div>
+            <section className={style["travellers__reviews__section"]}>
+                <div className={style["container"]}>
+                    <h2>What our travelers say</h2>
+                    <Carousel responsive={responsive}>
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                        <ReviewCard />
+                        
+                    </Carousel>
                 </div>
-              </div>
-            </div>
-            <div className="swiper-button-next swiper-navBtn" />
-            <div className="swiper-button-prev swiper-navBtn" />
-            <div className="swiper-pagination" />
-          </div>
-        </div>
-      </section> */}
+            </section>
 
             {/*------------------------Email Newsletter Section---------------*/}
             <section className={style["email__newsletter__section"]}>
@@ -520,9 +390,6 @@ function Home() {
                     </div>
                 </div>
             </footer>
-
-
-
 
         </>
     )

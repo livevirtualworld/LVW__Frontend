@@ -606,12 +606,11 @@ nav .menu i {
 
 .live__tours__section .card {
     border-radius: 25px;
-    padding-bottom: 50px;
 }
 
 .trip__image__buttons {
     position: relative;
-    width: 26%;
+    width: 75%;
 }
 
 .trip__image__buttons span {
@@ -671,6 +670,10 @@ nav .menu i {
     flex-direction: row;
     margin-right: 2px;
     margin-bottom: 2px;
+}
+
+.card__content {
+    width: 75%;
 }
 
 .card__content h4 {
@@ -808,9 +811,9 @@ nav .menu i {
     background-color: #ffffff;
     width: Fixed (395px);
     height: Hug (260px);
-    padding: 10px 14px 0px 14px;
+    padding: 20px 14px 20px 15px;
     border-radius: 16px;
-    margin-right: 15px;
+    margin-right: 95px;
     margin-bottom: 25px;
 }
 
@@ -828,7 +831,7 @@ nav .menu i {
     gap: 5px;
     align-items: center;
     margin-top: 3px;
-    margin-bottom: 12px;
+    margin-bottom: 18px;
 }
 
 .review__rate__icons {
@@ -844,7 +847,7 @@ nav .menu i {
     line-height: 28px;
     letter-spacing: 0em;
     text-align: left;
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
 
     height: 112px;
 }
@@ -1067,8 +1070,8 @@ footer {
         padding-right: 25px;
     }
 
-    .swiper-button-prev {
-        left: 920px;
+    .chat__preview {
+        top: 280px;
     }
 
     .card__content h4 {
@@ -1121,8 +1124,14 @@ footer {
         width: 60%;
     }
 
-    .swiper-button-prev {
-        left: 740px;
+    .chat__preview {
+        top: 570px;
+        right: 60px;
+    }
+
+    .chat__icon {
+        top: 0;
+        right: 47px;
     }
 
     .card__content h4 {
@@ -1249,6 +1258,48 @@ footer {
     .map__search__bar input {
         padding: 7px 5px 7px 30px;
     }
+
+    .review__card p {
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .chat__icon img {
+        width: 70%;
+    }
+
+    .chat__icon {
+        right: 15px;
+    }
+
+    .chat__bot__name h3 {
+        font-size: 15px;
+    }
+
+    .chat__bot__name h5 {
+        font-size: 11px;
+    }
+
+    .chat__box__PVJdY {
+        width: 310px;
+        height: 350px;
+    }
+
+    .start__left__side p {
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .right__side p {
+        font-size: 13px;
+        font-weight: 400;
+    }
+    .write__message__box Textarea {
+        font-size: 15px
+    }
+    .send__icon {
+        bottom: 39px;
+        width: 6%;
+    }
 }
 
 @media(max-width:576px) {
@@ -1287,17 +1338,9 @@ footer {
         right: 4px;
     }
 
-    .chat__preview img {
-        width: 60%
-    }
-
     .chat__preview {
-        right: -168px;
-        top: 86%;
-    }
-
-    .chat__icon img {
-        width: 60%;
+        right: 35px;
+        top: 68%;
     }
 
     .counter__content {
@@ -1323,13 +1366,9 @@ footer {
         gap: 10px;
     }
 
-    .swiper-button-prev {
-        left: 200px;
-    }
-
-    .swiper-button-next {
-        right: 183px;
-        top: 490px;
+    .trip__image__buttons {
+        position: relative;
+        width: 70%;
     }
 
     .footer__content ul:last-of-type {
@@ -1360,10 +1399,6 @@ footer {
 
     .card__content h4 {
         padding-right: 34px;
-    }
-
-    .review__date {
-        margin-top: 80px;
     }
 
     .right__vector {
@@ -1409,6 +1444,12 @@ footer {
         right: 0px;
         bottom: 13px;
     }
+    .review__card {
+        margin-right: 150px;
+      }
+      .review__card p{
+        font-size: 16px;
+      }
 
 }
 

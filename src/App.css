@@ -1,14 +1,17 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-ul{
+
+ul {
   list-style: none;
 }
-a{
+
+a {
   text-decoration: none;
 }
+
 .App {
   text-align: center;
 }
@@ -43,9 +46,107 @@ a{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
+.react-multi-carousel-item {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  margin-right: -80px !important;
+}
 
+.react-multiple-carousel__arrow--right {
+  right: calc(4% + 1px);
+  top: 88% !important;
+  background: linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%) !important;
+  border-radius: 15px !important;
+
+}
+
+.react-multiple-carousel__arrow--left {
+  left: calc(87% + 1px) !important;
+  top: 88% !important;
+  background: #ffffff !important;
+  border-radius: 15px !important;
+
+}
+
+.react-multiple-carousel__arrow__right::before {
+  font-size: 20px;
+  font-weight: 800 !important;
+  color: #366DAF !important;
+  display: block;
+  font-family: revicons;
+  text-align: center;
+  z-index: 2;
+  position: relative
+}
+
+.react-multiple-carousel__arrow__left::before {
+  font-size: 20px;
+  font-weight: 800 !important;
+  color: #366DAF !important;
+  display: block;
+  font-family: revicons;
+  text-align: center;
+  z-index: 2;
+  position: relative
+}
+
+.react-multiple-carousel__arrow--left::before {
+  content: "\e824";
+  color: #366DAF !important;
+}
+
+.react-multi-carousel-list {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 63px !important;
+}
+
+@media(max-width:1200px) {
+  .react-multiple-carousel__arrow--left {
+    left: calc(85% + 1px) !important;
+    top: 88% !important;
+    background: #ffffff !important;
+    border-radius: 15px !important;
+  }
+}
+
+@media(max-width:992px) {
+  .react-multiple-carousel__arrow--left {
+    left: calc(83% + 1px) !important;
+    top: 88% !important;
+    background: #ffffff !important;
+    border-radius: 15px !important;
+  }
+}
+
+@media(max-width:768px) {
+  .react-multiple-carousel__arrow--left {
+    left: calc(80% + 1px) !important;
+    top: 88% !important;
+    background: #ffffff !important;
+    border-radius: 15px !important;
+  }
+}
+
+@media(max-width:576px) {
+  .react-multi-carousel-item {
+    margin-right: -130px !important;
+  }
+
+  .react-multiple-carousel__arrow--right {
+    right: calc(38% + 1px) !important;
+  }
+
+  .react-multiple-carousel__arrow--left {
+    left: calc(38% + 1px) !important;
+
+  }
+}
