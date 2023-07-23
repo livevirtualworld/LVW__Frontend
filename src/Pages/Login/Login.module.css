@@ -22,8 +22,8 @@ main {
 .form__box {
     position: relative;
     width: 100%;
-    max-width: 1020px;
-    height: 640px;
+    max-width: 1223px;
+    height: 780px;
     background-color: #fff;
     border-radius: 3.3rem;
     box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
@@ -51,7 +51,7 @@ main {
 }
 
 form {
-    max-width: 260px;
+    max-width: 286px;
     width: 100%;
     margin: 0 auto;
     height: 100%;
@@ -132,7 +132,7 @@ form.sign-up-form {
 .input-wrap label {
     position: absolute;
     left: 10px;
-    top: 77%;
+    top: -10px;
     transform: translateY(-100%);
     font-size: 0.95rem;
     color: #bbb;
@@ -178,9 +178,11 @@ form.sign-up-form {
     transition: 0.3s;
     font-size: 18px;
 }
-.forgo{
+
+.forgo {
     margin-bottom: 88px;
 }
+
 .sign-btnn {
     display: inline-block;
     width: 100%;
@@ -277,37 +279,121 @@ main.signn .carousel {
 }
 
 .input-wrap.success input {
-	border-color: #2ecc71;
+    border-color: #2ecc71;
 }
 
 .input-wrap.error input {
-	border-color: #e74c3c;
+    border-color: #e74c3c;
 }
 
 .input-wrap small {
-	color: #e74c3c;
-	position: absolute;
-	top: 47px;
+    color: #e74c3c;
+    position: absolute;
+    top: 47px;
     right: 9px;
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .input-wrap.error small {
-	visibility: visible;
+    visibility: visible;
 }
-.sign__logo{
+
+.sign__logo {
     margin: 30px 0;
 }
-.sign__form{
+
+.sign__form {
     margin-top: 50px;
 }
-.logo__forg{
+
+.logo__forg {
     margin: 40px 0;
 }
 
-.heading__forg{
+.heading__forg {
     margin-bottom: 70px;
 }
+
+.parent__div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.column__flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.files__input{
+    display: flex;
+    flex-direction: row;
+    margin-left: -78px;
+    margin-bottom: 20px;
+}
+
+.files__label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Additional styles for file inputs */
+.file-input {
+    position: relative;
+  }
+  
+  .file-input::file-selector-button {
+    width: 136px;
+    color: transparent;
+  }
+  
+  /* Faked label styles and icon */
+  .file-input::before {
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    left: 16px;
+    height: 20px;
+    width: 20px;
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230964B0'%3E%3Cpath d='M18 15v3H6v-3H4v3c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-3h-2zM7 9l1.41 1.41L11 7.83V16h2V7.83l2.59 2.58L17 9l-5-5-5 5z'/%3E%3C/svg%3E");
+  }
+  
+  .file-input::after {
+    position: absolute;
+    pointer-events: none;
+    top: 11px;
+    left: 40px;
+    color: #0964b0;
+    content: "Upload File";
+  }
+  
+  /* ------- From Step 1 ------- */
+  
+  /* file upload button */
+  .file-input::file-selector-button {
+    border-radius: 4px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    margin-right: 16px;
+    transition: background-color 200ms;
+  }
+  
+  /* file upload button hover state */
+  .file-input::file-selector-button:hover {
+    background-color: #f3f4f6;
+  }
+  
+  /* file upload button active state */
+  .file-input::file-selector-button:active {
+    background-color: #e5e7eb;
+  }
+  
 
 
 @media (max-width: 992px) {
@@ -339,8 +425,8 @@ main.signn .carousel {
 
     .carousel__vector {
         width: 22%;
-    bottom: 63px;
-    right: 56px;
+        bottom: 63px;
+        right: 56px;
     }
 
     .box {
@@ -368,7 +454,7 @@ main.signn .carousel {
         transition: transform 0.8s ease-in-out, opacity 0.45s linear;
     }
 
-    
+
 
     form.sign-up-form {
         transform: translateX(100%);
@@ -403,11 +489,13 @@ main.signn .carousel {
     main {
         padding: 1rem;
     }
-.carousel__vector {
-    width: 33%;
-    bottom: 46px;
-    right: 56px;
-}
+
+    .carousel__vector {
+        width: 33%;
+        bottom: 46px;
+        right: 56px;
+    }
+
     .box {
         border-radius: 2rem;
     }
@@ -434,13 +522,15 @@ main.signn .carousel {
     }
 
     @media (max-width: 414px) {
-        .forgo{
+        .forgo {
             margin-bottom: 105px;
         }
+
         .carousel {
             padding: 2.5rem 1rem;
             border-radius: 1.6rem;
         }
+
         .carousel__welcome {
             display: none;
         }
@@ -457,8 +547,8 @@ main.signn .carousel {
 
         .carousel__vector {
             width: 31%;
-    bottom: 60px;
-    right: 43px;
+            bottom: 60px;
+            right: 43px;
         }
     }
 
@@ -467,6 +557,7 @@ main.signn .carousel {
             padding: 1.5rem .5rem 1rem;
             border-radius: 1.6rem;
         }
+
         .carousel__welcome {
             display: none;
         }
@@ -483,8 +574,8 @@ main.signn .carousel {
 
         .carousel__vector {
             width: 33%;
-    bottom: 23px;
-    right: 43px;
+            bottom: 23px;
+            right: 43px;
         }
     }
 }

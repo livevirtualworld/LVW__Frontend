@@ -12,8 +12,8 @@ function App() {
     // <UserProfile />
     // <TourDetails />
     // <Tours />
-    // <Login />
-    <Home />
+    <Login />
+    // <Home />
 
   );
 }
