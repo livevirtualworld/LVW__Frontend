@@ -154,7 +154,6 @@ function Home() {
 
             {/*------------------------Hero Banner Section------------------*/}
             <section className={style["hero__banner__section"]}>
-                <img src="./assets/images/bg.png" alt="" className={style["header__background__img"]} />
                 <div className={style["container"]}>
                     <div className={style["hero__banner__content"]}>
                         <div className={style["hero__banner__text"]}>

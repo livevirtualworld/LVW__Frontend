@@ -7,12 +7,14 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import axios from "axios";
 
 
 function Login() {
   const [tap, setTap] = useState("signUp")
   const [hi, setHi] = useState(false)
   const [userType, setUserType] = useState('user'); // 'user' is the default value
+
   const [formValues, setFormValues] = useState({
     userType: "",
     name: "",
@@ -21,10 +23,6 @@ function Login() {
     cv: null,
     license: null,
   });
-
-  // const handleUserTypeChange = (event) => {
-  //   setUserType(event.target.value);
-  // };
 
   const handleInputChange = (event) => {
     const { id, value, type, name, files } = event.target;
@@ -46,12 +44,54 @@ function Login() {
       }));
     }
   };
-  
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit =  (event) => {
+    console.log("test front")
     event.preventDefault();
-    console.log(formValues);
+    
+    try {
+      const userType = formValues.userType;
+      const { name, email, pass, cv, license } = formValues;
+      
+      const formData = new FormData();
+      formData.append("userType", userType);
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("password", pass);
+      
+      if (cv) {
+        formData.append("cv", cv); // Append the cv file to the formData if it exists
+      }
+      
+      if (license) {
+        formData.append("license", license); // Append the license file to the formData if it exists
+      }
+
+      console.log(formData)
+      
+      if (userType === "user") {
+        console.log("jjjjj")
+        const response = axios.post('http://localhost:5000/user/register', formData).then((res) => {
+          console.log(response)
+       console.log("kkkkkkkkkkk")   
+       // console.log(res)
+          
+          if (res.data.status === 200) {
+            console.log(res.data.data);
+            localStorage.setItem("user", JSON.stringify(res.data.data._id));
+          } else {
+            console.log(res.data.message);
+          }
+        });
+      } else if (userType === "tourGuide" || userType === "cameraOperator" || userType === "director") {
+        const response =  axios.post('http://localhost:5000/technical/register', formData);
+      }
+    } catch (error) {
+      console.error('Error registering user:', error);
+    }
   };
+  
 
 
   return (
@@ -96,7 +136,7 @@ function Login() {
             {/*--------------------- Sign up Form-----------------------*/}
             {
               tap == "signUp" &&
-              <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit}>
+              <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit} enctype="multipart/form-data">
                 <div className={style["logo sign__logo"]}>
                   <img src={Logo} alt="" />
                 </div>
@@ -116,7 +156,7 @@ function Login() {
                     name="row-radio-buttons-group"
                     value={userType}
                     onChange={handleInputChange}
-                    >
+                  >
                     <div className={style['parent__div']}>
                       <div className={style['column__flex']}>
 
@@ -133,31 +173,31 @@ function Login() {
                 </FormControl>
                 <div className={style["actual-form sign__form"]}>
                   <div className={style["input-wrap"]}>
-                    <input 
-                    type="text"
-                    id="name"
-                    className={style["input-field"]}
-                    onChange={handleInputChange}
+                    <input
+                      type="text"
+                      id="name"
+                      className={style["input-field"]}
+                      onChange={handleInputChange}
                     />
                     <label>Name</label>
                     {/* <small /> */}
                   </div>
                   <div className={style["input-wrap"]}>
                     <input
-                    type="email"
-                    id="email"
-                    className={style["input-field"]}
-                    onChange={handleInputChange}
+                      type="email"
+                      id="email"
+                      className={style["input-field"]}
+                      onChange={handleInputChange}
                     />
                     <label>Email</label>
                     {/* <small /> */}
                   </div>
                   <div className={style["input-wrap"]}>
                     <input
-                    type="password"
-                    id="pass"
-                    className={style["input-field"]}
-                    onChange={handleInputChange}
+                      type="password"
+                      id="pass"
+                      className={style["input-field"]}
+                      onChange={handleInputChange}
                     />
                     <label>Password</label>
                     {/* <small /> */}
@@ -167,19 +207,19 @@ function Login() {
                       <div>
                         <label className={style['files__label']}>Upload CV</label>
                         <input
-                        type="file"
-                        id="cv"
-                        className={style['file-input']}
-                        onChange={handleInputChange}
+                          type="file"
+                          id="cv"
+                          className={style['file-input']}
+                          onChange={handleInputChange}
                         />
                       </div>
                       <div>
                         <label className={style['files__label']}>Upload License</label>
                         <input
-                        type="file"
-                        id="license"
-                        className={style['file-input']}
-                        onChange={handleInputChange}
+                          type="file"
+                          id="license"
+                          className={style['file-input']}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -187,7 +227,7 @@ function Login() {
                   ) : null}
 
 
-                  <input type="submit" defaultValue="Sign Up" className={style["sign-btn"]} />
+                  <input type="submit" className={style["sign-btn"]} />
                   <p className={style["text"]}>
                     By signing up, I agree to the
                     <a href="#">Terms of Services</a> and

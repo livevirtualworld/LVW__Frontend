@@ -133,6 +133,7 @@ form.sign-up-form {
     position: absolute;
     left: 10px;
     top: -10px;
+    /* top: 77px; */
     transform: translateY(-100%);
     font-size: 0.95rem;
     color: #bbb;

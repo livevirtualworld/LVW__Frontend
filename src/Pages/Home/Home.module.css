@@ -220,7 +220,10 @@ nav .menu i {
 .hero__banner__section {
     position: relative;
     padding-top: 85px;
-    margin-bottom: 140px;
+    margin-bottom: 50px;
+    background-image: url(../../assets/bg.png);
+    background-size: cover;
+    height: 555px;
 }
 
 .header__background__img {
@@ -313,8 +316,8 @@ nav .menu i {
 
 .chat__preview {
     position: absolute;
-    top: 238px;
-    right: 77px;
+    top: 229px;
+    right: 85px;
     display: none;
 }
 
@@ -482,7 +485,7 @@ nav .menu i {
 .chat__icon {
     position: absolute;
     top: 0;
-    right: 75px;
+    right: 85px;
 }
 
 /********************* Map Style *********************/
@@ -1063,7 +1066,7 @@ footer {
     .explore,
     .world,
     .couch {
-        font-size: 46px;
+        font-size: 42px;
     }
 
     .hero__banner__text p {
@@ -1071,7 +1074,22 @@ footer {
     }
 
     .chat__preview {
-        top: 280px;
+        top: 228px;
+        right: 70px;
+    }
+
+    .map__search__bar {
+        top: 92px;
+        left: 100px;
+    }
+
+    .map__bottom__icons {
+        right: 103px;
+        bottom: 15px;
+    }    
+
+    .chat__icon {
+        right: 55px;
     }
 
     .card__content h4 {
@@ -1083,12 +1101,18 @@ footer {
     }
 
     .review__date {
-        margin-top: 73px;
+        margin-top: 90px;
         display: inline-block;
     }
 }
 
 @media(max-width:992px) {
+    .hero__banner__section {
+        margin-bottom: 305px;
+    }
+    .chat__icon img{
+        width: 80%;
+    }
     .footer__content ul:first-of-type li {
         padding-right: 50px;
     }
@@ -1125,13 +1149,13 @@ footer {
     }
 
     .chat__preview {
-        top: 570px;
-        right: 60px;
+        top: 485px;
+        right: 48px;
     }
 
     .chat__icon {
         top: 0;
-        right: 47px;
+        right: 28px;
     }
 
     .card__content h4 {
@@ -1162,6 +1186,9 @@ footer {
 }
 
 @media(max-width:768px) {
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 55px;
+    }
     .swiper-button-prev {
         left: 550px;
     }
@@ -1307,30 +1334,37 @@ footer {
         overflow-x: hidden;
     }
 
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 40px;
+    }
+
+    .hero__banner__section {
+        margin-bottom: 205px;
+    }
+
+    .map__section h2 {
+        font-size: 25px;
+    }
+
     .map__search__bar {
-        top: 94px;
-        left: 54px;
+        top: 91px;
+        left: 52px;
     }
 
-    .location__one {
-        top: 65%;
-        left: 23%;
-        width: 8%;
+    .live__tours__section h2 {
+        font-size: 25px;
     }
 
-    .location__three {
-        top: 51%;
-        width: 8%;
+    .popular__tour__section h2 {
+        font-size: 25px;
     }
 
-    .cursor__pointer__icon {
-        width: 22%;
+    .popular__topics__section h2 {
+        font-size: 25px;
     }
 
-    .map__bottom__icons {
-        gap: 6px;
-        right: 23px;
-        bottom: 15px;
+    .travellers__reviews__section h2 {
+        font-size: 25px;
     }
 
     .chat__icon {
@@ -1420,11 +1454,6 @@ footer {
         border-radius: 9px;
     }
 
-    .map__search__bar {
-        top: 124px;
-        left: 53px;
-    }
-
     .location__one {
         top: 72%;
         width: 6%;
@@ -1450,6 +1479,9 @@ footer {
       .review__card p{
         font-size: 16px;
       }
+      .review__date {
+        margin-top: 25px;
+    }
 
 }
 
