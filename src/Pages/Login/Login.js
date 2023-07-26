@@ -13,7 +13,7 @@ import axios from "axios";
 function Login() {
   const [tap, setTap] = useState("signUp")
   const [hi, setHi] = useState(false)
-  const [userType, setUserType] = useState('user'); // 'user' is the default value
+  const [userType, setUserType] = useState(null);
 
   const [formValues, setFormValues] = useState({
     userType: "",
@@ -47,7 +47,6 @@ function Login() {
 
 
   const handleSubmit =  (event) => {
-    console.log("test front")
     event.preventDefault();
     
     try {
@@ -72,9 +71,9 @@ function Login() {
       
       if (userType === "user") {
         console.log("jjjjj")
-        const response = axios.post('http://localhost:5000/user/register', formData).then((res) => {
-          console.log(response)
-       console.log("kkkkkkkkkkk")   
+        axios.post('http://localhost:5000/user/register', formData).then((res) => {
+          console.log(res)
+          console.log("kkkkkkkkkkk")   
        // console.log(res)
           
           if (res.data.status === 200) {
