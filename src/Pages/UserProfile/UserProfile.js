@@ -19,7 +19,7 @@ import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import axios from 'axios';
-import Select from 'react-select';
+// import Select from 'react-select';
 import Modalstyle from './EditModal.module.css';
 
 function UserProfile() {
@@ -86,21 +86,29 @@ function UserProfile() {
   };
 
   const updateUserProfile = () => {
-    axios.put(`http://localhost:5000/user/updateUser/${userId}`, {
+    console.log(editName,userId,editDescription,editPhone,editAddress,editCity)
+    axios.put(`http://localhost:5000/user/editInfo`, {
       name: editName,
+      id:userId,
       description: editDescription,
       phone: editPhone,
       address: editAddress,
       city: editCity,
     })
       .then((res) => {
+
         console.log("User data updated successfully:", res.data);
         setShowEditModal(false);
+        axios.post("http://localhost:5000/user/getOneUser", { id: userId })
+      .then((res) => {
+        console.log(res.data);
+        setUserData(res.data.data);
+      })
       })
       .catch((error) => {
         console.error("Error updating user data:", error);
       });
-  };
+   };
 
 
 
