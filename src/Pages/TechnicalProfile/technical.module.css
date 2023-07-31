@@ -191,9 +191,8 @@ nav .menu i{
     position: absolute;
     border-radius: 50%;
     border: 6px solid white;
-    top: -66px;
-    left: 37px;
-    width: 10%;
+    top: -90px;
+    left: 30px;
 }
 .profile__text{
     display: flex;
@@ -229,14 +228,14 @@ nav .menu i{
 .profile-main-content{
     padding: 50px 0;
 }
-/* .profile-main-content__content{
+.profile-main-content__content{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-} */
-/* .profile-main-content__info{
+}
+.profile-main-content__info{
     width: 64%;
-} */
+}
 .profile-main-content__info .tabs a{
     font-size: 16px;
     font-weight: 400;

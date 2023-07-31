@@ -19,118 +19,43 @@ function Login() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerCv, setRegisteredCv] = useState(null);
   const [registerLicense, setRegisteredLicense] = useState(null);
-  const [loginEmail,setLoginEmail] =useState("")
-  const [loginPassword,setLoginPassword] =useState("")
-
-  // const [formValues, setFormValues] = useState({
-  //   userType: "",
-  //   name: "",
-  //   email: "",
-  //   pass: "",
-  //   cv: null,
-  //   license: null,
-  // });
-
-  //  const handleInputChange = () => {}
-
-  //   const { id, value, type, name, files } = event.target;
-  //   if (type === "file") {
-  //     setFormValues((prevValues) => ({
-  //       ...prevValues,
-  //       [id]: files[0],
-  //     }));
-  //   } else if (name === "row-radio-buttons-group") {
-  //     setUserType(value);
-  //     setFormValues((prevValues) => ({
-  //       ...prevValues,
-  //       userType: value,
-  //     }));
-  //   } else {
-  //     setFormValues((prevValues) => ({
-  //       ...prevValues,
-  //       [id]: value,
-  //     }));
-  //   }
-  // };
+  const [loginEmail, setLoginEmail] = useState("")
+  const [loginPassword, setLoginPassword] = useState("")
 
 
-   const handleSubmit =  (e) => {
-     
-     e.preventDefault();
-     console.log(userType)
-    if(userType == "user"){
-    axios.post("http://localhost:5000/user/register",{
-      userType:userType,
-      name:registerName,
-      email:registerEmail,
-      password:registerPassword
-    }).then((res)=>{
-      console.log(res.data)
-    })
-    
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    console.log(userType)
+    if (userType == "user") {
+      axios.post("http://localhost:5000/user/register", {
+        userType: userType,
+        name: registerName,
+        email: registerEmail,
+        password: registerPassword
+      }).then((res) => {
+        console.log(res.data)
+      })
+
     }
-    else{
+    else {
       const formData = new FormData();
-  formData.append("radio", userType);
-  formData.append("name", registerName);
-  formData.append("email", registerEmail);
-  formData.append("password", registerPassword);
-  formData.append("cv", registerCv); 
-  formData.append("license", registerLicense); 
+      formData.append("radio", userType);
+      formData.append("name", registerName);
+      formData.append("email", registerEmail);
+      formData.append("password", registerPassword);
+      formData.append("cv", registerCv);
+      formData.append("license", registerLicense);
 
-      axios.post("http://localhost:5000/technical/register",formData).then((res)=>{
-        if(res.data.status === 200){
+      axios.post("http://localhost:5000/technical/register", formData).then((res) => {
+        if (res.data.status === 200) {
           hi ? setHi(false) : setHi(true)
           setTap("forget")
         }
         console.log(res.data)
-    })
+      })
     }
-   }
-    
-  //   try {
-  //     const userType = formValues.userType;
-  //     const { name, email, pass, cv, license } = formValues;
-  //     console.log(userType)
-  //     const formData = new FormData();
-  //     formData.append("userType", userType);
-  //     formData.append("name", name);
-  //     formData.append("email", email);
-  //     formData.append("password", pass);
-      
-  //     if (cv) {
-  //       formData.append("cv", cv); // Append the cv file to the formData if it exists
-  //     }
-      
-  //     if (license) {
-  //       formData.append("license", license); // Append the license file to the formData if it exists
-  //     }
-
-  //     console.log(formData)
-      
-  //     if (userType === "user") {
-  //       console.log("jjjjj")
-  //       axios.post('http://localhost:5000/user/register', formData).then((res) => {
-  //         console.log(res)
-  //         console.log("kkkkkkkkkkk")   
-  //      // console.log(res)
-          
-  //         if (res.data.status === 200) {
-  //           console.log(res.data.data);
-  //           localStorage.setItem("user", JSON.stringify(res.data.data._id));
-  //         } else {
-  //           console.log(res.data.message);
-  //         }
-  //       });
-  //     } else if (userType === "tourGuide" || userType === "cameraOperator" || userType === "director") {
-  //       const response =  axios.post('http://localhost:5000/technical/register', formData);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error registering user:', error);
-  //   }
-  // };
-  
-
+  }
 
   return (
     <main className={`${hi === true ? style.signn : ""}`}>
@@ -152,45 +77,45 @@ function Login() {
               </div>
               <div className={style["actual-form"]}>
                 <div className={style["input-wrap"]}>
-                  <input onChange={(e)=>{
+                  <input onChange={(e) => {
                     setLoginEmail(e.target.value)
                   }} type="email" className={style["input-field"]} id="log__email" />
                   <label>Email</label>
                   <small />
                 </div>
                 <div className={style["input-wrap"]}>
-                  <input onChange={(e)=>{
+                  <input onChange={(e) => {
                     setLoginPassword(e.target.value)
                   }} type="password" className={style["input-field"]} id="log__pass" />
                   <label>Password</label>
                   <small />
                 </div>
-                <input onClick={(e)=>{
+                <input onClick={(e) => {
                   e.preventDefault()
-                  axios.post("http://localhost:5000/user/login",{
-                    email:loginEmail,
-                    password:loginPassword
-                  }).then((res)=>{
-                      if(res.data.message === "Email not found"){
-                        axios.post("http://localhost:5000/technical/login",{
-                          email:loginEmail,
-                    password:loginPassword
-                        }).then((res)=>{
-                          console.log(res.data)
-                          if(res.data.status === 200){
-                             localStorage.setItem("id",JSON.stringify(res.data.data._id))
-                             localStorage.setItem("role",JSON.stringify(res.data.user))
-                            }
-                          })
-                        }
-                        else{
-                          if(res.data.status === 200){
-                          localStorage.setItem("id",JSON.stringify(res.data.data._id))
-                          localStorage.setItem("role","user")
-
-                        }
+                  axios.post("http://localhost:5000/user/login", {
+                    email: loginEmail,
+                    password: loginPassword
+                  }).then((res) => {
+                    if (res.data.message === "Email not found") {
+                      axios.post("http://localhost:5000/technical/login", {
+                        email: loginEmail,
+                        password: loginPassword
+                      }).then((res) => {
                         console.log(res.data)
+                        if (res.data.status === 200) {
+                          localStorage.setItem("id", JSON.stringify(res.data.data._id))
+                          localStorage.setItem("role", JSON.stringify(res.data.user))
+                        }
+                      })
+                    }
+                    else {
+                      if (res.data.status === 200) {
+                        localStorage.setItem("id", JSON.stringify(res.data.data._id))
+                        localStorage.setItem("role", "user")
+
                       }
+                      console.log(res.data)
+                    }
                   })
                 }} type="submit" defaultValue="Login" className={style["sign-btn"]} />
                 <p className={style["forgo"]}>
@@ -224,24 +149,24 @@ function Login() {
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                     value={userType}
-                    // onChange={handleInputChange}
+                  // onChange={handleInputChange}
                   >
                     <div className={style['parent__div']}>
                       <div className={style['column__flex']}>
 
-                        <FormControlLabel onClick={()=>{
+                        <FormControlLabel onClick={() => {
                           setUserType("tourGuide")
                         }} value="tourGuide" control={<Radio />} label="Tour Guide" />
-                        <FormControlLabel onClick={()=>{
+                        <FormControlLabel onClick={() => {
                           setUserType("cameraOperator")
                         }} value="cameraOperator" control={<Radio />} label="Camera Operator" />
                       </div>
                       <div className={style['column__flex']}>
 
-                        <FormControlLabel onClick={()=>{
+                        <FormControlLabel onClick={() => {
                           setUserType("director")
                         }} value="director" control={<Radio />} label="Director" />
-                        <FormControlLabel onClick={()=>{
+                        <FormControlLabel onClick={() => {
                           setUserType("user")
                         }} value="user" control={<Radio />} label="User" />
                       </div>
@@ -254,7 +179,7 @@ function Login() {
                       type="text"
                       id="name"
                       className={style["input-field"]}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setRegisterName(e.target.value)
                       }}
                     />
@@ -266,7 +191,7 @@ function Login() {
                       type="email"
                       id="email"
                       className={style["input-field"]}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setRegisterEmail(e.target.value)
                       }}
                     />
@@ -278,7 +203,7 @@ function Login() {
                       type="password"
                       id="pass"
                       className={style["input-field"]}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         setRegisterPassword(e.target.value)
                       }}
                     />
@@ -293,7 +218,7 @@ function Login() {
                           type="file"
                           id="cv"
                           className={style['file-input']}
-                          onChange={(e)=>{
+                          onChange={(e) => {
                             setRegisteredCv(e.target.files[0])
                             console.log(e.target.files[0])
                           }}
@@ -305,9 +230,9 @@ function Login() {
                           type="file"
                           id="license"
                           className={style['file-input']}
-                           onChange={(e)=>{
+                          onChange={(e) => {
                             setRegisteredLicense(e.target.files[0])
-                           }}
+                          }}
                         />
                       </div>
                     </div>

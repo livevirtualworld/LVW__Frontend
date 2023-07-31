@@ -150,3 +150,8 @@ a {
 
   }
 }
+
+.css-13cymwt-control .active{
+  border: 1px solid rgba(54, 109, 175, 1) !important;
+
+}

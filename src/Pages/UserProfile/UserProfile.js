@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './userProfile.module.css'
 import Vector from '../../assets/Vector.svg'
 import Vector1 from '../../assets/Vector (1).svg'
@@ -18,37 +18,119 @@ import linked from "../../assets/LinkedIn.svg"
 import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
+import axios from 'axios';
+import Select from 'react-select';
+import Modalstyle from './EditModal.module.css';
+
 function UserProfile() {
-  const [lang , setLang] = useState("english")
-  const [tap , setTap] = useState("about")
-  const [menu,setMenu] = useState(false)
+  //UserData
+  const [userData, setUserData] = useState("")
+  const userRole = localStorage.getItem("role")
+  const userId = localStorage.getItem("id");
+  console.log("User ID from localStorage:", userId);
+
+
+
+  const [lang, setLang] = useState("english")
+  const [tap, setTap] = useState("about")
+  const [menu, setMenu] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editName, setEditName] = useState("")
+  const [editDescription, setEditDescription] = useState("")
+  const [editPhone, setEditPhone] = useState("")
+  const [editCity, setEditCity] = useState("");
+  const [editAddress, setEditAddress] = useState("");
+  const [data, setData] = useState([]);
+  const [country, setCountry] = useState([]);
+  const [city, setCity] = useState([]);
+  //to show updated data immediately
+  const [updateUserData, setUpdateUserData] = useState(userData)
+
+
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    const date = new Date(dateString);
+    const options = { day: 'numeric', month: 'short', year: 'numeric' };
+    const formattedDate = date.toLocaleDateString('en-US', options).replace(/,/g, '');
+    const parts = formattedDate.split(' ');
+    return `${parts[1]} ${parts[0]}, ${parts[2]}`;
+  };
+
+  useEffect(() => {
+    axios.post("http://localhost:5000/user/getOneUser", { id: userId })
+      .then((res) => {
+        console.log(res.data);
+        setUserData(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json")
+      .then(res => {
+        setData(res.data);
+        console.log(res.data)
+        let countries = [...new Set(res.data.map(item => item.country))];
+        countries.sort();
+        setCountry(countries);
+        console.log(countries)
+      })
+      .catch(err => console.log(err))
+  }, []);
+
+  const handleCountryChange = (e) => {
+    setEditCity(""); // Reset editCity when the country changes
+    setEditAddress(""); // Reset editAddress when the country changes
+  };
+
+  const updateUserProfile = () => {
+    axios.put(`http://localhost:5000/user/updateUser/${userId}`, {
+      name: editName,
+      description: editDescription,
+      phone: editPhone,
+      address: editAddress,
+      city: editCity,
+    })
+      .then((res) => {
+        console.log("User data updated successfully:", res.data);
+        setShowEditModal(false);
+      })
+      .catch((error) => {
+        console.error("Error updating user data:", error);
+      });
+  };
+
+
+
   return (
     <div>
-        <nav>
-          <div className={style["container"]}>
-            <div className={style["nav__content"]}>
-              <div className={style["nav__right"]}>
-                <div className={style["nav__logo"]}>
-                  <img src={logo} alt="logo" />
-                </div>
-                <div className={style["nav__search"]}>
-                  <input type="text" placeholder="Tour name or location..." />
-                </div>
-                <ul className={style["nav__links"]}>
-                  <li><a>Home</a></li>
-                  <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                  </li>
-                  <li><a href="#">Our Mission</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                </ul>
+      <nav>
+        <div className={style["container"]}>
+          <div className={style["nav__content"]}>
+            <div className={style["nav__right"]}>
+              <div className={style["nav__logo"]}>
+                <img src={logo} alt="logo" />
               </div>
-              <div className={style["menu"]}>
-              <i onClick={()=>{
-                if(menu ==false){
-                setMenu(true)
-                console.log(true)
+              <div className={style["nav__search"]}>
+                <input type="text" placeholder="Tour name or location..." />
+              </div>
+              <ul className={style["nav__links"]}>
+                <li><a>Home</a></li>
+                <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
+                </li>
+                <li><a href="#">Our Mission</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+            <div className={style["menu"]}>
+              <i onClick={() => {
+                if (menu == false) {
+                  setMenu(true)
+                  console.log(true)
                 }
-                else{
+                else {
                   setMenu(false)
                   console.log(false)
                 }
@@ -66,177 +148,259 @@ function UserProfile() {
                   </ul>
                 </div>
               }
+            </div>
+            <div className={style["nav__left"]}>
+              <div className={style["nav__langs"]}>
+                {
+                  lang == "english" &&
+                  <a><img src={United_Kingdom} alt='' /> English</a>
+                }
+                {
+                  lang == "arabic" &&
+                  <a href="#"><img src={egypt} alt='' /> العربية</a>
+                }
+                {
+                  lang == "italiano" &&
+                  <a href="#"><img src={United_Kingdom} alt='' /> Italiano</a>
+                }
+                <ul>
+                  <li onClick={() => {
+                    setLang("english")
+                  }}><a href="#"><img src={United_Kingdom} alt='' /> English</a></li>
+                  <li onClick={() => {
+                    setLang("arabic")
+                  }}><a href="#"><img src={egypt} alt='' /> العربية</a></li>
+                  <li onClick={() => {
+                    setLang("italiano")
+                  }}><a href="#"><img src={United_Kingdom} alt='' /> Italiano</a></li>
+                </ul>
               </div>
-              <div className={style["nav__left"]}> 
-                <div className={style["nav__langs"]}>
-                  {
-                    lang =="english" &&
-                  <a><img src={United_Kingdom} alt=''/> English</a>
-                  }
-                  {
-                    lang =="arabic" &&
-                    <a href="#"><img src={egypt} alt=''/> العربية</a>
-                  }
-                  {
-                    lang =="italiano" &&
-                    <a href="#"><img src={United_Kingdom} alt=''/> Italiano</a>
-                  }
-                  <ul>
-                    <li onClick={()=>{
-                      setLang("english")
-                    }}><a href="#"><img src={United_Kingdom} alt=''/> English</a></li>
-                    <li onClick={()=>{
-                      setLang("arabic")
-                    }}><a href="#"><img src={egypt} alt=''/> العربية</a></li>
-                    <li onClick={()=>{
-                      setLang("italiano")
-                    }}><a href="#"><img src={United_Kingdom} alt=''/> Italiano</a></li>
-                  </ul>
-                </div>
-                <div className={style["nav__join"]}>
-                  <a href="#">Join Us Now</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <div className={style["path"]}>
-          <div className={style["container"]}>
-            <div className={style["path__content"]}>
-              <h3>Home</h3>
-              <img src={Vector1} alt=''/>
-              <h3>Users</h3>
-              <img src={Vector1} alt='' />
-              <h3>Sophie Smith</h3>
-            </div>
-          </div>
-        </div>
-        <div className={style["profile"]}>
-          <div className={style["container"]}>
-            <div className={style["profile__content"]}>
-              <img src={frame27} alt=''/>
-            </div>
-            <div className={style["profile__info"]}>
-              <img src={image1} alt='' />
-              <div className={style["profile__text"]}>
-                <h3>Sophie Smith</h3>
-                <h4>Tour Guide</h4>
+              <div className={style["nav__join"]}>
+                <a href="#">Join Us Now</a>
               </div>
             </div>
           </div>
         </div>
-        <div className={style["profile-main-content"]}>
-          <div className={style["container"]}>
-            <div className={style["profile-main-content__content"]}>
-              <div className={style["profile-main-content__info"]}>
-                <div className={style["tabs"]}>
-                    <a className={` ${tap === "about" ? style.active : ""}`} onClick={()=>{
-                      setTap("about")
-                    }}>About</a>
-                    <a className={` ${tap === "tours" ? style.active : ""}`} onClick={()=>{
-                      setTap("tours")
-                    }}>Sophie’s Tours</a>
-                </div>
-                <div className={style["text"]} id="text">
-                  {
-                    tap === "about" &&
-                    <>
-                  <p>Hi, I'm Sophie, a passionate virtual tour guide with extensive experience in providing immersive and engaging virtual tours. </p>
-                  <p>Originally from the UK I moved out to Egypt 24yrs ago falling in love with the history and the culture I have never looked back!</p>
-                  <p>I have a deep love for history, culture, and travel, and I enjoy sharing my knowledge with people from all around the world. My goal is to transport you to fascinating destinations and make you feel like you're right there, experiencing the sights, sounds, and stories.</p>
-                  <h4>Education</h4>
-                  <h5>Bachelor's Degree in History</h5>
-                  <p>XYZ University, New York </p>
-                  <p>(2011 - 2015)</p>
-                  <h4>Experiences</h4>
-                  <h5>Virtual Tour Guide</h5>
-                  <p>Wanderlust Tours</p>
-                  <p>(2018 - Now)</p>
-                  <h5>Tour Guide</h5>
-                  <p>City Explorers Company</p>
-                  <p>(2016 - 2018)</p>
-                  </>
-                  }
-                  {
-                    tap == "tours" &&
-                    <>
-                    <p>Hi, I'm Sophie, a passionate virtual tour guide with extensive experience in providing immersive and engaging virtual tours. </p>
-                  <p>Originally from the UK I moved out to Egypt 24yrs ago falling in love with the history and the culture I have never looked back!</p>
-                  <p>I have a deep love for history, culture, and travel, and I enjoy sharing my knowledge with people from all around the world. My goal is to transport you to fascinating destinations and make you feel like you're right there, experiencing the sights, sounds, and stories.</p>
-                  <h4>Education</h4>
-                  <h5>Bachelor's Degree in History</h5>
-                  <p>XYZ University, New York </p>
-                  <p>(2011 - 2015)</p>
-                  <h4>Experiences</h4>
-                  <h5>Virtual Tour Guide</h5>
-                  <p>Wanderlust Tours</p>
-                  <p>(2018 - Now)</p>
-                  <h5>Tour Guide</h5>
-                  <p>City Explorers Company</p>
-                  <p>(2016 - 20222222222222222222222222)</p>
-                  </>
-                  }
-                </div>
-              </div>
-              <div className={style["languages"]}>
-                <h3>Languages</h3>
-                <div className={style["langs"]}>
-                  <a href="#"><img src={rounded} alt='' /> English</a>
-                  <a href="#"><img src={egypt1} alt='' /> Arabic</a>
-                </div>
-                <h3>Address</h3>
-                <a href="#"><img src={group66} alt='' /> Cairo, Egypt</a>
-                <p>Joined since 14 Nov 2022</p>
-              </div>
-            </div>
+      </nav>
+      <div className={style["path"]}>
+        <div className={style["container"]}>
+          <div className={style["path__content"]}>
+            <h3>Home</h3>
+            <img src={Vector1} alt='' />
+            <h3>Users</h3>
+            <img src={Vector1} alt='' />
+            <h3>{userData?.name}</h3>
           </div>
         </div>
-        <footer>
-          <div className={style["container"]}>
-            <div  className={style["footer__content"]}>
-              <ul>
-                <li><img src={logo1} alt='' /></li>
-                <li>Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam mauris sed ma</li>
-                <li className={style["links"]}>
-                  <a href="#"><img src={facebook} alt='' /></a>
-                  <a href="#"><img src={twitter} alt='' /></a>
-                  <a href="#"><img src={instagram} alt='' /></a>
-                  <a href="#"><img src={linked} alt='' /></a>
-                  <a href="#"><img src={youtube} alt='' /></a>
-                </li>
-              </ul>
-              <ul>
-                <li>Website</li>
-                <li>Tours</li>
-                <li>Pricing</li>
-                <li>Our Mission</li>
-                <li>Contact Us</li>
-              </ul>
-              <ul>
-                <li>Company</li>
-                <li>About</li>
-                <li>Careers</li>
-                <li>Blog</li>
-              </ul>
-              <ul>
-                <li>Support</li>
-                <li>Getting started</li>
-                <li>Help center</li>
-                <li>Report a bug</li>
-                <li>Chat support</li>
-              </ul>
-              <ul>
-                <li>Downloads</li>
-                <li><img src={frame97} alt=''/></li>
-                <li><img src={frame98} alt='' /></li>
-              </ul>
-            </div>
-            <div className={style["footer__footer"]}>
-              <h4>Copyright © 2023 LVW.</h4>
-            </div>
-          </div>
-        </footer>
       </div>
+      <div className={style["profile"]}>
+        <div className={style["container"]}>
+          <div className={style["profile__content"]}>
+            <img src={`http://localhost:5000/${userData.coverImg}`} alt='' />
+          </div>
+          <div className={style["profile__info"]}>
+            <img src={`http://localhost:5000/${userData.img}`} alt='' />
+            <div className={style["profile__text"]}>
+              <div>
+                <h3>{userData?.name}</h3>
+                <h4>{userRole}</h4>
+              </div>
+              <div className={style['edit__button']}>
+                <a href="#" onClick={() => setShowEditModal(true)}>Edit Profile</a>
+
+                {/* Modal */}
+                {showEditModal && (
+                  <div className={Modalstyle['modal__overlay']}>
+                    <div className={Modalstyle['modal__content']}>
+                      <div className={Modalstyle['modal__header']}>
+                        <h2>Edit Profile</h2>
+                        <i
+                          className="fa-regular fa-circle-xmark"
+                          style={{ color: '#000000', fontSize: '25px', fontWeight: '600', cursor: 'pointer' }}
+                          onClick={() => setShowEditModal(false)}
+                        ></i>
+                      </div>
+                      <div className={Modalstyle['input__field']}>
+                        <label>Name:</label>
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle['input__field']}>
+                        <label>Description:</label>
+                        <textarea
+                          value={editDescription}
+                          onChange={(e) => setEditDescription(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle['input__field']}>
+                        <label>Phone:</label>
+                        <input
+                          type="text"
+                          value={editPhone}
+                          onChange={(e) => setEditPhone(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle['input__field']}>
+                        <label>Address:</label>
+                        <select value={editAddress} onChange={(e) => setEditAddress(e.target.value)}>
+                          <option>Select Country</option>
+                          {country?.map((item, index) => (
+                            <option key={index} value={item}>{item}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className={Modalstyle['input__field']}>
+                        <label>City:</label>
+                        <select value={editCity} onChange={(e) => setEditCity(e.target.value)}>
+                          <option>Select City</option>
+                          {editAddress !== 'Select Country' && data
+                            .filter(item => item.country === editAddress)
+                            .map((item, index) => (
+                              <option key={index} value={item.name}>{item.name}</option>
+                            ))}
+                        </select>
+                      </div>
+
+
+                      <div className={Modalstyle['modal__actions']}>
+                        <button onClick={() => setShowEditModal(false)}>Cancel</button>
+                        <button onClick={updateUserProfile}>Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={style["profile-main-content"]}>
+        <div className={style["container"]}>
+          <div className={style["profile-main-content__content"]}>
+            <div className={style["profile-main-content__info"]}>
+              <div className={style["tabs"]}>
+                <a className={` ${tap === "about" ? style.active : ""}`} onClick={() => {
+                  setTap("about")
+                }}>About</a>
+                <a className={` ${tap === "tours" ? style.active : ""}`} onClick={() => {
+                  setTap("tours")
+                }}>{userData?.name}’s Tours</a>
+              </div>
+              <div className={style["text"]} id="text">
+                {
+                  tap === "about" &&
+                  <>
+                    {/* <p>Hi, I'm Sophie, a passionate virtual tour guide with extensive experience in providing immersive and engaging virtual tours. </p>
+                  <p>Originally from the UK I moved out to Egypt 24yrs ago falling in love with the history and the culture I have never looked back!</p>
+                  <p>I have a deep love for history, culture, and travel, and I enjoy sharing my knowledge with people from all around the world. My goal is to transport you to fascinating destinations and make you feel like you're right there, experiencing the sights, sounds, and stories.</p> */}
+                    {userData?.description ? (
+                      <p>{userData.description}</p>
+                    ) : (
+                      <p style={{ margin: "10px 0" }}>You don't have description yet!</p>
+                    )}
+                    <h4>Phone</h4>
+                    {/* <h5>Bachelor's Degree in History</h5>
+                    <p>XYZ University, New York </p>
+                    <p>(2011 - 2015)</p> */}
+                    {userData?.phone ? (
+                      <p>{userData.phone}</p>
+                    ) : (
+                      <p style={{ margin: "10px 0" }}>You don't have a phone number yet!</p>
+                    )}
+
+                    <h4>Address</h4>
+                    {/* <h5>Virtual Tour Guide</h5>
+                    <p>Wanderlust Tours</p>
+                    <p>(2018 - Now)</p>
+                    <h5>Tour Guide</h5>
+                    <p>City Explorers Company</p>
+                    <p>(2016 - 2018)</p> */}
+                    {userData?.address ? (
+                      <p>{userData.address}</p>
+                    ) : (
+                      <p style={{ margin: "10px 0" }}>You don't have address yet!</p>
+                    )}
+                    <p>Joined since {formatDate(userData?.joinedAt)}</p>
+
+                  </>
+                }
+                {
+                  tap == "tours" &&
+                  <>
+                    {userData?.tours.length > 0 ? (
+                      userData.tours.map((tour) => (
+                        <p key={tour._id}>{tour.title}</p> // Assuming the tour object has a title field
+                      ))
+                    ) : (
+                      <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
+                    )}
+                  </>
+                }
+              </div>
+            </div>
+            {/* <div className={style["languages"]}>
+              <h3>Languages</h3>
+              <div className={style["langs"]}>
+                <a href="#"><img src={rounded} alt='' /> English</a>
+                <a href="#"><img src={egypt1} alt='' /> Arabic</a>
+              </div>
+              <h3>Address</h3>
+              <a href="#"><img src={group66} alt='' /> Cairo, Egypt</a>
+              <p>Joined since {formatDate(userData?.joinedAt)}</p>
+            </div> */}
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div className={style["container"]}>
+          <div className={style["footer__content"]}>
+            <ul>
+              <li><img src={logo1} alt='' /></li>
+              <li>Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam mauris sed ma</li>
+              <li className={style["links"]}>
+                <a href="#"><img src={facebook} alt='' /></a>
+                <a href="#"><img src={twitter} alt='' /></a>
+                <a href="#"><img src={instagram} alt='' /></a>
+                <a href="#"><img src={linked} alt='' /></a>
+                <a href="#"><img src={youtube} alt='' /></a>
+              </li>
+            </ul>
+            <ul>
+              <li>Website</li>
+              <li>Tours</li>
+              <li>Pricing</li>
+              <li>Our Mission</li>
+              <li>Contact Us</li>
+            </ul>
+            <ul>
+              <li>Company</li>
+              <li>About</li>
+              <li>Careers</li>
+              <li>Blog</li>
+            </ul>
+            <ul>
+              <li>Support</li>
+              <li>Getting started</li>
+              <li>Help center</li>
+              <li>Report a bug</li>
+              <li>Chat support</li>
+            </ul>
+            <ul>
+              <li>Downloads</li>
+              <li><img src={frame97} alt='' /></li>
+              <li><img src={frame98} alt='' /></li>
+            </ul>
+          </div>
+          <div className={style["footer__footer"]}>
+            <h4>Copyright © 2023 LVW.</h4>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
 

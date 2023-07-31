@@ -5,14 +5,16 @@ import TourDetails from './Pages/TourDetails/TourDetails';
 import Tours from './Pages/Tours/Tours';
 import Login from './Pages/Login/Login'
 import Home from './Pages/Home/Home'
+import TechnicalProfile from './Pages/TechnicalProfile/Technical';
 
 
 function App() {
   return (
-    // <UserProfile />
+    // <TechnicalProfile />
+    <UserProfile />
     // <TourDetails />
     // <Tours />
-    <Login />
+    // <Login />
     // <Home />
 
   );
