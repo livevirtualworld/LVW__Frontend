@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import style from './technical.module.css'
 import Vector from '../../assets/Vector.svg'
 import Vector1 from '../../assets/Vector (1).svg'
@@ -18,10 +18,62 @@ import linked from "../../assets/LinkedIn.svg"
 import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
+import axios from 'axios';
+
+
 function TechnicalProfile() {
+  //TechnicalData
+  const [technicalData, setTechnicalData] = useState("")
+  const technicalRole = localStorage.getItem("role")
+  console.log("Technical Role from localStorage:", technicalRole);
+  const technicalId = localStorage.getItem("id");
+  console.log("Technical ID from localStorage:", technicalId);
+
   const [lang , setLang] = useState("english")
   const [tap , setTap] = useState("about")
   const [menu,setMenu] = useState(false)
+
+  useEffect(() => {
+    console.log("tesssst")
+    if(technicalRole)
+    {
+      console.log("this is tech role",technicalRole)
+      axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+      .then((res) => {
+        console.log(res.data);
+        setTechnicalData(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Tour Guide data:", error);
+      });
+    }
+    else if(technicalRole)
+    {
+      axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+      .then((res) => {
+        console.log(res.data);
+        setTechnicalData(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Camera Operator data:", error);
+      });
+    }
+    else if(technicalRole)
+    {
+      axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+      .then((res) => {
+        console.log(res.data);
+        setTechnicalData(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching Director data:", error);
+      });
+    }
+  }, []);
+
+  console.log("Technical Data:", technicalData);
+
+
   return (
     <div>
     <nav>
@@ -107,7 +159,7 @@ function TechnicalProfile() {
           <img src={Vector1} alt=''/>
           <h3>Users</h3>
           <img src={Vector1} alt='' />
-          <h3>Sophie Smith</h3>
+          <h3>{technicalData?.name}</h3>
         </div>
       </div>
     </div>

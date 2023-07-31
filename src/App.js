@@ -10,8 +10,8 @@ import TechnicalProfile from './Pages/TechnicalProfile/Technical';
 
 function App() {
   return (
-    // <TechnicalProfile />
-    <UserProfile />
+    <TechnicalProfile />
+    // <UserProfile />
     // <TourDetails />
     // <Tours />
     // <Login />
