@@ -35,8 +35,9 @@ function TechnicalProfile() {
 
   useEffect(() => {
     console.log("tesssst")
-    if(technicalRole)
+    if(JSON.parse(technicalRole) === "tourGuide")
     {
+       console.log(typeof technicalRole)
       console.log("this is tech role",technicalRole)
       axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
       .then((res) => {
@@ -47,7 +48,7 @@ function TechnicalProfile() {
         console.error("Error fetching Tour Guide data:", error);
       });
     }
-    else if(technicalRole)
+    if(JSON.parse(technicalRole) === "cameraOperator")
     {
       axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
       .then((res) => {
@@ -58,8 +59,9 @@ function TechnicalProfile() {
         console.error("Error fetching Camera Operator data:", error);
       });
     }
-    else if(technicalRole)
+    if(JSON.parse(technicalRole) ==="director")
     {
+      console.log(typeof technicalRole)
       axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
       .then((res) => {
         console.log(res.data);
