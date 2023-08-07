@@ -186,6 +186,7 @@ nav .menu i{
 }
 .hero__content > img{
     width: 100%;
+    height: 250px;
 }
 .hero__content .overlay{
     position: absolute;
@@ -317,6 +318,7 @@ nav .menu i{
 }
 .details__about .main-content .media img{
     width: 100%;
+    height: 400px;
 }
 .details__about .main-content{
     background-color: white;
@@ -375,14 +377,18 @@ nav .menu i{
 }
 .details__about .main-content .main-image img{
     width: 100%;
+    height: 400px;
     margin-bottom: 20px;
 }
 .details__about .main-content .other-media{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .details__about .main-content .other-media img{
     width: 24%;
+    height: 120px;
+    margin-bottom:8px ;
 }
 .details__about .main-conten{
     width: 156%;
@@ -465,6 +471,7 @@ nav .menu i{
 .details__book{
     margin-top: 40px;
     width: 34%;
+    height: 440px;
 }
 .details__book form{
     background-color: rgba(255, 255, 255, 0.32);
@@ -620,7 +627,7 @@ select {
     height: 3.5em;
     border-radius: .25em;
     overflow: hidden;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   /* Arrow */
   .select::after {

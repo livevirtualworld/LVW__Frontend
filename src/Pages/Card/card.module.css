@@ -1,0 +1,80 @@
+.tour__card {
+    width: 24%;
+    border-radius: 25px;
+    margin-bottom: 20px;
+  }
+  
+  .tour__trip__image__buttons {
+    position: relative;
+  
+  }
+  
+  .tour__card__buttons {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    gap: 10px;
+    display: flex;
+  }
+  
+  .tour__public__btn {
+    color: white;
+    width: Hug (56px);
+    height: Hug (30px);
+    padding: 4px 9px 4px 9px;
+    border-radius: 8px;
+    background: #12243A;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .tour__live__now__btn {
+    color: white;
+    width: Hug (56px);
+    height: Hug (30px);
+    padding: 4px 9px 4px 9px;
+    border-radius: 8px;
+    background: #fe2629;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .tour__trip__image__buttons img {
+    width: 93%;
+    height: 215px;
+    border-radius: 15px;
+  }
+  
+  .tour__card__rate {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-top: 7px;
+  }
+  
+  .tour__card__rate__icons {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2px;
+    margin-bottom: 2px;
+  }
+  
+  .tour__card__content h4 {
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 19px;
+    color: #060C13DE;
+    width: 315px;
+  }
+  
+  .tour__card__content p {
+    margin-top: 10px;
+    color: #060C1399;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }

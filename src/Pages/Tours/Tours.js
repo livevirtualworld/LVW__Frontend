@@ -23,7 +23,21 @@ import linked from "../../assets/LinkedIn.svg"
 import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
+import axios from 'axios';
+import Card  from '../Card/Card';
 function Tours() {
+    const [tours,setTours] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 8; // You can adjust the number of items per page
+    const lastIndex = currentPage * itemsPerPage;
+    const firstIndex = lastIndex - itemsPerPage;
+    const currentTours = tours.slice(firstIndex, lastIndex);
+
+    const totalPages = Math.ceil(tours.length / itemsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
   const [menu,setMenu] = useState(false)
     const [lang, setLang] = useState("english")
     const handleFirstClick = () => {
@@ -61,6 +75,10 @@ function Tours() {
         $('.first').click(handleFirstClick);
         $('.second').click(handleSecondClick);
         $('.tumbler').click(handleTumblerClick);
+        axios.get("http://localhost:5000/admin//allTours").then((res)=>{
+            console.log(res.data.data)
+            setTours(res.data.data)
+        })
     }, []);
 
     return (
@@ -226,302 +244,24 @@ function Tours() {
                 <div className={style["container"]}>
                     <h2>List View</h2>
                     <div className={style["list__view__cards"]}>
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
-
-                        <div className={style["tour__card"]}>
-                            <div className={style["tour__trip__image__buttons"]}>
-                                <img src={TourCardImage} alt="" className={style["tour__card-img"]} />
-                                <div className={style["tour__card__buttons"]}>
-                                    <button className={style["tour__public__btn"]}>Public</button>
-                                    <button className={style["tour__live__now__btn"]}>Live Now</button>
-                                </div>
-                            </div>
-                            <div className={style["tour__card__content"]}>
-                                <div className={style["tour__card__rate"]}>
-                                    <div className={style["card__rate__icons"]}>
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                    </div>
-                                    <span>(5.0)</span>
-                                </div>
-                                <h4>Discovering the Mysteries of the Pyramid of Giza Tour</h4>
-                                <p>Cairo, Egypt
-                                </p></div>
-                        </div>
+                        {currentTours.map((item)=>{
+                            return <Card key={item._id} data={item} />
+                        })}
+                        
                     </div>
-                    <ul className={style["tours__paginator"]}>
-                        <li className={style["paginator__active"]}><a>1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li className={style["paginator__next"]}><a href="#"><i className="fa-solid fa-chevron-right" style={{ color: '#ffffff' }} /></a></li>
-                        <li><a href="#"><i className="fa-solid fa-angles-right" style={{ color: '#325186' }} /></a></li>
-                    </ul>
+                     {/* Pagination */}
+                     <div className={style["pagination"]}>
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                className={currentPage === index + 1 ? style["active"] : ""}
+                                onClick={() => handlePageChange(index + 1)}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                    
                 </div>
             </section>
 

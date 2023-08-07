@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './TourDetails.module.css'
 import Vector from '../../assets/Vector.svg'
 import Vector1 from '../../assets/Vector (1).svg'
@@ -31,10 +31,50 @@ import frame115 from "../../assets/Frame 115.png"
 import image13 from "../../assets/image 13.png"
 import image14 from "../../assets/image 14.png"
 import image31 from '../../assets/image 3 (1).png'
+import { useLocation } from 'react-router-dom';
+import axios from 'axios'
+import Card  from '../Card/Card';
 function TourDetails() {
+  
     const [lang , setLang] = useState("english")
     const [tap,setTap] = useState("about")
     const [menu,setMenu] = useState(false)
+    const [tour,setTour] = useState()
+    const [publicTours,setPublicTours] = useState()
+    const [vip,setVip] = useState()
+    const location = useLocation();
+    useEffect(()=>
+    {
+      console.log(location.state)
+      axios.get("http://localhost:5000/user/oneTour",{id:location.state}).then((res)=>{
+        console.log(res.data)
+        setTour(res.data)
+      })
+
+      axios.get("http://localhost:5000/user/public").then((res)=>{
+        console.log(res.data)
+        setPublicTours(res.data)
+      })
+
+      axios.get("http://localhost:5000/user/vip").then((res)=>{
+        console.log(res.data)
+        setVip(res.data)
+      })
+    },[])
+
+    const fullStars = Math.floor(tour?.avgRate || 0);
+    const hasHalfStar = (tour?.avgRate || 0) - fullStars >= 0.5;
+
+    // Generate an array of stars based on the calculated values
+    const starIcons = Array.from({ length: 5 }, (_, index) => {
+        if (index < fullStars) {
+            return <i key={index} className="fa-solid fa-star" style={{ color: '#fe2629' }} />;
+        } else if (hasHalfStar && index === fullStars) {
+            return <i key={index} className="fa-solid fa-star-half" style={{ color: '#fe2629' }} />;
+        } else {
+            return <i key={index} className="fa-regular fa-star" style={{ color: '#fe2629' }} />;
+        }
+    });
   return (
     <div>
       <nav>
@@ -128,20 +168,22 @@ function TourDetails() {
           <div className={style["container"]}>
             <div className={style["hero__content"]}>
               <div className={style["overlay"]}/>
-              <img src={frame27} />
+              <img src={`http://localhost:5000/${tour?.img[0]}`} />
               <div className={style["hero__icons"]}>
                 <img src={vecto2} />
                 <img src={vectorStroke} />
               </div>
               <div className={style["hero__text"]}>
-                <h2>Discovering the Mysteries of the Pyramid of Giza Tour</h2>
+                <h2>{tour?.title}</h2>
                 <div className={style["stars"]}>
+                  {starIcons}
+                  {/* <img src={star} />
+
                   <img src={star} />
                   <img src={star} />
                   <img src={star} />
-                  <img src={star} />
-                  <img src={star} />
-                  <h5>(5.0)</h5>
+                  <img src={star} /> */}
+                  <h5>({(tour?.avgRate.toFixed(1))})</h5>
                 </div>
               </div>
             </div>
@@ -174,407 +216,132 @@ function TourDetails() {
                     <>
                     <div className={style["main-content"]}>
                   <div className={style["btns"]}>
-                    <a><img src={icon} /> Cairo, Egypt</a>
-                    <a><img src={icon1} /> 2 Hours</a>
-                    <a><img src={UK} /> English</a>
+                    <a><img src={icon} /> {tour?.address}</a>
+                    <a><img src={icon1} /> {tour?.hours} hours</a>
+                    {
+                      tour?.arabicTourGuide &&
                     <a><img src={LR} /> Arabic</a>
+                    }
+                    {
+                      tour?.englishTourGuide &&
+                      <a><img src={UK} /> English</a>
+                    }
+                    {
+                      tour?.italianTourGuide &&
+                      <a><img src={UK} /> Italian</a>
+                    }
                   </div>
-                  <p>Come join us as we take a ride through the desert around the Giza platue, taking in the last of the seven wonders of the world.</p>
+                  <p>{tour?.description?tour?.description:"there's no description for this tour"}</p>
+                  {/* <p>Come join us as we take a ride through the desert around the Giza platue, taking in the last of the seven wonders of the world.</p>
                   <p>We will get up close to the great pyramids as I take you back to the time of the builder and the pharaohs who commissioned them.</p>
-                  <p>We will start off by taking a look the great sphinx before mounting our camel and riding up the giant causeway making our way round the great pyramids out to one of the most iconic views on earth!</p>
+                  <p>We will start off by taking a look the great sphinx before mounting our camel and riding up the giant causeway making our way round the great pyramids out to one of the most iconic views on earth!</p> */}
                   <div className={style["tags"]}>
-                    <a>Egypt</a>
+                    {/* <a>Egypt</a>
                     <a>Pyramids</a>
                     <a>Giza</a>
                     <a>History</a>
                     <a>Educational</a>
-                    <a>Tourism</a>
+                    <a>Tourism</a> */}
+                    {tour?.tags && tour?.tags.map((tag, index) => (
+                    <a key={index}>{tag}</a>
+                    ))}
                   </div>
                   <div className={style["media"]}>
-                    <img src={frame111} />
+                  <img src={`http://localhost:5000/${tour?.img[1]}`} />
                   </div>
                   </div>
                   </>
                   }
-                  {
-                    tap == "reviews" &&
-                    <>
-                    <div className={style["main-content"]}>
-                    <div className={style["review"]}>
-          <h3>John Carter</h3>
+                  {tap === "reviews" && (
+  <div className={style["main-content"]}>
+    {tour?.reviews.length > 0 ? (
+      tour.reviews.slice(0,6).map((review, index) => (
+        
+        <div className={style["review"]} key={index}>
+          <h3>{review.book.user.name}</h3>
           <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h6>(5.0)</h6>
-          </div>
-          <p>“Lorem ipsum dolor sit amet conse ctetur adipiscing lectus a nunc mauris scelerisque sed egestas pharetraol quis pharetra arcu pharetra blandit.”</p>
-          <h5>23 May 2023</h5>
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
+                    <span
+                      key={starIndex}
+                      className={starIndex <= review.rate ? "fas fa-star" : "far fa-star"}
+                      style={{ color: starIndex <= review.rate ? "gold" : "grey" }}
+                    ></span>
+                  ))}
+                  <h6>({review.rate})</h6>
+                </div>
+          <p>{review.comment}</p>
         </div>
-        <div className={style["review"]}>
-          <h3>John Carter</h3>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h6>(5.0)</h6>
-          </div>
-          <p>“Lorem ipsum dolor sit amet conse ctetur adipiscing lectus a nunc mauris scelerisque sed egestas pharetraol quis pharetra arcu pharetra blandit.”</p>
-          <h5>23 May 2023</h5>
-        </div>
-        <div className={style["review"]}>
-          <h3>John Carter</h3>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h6>(5.0)</h6>
-          </div>
-          <p>“Lorem ipsum dolor sit amet conse ctetur adipiscing lectus a nunc mauris scelerisque sed egestas pharetraol quis pharetra arcu pharetra blandit.”</p>
-          <h5>23 May 2023</h5>
-        </div>
-        <a href="#">View More Reviews</a>
-        </div>
-                    </>
-                  }
+        
+      ))
+    ) : (
+      <p>there is no reviews for this tour</p>
+    )}
+    <a href="#">View More Reviews</a>
+  </div>
+)}
                   {
-                    tap == "instructions" &&
-                    <div className={style["main-content"]}>
-                    <h5>No Instructions for this tour</h5>
-                    </div>
-                  }
-                  {
-                    tap == "media" &&
-                    <>
-                    <div className={style["main-content"]}>
-                     <div className={style["main-image"]} >
-                      <img src={frame142} />
+  tap === "instructions" &&
+  (
+    <div className={style["main-content"]}>
+      {
+        tour?.instructions.length > 0 ?
+        tour.instructions.map((instruction, index) => (
+          <h5 key={index}>{instruction}</h5>
+        )) :
+        <h5>No Instructions for this tour</h5>
+      }
+    </div>
+  )
+}
+{
+  tap === "media" && (
+    <div className={style["main-content"]}>
+      {tour?.img.length > 0 ? (
+        <div className={style["main-image"]}>
+          <img src={`http://localhost:5000/${tour?.img[0]}`} alt="Main Tour Image" />
         </div>
+      ) : null}
+      {tour?.img.length > 1 && (
         <div className={style["other-media"]}>
-          <img src={image13} />
-          <img src={image14}/>
-          <img src={frame115} />
-          <img src={frame113} />
+          {tour?.img.slice(1).map((img, index) => (
+            <img key={index} src={`http://localhost:5000/${img}`} alt={`Tour Image ${index}`} />
+          ))}
         </div>
-        </div>
-                    </>
-                  }
+      )}
+      {tour?.img.length <= 1 && (
+        <h5>There's no additional media for this tour</h5>
+      )}
+    </div>
+  )
+}
+
+
                   {
                     tap === "similar" &&
+                    (
                     <>
                   <div className={style["main-conten"]}>
-                    <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
-        <div className={style["card"]}>
-          <div className={style["image"]}>
-            <img src={image31} />
-            <div className={style["btns"]}>
-              <a>Public</a>
-              <a>Live Now</a>
-            </div>
-          </div>
-          <div className={style["stars"]}>
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <img src={star} />
-            <h5>(5.0)</h5>
-          </div>
-          <h3>Discovering the Mysteries of the Pyramid of Giza Tour</h3>
-          <h5>Cairo, Egypt</h5>
-        </div>
+                    {
+                      tour?.category === "public" &&
+                      publicTours.slice(0,16).map((item)=>{
+                        return <Card key={item._id} data={item} />
+                    })
+                    }
+                    {
+                      tour?.category === "vip" &&
+                      vip.slice(0,16).map((item)=>{
+                        return <Card key={item._id} data={item} />
+                    })
+                    }
+                    
+       
+        
+        
+       
+        
         </div>
                     </>
+                    )
 
                   }
                   </div>
@@ -584,10 +351,58 @@ function TourDetails() {
                 <>
               <div className={style["details__book"]}>
                 <form>
-                  <label>Select Date</label>
-                  <input type="date" />
-                  <label>Select Time</label>
-                  <input step={1800} type="time" ng-model="endTime" pattern="[0-9]*" defaultValue="04:00" />
+                  {/* <label>Select Date</label> */}
+                  {/* <input type="date" /> */}
+                  {/* <label>Select Time</label> */}
+                  {/* <input step={1800} type="time" ng-model="endTime" pattern="[0-9]*" defaultValue="04:00" /> */}
+                  <label>Select Gust Number</label>
+                  <div className={style["select"]}>
+                    <select>
+                      <option value={1}>1 Gusts</option>
+                      <option value={2}>2 Gusts</option>
+                      <option value={4}>4 Gusts</option>
+                      <option value={5}>5 Gusts</option>
+                      <option value={6}>6 Gusts</option>
+                      <option value={7}>7 Gusts</option>
+                      <option value={8}>8 Gusts</option>
+                      <option value={9}>9 Gusts</option>
+                      <option value={10}>10 Gusts</option>
+                      <option value={11}>11 Gusts</option>
+                      <option value={12}>12 Gusts</option>
+                      <option value={13}>13 Gusts</option>
+                      <option value={14}>14 Gusts</option>
+                      <option value={15}>15 Gusts</option>
+                      <option value={16}>16 Gusts</option>
+                      <option value={17}>17 Gusts</option>
+                      <option value={18}>18 Gusts</option>
+                      <option value={19}>19 Gusts</option>
+                      <option value={20}>20 Gusts</option>
+                    </select>
+                  </div>
+                  <label>Select Gust Number</label>
+                  <div className={style["select"]}>
+                    <select>
+                      <option value={1}>1 Gusts</option>
+                      <option value={2}>2 Gusts</option>
+                      <option value={4}>4 Gusts</option>
+                      <option value={5}>5 Gusts</option>
+                      <option value={6}>6 Gusts</option>
+                      <option value={7}>7 Gusts</option>
+                      <option value={8}>8 Gusts</option>
+                      <option value={9}>9 Gusts</option>
+                      <option value={10}>10 Gusts</option>
+                      <option value={11}>11 Gusts</option>
+                      <option value={12}>12 Gusts</option>
+                      <option value={13}>13 Gusts</option>
+                      <option value={14}>14 Gusts</option>
+                      <option value={15}>15 Gusts</option>
+                      <option value={16}>16 Gusts</option>
+                      <option value={17}>17 Gusts</option>
+                      <option value={18}>18 Gusts</option>
+                      <option value={19}>19 Gusts</option>
+                      <option value={20}>20 Gusts</option>
+                    </select>
+                  </div>
                   <label>Select Gust Number</label>
                   <div className={style["select"]}>
                     <select>

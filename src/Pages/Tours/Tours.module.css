@@ -806,32 +806,29 @@ nav .menu i{
     text-align: left;
   }
   
-  .tours__paginator{
+  .pagination button.active {
+    background-color: #fe2629;
+    color: white;
+  }
+  .pagination {
     display: flex;
-    flex-direction: row;
-    gap:25px;
     justify-content: center;
-    align-items: center;
     margin-top: 20px;
   }
   
-  .tours__paginator li a{
-    font-size:20px;
-    background-color:#FFFFFF;
-    border-radius: 16px;
-    padding: 8px 15px;
-    color:#325186;
+  .pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
   }
   
-  .tours__paginator li.paginator__active a {
-    background-color:#FFFFFF52;
-    color: black;
+  .pagination button:hover {
+    background-color: #fe2629;
+    color: white;
   }
-  
-  .tours__paginator li.paginator__next a {
-    background: linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%);
-  }
-
   footer{
     background-color: rgba(6, 12, 19, 1);
     padding: 50px 0;

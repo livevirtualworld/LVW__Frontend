@@ -36,6 +36,7 @@ import 'react-multi-carousel/lib/styles.css';
 import LiveToursCard from './LiveToursCard'
 import PopularToursCard from './PopularToursCards'
 import ReviewCard from './ReviewCard'
+import { NavLink } from 'react-router-dom';
 
 
 function Home() {
@@ -67,7 +68,6 @@ function Home() {
             items: 1
         }
     };
-
 
 
     return (
@@ -161,7 +161,7 @@ function Home() {
                             <p>Lorem ipsum dolor sit amet consectetur adipiscing eli mattis sit phasellus mollis sit aliquam sit
                                 nullam neque ultrices.</p>
                             <div className={style["hero__banner__buttons"]}>
-                                <button className={style["find__tour__btn"]}>Find A Tour</button>
+                                <NavLink to={"/tours"}><button className={style["find__tour__btn"]}>Find A Tour</button></NavLink>
                                 <button className={style["join__us__btn"]}>Work With Us</button>
                             </div>
                         </div>
