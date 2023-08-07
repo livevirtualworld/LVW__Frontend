@@ -305,6 +305,7 @@ function UserProfile() {
                     {/* <p>Hi, I'm Sophie, a passionate virtual tour guide with extensive experience in providing immersive and engaging virtual tours. </p>
                   <p>Originally from the UK I moved out to Egypt 24yrs ago falling in love with the history and the culture I have never looked back!</p>
                   <p>I have a deep love for history, culture, and travel, and I enjoy sharing my knowledge with people from all around the world. My goal is to transport you to fascinating destinations and make you feel like you're right there, experiencing the sights, sounds, and stories.</p> */}
+                    <h4>Description</h4>
                     {userData?.description ? (
                       <p>{userData.description}</p>
                     ) : (
