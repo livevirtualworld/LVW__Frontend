@@ -5,7 +5,6 @@ import Vector1 from '../../assets/Vector (1).svg'
 import logo from '../../assets/logo.png'
 import United_Kingdom from '../../assets/United Kingdom (GB).png'
 import egypt from "../../assets/Egypt (EG).png"
-import frame27 from '../../assets/Frame 27.png'
 import logo1 from "../../assets/logo (1).png"
 import facebook from "../../assets/Facebook.svg"
 import twitter from "../../assets/Twitter.svg"
@@ -15,22 +14,11 @@ import instagram from "../../assets/Instagram.svg"
 import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import vecto2 from '../../assets/Vector (2).svg'
-import star from '../../assets/Star Icon.svg'
 import vectorStroke from '../../assets/Vector (Stroke).svg'
 import icon from "../../assets/icons.svg"
 import UK from '../../assets/United Kingdom (GB).svg'
 import LR from '../../assets/Line Rounded.svg'
 import icon1 from '../../assets/icons (1).svg'
-import frame111 from "../../assets/Frame 111.png"
-import avatar from '../../assets/avatar.png'
-import image2 from '../../assets/02.png'
-import image21 from '../../assets/02 (1).png'
-import frame142 from "../../assets/Frame 142.png"
-import frame113 from "../../assets/Frame 113.png"
-import frame115 from "../../assets/Frame 115.png"
-import image13 from "../../assets/image 13.png"
-import image14 from "../../assets/image 14.png"
-import image31 from '../../assets/image 3 (1).png'
 import { useLocation } from 'react-router-dom';
 import axios from 'axios'
 import Card  from '../Card/Card';
@@ -42,13 +30,41 @@ function TourDetails() {
     const [tour,setTour] = useState()
     const [publicTours,setPublicTours] = useState()
     const [vip,setVip] = useState()
+    const [hour,setHour] = useState([])
+    const [language,setLanguage] = useState([])
+    const [bookedNumber,setBookedNumber] = useState()
+    const [bookedLang,setBookedLang] = useState()
+    const [bookedHours,setBookedHours] = useState()
     const location = useLocation();
+
+    function hours(number) {
+      const updatedHours = [];
+      for (let i = number; i > 0; i--) {
+        updatedHours.push(i);
+      }
+      setHour(updatedHours);
+    }
+    function languages(data){
+      let updatedLanguages = []
+      if(data.arabicTourGuide){
+        updatedLanguages.push("Arabic")
+      }
+      if(data.englishTourGuide){
+        updatedLanguages.push("English")
+      }
+      if(data.italianTourGuide){
+        updatedLanguages.push("Italian")
+      }
+      setLanguage(updatedLanguages)
+    }
     useEffect(()=>
     {
       console.log(location.state)
       axios.get("http://localhost:5000/user/oneTour",{id:location.state}).then((res)=>{
         console.log(res.data)
         setTour(res.data)
+        hours(res.data.hours)
+        languages(res.data)
       })
 
       axios.get("http://localhost:5000/user/public").then((res)=>{
@@ -60,8 +76,8 @@ function TourDetails() {
         console.log(res.data)
         setVip(res.data)
       })
-    },[])
-
+    },[location.state])
+    
     const fullStars = Math.floor(tour?.avgRate || 0);
     const hasHalfStar = (tour?.avgRate || 0) - fullStars >= 0.5;
 
@@ -355,57 +371,40 @@ function TourDetails() {
                   {/* <input type="date" /> */}
                   {/* <label>Select Time</label> */}
                   {/* <input step={1800} type="time" ng-model="endTime" pattern="[0-9]*" defaultValue="04:00" /> */}
-                  <label>Select Gust Number</label>
+                  <label>Select Language</label>
                   <div className={style["select"]}>
-                    <select>
-                      <option value={1}>1 Gusts</option>
-                      <option value={2}>2 Gusts</option>
-                      <option value={4}>4 Gusts</option>
-                      <option value={5}>5 Gusts</option>
-                      <option value={6}>6 Gusts</option>
-                      <option value={7}>7 Gusts</option>
-                      <option value={8}>8 Gusts</option>
-                      <option value={9}>9 Gusts</option>
-                      <option value={10}>10 Gusts</option>
-                      <option value={11}>11 Gusts</option>
-                      <option value={12}>12 Gusts</option>
-                      <option value={13}>13 Gusts</option>
-                      <option value={14}>14 Gusts</option>
-                      <option value={15}>15 Gusts</option>
-                      <option value={16}>16 Gusts</option>
-                      <option value={17}>17 Gusts</option>
-                      <option value={18}>18 Gusts</option>
-                      <option value={19}>19 Gusts</option>
-                      <option value={20}>20 Gusts</option>
+                    <select onChange={(e)=>{
+                      setBookedLang(e.target.value)
+                      console.log(e.target.value)
+                    }} defaultValue={0}>
+                    <option disabled value={0}>select Language</option>
+                      {language.map((l)=>{
+                        return <option value={l} key={l}>{l}</option>
+                      })}
                     </select>
+                  </div>
+                  <label>hours</label>
+                  <div className={style["select"]}>
+                  <select onChange={(e)=>{
+                    setBookedHours(e.target.value)
+                    console.log(e.target.value)
+                  }} defaultValue={0}>
+  <option value={0} disabled>Select hours</option>
+  {[...hour].reverse().map((h) => (
+    <option key={h} value={h}>
+      {h}
+    </option>
+  ))}
+</select>
+
                   </div>
                   <label>Select Gust Number</label>
                   <div className={style["select"]}>
-                    <select>
-                      <option value={1}>1 Gusts</option>
-                      <option value={2}>2 Gusts</option>
-                      <option value={4}>4 Gusts</option>
-                      <option value={5}>5 Gusts</option>
-                      <option value={6}>6 Gusts</option>
-                      <option value={7}>7 Gusts</option>
-                      <option value={8}>8 Gusts</option>
-                      <option value={9}>9 Gusts</option>
-                      <option value={10}>10 Gusts</option>
-                      <option value={11}>11 Gusts</option>
-                      <option value={12}>12 Gusts</option>
-                      <option value={13}>13 Gusts</option>
-                      <option value={14}>14 Gusts</option>
-                      <option value={15}>15 Gusts</option>
-                      <option value={16}>16 Gusts</option>
-                      <option value={17}>17 Gusts</option>
-                      <option value={18}>18 Gusts</option>
-                      <option value={19}>19 Gusts</option>
-                      <option value={20}>20 Gusts</option>
-                    </select>
-                  </div>
-                  <label>Select Gust Number</label>
-                  <div className={style["select"]}>
-                    <select>
+                    <select onChange={(e)=>{
+                      setBookedNumber(e.target.value)
+                      console.log(e.target.value)
+                    }} defaultValue={0}>
+                      <option disabled value={0}>select Number of Guists</option>
                       <option value={1}>1 Gusts</option>
                       <option value={2}>2 Gusts</option>
                       <option value={4}>4 Gusts</option>
@@ -428,34 +427,106 @@ function TourDetails() {
                     </select>
                   </div>
                   <div className={style["price"]}>
+
                     <h4>Total</h4>
-                    <h4>200$</h4>
+                    <h4>{bookedHours&&bookedNumber? bookedHours * bookedNumber * tour?.price:
+                    bookedHours&&!bookedNumber?tour?.price*bookedHours:!bookedHours&&bookedNumber?
+                    tour?.price*bookedNumber:tour?.price}$</h4>
                   </div>
-                  <button type="submit">Book Now</button>
+                  <button onClick={(e)=>{
+                    e.preventDefault()
+                    axios.post("http://localhost:5000/user/bookTour",{
+                      user:JSON.parse(localStorage.getItem("id")),
+                      tour:tour._id,
+                      hours:bookedHours,
+                      language:bookedLang,
+                      num:bookedNumber,
+                      price:bookedHours * bookedNumber * tour?.price
+                    })
+                  }} type="submit">Book Now</button>
                 </form>
                 <div className={style["by"]}>
-                  <h4>This tour by</h4>
+                      {
+                        bookedLang === "Arabic" &&
+                        <>
+                        <h4>This tour by</h4>
                   <div className={style["person"]}>
-                    <img src={avatar} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicTourGuide.img}`} alt="avatar" />
                     <div className={style["text"]}>
-                      <h3>Sophie Smith</h3>
+                      <h3>{tour?.arabicTourGuide.name}</h3>
                       <h5>Tour Guide</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={image2} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicCameraOperator.img}`} alt="avatar" />
                     <div className={style["text"]}>
-                      <h3>Mia Sabchez</h3>
+                      <h3>{tour?.arabicCameraOperator.name}</h3>
                       <h5>Camera Operator</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={image21} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicDirector.img}`} alt="avatar" />
                     <div className={style["text"]}>
-                      <h3>Afraz Explores</h3>
+                      <h3>{tour?.arabicDirector.name}</h3>
                       <h5>Director</h5>
                     </div>
                   </div>
+                  </>
+                      }
+                      {
+                        bookedLang === "English" &&
+                        <>
+                        <h4>This tour by</h4>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.englishTourGuide.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.englishTourGuide.name}</h3>
+                      <h5>Tour Guide</h5>
+                    </div>
+                  </div>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.englishCameraOperator.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.englishCameraOperator.name}</h3>
+                      <h5>Camera Operator</h5>
+                    </div>
+                  </div>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.englishDirector.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.englishDirector.name}</h3>
+                      <h5>Director</h5>
+                    </div>
+                  </div>
+                  </>
+                      }
+                      {
+                        bookedLang === "Italian" &&
+                        <>
+                        <h4>This tour by</h4>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.italianTourGuide.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.italianTourGuide.name}</h3>
+                      <h5>Tour Guide</h5>
+                    </div>
+                  </div>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.italianCameraOperator.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.italianCameraOperator.name}</h3>
+                      <h5>Camera Operator</h5>
+                    </div>
+                  </div>
+                  <div className={style["person"]}>
+                    <img src={`http://localhost:5000/${tour?.italianDirector.img}`} alt="avatar" />
+                    <div className={style["text"]}>
+                      <h3>{tour?.italianDirector.name}</h3>
+                      <h5>Director</h5>
+                    </div>
+                  </div>
+                  </>
+                      }
                 </div>
               </div>
                 </>
