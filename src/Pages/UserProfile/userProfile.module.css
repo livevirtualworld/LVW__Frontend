@@ -261,6 +261,7 @@ nav .menu i{
     font-weight: 400;
     color: rgba(6, 12, 19, 0.6);
     line-height: 24px;
+    margin-bottom: 15px;
 }
 .profile-main-content__info .text p:nth-of-type(3),.profile-main-content__info .text p:nth-of-type(5),.profile-main-content__info .text p:nth-of-type(7){
     margin-bottom: 30px;
@@ -269,7 +270,6 @@ nav .menu i{
     font-size: 18px;
     font-weight: 700;
     color: rgba(6, 12, 19, 0.87);
-    margin-bottom: 18px;
 }
 .profile-main-content__info .text h5{
     font-size: 18px;

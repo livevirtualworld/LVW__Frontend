@@ -449,13 +449,13 @@ function TourDetails() {
                       <h5>Camera Operator</h5>
                     </div>
                   </div>
-                  <div className={style["person"]}>
+                  {/* <div className={style["person"]}>
                     <img src={image21} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>Afraz Explores</h3>
                       <h5>Director</h5>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
                 </>
