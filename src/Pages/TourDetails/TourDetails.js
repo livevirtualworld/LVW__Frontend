@@ -527,6 +527,7 @@ function TourDetails() {
                   </div>
                   </>
                       }
+                  </div> */}
                 </div>
               </div>
                 </>

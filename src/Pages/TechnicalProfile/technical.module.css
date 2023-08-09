@@ -297,6 +297,7 @@ nav .menu i{
 }
 .languages .langs a{
     width: 48%;
+    margin-bottom: 10px;
     background-color: rgba(240, 237, 247, 1);
     height: 60px;
     text-align: center;

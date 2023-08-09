@@ -329,7 +329,7 @@ function UserProfile() {
                     <p>City Explorers Company</p>
                     <p>(2016 - 2018)</p> */}
                     {userData?.address ? (
-                      <p>{userData.address}</p>
+                      <p>{userData?.city},{userData?.address}</p>
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have address yet!</p>
                     )}
