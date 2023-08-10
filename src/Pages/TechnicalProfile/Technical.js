@@ -21,6 +21,7 @@ import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import axios from 'axios';
 import Modalstyle from './EditModal.module.css';
+import Card  from '../Card/Card';
 
 function TechnicalProfile() {
   //TechnicalData
@@ -125,6 +126,44 @@ function TechnicalProfile() {
 
   // Function to handle selecting a language
   const handleLanguageSelect = (language) => {
+    axios.put("http://localhost:5000/technical/addLang",{
+      lang:language,
+      id:JSON.parse(localStorage.getItem("id"))
+    }).then((res)=>{
+      if (JSON.parse(technicalRole) === "tourGuide") {
+        console.log(typeof technicalRole)
+        console.log("this is tech role", technicalRole)
+        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Tour Guide data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "cameraOperator") {
+        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Camera Operator data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "director") {
+        console.log(typeof technicalRole)
+        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Director data:", error);
+          });
+      }
+    })
     setSelectedLanguages([...selectedLanguages, language]);
     console.log(selectedLanguages)
 
@@ -299,7 +338,52 @@ function TechnicalProfile() {
 
                       <div className={Modalstyle['modal__actions']}>
                         <button onClick={() => setShowEditModal(false)}>Cancel</button>
-                        <button onClick={updateTechnicalData}>Save Changes</button>
+                        <button onClick={()=>{
+                          axios.put("http://localhost:5000/technical/editnfo",{
+                            role:JSON.parse(localStorage.getItem("role")),
+                            id:JSON.parse(localStorage.getItem("id")),
+                            name:editName,
+                            phone:editPhone,
+                            description:editDescription,
+                            address:editAddress,
+                            city:editCity
+                          }).then((res)=>{
+                            setShowEditModal(false)
+                            if (JSON.parse(technicalRole) === "tourGuide") {
+                              console.log(typeof technicalRole)
+                              console.log("this is tech role", technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Tour Guide data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "cameraOperator") {
+                              axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Camera Operator data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "director") {
+                              console.log(typeof technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Director data:", error);
+                                });
+                            }
+                          })
+                        }}>Save Changes</button>
                       </div>
                     </div>
                   </div>
@@ -365,10 +449,10 @@ function TechnicalProfile() {
                 {
                   tap == "tours" &&
                   <>
-                    {technicalData?.tours.length > 0 ? (
-                      technicalData.tours.map((tour) => (
-                        <p key={tour._id}>{tour.title}</p> // Assuming the tour object has a title field
-                      ))
+                    {technicalData&&technicalData?.tours.length > 0 ? (
+                      technicalData?.tours.map((item)=>{
+                        return <Card key={item._id} data={item} />
+                    })
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
                     )}
@@ -377,41 +461,65 @@ function TechnicalProfile() {
               </div>
             </div>
             <div className={style["languages"]}>
-              <h3>Languages</h3>
-              {displayLanguageSelect && (
-                <select
-                  value=""
-                  onChange={(e) => handleLanguageSelect(e.target.value)}
-                >
-                  <option value="" disabled>Select a language</option>
-                  <option value="english">English</option>
-                  <option value="arabic">Arabic</option>
-                  <option value="italian">Italian</option>
-                </select>
-              )}
+  <h3>Languages</h3>
+  {technicalData && technicalData?.languages?.length === 0 && (
+    <select
+      value=""
+      onChange={(e) => handleLanguageSelect(e.target.value)}
+    >
+      <option value="" disabled>Select a language</option>
+      <option value="english">English</option>
+      <option value="arabic">Arabic</option>
+      <option value="italian">Italian</option>
+    </select>
+  )}
+  {technicalData && technicalData?.languages?.length > 0 && technicalData?.languages?.length < 3 && (
+    <>
+    <div className={style["langs"]}>
+      {technicalData?.languages.map((language) => (
+        <a href="#" key={language}>
+          {language === 'english' && <img src={rounded} alt='' />}
+          {language === 'arabic' && <img src={egypt1} alt='' />}
+          {language === 'italian' && <img src={Italy} alt='' />}
+          {language.charAt(0).toUpperCase() + language.slice(1)}
+        </a>
+      ))}
+      </div>
+      <select
+        value=""
+        onChange={(e) => handleLanguageSelect(e.target.value)}
+      >
+        <option value="" disabled>Select a language</option>
+        <option value="english">English</option>
+        <option value="arabic">Arabic</option>
+        <option value="italian">Italian</option>
+      </select>
+    </>
+  )}
+  {technicalData?.languages?.length === 3 && (
+    <div className={style["langs"]}>
+      {technicalData?.languages.map((language) => (
+        <a href="#" key={language}>
+          {language === 'english' && <img src={rounded} alt='' />}
+          {language === 'arabic' && <img src={egypt1} alt='' />}
+          {language === 'italian' && <img src={Italy} alt='' />}
+          {language.charAt(0).toUpperCase() + language.slice(1)}
+        </a>
+      ))}
+    </div>
+  )}
+  {technicalData?.address && (
+    <>
+      <h3>Address</h3>
+      <a href="#">
+        <img src={group66} alt='' />
+        {technicalData?.city}, {technicalData?.address}
+      </a>
+    </>
+  )}
+  <p>Joined since {formatDate(technicalData?.joinedAt)}</p>
+</div>
 
-              {!displayLanguageSelect && (
-                <div className={style["langs"]}>
-                  {selectedLanguages.map((language) => (
-                    <a href="#" key={language}>
-                      {language === 'english' && <img src={rounded} alt='' />}
-                      {language === 'arabic' && <img src={egypt1} alt='' />}
-                      {language === 'italian' && <img src={Italy} alt='' />}
-                      {language.charAt(0).toUpperCase() + language.slice(1)}
-                    </a>
-                  ))}
-                </div>
-              )}
-              {technicalData?.address && <>
-              <h3>Address</h3>
-              <a href="#">
-                <img src={group66} alt='' />
-                {technicalData?.city}, {technicalData?.address}
-              </a>
-                </>
-              }
-              <p>Joined since {formatDate(technicalData?.joinedAt)}</p>
-            </div>
           </div>
         </div>
       </div>
