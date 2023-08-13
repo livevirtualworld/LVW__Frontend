@@ -29,7 +29,7 @@ function Card(props) {
          to={`/tourDetails`} state={props.data._id}
         >
                             <div className={style["tour__trip__image__buttons"]}>
-                                <img src={props.data.img.length>0?`http://localhost:5000/${props.data.img&&props.data.img[0]}`:TourCardImage} alt="" className={style["tour__card-img"]} />
+                                <img src={props.data.img?.length>0?`http://localhost:5000/${props.data.img&&props.data.img[0]}`:TourCardImage} alt="" className={style["tour__card-img"]} />
                                 <div className={style["tour__card__buttons"]}>
                                     <button className={style["tour__public__btn"]}>{props.data.category&&props.data.category}</button>
                                     <button className={style["tour__live__now__btn"]}>Live Now</button>

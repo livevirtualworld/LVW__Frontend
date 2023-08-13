@@ -181,24 +181,44 @@ nav .menu i{
     color: rgba(6, 12, 19, 0.6);
 }
 .profile__content > img{
-    height: 254px;
+    height: 430px;
     width: 100%;
+}
+.profile__content>i {
+    position: absolute;
+    top: 145px;
+    right: 175px;
+    font-size: 25px;
+    background-color: rgba(255, 255, 255, 0.271);
+    padding: 10px;
+    border-radius: 20px;
 }
 .profile__info{
     position: relative;
 }
-.profile__info img{
+.profile__info>i{
+    position: absolute;
+    bottom: 90px;
+    left: 165px;
+    font-size: 25px;
+    background-color: rgba(255, 255, 255, 0.271);
+    padding: 10px;
+    border-radius: 20px;
+}
+.profile__info__image{
     position: absolute;
     border-radius: 50%;
     border: 6px solid white;
-    top: -90px;
-    left: 30px;
+    top: -93px;
+    left: 37px;
+    width: 172px;
+    height: 172px;
 }
 .profile__text{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 200px;
+    margin-left: 220px;
     margin-top: 15px;
 }
 
@@ -227,11 +247,46 @@ nav .menu i{
 }
 .profile-main-content{
     padding: 50px 0;
+    /* margin-top: 26px; */
 }
 .profile-main-content__content{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+.edit__icon{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.edit__icon > i{
+    font-size: 20px;
+}
+.education__edit__inputs{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+.education__edit__inputs > input{
+    margin-right: 30px;
+    width: 40%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.education__section > button{
+    background: rgba(54, 109, 175, 1);
+    color: white;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 .profile-main-content__info{
     width: 64%;
@@ -254,6 +309,9 @@ nav .menu i{
     margin-top: 10px;
     padding: 20px;
     border-radius: 12px;
+    position: relative;
+    /* display: flex;
+    flex-wrap: wrap; */
 }
 .profile-main-content__info .text p{
     font-size: 16px;

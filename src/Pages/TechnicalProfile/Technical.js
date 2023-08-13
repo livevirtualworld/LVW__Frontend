@@ -21,7 +21,9 @@ import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import axios from 'axios';
 import Modalstyle from './EditModal.module.css';
-import Card  from '../Card/Card';
+import Card from '../Card/Card';
+import CoverModalStyle from './CoverModal.module.css';
+import ProfileModalStyle from './ProfileModal.module.css'
 
 function TechnicalProfile() {
   //TechnicalData
@@ -47,10 +49,10 @@ function TechnicalProfile() {
   //to show updated data immediately
   const [updateTechnicalData, setUpdateTechnicalData] = useState(technicalData)
 
-  const [degree, setDegree] = useState("");
+  const [faculty, setFaculty] = useState("");
   const [university, setUniversity] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [graduationDate, setGraduationDate] = useState("");
+  const [startYear, setStartYear] = useState("");
+  const [graduateYear, setGraduateYear] = useState("");
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -118,7 +120,7 @@ function TechnicalProfile() {
 
   console.log("Technical Data:", technicalData);
 
-  const hasAllInformation = technicalData.degree && technicalData.university && technicalData.startYear && technicalData.graduateYear;
+  const hasAllInformation = technicalData?.faculty && technicalData?.university && technicalData?.startYear && technicalData?.graduateYear;
 
   // Add state for selected languages and whether to display the select menu
   const [selectedLanguages, setSelectedLanguages] = useState([]);
@@ -126,10 +128,10 @@ function TechnicalProfile() {
 
   // Function to handle selecting a language
   const handleLanguageSelect = (language) => {
-    axios.put("http://localhost:5000/technical/addLang",{
-      lang:language,
-      id:JSON.parse(localStorage.getItem("id"))
-    }).then((res)=>{
+    axios.put("http://localhost:5000/technical/addLang", {
+      lang: language,
+      id: JSON.parse(localStorage.getItem("id"))
+    }).then((res) => {
       if (JSON.parse(technicalRole) === "tourGuide") {
         console.log(typeof technicalRole)
         console.log("this is tech role", technicalRole)
@@ -171,6 +173,153 @@ function TechnicalProfile() {
     if (selectedLanguages.length === 2) {
       setDisplayLanguageSelect(false);
     }
+  };
+
+  //edit cover Image
+
+  const [showCoverModal, setShowCoverModal] = useState(false);
+
+  const [selectedCoverImage, setSelectedCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState('');
+
+  const handleCoverImageSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedCoverImage(file);
+      setCoverImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleCoverImageSaveChanges = () => {
+
+    if (!selectedCoverImage) {
+      console.error("No cover image selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("coverImg", selectedCoverImage);
+    formData.append("role", JSON.parse(technicalRole))
+    formData.append("id", JSON.parse(technicalId))
+
+    console.log("Selected cover image:", selectedCoverImage);
+    console.log("FormData object:", formData);
+
+    axios.put("http://localhost:5000/technical/editCoverImage", formData).then((response) => {
+      console.log("Cover image updated successfully:", response.data);
+      setShowCoverModal(false)
+      if (JSON.parse(technicalRole) === "tourGuide") {
+        console.log("this is tech role", technicalRole)
+        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Tour Guide data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "cameraOperator") {
+        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Camera Operator data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "director") {
+        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Director data:", error);
+          });
+      }
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
+
+  //edit Profile Image
+
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  const [selectedProfileImage, setSelectedProfileImage] = useState(null);
+  const [profileImagePreview, setProfileImagePreview] = useState('');
+
+  const handleProfileImageSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedProfileImage(file);
+      setProfileImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleProfileImageSaveChanges = () => {
+
+    if (!selectedProfileImage) {
+      console.error("No cover image selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("img", selectedProfileImage);
+    formData.append("role", JSON.parse(technicalRole))
+    formData.append("id", JSON.parse(technicalId))
+
+    console.log("Selected cover image:", selectedProfileImage);
+    console.log("FormData object:", formData);
+
+    axios.put("http://localhost:5000/technical/editImage", formData).then((response) => {
+      console.log("Cover image updated successfully:", response.data);
+      setShowProfileModal(false)
+      if (JSON.parse(technicalRole) === "tourGuide") {
+        console.log("this is tech role", technicalRole)
+        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Tour Guide data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "cameraOperator") {
+        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Camera Operator data:", error);
+          });
+      }
+      if (JSON.parse(technicalRole) === "director") {
+        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+          .then((res) => {
+            console.log(res.data);
+            setTechnicalData(res.data.data);
+          })
+          .catch((error) => {
+            console.error("Error fetching Director data:", error);
+          });
+      }
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [showEditIcon, setShowEditIcon] = useState(true);
+
+  const handleEditClick = () => {
+    console.log("test icon")
+    setIsEditing(true);
+    console.log(isEditing)
   };
 
   return (
@@ -265,10 +414,79 @@ function TechnicalProfile() {
       <div className={style["profile"]}>
         <div className={style["container"]}>
           <div className={style["profile__content"]}>
-            <img src={frame27} alt='' />
+            <i
+              className="fa-solid fa-plus"
+              style={{ color: '#000000', cursor: 'pointer' }}
+              onClick={() => setShowCoverModal(true)}
+            ></i>
+            {showCoverModal && (
+              <div className={CoverModalStyle['cover-modal__overlay']}>
+                <div className={CoverModalStyle['cover-modal__content']}>
+                  <div className={CoverModalStyle['covermodal__header']}>
+                    <h2>Edit Cover Image</h2>
+                  </div>
+                  <div className={CoverModalStyle['covermodal__input']}>
+                    <input
+                      type="file"
+                      id="img"
+                      name="img"
+                      onChange={handleCoverImageSelection}
+                    />
+                    {coverImagePreview && (
+                      <img
+                        src={coverImagePreview}
+                        alt="Selected Cover"
+                        className={CoverModalStyle['cover-preview']}
+                      />
+                    )}
+                    <div className={CoverModalStyle['covermodal__actions']}>
+                      <button onClick={() => setShowCoverModal(false)}>Cancel</button>
+                      <button onClick={() => handleCoverImageSaveChanges()}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <img src={`http://localhost:5000/${technicalData?.coverImg}`} alt='' />
           </div>
           <div className={style["profile__info"]}>
-            <img src={image1} alt='' />
+            <img className={style['profile__info__image']} src={`http://localhost:5000/${technicalData?.img}`} alt='' />
+            <i
+              className="fa-solid fa-plus"
+              style={{ color: '#000000', cursor: 'pointer' }}
+              onClick={() => setShowProfileModal(true)}
+            ></i>
+            {showProfileModal && (
+              <div className={ProfileModalStyle['profile-modal__overlay']}>
+                <div className={ProfileModalStyle['profile-modal__content']}>
+                  <div className={ProfileModalStyle['profilemodal__header']}>
+                    <h2>Edit Profile Image</h2>
+                  </div>
+                  <div className={ProfileModalStyle['profilemodal__input']}>
+                    <input
+                      type="file"
+                      id="img"
+                      name="img"
+                      onChange={handleProfileImageSelection}
+                    />
+                    {profileImagePreview && (
+                      <img
+                        src={profileImagePreview}
+                        alt="Selected Image"
+                        className={ProfileModalStyle['profile-preview-modal']}
+                      // style={{marginTop: '10px',
+                      //   width: '100%',
+                      //   maxHeight: '350px'}}
+                      />
+                    )}
+                    <div className={ProfileModalStyle['profilemodal__actions']}>
+                      <button onClick={() => setShowProfileModal(false)}>Cancel</button>
+                      <button onClick={() => handleProfileImageSaveChanges()}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className={style["profile__text"]}>
               <div>
                 <h3>{technicalData?.name}</h3>
@@ -338,16 +556,16 @@ function TechnicalProfile() {
 
                       <div className={Modalstyle['modal__actions']}>
                         <button onClick={() => setShowEditModal(false)}>Cancel</button>
-                        <button onClick={()=>{
-                          axios.put("http://localhost:5000/technical/editnfo",{
-                            role:JSON.parse(localStorage.getItem("role")),
-                            id:JSON.parse(localStorage.getItem("id")),
-                            name:editName,
-                            phone:editPhone,
-                            description:editDescription,
-                            address:editAddress,
-                            city:editCity
-                          }).then((res)=>{
+                        <button onClick={() => {
+                          axios.put("http://localhost:5000/technical/editnfo", {
+                            role: JSON.parse(localStorage.getItem("role")),
+                            id: JSON.parse(localStorage.getItem("id")),
+                            name: editName,
+                            phone: editPhone,
+                            description: editDescription,
+                            address: editAddress,
+                            city: editCity
+                          }).then((res) => {
                             setShowEditModal(false)
                             if (JSON.parse(technicalRole) === "tourGuide") {
                               console.log(typeof technicalRole)
@@ -418,16 +636,100 @@ function TechnicalProfile() {
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have description yet!</p>
                     )}
+
                     <h4>Education</h4>
                     {!hasAllInformation ? (
-                      <p style={{ margin: "10px 0" }}>You don't have Education Data yet!</p>
+                      <div className={style['education__section']}>
+
+                        {isEditing ? (
+                          <>
+                            <div className={style['education__edit__inputs']}>
+                              <input type="text" placeholder="University"
+                                value={university}
+                                onChange={(e) => setUniversity(e.target.value)}
+                              />
+                              <input type="text" placeholder="Faculty"
+                                value={faculty}
+                                onChange={(e) => setFaculty(e.target.value)}
+                              />
+                            </div>
+                            <div className={style['education__edit__inputs']}>
+                              <input type="text" placeholder="Start Year"
+                                value={startYear}
+                                onChange={(e) => setStartYear(e.target.value)}
+                              />
+                              <input type="text" placeholder="Graduate Year"
+                                value={graduateYear}
+                                onChange={(e) => setGraduateYear(e.target.value)}
+                              />
+                            </div>
+                            <button onClick={() => {
+                              console.log("ffffffffffffff")
+                              axios.put("http://localhost:5000/technical/addEducation", {
+                                role: JSON.parse(localStorage.getItem("role")),
+                                id: JSON.parse(localStorage.getItem("id")),
+                                university: university,
+                                faculty: faculty,
+                                startYear: startYear,
+                                graduateYear: graduateYear
+                              }).then((res) => {
+                                console.log(res)
+                                setShowEditIcon(true);
+                                if (JSON.parse(technicalRole) === "tourGuide") {
+                                  console.log(typeof technicalRole)
+                                  console.log("this is tech role", technicalRole)
+                                  axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                    .then((res) => {
+                                      console.log(res.data);
+                                      setTechnicalData(res.data.data);
+                                    })
+                                    .catch((error) => {
+                                      console.error("Error fetching Tour Guide data:", error);
+                                    });
+                                }
+                                if (JSON.parse(technicalRole) === "cameraOperator") {
+                                  axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                    .then((res) => {
+                                      console.log(res.data);
+                                      setTechnicalData(res.data.data);
+                                    })
+                                    .catch((error) => {
+                                      console.error("Error fetching Camera Operator data:", error);
+                                    });
+                                }
+                                if (JSON.parse(technicalRole) === "director") {
+                                  console.log(typeof technicalRole)
+                                  axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                    .then((res) => {
+                                      console.log(res.data);
+                                      setTechnicalData(res.data.data);
+                                    })
+                                    .catch((error) => {
+                                      console.error("Error fetching Director data:", error);
+                                    });
+                                }
+                              })
+                            }}>Save</button>
+                          </>
+                        ) : (
+                          <div className={style['edit__icon']}>
+                            <p style={{ margin: "10px 0" }}>You don't have Education Data yet!</p>
+                          </div>
+                        )}
+                      </div>
                     ) : (
                       <div>
-                        <h5>{technicalData?.degree}</h5>
-                        <p>{technicalData?.university}</p>
+                        <h5>{technicalData?.university}</h5>
+                        <p>{technicalData?.faculty}</p>
                         <p>({technicalData?.startYear} - {technicalData?.graduateYear})</p>
                       </div>
                     )}
+                    {
+                      showEditIcon && <i className="fa-solid fa-pen-to-square" style={{ color: "#a9aaad", cursor: "pointer", 
+                      position: 'absolute', top: '46%', right: '3%' }}
+                      onClick={handleEditClick}></i>
+                    }
+                    
                     {technicalData && technicalData?.position && technicalData?.company && technicalData?.startDate && technicalData?.endDate ? (
                       <div>
                         <h4>Experiences</h4>
@@ -449,10 +751,10 @@ function TechnicalProfile() {
                 {
                   tap == "tours" &&
                   <>
-                    {technicalData&&technicalData?.tours.length > 0 ? (
-                      technicalData?.tours.map((item)=>{
+                    {technicalData && technicalData?.tours.length > 0 ? (
+                      technicalData?.tours.map((item) => {
                         return <Card key={item._id} data={item} />
-                    })
+                      })
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
                     )}
@@ -461,64 +763,64 @@ function TechnicalProfile() {
               </div>
             </div>
             <div className={style["languages"]}>
-  <h3>Languages</h3>
-  {technicalData && technicalData?.languages?.length === 0 && (
-    <select
-      value=""
-      onChange={(e) => handleLanguageSelect(e.target.value)}
-    >
-      <option value="" disabled>Select a language</option>
-      <option value="english">English</option>
-      <option value="arabic">Arabic</option>
-      <option value="italian">Italian</option>
-    </select>
-  )}
-  {technicalData && technicalData?.languages?.length > 0 && technicalData?.languages?.length < 3 && (
-    <>
-    <div className={style["langs"]}>
-      {technicalData?.languages.map((language) => (
-        <a href="#" key={language}>
-          {language === 'english' && <img src={rounded} alt='' />}
-          {language === 'arabic' && <img src={egypt1} alt='' />}
-          {language === 'italian' && <img src={Italy} alt='' />}
-          {language.charAt(0).toUpperCase() + language.slice(1)}
-        </a>
-      ))}
-      </div>
-      <select
-        value=""
-        onChange={(e) => handleLanguageSelect(e.target.value)}
-      >
-        <option value="" disabled>Select a language</option>
-        <option value="english">English</option>
-        <option value="arabic">Arabic</option>
-        <option value="italian">Italian</option>
-      </select>
-    </>
-  )}
-  {technicalData?.languages?.length === 3 && (
-    <div className={style["langs"]}>
-      {technicalData?.languages.map((language) => (
-        <a href="#" key={language}>
-          {language === 'english' && <img src={rounded} alt='' />}
-          {language === 'arabic' && <img src={egypt1} alt='' />}
-          {language === 'italian' && <img src={Italy} alt='' />}
-          {language.charAt(0).toUpperCase() + language.slice(1)}
-        </a>
-      ))}
-    </div>
-  )}
-  {technicalData?.address && (
-    <>
-      <h3>Address</h3>
-      <a href="#">
-        <img src={group66} alt='' />
-        {technicalData?.city}, {technicalData?.address}
-      </a>
-    </>
-  )}
-  <p>Joined since {formatDate(technicalData?.joinedAt)}</p>
-</div>
+              <h3>Languages</h3>
+              {technicalData && technicalData?.languages?.length === 0 && (
+                <select
+                  value=""
+                  onChange={(e) => handleLanguageSelect(e.target.value)}
+                >
+                  <option value="" disabled>Select a language</option>
+                  <option value="english">English</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="italian">Italian</option>
+                </select>
+              )}
+              {technicalData && technicalData?.languages?.length > 0 && technicalData?.languages?.length < 3 && (
+                <>
+                  <div className={style["langs"]}>
+                    {technicalData?.languages.map((language) => (
+                      <a href="#" key={language}>
+                        {language === 'english' && <img src={rounded} alt='' />}
+                        {language === 'arabic' && <img src={egypt1} alt='' />}
+                        {language === 'italian' && <img src={Italy} alt='' />}
+                        {language.charAt(0).toUpperCase() + language.slice(1)}
+                      </a>
+                    ))}
+                  </div>
+                  <select
+                    value=""
+                    onChange={(e) => handleLanguageSelect(e.target.value)}
+                  >
+                    <option value="" disabled>Select a language</option>
+                    <option value="english">English</option>
+                    <option value="arabic">Arabic</option>
+                    <option value="italian">Italian</option>
+                  </select>
+                </>
+              )}
+              {technicalData?.languages?.length === 3 && (
+                <div className={style["langs"]}>
+                  {technicalData?.languages.map((language) => (
+                    <a href="#" key={language}>
+                      {language === 'english' && <img src={rounded} alt='' />}
+                      {language === 'arabic' && <img src={egypt1} alt='' />}
+                      {language === 'italian' && <img src={Italy} alt='' />}
+                      {language.charAt(0).toUpperCase() + language.slice(1)}
+                    </a>
+                  ))}
+                </div>
+              )}
+              {technicalData?.address && (
+                <>
+                  <h3>Address</h3>
+                  <a href="#">
+                    <img src={group66} alt='' />
+                    {technicalData?.city}, {technicalData?.address}
+                  </a>
+                </>
+              )}
+              <p>Joined since {formatDate(technicalData?.joinedAt)}</p>
+            </div>
 
           </div>
         </div>
