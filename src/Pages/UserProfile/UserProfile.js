@@ -21,6 +21,8 @@ import frame98 from '../../assets/Frame 39498.png'
 import axios from 'axios';
 // import Select from 'react-select';
 import Modalstyle from './EditModal.module.css';
+import UserCoverModalStyle from './UserCoverModal.module.css'
+import UserProfileModalStyle from './UserProfileModal.module.css'
 
 function UserProfile() {
   //UserData
@@ -86,10 +88,10 @@ function UserProfile() {
   };
 
   const updateUserProfile = () => {
-    console.log(editName,userId,editDescription,editPhone,editAddress,editCity)
+    console.log(editName, userId, editDescription, editPhone, editAddress, editCity)
     axios.put(`http://localhost:5000/user/editInfo`, {
       name: editName,
-      id:userId,
+      id: userId,
       description: editDescription,
       phone: editPhone,
       address: editAddress,
@@ -100,15 +102,109 @@ function UserProfile() {
         console.log("User data updated successfully:", res.data);
         setShowEditModal(false);
         axios.post("http://localhost:5000/user/getOneUser", { id: userId })
-      .then((res) => {
-        console.log(res.data);
-        setUserData(res.data.data);
-      })
+          .then((res) => {
+            console.log(res.data);
+            setUserData(res.data.data);
+          })
       })
       .catch((error) => {
         console.error("Error updating user data:", error);
       });
-   };
+  };
+
+  //edit cover Image
+
+  const [showCoverModal, setShowCoverModal] = useState(false);
+
+  const [selectedCoverImage, setSelectedCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState('');
+
+  const handleCoverImageSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedCoverImage(file);
+      setCoverImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleCoverImageSaveChanges = () => {
+
+    if (!selectedCoverImage) {
+      console.error("No cover image selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("coverImg", selectedCoverImage);
+    formData.append("id", JSON.parse(userId))
+
+    console.log("Selected cover image:", selectedCoverImage);
+    console.log("FormData object:", formData);
+
+    axios.put("http://localhost:5000/user/editCoverImage", formData).then((response) => {
+      console.log("Cover image updated successfully:", response.data);
+      setShowCoverModal(false)
+      axios.post("http://localhost:5000/user/getOneUser", { id: userId })
+        .then((res) => {
+          console.log(res.data);
+          setUserData(res.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
+
+  //edit Profile Image
+
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  const [selectedProfileImage, setSelectedProfileImage] = useState(null);
+  const [profileImagePreview, setProfileImagePreview] = useState('');
+
+  const handleProfileImageSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedProfileImage(file);
+      setProfileImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleProfileImageSaveChanges = () => {
+
+    if (!selectedProfileImage) {
+      console.error("No cover image selected.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("img", selectedProfileImage);
+    formData.append("id", JSON.parse(userId))
+
+    console.log("Selected cover image:", selectedProfileImage);
+    console.log("FormData object:", formData);
+
+    axios.put("http://localhost:5000/user/editImage", formData).then((response) => {
+      console.log("Cover image updated successfully:", response.data);
+      setShowProfileModal(false)
+
+      axios.post("http://localhost:5000/user/getOneUser", { id: userId })
+        .then((res) => {
+          console.log(res.data);
+          setUserData(res.data.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+      
+      
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
 
 
 
@@ -204,14 +300,83 @@ function UserProfile() {
       <div className={style["profile"]}>
         <div className={style["container"]}>
           <div className={style["profile__content"]}>
+            <i
+              className="fa-solid fa-plus"
+              style={{ color: '#000000', cursor: 'pointer' }}
+              onClick={() => setShowCoverModal(true)}
+            ></i>
+            {showCoverModal && (
+              <div className={UserCoverModalStyle['usercover-modal__overlay']}>
+                <div className={UserCoverModalStyle['usercover-modal__content']}>
+                  <div className={UserCoverModalStyle['usercovermodal__header']}>
+                    <h2>Edit Cover Image</h2>
+                  </div>
+                  <div className={UserCoverModalStyle['usercovermodal__input']}>
+                    <input
+                      type="file"
+                      id="img"
+                      name="img"
+                      onChange={handleCoverImageSelection}
+                    />
+                    {coverImagePreview && (
+                      <img
+                        src={coverImagePreview}
+                        alt="Selected Cover"
+                        className={UserCoverModalStyle['usercover-preview']}
+                      />
+                    )}
+                    <div className={UserCoverModalStyle['usercovermodal__actions']}>
+                      <button onClick={() => setShowCoverModal(false)}>Cancel</button>
+                      <button onClick={() => handleCoverImageSaveChanges()}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <img src={`http://localhost:5000/${userData.coverImg}`} alt='' />
           </div>
           <div className={style["profile__info"]}>
-            <img src={`http://localhost:5000/${userData.img}`} alt='' />
+            <img className={style['profile__info__image']} src={`http://localhost:5000/${userData.img}`} alt='' />
+            <i
+              className="fa-solid fa-plus"
+              style={{ color: '#000000', cursor: 'pointer' }}
+            onClick={() => setShowProfileModal(true)}
+            ></i>
+            {showProfileModal && (
+              <div className={UserProfileModalStyle['userprofile-modal__overlay']}>
+                <div className={UserProfileModalStyle['userprofile-modal__content']}>
+                  <div className={UserProfileModalStyle['userprofilemodal__header']}>
+                    <h2>Edit Profile Image</h2>
+                  </div>
+                  <div className={UserProfileModalStyle['userprofilemodal__input']}>
+                    <input
+                      type="file"
+                      id="img"
+                      name="img"
+                      onChange={handleProfileImageSelection}
+                    />
+                    {profileImagePreview && (
+                      <img
+                        src={profileImagePreview}
+                        alt="Selected Image"
+                        className={UserProfileModalStyle['userprofile-preview-modal']}
+                      // style={{marginTop: '10px',
+                      //   width: '100%',
+                      //   maxHeight: '350px'}}
+                      />
+                    )}
+                    <div className={UserProfileModalStyle['userprofilemodal__actions']}>
+                      <button onClick={() => setShowProfileModal(false)}>Cancel</button>
+                      <button onClick={() => handleProfileImageSaveChanges()}>Save Changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className={style["profile__text"]}>
               <div>
                 <h3>{userData?.name}</h3>
-                <h4>{userRole}</h4>
+                {userRole === 'user' && <h4>User</h4>}
               </div>
               <div className={style['edit__button']}>
                 <a href="#" onClick={() => setShowEditModal(true)}>Edit Profile</a>
