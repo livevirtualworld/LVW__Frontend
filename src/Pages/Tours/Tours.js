@@ -31,9 +31,9 @@ function Tours() {
     const itemsPerPage = 8; // You can adjust the number of items per page
     const lastIndex = currentPage * itemsPerPage;
     const firstIndex = lastIndex - itemsPerPage;
-    const currentTours = tours.slice(firstIndex, lastIndex);
+    const currentTours = tours?.slice(firstIndex, lastIndex);
 
-    const totalPages = Math.ceil(tours.length / itemsPerPage);
+    const totalPages = Math.ceil(tours?.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -244,7 +244,7 @@ function Tours() {
                 <div className={style["container"]}>
                     <h2>List View</h2>
                     <div className={style["list__view__cards"]}>
-                        {currentTours.map((item)=>{
+                        {currentTours?.map((item)=>{
                             return <Card key={item._id} data={item} />
                         })}
                         

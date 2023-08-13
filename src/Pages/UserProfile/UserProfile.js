@@ -65,6 +65,9 @@ function UserProfile() {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
+      axios.get("http://localhost:5000/user/getBooks",{id:userId}).then((res)=>{
+        console.log(res)
+      })
   }, []);
 
   useEffect(() => {

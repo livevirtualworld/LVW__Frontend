@@ -76,6 +76,7 @@ function TourDetails() {
         console.log(res.data)
         setVip(res.data)
       })
+      
     },[location.state])
     
     const fullStars = Math.floor(tour?.avgRate || 0);
@@ -199,7 +200,7 @@ function TourDetails() {
                   <img src={star} />
                   <img src={star} />
                   <img src={star} /> */}
-                  <h5>({(tour?.avgRate.toFixed(1))})</h5>
+                  <h5>({(tour?.avgRate?.toFixed(1))})</h5>
                 </div>
               </div>
             </div>
