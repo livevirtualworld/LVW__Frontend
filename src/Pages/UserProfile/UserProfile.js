@@ -45,8 +45,6 @@ function UserProfile() {
   const [data, setData] = useState([]);
   const [country, setCountry] = useState([]);
   const [city, setCity] = useState([]);
-  //to show updated data immediately
-  const [updateUserData, setUpdateUserData] = useState(userData)
 
 
   const formatDate = (dateString) => {
