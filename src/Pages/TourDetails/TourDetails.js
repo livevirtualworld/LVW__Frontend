@@ -60,7 +60,7 @@ function TourDetails() {
     useEffect(()=>
     {
       console.log(location.state)
-      axios.get("http://localhost:5000/user/oneTour",{id:location.state}).then((res)=>{
+      axios.get("http://localhost:5000/user/oneTour",{params:{id:location.state}}).then((res)=>{
         console.log(res.data)
         setTour(res.data)
         hours(res.data.hours)
@@ -184,8 +184,10 @@ function TourDetails() {
         <div className={style["hero"]}>
           <div className={style["container"]}>
             <div className={style["hero__content"]}>
-              <div className={style["overlay"]}/>
+              <div className={style["overlay"]}/>{
+                tour?.img?.length>0 && 
               <img src={`http://localhost:5000/${tour?.img[0]}`} />
+              }
               <div className={style["hero__icons"]}>
                 <img src={vecto2} />
                 <img src={vectorStroke} />
@@ -263,8 +265,10 @@ function TourDetails() {
                     <a key={index}>{tag}</a>
                     ))}
                   </div>
-                  <div className={style["media"]}>
+                  <div className={style["media"]}>{
+                    tour?.img?.length>0 &&
                   <img src={`http://localhost:5000/${tour?.img[1]}`} />
+                  }
                   </div>
                   </div>
                   </>
@@ -452,21 +456,21 @@ function TourDetails() {
                         <>
                         <h4>This tour by</h4>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.arabicTourGuide.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.arabicTourGuide.name}</h3>
                       <h5>Tour Guide</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.arabicCameraOperator.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.arabicCameraOperator.name}</h3>
                       <h5>Camera Operator</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.arabicDirector.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.arabicDirector?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.arabicDirector.name}</h3>
                       <h5>Director</h5>
@@ -479,21 +483,21 @@ function TourDetails() {
                         <>
                         <h4>This tour by</h4>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.englishTourGuide.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.englishTourGuide.name}</h3>
                       <h5>Tour Guide</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.englishCameraOperator.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.englishCameraOperator.name}</h3>
                       <h5>Camera Operator</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.englishDirector.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.englishDirector?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.englishDirector.name}</h3>
                       <h5>Director</h5>
@@ -506,21 +510,21 @@ function TourDetails() {
                         <>
                         <h4>This tour by</h4>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.italianTourGuide.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.italianTourGuide.name}</h3>
                       <h5>Tour Guide</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.italianCameraOperator.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.italianCameraOperator.name}</h3>
                       <h5>Camera Operator</h5>
                     </div>
                   </div>
                   <div className={style["person"]}>
-                    <img src={`http://localhost:5000/${tour?.italianDirector.img}`} alt="avatar" />
+                    <img src={`http://localhost:5000/${tour?.italianDirector?.img}`} alt="avatar" />
                     <div className={style["text"]}>
                       <h3>{tour?.italianDirector.name}</h3>
                       <h5>Director</h5>

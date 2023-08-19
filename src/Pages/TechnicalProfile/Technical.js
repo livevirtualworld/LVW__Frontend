@@ -318,7 +318,13 @@ function TechnicalProfile() {
 
   const handleEditClick = () => {
     console.log("test icon")
-    setIsEditing(true);
+    if (isEditing) {
+      setIsEditing(false)
+    }
+    else {
+
+      setIsEditing(true);
+    }
     console.log(isEditing)
   };
 
@@ -633,12 +639,100 @@ function TechnicalProfile() {
                     <h4>Description</h4>
                     {technicalData?.description ? (
                       <p>{technicalData.description}</p>
-                    ) : (
+                    ) :
                       <p style={{ margin: "10px 0" }}>You don't have description yet!</p>
-                    )}
+                    }
 
                     <h4>Education</h4>
-                    {!hasAllInformation ? (
+                    {
+                      !hasAllInformation ?
+                        <div className={style['edit__icon']}>
+                          {
+                            !isEditing &&
+                            <p style={{ margin: "10px 0" }}>You don't have Education Data yet!</p>
+                          }
+                        </div>
+                        :
+                        <div>
+                          <h5>{technicalData?.university}</h5>
+                          <p>{technicalData?.faculty}</p>
+                          <p>({technicalData?.startYear} - {technicalData?.graduateYear})</p>
+                        </div>
+                    }
+                    {
+                      isEditing &&
+                      <>
+                        <div className={style['education__edit__inputs']}>
+                          <input type="text" placeholder="University"
+                            value={university}
+                            onChange={(e) => setUniversity(e.target.value)}
+                          />
+                          <input type="text" placeholder="Faculty"
+                            value={faculty}
+                            onChange={(e) => setFaculty(e.target.value)}
+                          />
+                        </div>
+                        <div className={style['education__edit__inputs']}>
+                          <input type="text" placeholder="Start Year"
+                            value={startYear}
+                            onChange={(e) => setStartYear(e.target.value)}
+                          />
+                          <input type="text" placeholder="Graduate Year"
+                            value={graduateYear}
+                            onChange={(e) => setGraduateYear(e.target.value)}
+                          />
+                        </div>
+                        <button className={style['button']} onClick={() => {
+                          console.log("ffffffffffffff")
+                          axios.put("http://localhost:5000/technical/addEducation", {
+                            role: JSON.parse(localStorage.getItem("role")),
+                            id: JSON.parse(localStorage.getItem("id")),
+                            university: university,
+                            faculty: faculty,
+                            startYear: startYear,
+                            graduateYear: graduateYear
+                          }).then((res) => {
+                            setIsEditing(false)
+                            console.log(res)
+                            setShowEditIcon(true);
+                            if (JSON.parse(technicalRole) === "tourGuide") {
+                              console.log(typeof technicalRole)
+                              console.log("this is tech role", technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Tour Guide data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "cameraOperator") {
+                              axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Camera Operator data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "director") {
+                              console.log(typeof technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Director data:", error);
+                                });
+                            }
+                          })
+                        }}>Save</button>
+                      </>
+                    }
+                    {/* {!hasAllInformation ? (
                       <div className={style['education__section']}>
 
                         {isEditing ? (
@@ -724,12 +818,15 @@ function TechnicalProfile() {
                         <p>({technicalData?.startYear} - {technicalData?.graduateYear})</p>
                       </div>
                     )}
+                    { */}
                     {
-                      showEditIcon && <i className="fa-solid fa-pen-to-square" style={{ color: "#a9aaad", cursor: "pointer", 
-                      position: 'absolute', top: '46%', right: '3%' }}
-                      onClick={handleEditClick}></i>
+                      showEditIcon && <i className="fa-solid fa-pen-to-square" style={{
+                        color: "#a9aaad", cursor: "pointer",
+                        position: 'absolute', top: '46%', right: '3%'
+                      }}
+                        onClick={handleEditClick}></i>
                     }
-                    
+
                     {technicalData && technicalData?.position && technicalData?.company && technicalData?.startDate && technicalData?.endDate ? (
                       <div>
                         <h4>Experiences</h4>

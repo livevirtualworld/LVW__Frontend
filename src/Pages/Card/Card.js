@@ -21,7 +21,7 @@ function Card(props) {
     });
     useEffect(()=>
     {
-        console.log(props.data)
+        console.log(props.review)
     },[])
   return (
     <div className={style["tour__card"]}>
@@ -49,6 +49,10 @@ function Card(props) {
                                 </div>
                                 <h4>{props.data.description}</h4>
                                 <p>{props.data.address}
+                                {
+                                    props.review && 
+                                <h6>make review</h6>
+                                }
                                 </p></div>
                                 </NavLink>
                         </div>

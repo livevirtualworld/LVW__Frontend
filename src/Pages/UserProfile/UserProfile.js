@@ -23,6 +23,7 @@ import axios from 'axios';
 import Modalstyle from './EditModal.module.css';
 import UserCoverModalStyle from './UserCoverModal.module.css'
 import UserProfileModalStyle from './UserProfileModal.module.css'
+import Card  from '../Card/Card';
 
 function UserProfile() {
   //UserData
@@ -47,6 +48,7 @@ function UserProfile() {
   const [city, setCity] = useState([]);
   //to show updated data immediately
   const [updateUserData, setUpdateUserData] = useState(userData)
+  const [booked , setBooked] = useState([])
 
 
   const formatDate = (dateString) => {
@@ -67,9 +69,13 @@ function UserProfile() {
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
-      axios.get("http://localhost:5000/user/getBooks",{id:userId}).then((res)=>{
-        console.log(res)
-      })
+      axios.get("http://localhost:5000/user/getBooks", {
+  params: { id: localStorage.getItem("id") }
+})
+  .then((res)=>{
+    setBooked(res.data)
+  })
+
   }, []);
 
   useEffect(() => {
@@ -508,10 +514,10 @@ function UserProfile() {
                 {
                   tap == "tours" &&
                   <>
-                    {userData?.tours.length > 0 ? (
-                      userData.tours.map((tour) => (
-                        <p key={tour._id}>{tour.title}</p> // Assuming the tour object has a title field
-                      ))
+                    {booked?.length > 0 ? (
+                      booked.map((book) => {
+                      return <Card key={book._id} data={book.tour} review={true} /> // Assuming the tour object has a title field
+})
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
                     )}
