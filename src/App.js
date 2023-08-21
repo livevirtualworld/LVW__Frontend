@@ -17,6 +17,7 @@ function App() {
       <Route element={<TechnicalProfile />} path="/TechnicalProfile" />
       <Route element={<UserProfile />} path="/UserProfile" />
       <Route element={<TourDetails />} path="/TourDetails" />
+      <Route element={<TourDetails />} path="/TourDetails/:num" />
       <Route element={<Tours />} path="/Tours" />
       <Route element={<Login />} path="/Login" />
     </Routes>

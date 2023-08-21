@@ -22,6 +22,8 @@ import icon1 from '../../assets/icons (1).svg'
 import { json, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import Card from '../Card/Card';
+import { useParams } from 'react-router-dom';
+
 function TourDetails() {
 
   const [lang, setLang] = useState("english")
@@ -36,6 +38,9 @@ function TourDetails() {
   const [bookedLang, setBookedLang] = useState()
   const [bookedHours, setBookedHours] = useState()
   const location = useLocation();
+
+  const { num } = useParams();
+
 
   function hours(number) {
     const updatedHours = [];
@@ -59,18 +64,30 @@ function TourDetails() {
   }
     useEffect(()=>
     {
+
       console.log(location.state)
+      console.log(num)
+      if(location.state){
       axios.get("http://localhost:5000/user/oneTour",{params:{id:location.state}}).then((res)=>{
         console.log(res.data)
         setTour(res.data)
         hours(res.data.hours)
         languages(res.data)
       })
-
+    }else if(num){
+      axios.get("http://localhost:5000/user/oneTour",{params:{id:num}}).then((res)=>{
+        console.log(res.data)
+        setTour(res.data)
+        hours(res.data.hours)
+        languages(res.data)
+      })
+    }
+    
     axios.get("http://localhost:5000/user/public").then((res) => {
       console.log(res.data)
       setPublicTours(res.data)
     })
+  
 
     axios.get("http://localhost:5000/user/vip").then((res) => {
       console.log(res.data)
@@ -338,7 +355,7 @@ function TourDetails() {
                     })
                     }
                     {
-                      tour?.category === "vip" &&
+                      tour?.category === "VIP" &&
                       vip.slice(0,16).map((item)=>{
                         return <Card key={item._id} data={item} />
                     })
@@ -526,276 +543,14 @@ function TourDetails() {
               </div>
                 </>
               }
-              {tap === "reviews" && (
-                <div className={style["main-content"]}>
-                  {tour?.reviews.length > 0 ? (
-                    tour.reviews.slice(0, 6).map((review, index) => (
-
-                      <div className={style["review"]} key={index}>
-                        <h3>{review.book.user.name}</h3>
-                        <div className={style["stars"]}>
-                          {[1, 2, 3, 4, 5].map((starIndex) => (
-                            <span
-                              key={starIndex}
-                              className={starIndex <= review.rate ? "fas fa-star" : "far fa-star"}
-                              style={{ color: starIndex <= review.rate ? "gold" : "grey" }}
-                            ></span>
-                          ))}
-                          <h6>({review.rate})</h6>
-                        </div>
-                        <p>{review.comment}</p>
-                      </div>
-
-                    ))
-                  ) : (
-                    <p>there is no reviews for this tour</p>
-                  )}
-                  <a href="#">View More Reviews</a>
-                </div>
-              )}
-              {
-                tap === "instructions" &&
-                (
-                  <div className={style["main-content"]}>
-                    {
-                      tour?.instructions.length > 0 ?
-                        tour.instructions.map((instruction, index) => (
-                          <h5 key={index}>{instruction}</h5>
-                        )) :
-                        <h5>No Instructions for this tour</h5>
-                    }
-                  </div>
-                )
-              }
-              {
-                tap === "media" && (
-                  <div className={style["main-content"]}>
-                    {tour?.img.length > 0 ? (
-                      <div className={style["main-image"]}>
-                        <img src={`http://localhost:5000/${tour?.img[0]}`} alt="Main Tour Image" />
-                      </div>
-                    ) : null}
-                    {tour?.img.length > 1 && (
-                      <div className={style["other-media"]}>
-                        {tour?.img.slice(1).map((img, index) => (
-                          <img key={index} src={`http://localhost:5000/${img}`} alt={`Tour Image ${index}`} />
-                        ))}
-                      </div>
-                    )}
-                    {tour?.img.length <= 1 && (
-                      <h5>There's no additional media for this tour</h5>
-                    )}
-                  </div>
-                )
-              }
+              
+                
+          
 
 
-              {
-                tap === "similar" &&
-                (
-                  <>
-                    <div className={style["main-conten"]}>
-                      {
-                        tour?.category === "public" &&
-                        publicTours
-                          .filter((item) => item._id !== tour?._id) // Assuming currentTourId holds the ID of the tour you want to remove
-                          .slice(0, 16)
-                          .map((item) => {
-                            return <Card key={item._id} data={item} />;
-                          })
-                      }
-                      {
-                        tour?.category === "vip" &&
-                        publicTours
-                          .filter((item) => item._id !== tour?._id) // Assuming currentTourId holds the ID of the tour you want to remove
-                          .slice(0, 16)
-                          .map((item) => {
-                            return <Card key={item._id} data={item} />;
-                          })
-                      }
-
-
-
-
-
-
-                    </div>
-                  </>
-                )
-
-              }
+              
             </div>
 
-            {
-              tap != "similar" &&
-              <>
-                <div className={style["details__book"]}>
-                  <form>
-                    {/* <label>Select Date</label> */}
-                    {/* <input type="date" /> */}
-                    {/* <label>Select Time</label> */}
-                    {/* <input step={1800} type="time" ng-model="endTime" pattern="[0-9]*" defaultValue="04:00" /> */}
-                    <label>Select Language</label>
-                    <div className={style["select"]}>
-                      <select onChange={(e) => {
-                        setBookedLang(e.target.value)
-                        console.log(e.target.value)
-                      }} defaultValue={0}>
-                        <option disabled value={0}>select Language</option>
-                        {language.map((l) => {
-                          return <option value={l} key={l}>{l}</option>
-                        })}
-                      </select>
-                    </div>
-                    <label>hours</label>
-                    <div className={style["select"]}>
-                      <select onChange={(e) => {
-                        setBookedHours(e.target.value)
-                        console.log(e.target.value)
-                      }} defaultValue={0}>
-                        <option value={0} disabled>Select hours</option>
-                        {[...hour].reverse().map((h) => (
-                          <option key={h} value={h}>
-                            {h}
-                          </option>
-                        ))}
-                      </select>
-
-                    </div>
-                    <label>Select Gust Number</label>
-                    <div className={style["select"]}>
-                      <select onChange={(e) => {
-                        setBookedNumber(e.target.value)
-                        console.log(e.target.value)
-                      }} defaultValue={0}>
-                        <option disabled value={0}>select Number of Guists</option>
-                        <option value={1}>1 Gusts</option>
-                        <option value={2}>2 Gusts</option>
-                        <option value={4}>4 Gusts</option>
-                        <option value={5}>5 Gusts</option>
-                        <option value={6}>6 Gusts</option>
-                        <option value={7}>7 Gusts</option>
-                        <option value={8}>8 Gusts</option>
-                        <option value={9}>9 Gusts</option>
-                        <option value={10}>10 Gusts</option>
-                        <option value={11}>11 Gusts</option>
-                        <option value={12}>12 Gusts</option>
-                        <option value={13}>13 Gusts</option>
-                        <option value={14}>14 Gusts</option>
-                        <option value={15}>15 Gusts</option>
-                        <option value={16}>16 Gusts</option>
-                        <option value={17}>17 Gusts</option>
-                        <option value={18}>18 Gusts</option>
-                        <option value={19}>19 Gusts</option>
-                        <option value={20}>20 Gusts</option>
-                      </select>
-                    </div>
-                    <div className={style["price"]}>
-
-                      <h4>Total</h4>
-                      <h4>{bookedHours && bookedNumber ? bookedHours * bookedNumber * tour?.price :
-                        bookedHours && !bookedNumber ? tour?.price * bookedHours : !bookedHours && bookedNumber ?
-                          tour?.price * bookedNumber : tour?.price}$</h4>
-                    </div>
-                    <button onClick={(e) => {
-                      e.preventDefault()
-                      axios.post("http://localhost:5000/user/bookTour", {
-                        user: JSON.parse(localStorage.getItem("id")),
-                        tour: tour._id,
-                        hours: bookedHours,
-                        language: bookedLang,
-                        num: bookedNumber,
-                        price: bookedHours * bookedNumber * tour?.price
-                      })
-                    }} type="submit">Book Now</button>
-                  </form>
-                  <div className={style["by"]}>
-                    {
-                      bookedLang === "Arabic" &&
-                      <>
-                        <h4>This tour by</h4>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicTourGuide.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicCameraOperator.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicDirector.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicDirector.name}</h3>
-                            <h5>Director</h5>
-                          </div>
-                        </div>
-                      </>
-                    }
-                    {
-                      bookedLang === "English" &&
-                      <>
-                        <h4>This tour by</h4>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishTourGuide.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishCameraOperator.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishDirector.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishDirector.name}</h3>
-                            <h5>Director</h5>
-                          </div>
-                        </div>
-                      </>
-                    }
-                    {
-                      bookedLang === "Italian" &&
-                      <>
-                        <h4>This tour by</h4>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianTourGuide.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianCameraOperator.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
-                          </div>
-                        </div>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianDirector.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianDirector.name}</h3>
-                            <h5>Director</h5>
-                          </div>
-                        </div>
-                      </>
-                    }
-
-                  </div>
-                </div>
-              </>
-            }
           </div>
         </div>
       

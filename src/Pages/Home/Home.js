@@ -8,7 +8,8 @@ import egypt from "../../assets/Egypt (EG).png"
 import video from "../../assets/video.png"
 import chatBox from "../../assets/Frame 39479.png"
 import chatIcon from "../../assets/chat.svg"
-import Map from "../../assets/Map.png"
+import Mapp from "../../assets/Map.png"
+import Map from './Map'
 import Search from "../../assets/Search.png"
 import LocationOne from "../../assets/Doctor.svg"
 import LocationTwo from "../../assets/Doctor.svg"
@@ -37,17 +38,47 @@ import LiveToursCard from './LiveToursCard'
 import PopularToursCard from './PopularToursCards'
 import ReviewCard from './ReviewCard'
 import { NavLink } from 'react-router-dom';
+import axios from 'axios'
+import { Reviews } from '@mui/icons-material'
 
 
 function Home() {
     const [menu, setMenu] = useState(false)
     const [lang, setLang] = useState("english")
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const [tours,setTours] = useState([])
+    const [travelers,setTravelers] = useState(0)
+    const [publicTours,setPublicTours] = useState(0)
+    const [vip,setVip] = useState(0)
+    const [popularTours,setPopularTours] = useState([])
+    const [popularReviews,setPopularReviews] = useState([])
 
     const toggleChat = () => {
         setIsChatOpen(!isChatOpen);
     };
 
+    useEffect(() => {
+        axios.get("http://localhost:5000/admin//allTours").then((res)=>{
+            console.log(res.data.data)
+            setTours(res.data.data)
+        })
+        axios.get("http://localhost:5000/user/allTravelers").then((res)=>{
+            console.log(res.data.travelers)
+            setTravelers(res.data.travelers)
+        })
+        axios.get("http://localhost:5000/user/public").then((res)=>{
+            setPublicTours(res.data.length)            
+        })
+        axios.get("http://localhost:5000/user/vip").then((res)=>{
+            setVip(res.data.length)
+        })
+        axios.get("http://localhost:5000/user/popularTours").then((res)=>{
+            setPopularTours(res.data)
+        })
+        axios.get("http://localhost:5000/user/popularReviews").then((res)=>{
+            setPopularReviews(res.data)
+        })
+    }, []);
 
     const responsive = {
         superLargeDesktop: {
@@ -86,8 +117,8 @@ function Home() {
                                 <input type="text" placeholder="Tour name or location..." />
                             </div>
                             <ul className={style["nav__links"]}>
-                                <li><a>Home</a></li>
-                                <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
+                                <li className={style["active"]}><a>Home</a></li>
+                                <li ><NavLink to="/Tours">Tours <img src={Vector} alt='' /></NavLink>
                                 </li>
                                 <li><a href="#">Our Mission</a></li>
                                 <li><a href="#">Contact Us</a></li>
@@ -145,7 +176,11 @@ function Home() {
                                 </ul>
                             </div>
                             <div className={style["nav__join"]}>
-                                <a href="#">Join Us Now</a>
+                                {
+                                    !localStorage.getItem("id") ? 
+                                <NavLink to='/login'>Join Us Now</NavLink>:
+                                <NavLink to='/login'>Log Out</NavLink>
+                                }
                             </div>
                         </div>
                     </div>
@@ -210,15 +245,15 @@ function Home() {
                 <div className={style["container"]}>
                     <div className={style["counter__content"]}>
                         <div className={style["counter__content__box"]}>
-                            <h2>32K<span>+</span></h2>
+                            <h2>{travelers}<span>+</span></h2>
                             <p>Virtual Travelers</p>
                         </div>
                         <div className={style["counter__content__box"]}>
-                            <h2>87K<span>+</span></h2>
+                            <h2>{publicTours}<span>+</span></h2>
                             <p>Public Tour</p>
                         </div>
                         <div className={style["counter__content__box"]}>
-                            <h2>125K<span>+</span></h2>
+                            <h2>{vip}<span>+</span></h2>
                             <p>Private Tour</p>
                         </div>
                     </div>
@@ -232,8 +267,8 @@ function Home() {
             <section className={style["map__section"]}>
                 <div className={style["container"]}>
                     <h2>Find your tour on the map</h2>
-                    <div className={style["map__img"]}>
-                        <img src={Map} alt="" />
+                    {/* <div className={style["map__img"]}>
+                        <img src={Mapp} alt="" />
                     </div>
                     <div className={style["map__search__bar"]}>
                         <img src={Search} alt="" className={style["map__search__icon"]} />
@@ -246,7 +281,8 @@ function Home() {
                         <img src={BtnOne} alt="" className={style["cursor__pointer__icon"]} />
                         <img src={BtnTwo} alt="" className={style["cursor__pointer__icon"]} />
                         <img src={BtnThree} alt="" className={style["cursor__pointer__icon"]} />
-                    </div>
+                    </div> */}
+                    <Map tours={tours} />
                 </div>
             </section>
 
@@ -271,12 +307,17 @@ function Home() {
                 <div className={style["container"]}>
                     <h2>Popular tour to book</h2>
                     <Carousel responsive={responsive}>
+                        {/* <PopularToursCard />
                         <PopularToursCard />
                         <PopularToursCard />
                         <PopularToursCard />
                         <PopularToursCard />
-                        <PopularToursCard />
-                        <PopularToursCard />
+                        <PopularToursCard /> */}
+                        {
+                            popularTours?.map((tour)=>{
+                                return <PopularToursCard key={tour._id} data={tour} />
+                            })
+                        }
 
                     </Carousel>
                 </div>
@@ -309,13 +350,17 @@ function Home() {
                 <div className={style["container"]}>
                     <h2>What our travelers say</h2>
                     <Carousel responsive={responsive}>
+                        {/* <ReviewCard />
                         <ReviewCard />
                         <ReviewCard />
                         <ReviewCard />
                         <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        
+                        <ReviewCard /> */}
+                        {
+                            popularReviews?.map((Review)=>{
+                                return <ReviewCard key={Review._id} data={Review} /> 
+                            })
+                        }
                     </Carousel>
                 </div>
             </section>

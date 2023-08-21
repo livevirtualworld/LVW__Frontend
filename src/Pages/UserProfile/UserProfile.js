@@ -25,6 +25,7 @@ import UserCoverModalStyle from './UserCoverModal.module.css'
 import UserProfileModalStyle from './UserProfileModal.module.css'
 import Card  from '../Card/Card';
 
+
 function UserProfile() {
   //UserData
   const [userData, setUserData] = useState("")
@@ -472,7 +473,10 @@ function UserProfile() {
                   setTap("tours")
                 }}>{userData?.name}’s Tours</a>
               </div>
-              <div className={style["text"]} id="text">
+              <div style={{
+    display: tap === "tours" ? "flex" : "",
+    justifyContent: tap === "tours" ? "space-between" : ""
+  }} className={style["text"]} id="text">
                 {
                   tap === "about" &&
                   <>
@@ -516,7 +520,7 @@ function UserProfile() {
                   <>
                     {booked?.length > 0 ? (
                       booked.map((book) => {
-                      return <Card key={book._id} data={book.tour} review={true} /> // Assuming the tour object has a title field
+                      return <Card key={book._id} data={book.tour} review={true} id={book._id} isReview={book.isReviewed}/> // Assuming the tour object has a title field
 })
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
