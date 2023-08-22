@@ -46,8 +46,6 @@ function TechnicalProfile() {
   const [data, setData] = useState([]);
   const [country, setCountry] = useState([]);
   const [city, setCity] = useState([]);
-  //to show updated data immediately
-  const [updateTechnicalData, setUpdateTechnicalData] = useState(technicalData)
 
   const [faculty, setFaculty] = useState("");
   const [university, setUniversity] = useState("");
@@ -317,16 +315,31 @@ function TechnicalProfile() {
   const [showEditIcon, setShowEditIcon] = useState(true);
 
   const handleEditClick = () => {
-    console.log("test icon")
     if (isEditing) {
       setIsEditing(false)
-    }
-    else {
-
+    } else {
       setIsEditing(true);
     }
-    console.log(isEditing)
   };
+
+  const [positions, setPositions] = useState("");
+  const [companies, setCompanies] = useState("");
+  const [startDates, setStartDates] = useState("");
+  const [endDates, setEndDates] = useState("");
+  const [isEditingExperience, setIsEditingExperience] = useState(false);
+  let x = [];
+  const handleExperienceEditClick = () => {
+    if (isEditingExperience) {
+      setIsEditingExperience(false);
+    } else {
+      setIsEditingExperience(true);
+    }
+  };
+
+  for (let i = 0; i < technicalData?.company?.length; i++) {
+    x.push([technicalData?.position[i], technicalData?.company[i], technicalData?.startDate[i], technicalData?.endDate[i]])
+    console.log(x)
+  }
 
   return (
     <div>
@@ -627,7 +640,11 @@ function TechnicalProfile() {
                 }}>About</a>
                 <a className={` ${tap === "tours" ? style.active : ""}`} onClick={() => {
                   setTap("tours")
-                }}>{technicalData?.name}’s Tours</a>
+                }}>{technicalData?.name}’s Tours
+                </a>
+                <a className={` ${tap === "pending" ? style.active : ""}`} onClick={() => {
+                  setTap("pending")
+                }}>Pending Tours</a>
               </div>
               <div className={style["text"]} id="text">
                 {
@@ -663,21 +680,25 @@ function TechnicalProfile() {
                       isEditing &&
                       <>
                         <div className={style['education__edit__inputs']}>
-                          <input type="text" placeholder="University"
+                          <input type="text"
+                            placeholder={technicalData?.university || university}
                             value={university}
                             onChange={(e) => setUniversity(e.target.value)}
                           />
-                          <input type="text" placeholder="Faculty"
+                          <input type="text"
+                            placeholder={technicalData?.faculty || faculty}
                             value={faculty}
                             onChange={(e) => setFaculty(e.target.value)}
                           />
                         </div>
                         <div className={style['education__edit__inputs']}>
-                          <input type="text" placeholder="Start Year"
+                          <input type="text"
+                            placeholder={technicalData?.startYear || startYear}
                             value={startYear}
                             onChange={(e) => setStartYear(e.target.value)}
                           />
-                          <input type="text" placeholder="Graduate Year"
+                          <input type="text"
+                            placeholder={technicalData?.graduateYear || graduateYear}
                             value={graduateYear}
                             onChange={(e) => setGraduateYear(e.target.value)}
                           />
@@ -732,116 +753,133 @@ function TechnicalProfile() {
                         }}>Save</button>
                       </>
                     }
-                    {/* {!hasAllInformation ? (
-                      <div className={style['education__section']}>
-
-                        {isEditing ? (
-                          <>
-                            <div className={style['education__edit__inputs']}>
-                              <input type="text" placeholder="University"
-                                value={university}
-                                onChange={(e) => setUniversity(e.target.value)}
-                              />
-                              <input type="text" placeholder="Faculty"
-                                value={faculty}
-                                onChange={(e) => setFaculty(e.target.value)}
-                              />
-                            </div>
-                            <div className={style['education__edit__inputs']}>
-                              <input type="text" placeholder="Start Year"
-                                value={startYear}
-                                onChange={(e) => setStartYear(e.target.value)}
-                              />
-                              <input type="text" placeholder="Graduate Year"
-                                value={graduateYear}
-                                onChange={(e) => setGraduateYear(e.target.value)}
-                              />
-                            </div>
-                            <button onClick={() => {
-                              console.log("ffffffffffffff")
-                              axios.put("http://localhost:5000/technical/addEducation", {
-                                role: JSON.parse(localStorage.getItem("role")),
-                                id: JSON.parse(localStorage.getItem("id")),
-                                university: university,
-                                faculty: faculty,
-                                startYear: startYear,
-                                graduateYear: graduateYear
-                              }).then((res) => {
-                                console.log(res)
-                                setShowEditIcon(true);
-                                if (JSON.parse(technicalRole) === "tourGuide") {
-                                  console.log(typeof technicalRole)
-                                  console.log("this is tech role", technicalRole)
-                                  axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Tour Guide data:", error);
-                                    });
-                                }
-                                if (JSON.parse(technicalRole) === "cameraOperator") {
-                                  axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Camera Operator data:", error);
-                                    });
-                                }
-                                if (JSON.parse(technicalRole) === "director") {
-                                  console.log(typeof technicalRole)
-                                  axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Director data:", error);
-                                    });
-                                }
-                              })
-                            }}>Save</button>
-                          </>
-                        ) : (
-                          <div className={style['edit__icon']}>
-                            <p style={{ margin: "10px 0" }}>You don't have Education Data yet!</p>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div>
-                        <h5>{technicalData?.university}</h5>
-                        <p>{technicalData?.faculty}</p>
-                        <p>({technicalData?.startYear} - {technicalData?.graduateYear})</p>
-                      </div>
-                    )}
-                    { */}
                     {
                       showEditIcon && <i className="fa-solid fa-pen-to-square" style={{
                         color: "#a9aaad", cursor: "pointer",
-                        position: 'absolute', top: '46%', right: '3%'
+                        position: 'absolute', top: '106px', right: '3%'
                       }}
                         onClick={handleEditClick}></i>
                     }
 
-                    {technicalData && technicalData?.position && technicalData?.company && technicalData?.startDate && technicalData?.endDate ? (
-                      <div>
-                        <h4>Experiences</h4>
-                        {technicalData?.position.length === 0 && technicalData?.company.length === 0 && technicalData?.startDate.length === 0 && technicalData?.endDate.length === 0 ? (
-                          <p style={{ margin: "10px 0" }}>You don't have Experience Data yet!</p>
-                        ) : (
-                          <div>
-                            <h5>{technicalData?.position[0]}</h5>
-                            <p>{technicalData?.company[0]}</p>
-                            <p>({technicalData?.startDate[0]} - {technicalData?.endDate[0]})</p>
+                    <h4>Experiences</h4>
+                    <div style={{ position: 'relative' }}>
+                      {
+                        x.length > 0 ?
+
+                        x.map((item, index) => (
+                          <div key={index} style={{marginBottom: '20px'}}>
+                            <h5>{item[0]}</h5>
+                            <p>{item[1]}</p>
+                            <p>({item[2]} - {item[3]})</p>
                           </div>
-                        )}
-                      </div>
-                    ) : (
-                      <p>Loading experience data...</p>
+                        )):
+                        (
+                        <p style={{ margin: "10px 0" }}>You don't have Experience Data yet!</p>
+                        )
+                      }
+                      {/* {!x ? (
+                        <p style={{ margin: "10px 0" }}>You don't have Experience Data yet!</p>
+                      ) : (
+                        <div>
+                          <h5>{technicalData?.position}</h5>
+                          <p>{technicalData?.company}</p>
+                          <p>({technicalData?.startDate} - {technicalData?.endDate})</p>
+                        </div>
+                      )} */}
+                    </div>
+
+                    {isEditingExperience && (
+                      <>
+                        <div className={style["education__edit__inputs"]}>
+                          <input
+                            type="text"
+                            placeholder={"Position"}
+                            value={positions}
+                            onChange={(e) => setPositions(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"Company"}
+                            value={companies}
+                            onChange={(e) => setCompanies(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"Start Date"}
+                            value={startDates}
+                            onChange={(e) => setStartDates(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"End Date"}
+                            value={endDates}
+                            onChange={(e) => setEndDates(e.target.value)}
+                          />
+                        </div>
+                        <button className={style['button']} onClick={() => {
+                          console.log(positions, companies, startDates, endDates)
+                          axios.put("http://localhost:5000/technical/addExperience", {
+                            role: JSON.parse(localStorage.getItem("role")),
+                            id: JSON.parse(localStorage.getItem("id")),
+                            position: positions,
+                            company: companies,
+                            startDate: startDates,
+                            endDate: endDates
+                          }).then((res) => {
+                            setIsEditingExperience(false)
+                            console.log(res)
+                            setShowEditIcon(true);
+                            if (JSON.parse(technicalRole) === "tourGuide") {
+                              console.log(typeof technicalRole)
+                              console.log("this is tech role", technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Tour Guide data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "cameraOperator") {
+                              axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Camera Operator data:", error);
+                                });
+                            }
+                            if (JSON.parse(technicalRole) === "director") {
+                              console.log(typeof technicalRole)
+                              axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                .then((res) => {
+                                  console.log(res.data);
+                                  setTechnicalData(res.data.data);
+                                })
+                                .catch((error) => {
+                                  console.error("Error fetching Director data:", error);
+                                });
+                            }
+                          })
+                        }}>Save</button>
+                      </>
+                    )}
+
+                    {showEditIcon && (
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        style={{
+                          color: "#a9aaad",
+                          cursor: "pointer",
+                          position: "absolute",
+                          top: "200px",
+                          right: "3%",
+                        }}
+                        onClick={handleExperienceEditClick}
+                      >
+                      </i>
                     )}
                   </>
                 }
@@ -855,6 +893,12 @@ function TechnicalProfile() {
                     ) : (
                       <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>
                     )}
+                  </>
+                }
+                {
+                  tap == "pending" &&
+                  <>
+                    <p>hhhhhhhhhhhhhhhhhhhhh b3d eh!!!!!</p>
                   </>
                 }
               </div>
