@@ -71,12 +71,15 @@ function Login() {
           email: registerEmail,
           password: registerPassword
         }).then((res) => {
-          // console.log(res.data)
+          console.log(res.data)
+          if(res.data.status === 200){
           setShowSuccessRegisterModal(true);
           setTimeout(() => {
             setShowSuccessRegisterModal(false);
           }, 3000);
+        }
         })
+      
       }
 
     }

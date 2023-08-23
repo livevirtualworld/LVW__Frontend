@@ -244,12 +244,9 @@ nav .menu i{
     gap: 220px;
 }
 
-.search__bar__btn .btn__info,
-.topic__btn .btn__info {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.btn__info{
+  position: relative;
+  width: 25%;
 }
 
 /********************* Here is the style for dropdown list of location button *********************/
@@ -266,6 +263,7 @@ nav .menu i{
     text-align: left;
     display: none;
     transition: 0.3s ease;
+    z-index: 100;
 }
 
 .search__bar__btn:focus .location__dropdown,
