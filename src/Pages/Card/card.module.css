@@ -78,20 +78,32 @@
     letter-spacing: 0em;
     text-align: left;
   }
-  .make{
+  .make__reveiw__button{
+    font-size: 13px;
     width: 100px;
-    height: 30px;
-    background-color: blue;
+    height: 38px;
+    background-color: rgba(54, 109, 175, 1);
     color: white;
-    cursor: pointer;
-    font-size: 14px;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
+    display: block;
     border-radius: 12px;
+    cursor: pointer;
   }
 .star{
   cursor: pointer;
   transition: color 200ms;
+}
+.modal__header{
+  background: rgb(54, 108, 175);
+  box-shadow: 0px 15px 10px -15px #1111119f; 
+  padding: 20px;
+  margin-bottom: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  text-align: center;
+  outline: none;
+  border: none;
 }
 .box{
   position: absolute;
@@ -100,15 +112,21 @@
   transform: translate(-50%, -50%);
   width: 400;
   background-color: white;
-  border: 2px solid #000;
-  boxShadow: 24;
-  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 17px;
+}
+.modal__container{
+  padding: 17px;
+
 }
 .input{
   display: none;
 }
 .label{
   margin: 10px 0 5px 0!important;
+  font-size: 20px;
+  font-weight: 400;
 }
 .area{
   width: 400px;
@@ -116,8 +134,9 @@
   resize: none;
   padding: 15px;
   outline: none;
-  margin: 0 10px;
+  border-radius: 15px;
 }
 .first{
   display: flex;
+  gap: 10px;
 }

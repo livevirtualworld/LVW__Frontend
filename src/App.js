@@ -6,29 +6,42 @@ import Tours from './Pages/Tours/Tours';
 import Login from './Pages/Login/Login'
 import Home from './Pages/Home/Home'
 import TechnicalProfile from './Pages/TechnicalProfile/Technical';
-import { BrowserRouter, Routes, Route ,Navigate } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import EchatBot from './Pages/EngatiChatBot/EchatBot';
+import CchatBot from './Pages/CchatBot/CchatBot';
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
-      <Route index element={<Home />} path="/home" />
-      <Route element={<Home />} path="/" />
-      <Route element={<TechnicalProfile />} path="/TechnicalProfile" />
-      <Route element={<UserProfile />} path="/UserProfile" />
-      <Route element={<TourDetails />} path="/TourDetails" />
-      <Route element={<TourDetails />} path="/TourDetails/:num" />
-      <Route element={<Tours />} path="/Tours" />
-      <Route element={<Login />} path="/Login" />
-    </Routes>
-  </BrowserRouter>
-    // <TechnicalProfile />
-    // <UserProfile />
-    // <TourDetails />
-    // <Tours />
-    // <Login />
-    // <Home />
+      <AppContent />
+    </BrowserRouter>
+  );
+}
 
+function AppContent() {
+  const location = useLocation();
+
+  // Define an array of routes where you want to hide the chatbot
+  const routesWithoutChatbot = ['/login', '/technicalprofile'];
+  console.log('Current pathname:', location.pathname);
+
+  // Check if the current route is in the array of routes to hide the chatbot
+  const hideChatbot = routesWithoutChatbot.includes(location.pathname);
+
+
+  return (
+    <>
+      {!hideChatbot && <CchatBot />}
+      <Routes>
+        <Route index element={<Home />} path="/home" />
+        <Route element={<Home />} path="/" />
+        <Route element={<TechnicalProfile />} path="/technicalprofile" />
+        <Route element={<UserProfile />} path="/userprofile" />
+        <Route element={<TourDetails />} path="/tourdetails" />
+        <Route element={<TourDetails />} path="/tourdetails/:num" />
+        <Route element={<Tours />} path="/tours" />
+        <Route element={<Login />} path="/login" />
+      </Routes>
+    </>
   );
 }
 

@@ -8,6 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import axios from "axios";
+import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 
 
 function Login() {
@@ -22,38 +23,87 @@ function Login() {
   const [loginEmail, setLoginEmail] = useState("")
   const [loginPassword, setLoginPassword] = useState("")
 
+  //small error tag
+  const [nameError, setNameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+
+  const [agreed, setAgreed] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(true); // Initially set to true, assuming terms are accepted.
+
+  const [showSuccessRegisterModal, setShowSuccessRegisterModal] = useState(false);
+  const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
+
+  //Error
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showErrorCoverModal, setShowErrorCoverModal] = useState(false);
+  const [showErrorProfileModal, setShowErrorProfileModal] = useState(false)
+
+  //pending modal
+  const [showPendingModal, setShowPendingModal] = useState(false);
+
+
+
+  // Function to handle checkbox change
+  const handleCheckboxChange = () => {
+    setAgreed(!agreed);
+  };
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
-    console.log(userType)
+
     if (userType == "user") {
-      axios.post("http://localhost:5000/user/register", {
-        userType: userType,
-        name: registerName,
-        email: registerEmail,
-        password: registerPassword
-      }).then((res) => {
-        console.log(res.data)
-      })
+      if (!userType || !registerName || !registerEmail || !registerPassword || !agreed) {
+        setNameError(true)
+        setEmailError(true)
+        setPasswordError(true)
+        setTermsAccepted(false);
+        return;
+      } else {
+        setNameError(false)
+        setEmailError(false)
+        setPasswordError(false)
+        setTermsAccepted(true);
+        axios.post("http://localhost:5000/user/register", {
+          userType: userType,
+          name: registerName,
+          email: registerEmail,
+          password: registerPassword
+        }).then((res) => {
+          // console.log(res.data)
+          setShowSuccessRegisterModal(true);
+          setTimeout(() => {
+            setShowSuccessRegisterModal(false);
+          }, 3000);
+        })
+      }
 
     }
     else {
-      const formData = new FormData();
-      formData.append("radio", userType);
-      formData.append("name", registerName);
-      formData.append("email", registerEmail);
-      formData.append("password", registerPassword);
-      formData.append("cv", registerCv);
-      formData.append("license", registerLicense);
+      if (!registerName || !registerEmail || !registerPassword || !registerCv || !registerLicense) {
+        setShowErrorModal(true);
+        setTimeout(() => {
+          setShowErrorModal(false);
+        }, 3000);
+        return;
+      } else {
+        const formData = new FormData();
+        formData.append("radio", userType);
+        formData.append("name", registerName);
+        formData.append("email", registerEmail);
+        formData.append("password", registerPassword);
+        formData.append("cv", registerCv);
+        formData.append("license", registerLicense);
 
-      axios.post("http://localhost:5000/technical/register", formData).then((res) => {
-        if (res.data.status === 200) {
-          hi ? setHi(false) : setHi(true)
-          setTap("forget")
-        }
-        console.log(res.data)
-      })
+        axios.post("http://localhost:5000/technical/register", formData).then((res) => {
+          if (res.data.status === 200) {
+            hi ? setHi(false) : setHi(true)
+            setTap("forget")
+          }
+          console.log(res.data)
+        })
+      }
     }
   }
 
@@ -63,6 +113,9 @@ function Login() {
         <div className={style["inner-box"]}>
           <div className={style["forms-wrap"]}>
             {/*--------------------- Sign In Form-----------------------*/}
+            {/* Success Modal */}
+            {showSuccessLoginModal && <SuccessandErrorModals message={"Welcome Back!"} success={true} />}
+
             <form className={style["sign-in-form"]} id="sign__in__form" >
               <div className={style["logo"]}>
                 <img src={Logo} alt="" />
@@ -78,56 +131,71 @@ function Login() {
               <div className={style["actual-form"]}>
                 <div className={style["input-wrap"]}>
                   <input onChange={(e) => {
-                    setLoginEmail(e.target.value)
+                      setLoginEmail(e.target.value)
                   }} type="email" className={style["input-field"]} id="log__email" />
                   <label>Email</label>
-                  <small />
+                  {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                 </div>
                 <div className={style["input-wrap"]}>
                   <input onChange={(e) => {
-                    setLoginPassword(e.target.value)
+                      setLoginPassword(e.target.value)
+                    
                   }} type="password" className={style["input-field"]} id="log__pass" />
                   <label>Password</label>
-                  <small />
+                  {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                 </div>
                 <input onClick={(e) => {
                   e.preventDefault()
-                  axios.post("http://localhost:5000/user/login", {
-                    email: loginEmail,
-                    password: loginPassword
-                  }).then((res) => {
-                    if (res.data.message === "Email not found") {
-                      axios.post("http://localhost:5000/technical/login", {
-                        email: loginEmail,
-                        password: loginPassword
-                      }).then((res) => {
-                        console.log(res.data)
+                  if (!loginEmail || !loginPassword) {
+                    setEmailError(true)
+                    setPasswordError(true)
+                    return;
+                  } else {
+                    setEmailError(false)
+                    setPasswordError(false)
+                    axios.post("http://localhost:5000/user/login", {
+                      email: loginEmail,
+                      password: loginPassword
+                    }).then((res) => {
+                      if (res.data.message === "Email not found") {
+                        axios.post("http://localhost:5000/technical/login", {
+                          email: loginEmail,
+                          password: loginPassword
+                        }).then((res) => {
+                          console.log(res.data)
+                          if (res.data.status === 200) {
+                            localStorage.setItem("id", JSON.stringify(res.data.data._id))
+                            localStorage.setItem("role", JSON.stringify(res.data.user))
+                          }
+                        })
+                      }
+                      else {
                         if (res.data.status === 200) {
                           localStorage.setItem("id", JSON.stringify(res.data.data._id))
-                          localStorage.setItem("role", JSON.stringify(res.data.user))
-                        }
-                      })
-                    }
-                    else {
-                      if (res.data.status === 200) {
-                        localStorage.setItem("id", JSON.stringify(res.data.data._id))
-                        localStorage.setItem("role", "user")
+                          localStorage.setItem("role", "user")
 
+                        }
+                        console.log(res.data)
                       }
-                      console.log(res.data)
-                    }
-                  })
+
+                    })
+                  }
                 }} type="submit" defaultValue="Login" className={style["sign-btn"]} />
                 <p className={style["forgo"]}>
                   Forget your password?
-                  <a onClick={() => {
-                    hi ? setHi(false) : setHi(true)
-                    setTap("forget")
-                  }} >Click here</a>
+                  <a
+                    style={{ marginLeft: '2px', cursor: 'pointer', fontWeight: '600' }}
+                    onClick={() => {
+                      hi ? setHi(false) : setHi(true)
+                      setTap("forget")
+                    }} >Click here</a>
                 </p>
               </div>
             </form>
             {/*--------------------- Sign up Form-----------------------*/}
+
+            {/* Success Modal */}
+            {showSuccessRegisterModal && <SuccessandErrorModals message={"Registered Successfully"} success={true} />}
             {
               tap === "signUp" &&
               <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit} enctype="multipart/form-data">
@@ -184,7 +252,7 @@ function Login() {
                       }}
                     />
                     <label>Name</label>
-                    {/* <small /> */}
+                    {nameError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <div className={style["input-wrap"]}>
                     <input
@@ -196,7 +264,7 @@ function Login() {
                       }}
                     />
                     <label>Email</label>
-                    {/* <small /> */}
+                    {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <div className={style["input-wrap"]}>
                     <input
@@ -208,7 +276,7 @@ function Login() {
                       }}
                     />
                     <label>Password</label>
-                    {/* <small /> */}
+                    {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   {userType === 'director' || userType === 'cameraOperator' || userType === 'tourGuide' ? (
                     <div className={style['files__input']}>
@@ -242,10 +310,20 @@ function Login() {
 
                   <input type="submit" className={style["sign-btn"]} />
                   <p className={style["text"]}>
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={handleCheckboxChange}
+                    />
+                    {' '}
                     By signing up, I agree to the
-                    <a href="#">Terms of Services</a> and
-                    <a href="#">Privacy Policy</a>
+                    <a href="#" style={{ margin: '0 3px' }}>Terms of Services</a> and
+                    <a href="#" style={{ margin: '0 3px' }}>Privacy Policy</a>
                   </p>
+
+                  {termsAccepted ? null : (
+                    <p className={style["error-message"]}>Can't register without accepting the terms.</p>
+                  )}
                 </div>
               </form>
             }

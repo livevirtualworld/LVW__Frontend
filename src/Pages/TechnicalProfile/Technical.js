@@ -24,6 +24,7 @@ import Modalstyle from './EditModal.module.css';
 import Card from '../Card/Card';
 import CoverModalStyle from './CoverModal.module.css';
 import ProfileModalStyle from './ProfileModal.module.css'
+import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals'
 
 function TechnicalProfile() {
   //TechnicalData
@@ -46,13 +47,28 @@ function TechnicalProfile() {
   const [data, setData] = useState([]);
   const [country, setCountry] = useState([]);
   const [city, setCity] = useState([]);
-  //to show updated data immediately
-  const [updateTechnicalData, setUpdateTechnicalData] = useState(technicalData)
 
   const [faculty, setFaculty] = useState("");
   const [university, setUniversity] = useState("");
   const [startYear, setStartYear] = useState("");
   const [graduateYear, setGraduateYear] = useState("");
+
+  //successModal
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessProfileModal, setShowSuccessProfileModal] = useState(false);
+  const [showSuccessCoverModal, setShowSuccessCoverModal] = useState(false);
+  const [showSuccessLanguageModal, setShowSuccessLanguageModal] = useState(false)
+  const [showSuccessEducationModal, setShowSuccessEducationModal] = useState(false)
+  const [showSuccessExperienceModal, setShowSuccessExperienceModal] = useState(false)
+
+
+  //Error
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showErrorCoverModal, setShowErrorCoverModal] = useState(false);
+  const [showErrorProfileModal, setShowErrorProfileModal] = useState(false)
+  const [showErrorLanguageModal, setShowErrorLanguageModal] = useState(false)
+  const [showErrorEducationModal, setShowErrorEducationModal] = useState(false)
+  const [showErrorExperienceModal, setShowErrorExperienceModal] = useState(false)
 
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
@@ -172,6 +188,10 @@ function TechnicalProfile() {
     // Check if all languages have been selected
     if (selectedLanguages.length === 2) {
       setDisplayLanguageSelect(false);
+      setShowSuccessLanguageModal(true);
+      setTimeout(() => {
+        setShowSuccessLanguageModal(false);
+      }, 3000);
     }
   };
 
@@ -193,7 +213,10 @@ function TechnicalProfile() {
   const handleCoverImageSaveChanges = () => {
 
     if (!selectedCoverImage) {
-      console.error("No cover image selected.");
+      setShowErrorCoverModal(true);
+      setTimeout(() => {
+        setShowErrorCoverModal(false);
+      }, 3000);
       return;
     }
 
@@ -214,6 +237,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessCoverModal(true);
+            setTimeout(() => {
+              setShowSuccessCoverModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Tour Guide data:", error);
@@ -224,6 +251,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessCoverModal(true);
+            setTimeout(() => {
+              setShowSuccessCoverModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Camera Operator data:", error);
@@ -234,6 +265,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessCoverModal(true);
+            setTimeout(() => {
+              setShowSuccessCoverModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Director data:", error);
@@ -262,7 +297,10 @@ function TechnicalProfile() {
   const handleProfileImageSaveChanges = () => {
 
     if (!selectedProfileImage) {
-      console.error("No cover image selected.");
+      setShowErrorProfileModal(true);
+      setTimeout(() => {
+        setShowErrorProfileModal(false);
+      }, 3000);
       return;
     }
 
@@ -283,6 +321,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessProfileModal(true);
+            setTimeout(() => {
+              setShowSuccessProfileModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Tour Guide data:", error);
@@ -293,6 +335,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessProfileModal(true);
+            setTimeout(() => {
+              setShowSuccessProfileModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Camera Operator data:", error);
@@ -303,6 +349,10 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
+            setShowSuccessProfileModal(true);
+            setTimeout(() => {
+              setShowSuccessProfileModal(false);
+            }, 3000);
           })
           .catch((error) => {
             console.error("Error fetching Director data:", error);
@@ -317,16 +367,31 @@ function TechnicalProfile() {
   const [showEditIcon, setShowEditIcon] = useState(true);
 
   const handleEditClick = () => {
-    console.log("test icon")
     if (isEditing) {
       setIsEditing(false)
-    }
-    else {
-
+    } else {
       setIsEditing(true);
     }
-    console.log(isEditing)
   };
+
+  const [positions, setPositions] = useState("");
+  const [companies, setCompanies] = useState("");
+  const [startDates, setStartDates] = useState("");
+  const [endDates, setEndDates] = useState("");
+  const [isEditingExperience, setIsEditingExperience] = useState(false);
+  let x = [];
+  const handleExperienceEditClick = () => {
+    if (isEditingExperience) {
+      setIsEditingExperience(false);
+    } else {
+      setIsEditingExperience(true);
+    }
+  };
+
+  for (let i = 0; i < technicalData?.company?.length; i++) {
+    x.push([technicalData?.position[i], technicalData?.company[i], technicalData?.startDate[i], technicalData?.endDate[i]])
+    console.log(x)
+  }
 
   return (
     <div>
@@ -425,6 +490,11 @@ function TechnicalProfile() {
               style={{ color: '#000000', cursor: 'pointer' }}
               onClick={() => setShowCoverModal(true)}
             ></i>
+            {/* Success Modal */}
+            {showSuccessCoverModal && <SuccessandErrorModals message={"Your Cover Edited Successfully"} success={true} />}
+            {/* Error Modal */}
+            {showErrorCoverModal && <SuccessandErrorModals message={"No Cover image selected"} success={false} />}
+
             {showCoverModal && (
               <div className={CoverModalStyle['cover-modal__overlay']}>
                 <div className={CoverModalStyle['cover-modal__content']}>
@@ -462,6 +532,11 @@ function TechnicalProfile() {
               style={{ color: '#000000', cursor: 'pointer' }}
               onClick={() => setShowProfileModal(true)}
             ></i>
+            {/* Success Modal */}
+            {showSuccessProfileModal && <SuccessandErrorModals message={"Your Picture Edited Successfully"} success={true} />}
+            {/* Error Modal */}
+            {showErrorProfileModal && <SuccessandErrorModals message={"No Profile image selected"} success={false} />}
+
             {showProfileModal && (
               <div className={ProfileModalStyle['profile-modal__overlay']}>
                 <div className={ProfileModalStyle['profile-modal__content']}>
@@ -502,6 +577,10 @@ function TechnicalProfile() {
               </div>
               <div className={style['edit__button']}>
                 <a href="#" onClick={() => setShowEditModal(true)}>Edit Profile</a>
+                {/* Success Modal */}
+                {showSuccessModal && <SuccessandErrorModals message={"Your Information Edited Successfully"} success={true} />}
+                {/* Error Modal */}
+                {showErrorModal && <SuccessandErrorModals message={"Please Fill All Fields."} success={false} />}
 
                 {/* Modal */}
                 {showEditModal && (
@@ -563,6 +642,12 @@ function TechnicalProfile() {
                       <div className={Modalstyle['modal__actions']}>
                         <button onClick={() => setShowEditModal(false)}>Cancel</button>
                         <button onClick={() => {
+                          if (!editName || !editPhone || !editDescription || !editAddress || !editCity) {
+                            setShowErrorModal(true); // Show the error modal
+                            setTimeout(() => {
+                              setShowErrorModal(false); // Hide the error modal after 3 seconds
+                            }, 3000);
+                          }else{
                           axios.put("http://localhost:5000/technical/editnfo", {
                             role: JSON.parse(localStorage.getItem("role")),
                             id: JSON.parse(localStorage.getItem("id")),
@@ -580,6 +665,10 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
+                                  setShowSuccessModal(true);
+                                  setTimeout(() => {
+                                    setShowSuccessModal(false);
+                                  }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Tour Guide data:", error);
@@ -607,7 +696,7 @@ function TechnicalProfile() {
                                 });
                             }
                           })
-                        }}>Save Changes</button>
+                        }}}>Save Changes</button>
                       </div>
                     </div>
                   </div>
@@ -627,7 +716,11 @@ function TechnicalProfile() {
                 }}>About</a>
                 <a className={` ${tap === "tours" ? style.active : ""}`} onClick={() => {
                   setTap("tours")
-                }}>{technicalData?.name}’s Tours</a>
+                }}>{technicalData?.name}’s Tours
+                </a>
+                <a className={` ${tap === "pending" ? style.active : ""}`} onClick={() => {
+                  setTap("pending")
+                }}>Pending Tours</a>
               </div>
               <div className={style["text"]} id="text">
                 {
@@ -642,6 +735,10 @@ function TechnicalProfile() {
                     ) :
                       <p style={{ margin: "10px 0" }}>You don't have description yet!</p>
                     }
+                    {/* Success Modal */}
+                    {showSuccessEducationModal && <SuccessandErrorModals message={"Your Education Edited Successfully"} success={true} />}
+                    {/* Error Modal */}
+                    {showErrorEducationModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />}
 
                     <h4>Education</h4>
                     {
@@ -663,185 +760,223 @@ function TechnicalProfile() {
                       isEditing &&
                       <>
                         <div className={style['education__edit__inputs']}>
-                          <input type="text" placeholder="University"
+                          <input type="text"
+                            placeholder={technicalData?.university || university}
                             value={university}
                             onChange={(e) => setUniversity(e.target.value)}
                           />
-                          <input type="text" placeholder="Faculty"
+                          <input type="text"
+                            placeholder={technicalData?.faculty || faculty}
                             value={faculty}
                             onChange={(e) => setFaculty(e.target.value)}
                           />
                         </div>
                         <div className={style['education__edit__inputs']}>
-                          <input type="text" placeholder="Start Year"
+                          <input type="text"
+                            placeholder={technicalData?.startYear || startYear}
                             value={startYear}
                             onChange={(e) => setStartYear(e.target.value)}
                           />
-                          <input type="text" placeholder="Graduate Year"
+                          <input type="text"
+                            placeholder={technicalData?.graduateYear || graduateYear}
                             value={graduateYear}
                             onChange={(e) => setGraduateYear(e.target.value)}
                           />
                         </div>
                         <button className={style['button']} onClick={() => {
-                          console.log("ffffffffffffff")
-                          axios.put("http://localhost:5000/technical/addEducation", {
-                            role: JSON.parse(localStorage.getItem("role")),
-                            id: JSON.parse(localStorage.getItem("id")),
-                            university: university,
-                            faculty: faculty,
-                            startYear: startYear,
-                            graduateYear: graduateYear
-                          }).then((res) => {
-                            setIsEditing(false)
-                            console.log(res)
-                            setShowEditIcon(true);
-                            if (JSON.parse(technicalRole) === "tourGuide") {
-                              console.log(typeof technicalRole)
-                              console.log("this is tech role", technicalRole)
-                              axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
-                                .then((res) => {
-                                  console.log(res.data);
-                                  setTechnicalData(res.data.data);
-                                })
-                                .catch((error) => {
-                                  console.error("Error fetching Tour Guide data:", error);
-                                });
-                            }
-                            if (JSON.parse(technicalRole) === "cameraOperator") {
-                              axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
-                                .then((res) => {
-                                  console.log(res.data);
-                                  setTechnicalData(res.data.data);
-                                })
-                                .catch((error) => {
-                                  console.error("Error fetching Camera Operator data:", error);
-                                });
-                            }
-                            if (JSON.parse(technicalRole) === "director") {
-                              console.log(typeof technicalRole)
-                              axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
-                                .then((res) => {
-                                  console.log(res.data);
-                                  setTechnicalData(res.data.data);
-                                })
-                                .catch((error) => {
-                                  console.error("Error fetching Director data:", error);
-                                });
-                            }
-                          })
-                        }}>Save</button>
+                          if (!university || !faculty || !startYear || !graduateYear) {
+                            setShowErrorEducationModal(true); // Show the error modal
+                            setTimeout(() => {
+                              setShowErrorEducationModal(false); // Hide the error modal after 3 seconds
+                            }, 3000);
+                          } else {
+                            axios.put("http://localhost:5000/technical/addEducation", {
+                              role: JSON.parse(localStorage.getItem("role")),
+                              id: JSON.parse(localStorage.getItem("id")),
+                              university: university,
+                              faculty: faculty,
+                              startYear: startYear,
+                              graduateYear: graduateYear
+                            }).then((res) => {
+                              setIsEditing(false)
+                              console.log(res)
+                              setShowEditIcon(true);
+                              setShowSuccessEducationModal(true);
+                              setTimeout(() => {
+                                setShowSuccessEducationModal(false);
+                              }, 3000);
+                              if (JSON.parse(technicalRole) === "tourGuide") {
+                                console.log(typeof technicalRole)
+                                console.log("this is tech role", technicalRole)
+                                axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Tour Guide data:", error);
+                                  });
+                              }
+                              if (JSON.parse(technicalRole) === "cameraOperator") {
+                                axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Camera Operator data:", error);
+                                  });
+                              }
+                              if (JSON.parse(technicalRole) === "director") {
+                                console.log(typeof technicalRole)
+                                axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Director data:", error);
+                                  });
+                              }
+                            })
+                          }
+                        }
+                        }>Save</button>
+
                       </>
                     }
-                    {/* {!hasAllInformation ? (
-                      <div className={style['education__section']}>
-
-                        {isEditing ? (
-                          <>
-                            <div className={style['education__edit__inputs']}>
-                              <input type="text" placeholder="University"
-                                value={university}
-                                onChange={(e) => setUniversity(e.target.value)}
-                              />
-                              <input type="text" placeholder="Faculty"
-                                value={faculty}
-                                onChange={(e) => setFaculty(e.target.value)}
-                              />
-                            </div>
-                            <div className={style['education__edit__inputs']}>
-                              <input type="text" placeholder="Start Year"
-                                value={startYear}
-                                onChange={(e) => setStartYear(e.target.value)}
-                              />
-                              <input type="text" placeholder="Graduate Year"
-                                value={graduateYear}
-                                onChange={(e) => setGraduateYear(e.target.value)}
-                              />
-                            </div>
-                            <button onClick={() => {
-                              console.log("ffffffffffffff")
-                              axios.put("http://localhost:5000/technical/addEducation", {
-                                role: JSON.parse(localStorage.getItem("role")),
-                                id: JSON.parse(localStorage.getItem("id")),
-                                university: university,
-                                faculty: faculty,
-                                startYear: startYear,
-                                graduateYear: graduateYear
-                              }).then((res) => {
-                                console.log(res)
-                                setShowEditIcon(true);
-                                if (JSON.parse(technicalRole) === "tourGuide") {
-                                  console.log(typeof technicalRole)
-                                  console.log("this is tech role", technicalRole)
-                                  axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Tour Guide data:", error);
-                                    });
-                                }
-                                if (JSON.parse(technicalRole) === "cameraOperator") {
-                                  axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Camera Operator data:", error);
-                                    });
-                                }
-                                if (JSON.parse(technicalRole) === "director") {
-                                  console.log(typeof technicalRole)
-                                  axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
-                                    .then((res) => {
-                                      console.log(res.data);
-                                      setTechnicalData(res.data.data);
-                                    })
-                                    .catch((error) => {
-                                      console.error("Error fetching Director data:", error);
-                                    });
-                                }
-                              })
-                            }}>Save</button>
-                          </>
-                        ) : (
-                          <div className={style['edit__icon']}>
-                            <p style={{ margin: "10px 0" }}>You don't have Education Data yet!</p>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div>
-                        <h5>{technicalData?.university}</h5>
-                        <p>{technicalData?.faculty}</p>
-                        <p>({technicalData?.startYear} - {technicalData?.graduateYear})</p>
-                      </div>
-                    )}
-                    { */}
                     {
                       showEditIcon && <i className="fa-solid fa-pen-to-square" style={{
                         color: "#a9aaad", cursor: "pointer",
-                        position: 'absolute', top: '46%', right: '3%'
+                        position: 'absolute', top: '106px', right: '3%'
                       }}
                         onClick={handleEditClick}></i>
                     }
+                    {/* Success Modal */}
+                    {showSuccessExperienceModal && <SuccessandErrorModals message={"Your Experience Edited Successfully"} success={true} />}
+                    {/* Error Modal */}
+                    {showErrorExperienceModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />}
 
-                    {technicalData && technicalData?.position && technicalData?.company && technicalData?.startDate && technicalData?.endDate ? (
-                      <div>
-                        <h4>Experiences</h4>
-                        {technicalData?.position.length === 0 && technicalData?.company.length === 0 && technicalData?.startDate.length === 0 && technicalData?.endDate.length === 0 ? (
-                          <p style={{ margin: "10px 0" }}>You don't have Experience Data yet!</p>
-                        ) : (
-                          <div>
-                            <h5>{technicalData?.position[0]}</h5>
-                            <p>{technicalData?.company[0]}</p>
-                            <p>({technicalData?.startDate[0]} - {technicalData?.endDate[0]})</p>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <p>Loading experience data...</p>
+                    <h4>Experiences</h4>
+                    <div style={{ position: 'relative' }}>
+                      {
+                        x.length > 0 ?
+
+                          x.map((item, index) => (
+                            <div key={index} style={{ marginBottom: '20px' }}>
+                              <h5>{item[0]}</h5>
+                              <p>{item[1]}</p>
+                              <p>({item[2]} - {item[3]})</p>
+                            </div>
+                          )) :
+                          (
+                            <p style={{ margin: "10px 0" }}>You don't have Experience Data yet!</p>
+                          )
+                      }
+                    </div>
+
+                    {isEditingExperience && (
+                      <>
+                        <div className={style["education__edit__inputs"]}>
+                          <input
+                            type="text"
+                            placeholder={"Position"}
+                            value={positions}
+                            onChange={(e) => setPositions(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"Company"}
+                            value={companies}
+                            onChange={(e) => setCompanies(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"Start Date"}
+                            value={startDates}
+                            onChange={(e) => setStartDates(e.target.value)}
+                          />
+                          <input
+                            type="text"
+                            placeholder={"End Date"}
+                            value={endDates}
+                            onChange={(e) => setEndDates(e.target.value)}
+                          />
+                        </div>
+                        <button className={style['button']} onClick={() => {
+                          if (!positions || !companies || !startDates || !endDates) {
+                            setShowErrorExperienceModal(true); // Show the error modal
+                            setTimeout(() => {
+                              setShowErrorExperienceModal(false); // Hide the error modal after 3 seconds
+                            }, 3000);
+                          } else {
+                            axios.put("http://localhost:5000/technical/addExperience", {
+                              role: JSON.parse(localStorage.getItem("role")),
+                              id: JSON.parse(localStorage.getItem("id")),
+                              position: positions,
+                              company: companies,
+                              startDate: startDates,
+                              endDate: endDates
+                            }).then((res) => {
+                              setIsEditingExperience(false)
+                              console.log(res)
+                              setShowEditIcon(true);
+                              setShowSuccessExperienceModal(true);
+                              setTimeout(() => {
+                                setShowSuccessExperienceModal(false);
+                              }, 3000);
+                              if (JSON.parse(technicalRole) === "tourGuide") {
+                                console.log(typeof technicalRole)
+                                console.log("this is tech role", technicalRole)
+                                axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Tour Guide data:", error);
+                                  });
+                              }
+                              if (JSON.parse(technicalRole) === "cameraOperator") {
+                                axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Camera Operator data:", error);
+                                  });
+                              }
+                              if (JSON.parse(technicalRole) === "director") {
+                                console.log(typeof technicalRole)
+                                axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                  .then((res) => {
+                                    console.log(res.data);
+                                    setTechnicalData(res.data.data);
+                                  })
+                                  .catch((error) => {
+                                    console.error("Error fetching Director data:", error);
+                                  });
+                              }
+                            })
+                          }
+                        }}>Save</button>
+                      </>
+                    )}
+
+                    {showEditIcon && (
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        style={{
+                          color: "#a9aaad",
+                          cursor: "pointer",
+                          position: "absolute",
+                          top: "200px",
+                          right: "3%",
+                        }}
+                        onClick={handleExperienceEditClick}
+                      >
+                      </i>
                     )}
                   </>
                 }
@@ -857,8 +992,17 @@ function TechnicalProfile() {
                     )}
                   </>
                 }
+                {
+                  tap == "pending" &&
+                  <>
+                    <p>hhhhhhhhhhhhhhhhhhhhh b3d eh!!!!!</p>
+                  </>
+                }
               </div>
             </div>
+            {/* Success Modal */}
+            {showSuccessLanguageModal && <SuccessandErrorModals message={"Your Languages Added Successfully"} success={true} />}
+
             <div className={style["languages"]}>
               <h3>Languages</h3>
               {technicalData && technicalData?.languages?.length === 0 && (

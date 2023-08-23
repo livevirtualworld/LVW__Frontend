@@ -40,6 +40,7 @@ import ReviewCard from './ReviewCard'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios'
 import { Reviews } from '@mui/icons-material'
+import EchatBot from '../EngatiChatBot/EchatBot'
 
 
 function Home() {
@@ -206,37 +207,7 @@ function Home() {
                             </figure>
                         </div>
                     </div>
-                    <div className={style["chat__preview"]} id="chatPreview" style={{ display: isChatOpen ? "block" : "none" }}>
-                        <div className={style["chat__box"]}>
-                            <div className={style["chat__header"]}>
-                                <div className={style["header__content"]}>
-                                    <div className={style["header__name__img"]}>
-                                        <img src={ChatBot} alt="" />
-                                        <div className={style["chat__bot__name"]}>
-                                            <h3>Amanda Jack</h3>
-                                            <h5>LVW Team</h5>
-                                        </div>
-                                    </div>
-                                    <i className={style["fa-solid fa-xmark"]} style={{ color: '#000000' }} />
-                                </div>
-                            </div>
-                            <div className={style["chat__body"]}>
-                                <div className={style["start__left__side"]}>
-                                    <p>Welcome to LVW</p>
-                                </div>
-                                <div className={style["start__left__side"]}>
-                                    <p>Can you tell me where you want to go?</p>
-                                </div>
-                                <div className={style["right__side"]}>
-                                    <p>I want to go to France</p>
-                                </div>
-                            </div>
-                            <div className={style["write__message__box"]}>
-                                <textarea placeholder="Write your message..." rows={5} cols={10} defaultValue={""} />
-                                <img src={SendIcon} alt="" className={style["send__icon"]} />
-                            </div>
-                        </div>
-                    </div>
+                    {/* <EchatBot /> */}
                 </div>
             </section>
 
@@ -257,9 +228,9 @@ function Home() {
                             <p>Private Tour</p>
                         </div>
                     </div>
-                    <div className={style["chat__icon"]} id="chatIcon" >
+                    {/* <div className={style["chat__icon"]} id="chatIcon" >
                         <img src={chatIcon} alt="" onClick={toggleChat} />
-                    </div>
+                    </div> */}
                 </div>
             </section>
 
