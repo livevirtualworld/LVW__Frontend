@@ -38,13 +38,9 @@ import LiveToursCard from './LiveToursCard'
 import PopularToursCard from './PopularToursCards'
 import ReviewCard from './ReviewCard'
 import { NavLink } from 'react-router-dom';
-<<<<<<< Updated upstream
 import axios from 'axios'
 import { Reviews } from '@mui/icons-material'
-=======
-import ChatbotEmbed from '../ChatBot/ChatbotEmbed'
 import EchatBot from '../EngatiChatBot/EchatBot'
->>>>>>> Stashed changes
 
 
 function Home() {

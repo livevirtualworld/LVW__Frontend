@@ -25,6 +25,7 @@ import frame97 from '../../assets/Frame 39497.png'
 import frame98 from '../../assets/Frame 39498.png'
 import axios from 'axios';
 import Card  from '../Card/Card';
+import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 function Tours() {
     const [tours,setTours] = useState([])
     const [currentPage, setCurrentPage] = useState(1);

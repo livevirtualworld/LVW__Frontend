@@ -12,30 +12,10 @@ import EchatBot from './Pages/EngatiChatBot/EchatBot';
 function App() {
   return (
     <BrowserRouter>
-<<<<<<< Updated upstream
-    <Routes>
-      <Route index element={<Home />} path="/home" />
-      <Route element={<Home />} path="/" />
-      <Route element={<TechnicalProfile />} path="/TechnicalProfile" />
-      <Route element={<UserProfile />} path="/UserProfile" />
-      <Route element={<TourDetails />} path="/TourDetails" />
-      <Route element={<TourDetails />} path="/TourDetails/:num" />
-      <Route element={<Tours />} path="/Tours" />
-      <Route element={<Login />} path="/Login" />
-    </Routes>
-  </BrowserRouter>
-    // <TechnicalProfile />
-    // <UserProfile />
-    // <TourDetails />
-    // <Tours />
-    // <Login />
-    // <Home />
-=======
       <AppContent />
     </BrowserRouter>
   );
 }
->>>>>>> Stashed changes
 
 function AppContent() {
   const location = useLocation();
@@ -57,6 +37,7 @@ function AppContent() {
         <Route element={<TechnicalProfile />} path="/technicalprofile" />
         <Route element={<UserProfile />} path="/userprofile" />
         <Route element={<TourDetails />} path="/tourdetails" />
+        <Route element={<TourDetails />} path="/tourdetails/:num" />
         <Route element={<Tours />} path="/tours" />
         <Route element={<Login />} path="/login" />
       </Routes>

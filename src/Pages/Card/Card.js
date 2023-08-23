@@ -50,18 +50,15 @@ function Card(props) {
                 <div className={style["tour__trip__image__buttons"]}>
                     <img src={props.data.img?.length > 0 ? `http://localhost:5000/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
                     <div className={style["tour__card__buttons"]}>
-                        <button className={style["tour__public__btn"]}>{props.data.category && props.data.category}</button>
+                        <button className={style["tour__public__btn"]}>
+                            {props.data.category === 'public' ? 'Public' : (props.data.category === 'VIP' ? 'VIP' : '')}
+                        </button>
                         <button className={style["tour__live__now__btn"]}>Live Now</button>
                     </div>
                 </div>
                 <div className={style["tour__card__content"]}>
                     <div className={style["tour__card__rate"]}>
                         <div className={style["card__rate__icons"]}>
-                            {/* <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} /> */}
                             {starIcons}
                         </div>
                         <span>({props.data.avgRate && Math.round(props.data.avgRate)})</span>
@@ -73,7 +70,7 @@ function Card(props) {
             {
                 props.review && !props.isReview &&
                 <>
-                    <h6 onClick={handleOpen} className={style["make"]}>make review</h6>
+                    <h6 onClick={handleOpen} className={style["make__reveiw__button"]}>Add Review</h6>
                     <Modal
                         keepMounted
                         open={open}
@@ -82,174 +79,187 @@ function Card(props) {
                         aria-describedby="keep-mounted-modal-description"
                     >
                         <Box className={style["box"]}>
-                            <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
-                                Make Review
+                            <Typography id="keep-mounted-modal-title" variant="h6" component="h2"
+                                className={style['modal__header']}
+                                style={{ fontSize: '23px', fontWeight: '400' }}
+                            >
+                                Give Us Your Feedback
                             </Typography>
-                            <div className={style["first"]}>
-                                <div className={style["rate"]}>
+                            <i
+                                className="fa-regular fa-circle-xmark"
+                                style={{ color: '#000000', fontSize: '25px', fontWeight: '600', cursor: 'pointer', position: 'absolute', top: '25px', right: '20px' }}
+                                onClick={() => setOpen(false)}
+                            ></i>
+                            <div className={style['modal__container']}>
 
-                                    <Typography className={style["label"]}>Tour Rate</Typography>
-                                    {[...Array(5)].map((star, i) => {
-                                        const ratingValue = i + 1
-                                        return <label>
-                                            <input className={style["input"]}
-                                                type='radio'
-                                                name='rating'
-                                                value={ratingValue}
-                                                onClick={() => {
-                                                    setTourRating(ratingValue)
-                                                }}
 
-                                            ></input>
-                                            <FaStar className={style["star"]}
-                                                size={25}
-                                                color={ratingValue <= (tourRating || tourHover) ? "#ffc107" : "#e4e5e9"}
-                                                onMouseEnter={() => {
-                                                    setTourHover(ratingValue)
-                                                }}
-                                                onMouseLeave={() => {
-                                                    setTourHover(null)
-                                                }}
-                                            />
-                                        </label>
-                                    })}
-                                    <Typography className={style["label"]}>Tour Comment</Typography>
-                                    <textarea placeholder='Enter Tour Comment'
-                                        className={style["area"]}
-                                        onChange={(e) => {
-                                            setTourComment(e.target.value)
-                                        }}></textarea>
+                                <div className={style["first"]}>
+                                    <div className={style["rate"]}>
+
+                                        <Typography className={style["label"]}>Tour Rate</Typography>
+                                        {[...Array(5)].map((star, i) => {
+                                            const ratingValue = i + 1
+                                            return <label>
+                                                <input className={style["input"]}
+                                                    type='radio'
+                                                    name='rating'
+                                                    value={ratingValue}
+                                                    onClick={() => {
+                                                        setTourRating(ratingValue)
+                                                    }}
+
+                                                ></input>
+                                                <FaStar className={style["star"]}
+                                                    size={25}
+                                                    color={ratingValue <= (tourRating || tourHover) ? "#ffc107" : "#e4e5e9"}
+                                                    onMouseEnter={() => {
+                                                        setTourHover(ratingValue)
+                                                    }}
+                                                    onMouseLeave={() => {
+                                                        setTourHover(null)
+                                                    }}
+                                                />
+                                            </label>
+                                        })}
+                                        <Typography className={style["label"]}>Tour Comment</Typography>
+                                        <textarea placeholder='Enter Tour Comment'
+                                            className={style["area"]}
+                                            onChange={(e) => {
+                                                setTourComment(e.target.value)
+                                            }}></textarea>
+                                    </div>
+                                    <div className={style["guide"]}>
+                                        <Typography className={style["label"]}>Tour Guide Rate</Typography>
+                                        {[...Array(5)].map((star, i) => {
+                                            const ratingValue = i + 1
+                                            return <label>
+                                                <input className={style["input"]}
+                                                    type='radio'
+                                                    name='rating'
+                                                    value={ratingValue}
+                                                    onClick={() => {
+                                                        setTourGuideRating(ratingValue)
+                                                    }}
+
+                                                ></input>
+                                                <FaStar className={style["star"]}
+                                                    size={25}
+                                                    color={ratingValue <= (tourGuideRating || tourGuideHover) ? "#ffc107" : "#e4e5e9"}
+                                                    onMouseEnter={() => {
+                                                        setTourGuideHover(ratingValue)
+                                                    }}
+                                                    onMouseLeave={() => {
+                                                        setTourGuideHover(null)
+                                                    }}
+                                                />
+                                            </label>
+                                        })}
+                                        <Typography className={style["label"]}>Tour Guide Comment</Typography>
+                                        <textarea placeholder='Enter Tour Guide Comment'
+                                            className={style["area"]}
+                                            onChange={(e) => {
+                                                setTourGuideComment(e.target.value)
+                                            }}></textarea>
+                                    </div>
                                 </div>
-                                <div className={style["guide"]}>
-                                    <Typography className={style["label"]}>Tour Guide Rate</Typography>
-                                    {[...Array(5)].map((star, i) => {
-                                        const ratingValue = i + 1
-                                        return <label>
-                                            <input className={style["input"]}
-                                                type='radio'
-                                                name='rating'
-                                                value={ratingValue}
-                                                onClick={() => {
-                                                    setTourGuideRating(ratingValue)
-                                                }}
+                                <div className={style["first"]}>
+                                    <div className={style["operator"]}>
+                                        <Typography className={style["label"]}>Camera Operator Rate</Typography>
+                                        {[...Array(5)].map((star, i) => {
+                                            const ratingValue = i + 1
+                                            return <label>
+                                                <input className={style["input"]}
+                                                    type='radio'
+                                                    name='rating'
+                                                    value={ratingValue}
+                                                    onClick={() => {
+                                                        setCameraOperatorRating(ratingValue)
+                                                    }}
 
-                                            ></input>
-                                            <FaStar className={style["star"]}
-                                                size={25}
-                                                color={ratingValue <= (tourGuideRating || tourGuideHover) ? "#ffc107" : "#e4e5e9"}
-                                                onMouseEnter={() => {
-                                                    setTourGuideHover(ratingValue)
-                                                }}
-                                                onMouseLeave={() => {
-                                                    setTourGuideHover(null)
-                                                }}
-                                            />
-                                        </label>
-                                    })}
-                                    <Typography className={style["label"]}>Tour Guide Comment</Typography>
-                                    <textarea placeholder='Enter Tour Guide Comment'
-                                        className={style["area"]}
-                                        onChange={(e) => {
-                                            setTourGuideComment(e.target.value)
-                                        }}></textarea>
+                                                ></input>
+                                                <FaStar className={style["star"]}
+                                                    size={25}
+                                                    color={ratingValue <= (cameraOperatorRating || cameraOperatorHover) ? "#ffc107" : "#e4e5e9"}
+                                                    onMouseEnter={() => {
+                                                        setCameraOperatorHover(ratingValue)
+                                                    }}
+                                                    onMouseLeave={() => {
+                                                        setCameraOperatorHover(null)
+                                                    }}
+                                                />
+                                            </label>
+                                        })}
+                                        <Typography className={style["label"]}>Camera Operator Comment</Typography>
+                                        <textarea placeholder='Enter Camera Operator Comment'
+                                            className={style["area"]}
+                                            onChange={(e) => {
+                                                setCameraOperatorComment(e.target.value)
+                                            }}></textarea>
+                                    </div>
+                                    <div className={style["director"]}>
+                                        <Typography className={style["label"]}>Director Rate</Typography>
+                                        {[...Array(5)].map((star, i) => {
+                                            const ratingValue = i + 1
+                                            return <label>
+                                                <input className={style["input"]}
+                                                    type='radio'
+                                                    name='rating'
+                                                    value={ratingValue}
+                                                    onClick={() => {
+                                                        setDirectorRating(ratingValue)
+                                                    }}
+
+                                                ></input>
+                                                <FaStar className={style["star"]}
+                                                    size={25}
+                                                    color={ratingValue <= (directorRating || directorHover) ? "#ffc107" : "#e4e5e9"}
+                                                    onMouseEnter={() => {
+                                                        setDirectorHover(ratingValue)
+                                                    }}
+                                                    onMouseLeave={() => {
+                                                        setDirectorHover(null)
+                                                    }}
+                                                />
+                                            </label>
+                                        })}
+                                        <Typography className={style["label"]}>Director Comment</Typography>
+                                        <textarea placeholder='Enter Director Comment'
+                                            className={style["area"]}
+                                            onChange={(e) => {
+                                                setDirectorComment(e.target.value)
+                                            }}></textarea>
+                                    </div>
                                 </div>
+                                <Button
+                                    style={{ display: "block", margin: "10px auto", background: 'rgb(54, 108, 175)', borderRadius: '12px' }}
+                                    variant="contained"
+                                    onClick={() => {
+                                        handleClose()
+                                        axios.post("http://localhost:5000/user/makeReview", {
+                                            user: JSON.parse(localStorage.getItem("id")),
+                                            book: props.id,
+                                            rate: tourRating,
+                                            comment: tourComment,
+                                            tourGuideRate: tourGuideRating,
+                                            tourGuideComment: tourGuideComment,
+                                            cameraOperatorRate: cameraOperatorRating,
+                                            cameraOperatorComment: cameraOperatorComment,
+                                            directorRate: directorRating,
+                                            directorComment: directorComment
+                                        }).then((res) => {
+                                            setTourRating(null)
+                                            setTourComment("")
+                                            setTourGuideRating(null)
+                                            setTourGuideComment("")
+                                            setCameraOperatorRating(null)
+                                            setCameraOperatorComment("")
+                                            setDirectorRating(null)
+                                            setDirectorComment("")
+                                        })
+                                    }}
+                                >Save</Button>
                             </div>
-                            <div className={style["first"]}>
-                                <div className={style["operator"]}>
-                                    <Typography className={style["label"]}>Camera Operator Rate</Typography>
-                                    {[...Array(5)].map((star, i) => {
-                                        const ratingValue = i + 1
-                                        return <label>
-                                            <input className={style["input"]}
-                                                type='radio'
-                                                name='rating'
-                                                value={ratingValue}
-                                                onClick={() => {
-                                                    setCameraOperatorRating(ratingValue)
-                                                }}
 
-                                            ></input>
-                                            <FaStar className={style["star"]}
-                                                size={25}
-                                                color={ratingValue <= (cameraOperatorRating || cameraOperatorHover) ? "#ffc107" : "#e4e5e9"}
-                                                onMouseEnter={() => {
-                                                    setCameraOperatorHover(ratingValue)
-                                                }}
-                                                onMouseLeave={() => {
-                                                    setCameraOperatorHover(null)
-                                                }}
-                                            />
-                                        </label>
-                                    })}
-                                    <Typography className={style["label"]}>Camera Operator Comment</Typography>
-                                    <textarea placeholder='Enter Camera Operator Comment'
-                                        className={style["area"]}
-                                        onChange={(e) => {
-                                            setCameraOperatorComment(e.target.value)
-                                        }}></textarea>
-                                </div>
-                                <div className={style["director"]}>
-                                    <Typography className={style["label"]}>Director Rate</Typography>
-                                    {[...Array(5)].map((star, i) => {
-                                        const ratingValue = i + 1
-                                        return <label>
-                                            <input className={style["input"]}
-                                                type='radio'
-                                                name='rating'
-                                                value={ratingValue}
-                                                onClick={() => {
-                                                    setDirectorRating(ratingValue)
-                                                }}
-
-                                            ></input>
-                                            <FaStar className={style["star"]}
-                                                size={25}
-                                                color={ratingValue <= (directorRating || directorHover) ? "#ffc107" : "#e4e5e9"}
-                                                onMouseEnter={() => {
-                                                    setDirectorHover(ratingValue)
-                                                }}
-                                                onMouseLeave={() => {
-                                                    setDirectorHover(null)
-                                                }}
-                                            />
-                                        </label>
-                                    })}
-                                    <Typography className={style["label"]}>Director Comment</Typography>
-                                    <textarea placeholder='Enter Director Comment'
-                                        className={style["area"]}
-                                        onChange={(e) => {
-                                            setDirectorComment(e.target.value)
-                                        }}></textarea>
-                                </div>
-                            </div>
-                            <Button
-                             style={{display:"block",margin:"10px auto"}} 
-                             variant="contained"
-                             onClick={()=>{
-                                handleClose()
-                                axios.post("http://localhost:5000/user/makeReview",{
-                                    user:JSON.parse(localStorage.getItem("id")),
-                                    book:props.id,
-                                    rate:tourRating,
-                                    comment:tourComment,
-                                    tourGuideRate:tourGuideRating,
-                                    tourGuideComment:tourGuideComment,
-                                    cameraOperatorRate:cameraOperatorRating,
-                                    cameraOperatorComment:cameraOperatorComment,
-                                    directorRate:directorRating,
-                                    directorComment:directorComment
-                                }).then((res)=>{
-                                        setTourRating(null)
-                                        setTourComment("")
-                                        setTourGuideRating(null)
-                                        setTourGuideComment("")
-                                        setCameraOperatorRating(null)
-                                        setCameraOperatorComment("")
-                                        setDirectorRating(null)
-                                        setDirectorComment("")
-                                })
-                             }}
-                             >Save</Button>
                         </Box>
                     </Modal>
                 </>

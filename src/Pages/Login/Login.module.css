@@ -95,7 +95,7 @@ form.sign-up-form {
     color: #151111;
     text-decoration: none;
     font-size: 15px;
-    font-weight: 800;
+    font-weight: 600;
     transition: 0.3s;
     margin-left: 5px;
 }
@@ -110,9 +110,19 @@ form.sign-up-form {
     margin-bottom: 40px;
 }
 
-/* .actual-form:first-of-type {
-    margin-bottom: 50px;
-  } */
+.error-message{
+    color: red;
+    font-size: 15px;
+    margin-top: 12px;
+}
+
+.error-message__small{
+    color: red;
+    font-size: 15px;
+    position: absolute;
+    top: 51px;
+    right: 5px;
+}
 
 .input-field {
     position: absolute;
@@ -182,6 +192,15 @@ form.sign-up-form {
 
 .forgo {
     margin-bottom: 88px;
+}
+
+.forgo > a {
+    color: #151111;
+    transition: 0.3s;
+}
+
+.forgo > a:hover {
+    color: #366DAF;
 }
 
 .sign-btnn {
@@ -285,18 +304,6 @@ main.signn .carousel {
 
 .input-wrap.error input {
     border-color: #e74c3c;
-}
-
-.input-wrap small {
-    color: #e74c3c;
-    position: absolute;
-    top: 47px;
-    right: 9px;
-    visibility: hidden;
-}
-
-.input-wrap.error small {
-    visibility: visible;
 }
 
 .sign__logo {
