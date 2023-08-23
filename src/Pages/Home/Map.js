@@ -30,7 +30,7 @@ const Map = ({ tours }) => {
                     className: 'custom-marker',
                     html: `
                         <a href="/tourDetails/${_id}">
-                            ${img ? `<img src="http://localhost:5000/${img[0]}" alt="${title}" />` : ''}
+                            ${img ? `<img style="width:25px" src="http://localhost:5000/${img[0]}" alt="${title}" />` : ''}
                             <span class="marker-text">${title}</span>
                         </a>
                     `,
