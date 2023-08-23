@@ -9,6 +9,7 @@ import TechnicalProfile from './Pages/TechnicalProfile/Technical';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import EchatBot from './Pages/EngatiChatBot/EchatBot';
 import CchatBot from './Pages/CchatBot/CchatBot';
+import WonderChat from './Pages/ChatBot/ChatbotEmbed';
 function App() {
   return (
     <BrowserRouter>
@@ -30,7 +31,7 @@ function AppContent() {
 
   return (
     <>
-      {!hideChatbot && <CchatBot />}
+      {!hideChatbot && <WonderChat />}
       <Routes>
         <Route index element={<Home />} path="/home" />
         <Route element={<Home />} path="/" />
