@@ -39,6 +39,10 @@ function Login() {
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [showErrorCoverModal, setShowErrorCoverModal] = useState(false);
   const [showErrorProfileModal, setShowErrorProfileModal] = useState(false)
+  const [showErrorRegisterModal, setShowErrorRegisterModal] = useState(false);
+  const [showErrorLoginModal, setShowErrorLoginModal] = useState(false);
+  const [errorRegisterMsg, setErrorRegisterMsg] = useState("");
+  const [errorLoginMsg, setErrorLoginMsg] = useState("");
 
   //pending modal
   const [showPendingModal, setShowPendingModal] = useState(false);
@@ -54,13 +58,21 @@ function Login() {
     e.preventDefault();
 
     if (userType == "user") {
-      if (!userType || !registerName || !registerEmail || !registerPassword || !agreed) {
+      if (!registerName) {
         setNameError(true)
-        setEmailError(true)
-        setPasswordError(true)
-        setTermsAccepted(false);
         return;
-      } else {
+      }
+      else if (!registerEmail) {
+        setEmailError(true)
+        return;
+      }
+      else if (!registerPassword) {
+        setPasswordError(true)
+      }
+      else if (!agreed) {
+        setTermsAccepted(false);
+      }
+      else {
         setNameError(false)
         setEmailError(false)
         setPasswordError(false)
@@ -72,14 +84,21 @@ function Login() {
           password: registerPassword
         }).then((res) => {
           console.log(res.data)
-          if(res.data.status === 200){
-          setShowSuccessRegisterModal(true);
-          setTimeout(() => {
-            setShowSuccessRegisterModal(false);
-          }, 3000);
-        }
+          if (res.data.status === 200) {
+            setShowSuccessRegisterModal(true);
+            setTimeout(() => {
+              setShowSuccessRegisterModal(false);
+            }, 3000);
+          }
+          else if (res.data.status === 400) {
+            setErrorRegisterMsg(res.data.message)
+            setShowErrorRegisterModal(true);
+            setTimeout(() => {
+              setShowErrorRegisterModal(false);
+            }, 3000);
+          }
         })
-      
+
       }
 
     }
@@ -118,7 +137,9 @@ function Login() {
             {/*--------------------- Sign In Form-----------------------*/}
             {/* Success Modal */}
             {showSuccessLoginModal && <SuccessandErrorModals message={"Welcome Back!"} success={true} />}
-
+            {
+              showErrorLoginModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
+            }
             <form className={style["sign-in-form"]} id="sign__in__form" >
               <div className={style["logo"]}>
                 <img src={Logo} alt="" />
@@ -134,26 +155,29 @@ function Login() {
               <div className={style["actual-form"]}>
                 <div className={style["input-wrap"]}>
                   <input onChange={(e) => {
-                      setLoginEmail(e.target.value)
+                    setLoginEmail(e.target.value)
                   }} type="email" className={style["input-field"]} id="log__email" />
                   <label>Email</label>
                   {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                 </div>
                 <div className={style["input-wrap"]}>
                   <input onChange={(e) => {
-                      setLoginPassword(e.target.value)
-                    
+                    setLoginPassword(e.target.value)
+
                   }} type="password" className={style["input-field"]} id="log__pass" />
                   <label>Password</label>
                   {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                 </div>
                 <input onClick={(e) => {
                   e.preventDefault()
-                  if (!loginEmail || !loginPassword) {
+                  if (!loginEmail) {
                     setEmailError(true)
-                    setPasswordError(true)
                     return;
-                  } else {
+                  }
+                  else if (!loginPassword) {
+                    setPasswordError(true)
+                  }
+                  else {
                     setEmailError(false)
                     setPasswordError(false)
                     axios.post("http://localhost:5000/user/login", {
@@ -169,6 +193,17 @@ function Login() {
                           if (res.data.status === 200) {
                             localStorage.setItem("id", JSON.stringify(res.data.data._id))
                             localStorage.setItem("role", JSON.stringify(res.data.user))
+                            setShowSuccessLoginModal(true);
+                            setTimeout(() => {
+                              setShowSuccessLoginModal(false);
+                            }, 3000);
+                          }
+                          else if (res.data.status === 400) {
+                            setErrorLoginMsg(res.data.message)
+                            setShowErrorLoginModal(true);
+                            setTimeout(() => {
+                              setShowErrorLoginModal(false);
+                            }, 3000);
                           }
                         })
                       }
@@ -176,7 +211,17 @@ function Login() {
                         if (res.data.status === 200) {
                           localStorage.setItem("id", JSON.stringify(res.data.data._id))
                           localStorage.setItem("role", "user")
-
+                          setShowSuccessLoginModal(true);
+                          setTimeout(() => {
+                            setShowSuccessLoginModal(false);
+                          }, 3000);
+                        }
+                        else if (res.data.status === 400) {
+                          setErrorLoginMsg(res.data.message)
+                          setShowErrorLoginModal(true);
+                          setTimeout(() => {
+                            setShowErrorLoginModal(false);
+                          }, 3000);
                         }
                         console.log(res.data)
                       }
@@ -200,6 +245,10 @@ function Login() {
             {/* Success Modal */}
             {showSuccessRegisterModal && <SuccessandErrorModals message={"Registered Successfully"} success={true} />}
             {
+              showErrorRegisterModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
+            }
+            {
+
               tap === "signUp" &&
               <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit} enctype="multipart/form-data">
                 <div className={style["logo sign__logo"]}>
