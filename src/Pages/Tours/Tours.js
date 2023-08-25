@@ -27,6 +27,7 @@ import axios from 'axios';
 import Card from '../Card/Card';
 import Map from '../Home/Map'
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
+import { NavLink } from 'react-router-dom';
 function Tours() {
   const [tours, setTours] = useState([])
   const [filteredTours, setFilteresTours] = useState([])
@@ -172,7 +173,11 @@ function Tours() {
                 </ul>
               </div>
               <div className={style["nav__join"]}>
-                <a href="#">Join Us Now</a>
+              {
+                                    !localStorage.getItem("id") ? 
+                                <NavLink to='/login'>Join Us Now</NavLink>:
+                                <NavLink to='/login'>Log Out</NavLink>
+                                }
               </div>
             </div>
           </div>
@@ -193,9 +198,7 @@ function Tours() {
         <div className={style["container"]}>
           <div className={style["search__bar__bk"]}>
             <div className={style["search__bar__items"]}>
-
               <div className={style["btn__info"]}>
-
                 <i className="fa-solid fa-location-dot " id={style["myicon"]} style={{
                   color: "rgb(6, 12, 19)",
                   "fontSize": "20px",

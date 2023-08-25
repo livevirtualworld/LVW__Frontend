@@ -371,10 +371,8 @@ nav .menu i{
 .details__about .main-content > h5{
     font-size: 18px;
     font-weight: 400;
-    text-align: center;
-    height: 600px;
-    line-height: 30;
     color: rgba(6, 12, 19, 0.6);
+    margin-bottom: 15px;
 }
 .details__about .main-content .main-image img{
     width: 100%;
