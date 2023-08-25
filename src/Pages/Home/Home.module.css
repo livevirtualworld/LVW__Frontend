@@ -517,6 +517,7 @@ nav .menu i {
     position: absolute;
     top: 105px;
     left: 155px;
+    z-index: 999;
 }
 
 .map__search__bar input {

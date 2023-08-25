@@ -27,6 +27,10 @@ import axios from 'axios';
 import Card from '../Card/Card';
 import Map from '../Home/Map'
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+
 function Tours() {
   const [tours, setTours] = useState([])
   const [filteredTours, setFilteresTours] = useState([])
@@ -46,41 +50,8 @@ function Tours() {
   };
   const [menu, setMenu] = useState(false)
   const [lang, setLang] = useState("english")
-  const handleFirstClick = () => {
-    if ($('.second').hasClass('on') && $('.tumbler').hasClass('on')) {
-      $('.second').removeClass('on');
-      $('.tumbler').removeClass('on');
-      $('.first').addClass('on');
-    }
-    return false;
-  };
-
-  const handleSecondClick = () => {
-    if ($('.first').hasClass('on')) {
-      $('.first').removeClass('on');
-      $('.second').addClass('on');
-      $('.tumbler').addClass('on');
-    }
-    return false;
-  };
-
-  const handleTumblerClick = () => {
-    if ($('.tumbler').hasClass('on') && $('.second').hasClass('on')) {
-      $('.tumbler').removeClass('on');
-      $('.second').removeClass('on');
-      $('.first').addClass('on');
-    } else {
-      $('.tumbler').addClass('on');
-      $('.first').removeClass('on');
-      $('.second').addClass('on');
-    }
-    return false;
-  };
 
   useEffect(() => {
-    $('.first').click(handleFirstClick);
-    $('.second').click(handleSecondClick);
-    $('.tumbler').click(handleTumblerClick);
     axios.get("http://localhost:5000/admin//allTours").then((res) => {
       console.log(res.data.data)
       setTours(res.data.data)
@@ -99,7 +70,11 @@ function Tours() {
       })
       .catch(err => console.log(err))
   }, []);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
 
+  const handleSwitchChange = () => {
+    setIsSwitchOn((prev) => !prev);
+  };
   return (
     <>
       <nav>
@@ -238,7 +213,7 @@ function Tours() {
               </div>
               <div className={style["btn__info"]}>
 
-                <i className="fa-solid fa-location-dot " id={style["myicon"]} style={{
+                <i className="fa-solid fa-language " id={style["myicon"]} style={{
                   color: "rgb(6, 12, 19)",
                   "fontSize": "20px",
                   "right": "30px",
@@ -266,9 +241,18 @@ function Tours() {
                 </select>
               </div>
               <div className={style["live__now__search"]}>
-                <a className={style["tumbler"]}>.</a>
-                <a className={style["second"]}>Live Now Only</a>
-
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        defaultChecked={false}
+                        onChange={handleSwitchChange} // Handle the switch change event
+                      />
+                    }
+                    label="Live Now Only"
+                    style={isSwitchOn ? { color: 'red' } : {}}
+                  />
+                </FormGroup>
               </div>
             </div>
           </div>
@@ -279,6 +263,10 @@ function Tours() {
         <div className={style["container"]}>
           <h2>Map View</h2>
           <Map tours={filteredTours} />
+          <div className={style["tours__map__search__bar"]}>
+            <img src={SearchMap} alt="" className={style["tours__map__search__icon"]} />
+            <input className={style["search"]} type="search" placeholder="Location..." />
+          </div>
         </div>
       </section>
 
