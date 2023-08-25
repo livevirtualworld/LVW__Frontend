@@ -48,6 +48,7 @@ function Home() {
     const [lang, setLang] = useState("english")
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [tours,setTours] = useState([])
+    const [filteredTours,setFilteredTours] = useState([])
     const [travelers,setTravelers] = useState(0)
     const [publicTours,setPublicTours] = useState(0)
     const [vip,setVip] = useState(0)
@@ -62,6 +63,7 @@ function Home() {
         axios.get("http://localhost:5000/admin//allTours").then((res)=>{
             console.log(res.data.data)
             setTours(res.data.data)
+            setFilteredTours(res.data.data)
         })
         axios.get("http://localhost:5000/user/allTravelers").then((res)=>{
             console.log(res.data.travelers)
@@ -100,6 +102,15 @@ function Home() {
             items: 1
         }
     };
+
+    function search(text){
+        console.log(text)
+        const x = tours.filter((tour)=>{
+            console.log(tour.address)
+           return tour.address.toLowerCase().includes(text.toLowerCase())
+        })
+        setFilteredTours(x)
+    }
 
 
     return (
@@ -250,10 +261,10 @@ function Home() {
                         <img src={BtnTwo} alt="" className={style["cursor__pointer__icon"]} />
                         <img src={BtnThree} alt="" className={style["cursor__pointer__icon"]} />
                     </div> */}
-                    <Map tours={tours} />
+                    <Map tours={filteredTours} />
                     <div className={style["map__search__bar"]}>
                         <img src={Search} alt="" className={style["map__search__icon"]} />
-                        <input className={style["search"]} type="search" placeholder="Location..." />
+                        <input onChange={(e)=>{search(e.target.value)}} className={style["search"]} type="search" placeholder="Location..." />
                     </div>
                 </div>
             </section>
