@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 function WonderChat() {
   useEffect(() => {
+    console.log("Script is being loaded")
     // Add the Wonderchat script dynamically to your website
     const script = document.createElement('script');
     script.src = "https://app.wonderchat.io/scripts/wonderchat.js";

@@ -7,8 +7,6 @@ import Login from './Pages/Login/Login'
 import Home from './Pages/Home/Home'
 import TechnicalProfile from './Pages/TechnicalProfile/Technical';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import EchatBot from './Pages/EngatiChatBot/EchatBot';
-import CchatBot from './Pages/CchatBot/CchatBot';
 import WonderChat from './Pages/ChatBot/ChatbotEmbed';
 function App() {
   return (

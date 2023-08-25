@@ -225,6 +225,7 @@ nav .menu i{
     gap: 25px;
     padding: 20px 25px;
     border-radius: 16px;
+    align-items: center;
 }
 
 .search__bar__btn {
@@ -645,6 +646,7 @@ nav .menu i{
     position: absolute;
     top: 105px;
     left: 155px;
+    z-index: 999;
 }
 
 .tours__map__search__bar input {
@@ -805,7 +807,7 @@ nav .menu i{
   }
   
   .pagination button.active {
-    background-color: #fe2629;
+    background: linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%);
     color: white;
   }
   .pagination {
@@ -815,16 +817,17 @@ nav .menu i{
   }
   
   .pagination button {
+    font-size: 24px;
     margin: 0 5px;
-    padding: 5px 10px;
+    border-radius: 18px;
+    padding: 9px 18px;
     background-color: #e0e0e0;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
   }
   
   .pagination button:hover {
-    background-color: #fe2629;
+    background: linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%);
     color: white;
   }
   footer{

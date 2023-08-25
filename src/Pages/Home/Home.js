@@ -238,12 +238,9 @@ function Home() {
             <section className={style["map__section"]}>
                 <div className={style["container"]}>
                     <h2>Find your tour on the map</h2>
+                    
                     {/* <div className={style["map__img"]}>
                         <img src={Mapp} alt="" />
-                    </div>
-                    <div className={style["map__search__bar"]}>
-                        <img src={Search} alt="" className={style["map__search__icon"]} />
-                        <input className={style["search"]} type="search" placeholder="Location..." />
                     </div>
                     <img src={LocationOne} alt="" className={style["location__one"]} />
                     <img src={LocationTwo} alt="" className={style["location__two"]} />
@@ -254,6 +251,10 @@ function Home() {
                         <img src={BtnThree} alt="" className={style["cursor__pointer__icon"]} />
                     </div> */}
                     <Map tours={tours} />
+                    <div className={style["map__search__bar"]}>
+                        <img src={Search} alt="" className={style["map__search__icon"]} />
+                        <input className={style["search"]} type="search" placeholder="Location..." />
+                    </div>
                 </div>
             </section>
 
