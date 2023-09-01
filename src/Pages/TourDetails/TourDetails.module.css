@@ -472,14 +472,14 @@ nav .menu i{
     width: 34%;
     height: 440px;
 }
-.details__book form{
+.details__book .booking__form__style{
     background-color: rgba(255, 255, 255, 0.32);
     padding: 20px;
     border-radius: 12px;
     position: relative;
     margin-bottom: 20px;
 }
-.details__book form::after{
+.details__book .booking__form__style::after{
     position: absolute;
     content: "";
     left: 20px;
@@ -488,7 +488,7 @@ nav .menu i{
     height: 1px;
     background-color: rgba(6, 12, 19, 0.32);
 }
-.details__book form label{
+.details__book .booking__form__style label{
     font-size: 14px;
     font-weight: 700;
     color:rgba(6, 12, 19, 0.6);
@@ -644,7 +644,7 @@ select {
     color: #f39c12;
   }
 
-.details__book .form input {
+.details__book .booking__form__style input {
   width: 100%;
   padding: 20px;
   height: 24px;

@@ -9,9 +9,13 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Login() {
+  const navigate = useNavigate();
+
   const [tap, setTap] = useState("signUp")
   const [hi, setHi] = useState(false)
   const [userType, setUserType] = useState("user");
@@ -196,6 +200,7 @@ function Login() {
                             setShowSuccessLoginModal(true);
                             setTimeout(() => {
                               setShowSuccessLoginModal(false);
+                              navigate("/home");
                             }, 3000);
                           }
                           else if (res.data.status === 400) {
@@ -214,6 +219,7 @@ function Login() {
                           setShowSuccessLoginModal(true);
                           setTimeout(() => {
                             setShowSuccessLoginModal(false);
+                            navigate("/home");
                           }, 3000);
                         }
                         else if (res.data.status === 400) {

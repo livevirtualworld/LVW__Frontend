@@ -19,11 +19,13 @@ import icon from "../../assets/icons.svg"
 import UK from '../../assets/United Kingdom (GB).svg'
 import LR from '../../assets/Line Rounded.svg'
 import icon1 from '../../assets/icons (1).svg'
-import { json, useLocation } from 'react-router-dom';
+import { NavLink, json, useLocation } from 'react-router-dom';
 import axios from 'axios'
 import Card from '../Card/Card';
 import { useParams } from 'react-router-dom';
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
+import Navbar from '../Navbar/Navbar'
+
 
 function TourDetails() {
 
@@ -120,82 +122,8 @@ function TourDetails() {
       {
         showErrorBookModal && <SuccessandErrorModals success={false} message={showErrorMsg}/>
       }
-      <nav>
-        <div className={style["container"]}>
-          <div className={style["nav__content"]}>
-            <div className={style["nav__right"]}>
-              <div className={style["nav__logo"]}>
-                <img src={logo} alt="logo" />
-              </div>
-              <div className={style["nav__search"]}>
-                <input type="text" placeholder="Tour name or location..." />
-              </div>
-              <ul className={style["nav__links"]}>
-                <li><a>Home</a></li>
-                <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                </li>
-                <li><a href="#">Our Mission</a></li>
-                <li><a href="#">Contact Us</a></li>
-              </ul>
-            </div>
-            <div className={style["menu"]}>
-              <i onClick={() => {
-                if (menu == false) {
-                  setMenu(true)
-                  console.log(true)
-                }
-                else {
-                  setMenu(false)
-                  console.log(false)
-                }
+           <Navbar />
 
-              }} className="fas fa-bars" />
-              {
-                menu == true &&
-                <div className={style["drobdown"]}>
-                  <ul className={style["nav__link"]} id="drobDown">
-                    <li><a href="#">Home</a></li>
-                    <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                    </li>
-                    <li><a href="#">Our Mission</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                  </ul>
-                </div>
-              }
-            </div>
-            <div className={style["nav__left"]}>
-              <div className={style["nav__langs"]}>
-                {
-                  lang == "english" &&
-                  <a><img src={United_Kingdom} alt='' /> English</a>
-                }
-                {
-                  lang == "arabic" &&
-                  <a href="#"><img src={egypt} alt='' /> العربية</a>
-                }
-                {
-                  lang == "italiano" &&
-                  <a href="#"><img src={United_Kingdom} alt='' /> Italiano</a>
-                }
-                <ul>
-                  <li onClick={() => {
-                    setLang("english")
-                  }}><a href="#"><img src={United_Kingdom} alt='' /> English</a></li>
-                  <li onClick={() => {
-                    setLang("arabic")
-                  }}><a href="#"><img src={egypt} alt='' /> العربية</a></li>
-                  <li onClick={() => {
-                    setLang("italiano")
-                  }}><a href="#"><img src={United_Kingdom} alt='' /> Italiano</a></li>
-                </ul>
-              </div>
-              <div className={style["nav__join"]}>
-                <a href="#">Join Us Now</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
       <div className={style["hero"]}>
         <div className={style["container"]}>
           <div className={style["hero__content"]}>
@@ -377,7 +305,7 @@ function TourDetails() {
               tap != "similar" &&
               <>
                 <div className={style["details__book"]}>
-                  <form>
+                  <form className={style['booking__form__style']}>
                     {/* <label>Select Date</label> */}
                     {/* <input type="date" /> */}
                     {/* <label>Select Time</label> */}
@@ -477,6 +405,7 @@ function TourDetails() {
                       bookedLang === "Arabic" &&
                       <>
                         <h4>This tour by</h4>
+                        <NavLink to="/technicalprofile" id={tour?.arabicTourGuide?._id} role={"tourGuide"}>
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -484,6 +413,7 @@ function TourDetails() {
                             <h5>Tour Guide</h5>
                           </div>
                         </div>
+                        </NavLink>
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} alt="avatar" />
                           <div className={style["text"]}>

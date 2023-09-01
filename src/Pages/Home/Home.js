@@ -40,7 +40,7 @@ import ReviewCard from './ReviewCard'
 import { NavLink } from 'react-router-dom';
 import axios from 'axios'
 import { Reviews } from '@mui/icons-material'
-import EchatBot from '../EngatiChatBot/EchatBot'
+import Navbar from '../Navbar/Navbar'
 
 
 function Home() {
@@ -118,86 +118,7 @@ function Home() {
 
             {/*------------------------Navbar Section-----------------------*/}
 
-            <nav>
-                <div className={style["container"]}>
-                    <div className={style["nav__content"]}>
-                        <div className={style["nav__right"]}>
-                            <div className={style["nav__logo"]}>
-                                <img src={logo} alt="logo" />
-                            </div>
-                            <div className={style["nav__search"]}>
-                                <input type="text" placeholder="Tour name or location..." />
-                            </div>
-                            <ul className={style["nav__links"]}>
-                                <li className={style["active"]}><a>Home</a></li>
-                                <li ><NavLink to="/Tours">Tours <img src={Vector} alt='' /></NavLink>
-                                </li>
-                                <li><a href="#">Our Mission</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                        <div className={style["menu"]}>
-                            <i onClick={() => {
-                                if (menu == false) {
-                                    setMenu(true)
-                                    console.log(true)
-                                }
-                                else {
-                                    setMenu(false)
-                                    console.log(false)
-                                }
-
-                            }} className="fas fa-bars" />
-                            {
-                                menu == true &&
-                                <div className={style["drobdown"]}>
-                                    <ul className={style["nav__link"]} id="drobDown">
-                                        <li><a href="#">Home</a></li>
-                                        <li className={style["active"]}><a>Tours <img src={Vector} alt='' /></a>
-                                        </li>
-                                        <li><a href="#">Our Mission</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                            }
-                        </div>
-                        <div className={style["nav__left"]}>
-                            <div className={style["nav__langs"]}>
-                                {
-                                    lang == "english" &&
-                                    <a><img src={United_Kingdom} alt='' /> English</a>
-                                }
-                                {
-                                    lang == "arabic" &&
-                                    <a href="#"><img src={egypt} alt='' /> العربية</a>
-                                }
-                                {
-                                    lang == "italiano" &&
-                                    <a href="#"><img src={United_Kingdom} alt='' /> Italiano</a>
-                                }
-                                <ul>
-                                    <li onClick={() => {
-                                        setLang("english")
-                                    }}><a href="#"><img src={United_Kingdom} alt='' /> English</a></li>
-                                    <li onClick={() => {
-                                        setLang("arabic")
-                                    }}><a href="#"><img src={egypt} alt='' /> العربية</a></li>
-                                    <li onClick={() => {
-                                        setLang("italiano")
-                                    }}><a href="#"><img src={United_Kingdom} alt='' /> Italiano</a></li>
-                                </ul>
-                            </div>
-                            <div className={style["nav__join"]}>
-                                {
-                                    !localStorage.getItem("id") ? 
-                                <NavLink to='/login'>Join Us Now</NavLink>:
-                                <NavLink to='/login'>Log Out</NavLink>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navbar />
 
             {/*------------------------Hero Banner Section------------------*/}
             <section className={style["hero__banner__section"]}>

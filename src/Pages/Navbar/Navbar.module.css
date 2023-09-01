@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #F0EDF7;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+nav {
+    background-color: #0A0812;
+    padding: 20px 0;
+}
+
+.nav__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav__right {
+    display: flex;
+    align-items: center;
+}
+
+.nav__logo {
+    margin-right: 40px;
+}
+
+.nav__search {
+    margin-right: 150px;
+    background-image: url("../../assets/Search.svg");
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 12px;
+}
+
+.nav__search input {
+    background-color: rgba(83, 83, 83, 0.6);
+    width: 233px;
+    height: 48px;
+    border-radius: 12px;
+    padding: 0 12px 0 44px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    outline: none;
+}
+
+.nav__search input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.nav__links {
+    display: flex;
+    color: white;
+}
+
+.nav__links li {
+    margin-right: 13px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.nav__links li.active::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    left: 0;
+    height: 1.8px;
+    bottom: -7px;
+    background-color: rgba(119, 161, 213, 1);
+}
+
+.nav__links li:hover a {
+    color: white;
+}
+
+.nav__links li:hover::after {
+    position: absolute;
+    content: '';
+    width: 80%;
+    left: 10%;
+    height: 1.8px;
+    bottom: -7px;
+    background-color: rgba(119, 161, 213, 1);
+    transition: 0.3s;
+}
+
+.nav__links a {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+}
+
+.nav__links li.active a {
+    color: white;
+}
+
+.nav__join>a {
+    width: 137px;
+    height: 48px;
+    background-color: rgba(54, 109, 175, 1);
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    margin-left: 15px;
+}
+
+.nav__langs {
+    display: flex;
+
+}
+
+.nav__langs ul {
+    display: none;
+    position: absolute;
+    top: 70px;
+    border-radius: 12px;
+    z-index: 999;
+}
+
+.nav__langs:hover>ul {
+    display: block;
+
+}
+
+.nav__langs ul li a {
+    border-radius: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__langs ul li:hover a {
+    transform: translateX(5px);
+}
+
+.nav__langs ul li:not(:last-of-type) a::after {
+    position: absolute;
+    content: "";
+    width: 80%;
+    left: 11px;
+    height: 1px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.264);
+}
+
+.nav__langs a {
+    /* margin-left: 15px; */
+    display: flex;
+    width: 120px;
+    height: 40px;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.nav__langs>a {
+    background-color: rgb(195, 138, 214);
+    padding-left: 15px;
+}
+
+.nav__langs a img {
+    margin-right: 5px;
+}
+
+.nav__left {
+    display: flex;
+    align-items: center;
+}
+
+nav .menu {
+    display: none;
+}
+
+nav .menu i {
+    color: white;
+    font-size: 30px;
+}
+
+.nav__link {
+    position: absolute;
+    width: 85%;
+    top: 33%;
+    background-color: #0A0812;
+    left: 7.5%;
+    color: white;
+    padding: 20px 30px;
+}
+
+.nav__link li:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+
+.nav__link li a {
+    color: white;
+}
+
+.nav__username {
+    color: white;
+    margin-left: 10px;
+}
+
+.propro ul {
+    position: absolute;
+    background-color: white;
+    width: 145px;
+    right: 127px;
+    top: 55px;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 10px;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 999;
+}
+
+.propro ul li {
+    margin-bottom: 20px;
+}
+
+.propro ul li:not(:last-of-type) a::after {
+    position: absolute;
+    content: "";
+    width: 80%;
+    left: 11px;
+    height: 1px;
+    top: 47px;
+    background-color: rgba(0, 0, 0, 0.264);
+}

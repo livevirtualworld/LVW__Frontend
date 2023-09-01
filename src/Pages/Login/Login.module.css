@@ -50,7 +50,7 @@ main {
     transition: 0.8s ease-in-out;
 }
 
-form {
+.sign-up-form, .sign-in-form {
     max-width: 286px;
     width: 100%;
     margin: 0 auto;
@@ -456,7 +456,7 @@ main.signn .carousel {
         height: auto;
     }
 
-    form {
+    .sign-up-form, .sign-in-form {
         max-width: revert;
         padding: 1.5rem 2.5rem 2rem;
         transition: transform 0.8s ease-in-out, opacity 0.45s linear;
@@ -525,7 +525,7 @@ main.signn .carousel {
         font-size: 1.2rem;
     }
 
-    form {
+    .sign-up-form, .sign-in-form {
         padding: 1rem 2rem 1.5rem;
     }
 
