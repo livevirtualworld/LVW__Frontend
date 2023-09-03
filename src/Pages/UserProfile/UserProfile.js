@@ -33,7 +33,7 @@ function UserProfile() {
   //UserData
   const [userData, setUserData] = useState("")
   const userRole = localStorage.getItem("role")
-  const userId = localStorage.getItem("id");
+  const userId = JSON.parse(localStorage.getItem("id"));
   console.log("User ID from localStorage:", userId);
 
 

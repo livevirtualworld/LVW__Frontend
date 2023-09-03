@@ -32,7 +32,7 @@ function TechnicalProfile() {
   const [technicalData, setTechnicalData] = useState("")
   const technicalRole = localStorage.getItem("role")
   console.log("Technical Role from localStorage:", technicalRole);
-  const technicalId = localStorage.getItem("id");
+  const technicalId = JSON.parse(localStorage.getItem("id"));
   console.log("Technical ID from localStorage:", technicalId);
 
   const [lang, setLang] = useState("english")

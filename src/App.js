@@ -8,6 +8,7 @@ import Home from './Pages/Home/Home'
 import TechnicalProfile from './Pages/TechnicalProfile/Technical';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import WonderChat from './Pages/ChatBot/ChatbotEmbed';
+import ViewTechnical from './Pages/ViewTechnical/ViewTechnical';
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function AppContent() {
         <Route index element={<Home />} path="/home" />
         <Route element={<Home />} path="/" />
         <Route element={<TechnicalProfile />} path="/technicalprofile" />
+        <Route element={<ViewTechnical />} path="/viewtechnical/:id/:role" />
         <Route element={<UserProfile />} path="/userprofile" />
         <Route element={<TourDetails />} path="/tourdetails" />
         <Route element={<TourDetails />} path="/tourdetails/:num" />

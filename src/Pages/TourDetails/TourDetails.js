@@ -117,12 +117,12 @@ function TourDetails() {
   return (
     <div>
       {
-        showSuccessBookModal && <SuccessandErrorModals success={true}  message={"tour booked successfully"}/>
+        showSuccessBookModal && <SuccessandErrorModals success={true} message={"tour booked successfully"} />
       }
       {
-        showErrorBookModal && <SuccessandErrorModals success={false} message={showErrorMsg}/>
+        showErrorBookModal && <SuccessandErrorModals success={false} message={showErrorMsg} />
       }
-           <Navbar />
+      <Navbar />
 
       <div className={style["hero"]}>
         <div className={style["container"]}>
@@ -389,13 +389,13 @@ function TourDetails() {
                             setShowSuccessBookModal(false);
                           }, 3000);
                         }
-                        else if(res.data.status === 200){
+                        else if (res.data.status === 200) {
                           console.log("iiiii")
                           setErrorMsg(res.data.message)
                           setShowErrorBookModal(true)
-                          setTimeout(()=>{
+                          setTimeout(() => {
                             setShowErrorBookModal(false)
-                          },3000)
+                          }, 3000)
                         }
                       })
                     }} type="submit">Book Now</button>
@@ -405,15 +405,20 @@ function TourDetails() {
                       bookedLang === "Arabic" &&
                       <>
                         <h4>This tour by</h4>
-                        <NavLink to="/technicalprofile" id={tour?.arabicTourGuide?._id} role={"tourGuide"}>
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.arabicTourGuide?._id}/tourGuide`}
+                        >
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.arabicTourGuide.name}</h3>
+                              <h5>Tour Guide</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.arabicTourGuide?._id}/cameraOperator`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -421,6 +426,10 @@ function TourDetails() {
                             <h5>Camera Operator</h5>
                           </div>
                         </div>
+                        </NavLink>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.arabicDirector?._id}/director`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.arabicDirector?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -428,12 +437,16 @@ function TourDetails() {
                             <h5>Director</h5>
                           </div>
                         </div>
+                        </NavLink>
                       </>
                     }
                     {
                       bookedLang === "English" &&
                       <>
                         <h4>This tour by</h4>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.englishTourGuide?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -441,6 +454,10 @@ function TourDetails() {
                             <h5>Tour Guide</h5>
                           </div>
                         </div>
+                      </NavLink>
+                      <NavLink
+                          to={`/viewtechnical/${tour?.englishCameraOperator?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -448,6 +465,10 @@ function TourDetails() {
                             <h5>Camera Operator</h5>
                           </div>
                         </div>
+                      </NavLink>
+                      <NavLink
+                          to={`/viewtechnical/${tour?.englishDirector?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.englishDirector?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -455,12 +476,16 @@ function TourDetails() {
                             <h5>Director</h5>
                           </div>
                         </div>
+                      </NavLink>
                       </>
                     }
                     {
                       bookedLang === "Italian" &&
                       <>
                         <h4>This tour by</h4>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.italianTourGuide?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -468,6 +493,10 @@ function TourDetails() {
                             <h5>Tour Guide</h5>
                           </div>
                         </div>
+                        </NavLink>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.italianCameraOperator?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -475,6 +504,10 @@ function TourDetails() {
                             <h5>Camera Operator</h5>
                           </div>
                         </div>
+                        </NavLink>
+                        <NavLink
+                          to={`/viewtechnical/${tour?.italianDirector?._id}/tourGuide`}
+                        >
                         <div className={style["person"]}>
                           <img src={`http://localhost:5000/${tour?.italianDirector?.img}`} alt="avatar" />
                           <div className={style["text"]}>
@@ -482,6 +515,7 @@ function TourDetails() {
                             <h5>Director</h5>
                           </div>
                         </div>
+                        </NavLink>
                       </>
                     }
 
@@ -489,14 +523,7 @@ function TourDetails() {
                 </div>
               </>
             }
-
-
-
-
-
-
           </div>
-
         </div>
       </div>
 

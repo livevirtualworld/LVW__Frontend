@@ -17,7 +17,7 @@ function Navbar() {
     const [menu, setMenu] = useState(false)
     const [lang, setLang] = useState("english")
     const [personData, setPersonData] = useState("")
-    const personId = localStorage.getItem("id");
+    const personId = JSON.parse(localStorage.getItem("id"));
     const personRole = localStorage.getItem("role")
     const userRole = localStorage.getItem("role")
     const [showUserMenu, setShowUserMenu] = useState(false);
