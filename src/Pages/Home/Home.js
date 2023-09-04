@@ -54,6 +54,8 @@ function Home() {
     const [vip,setVip] = useState(0)
     const [popularTours,setPopularTours] = useState([])
     const [popularReviews,setPopularReviews] = useState([])
+    const [liveTours,setLiveTours] = useState([])
+
 
     const toggleChat = () => {
         setIsChatOpen(!isChatOpen);
@@ -80,6 +82,9 @@ function Home() {
         })
         axios.get("http://localhost:5000/user/popularReviews").then((res)=>{
             setPopularReviews(res.data)
+        })
+        axios.get("http://localhost:5000/user/liveTours").then((res)=>{
+            setLiveTours(res.data.data)
         })
     }, []);
 
@@ -170,18 +175,6 @@ function Home() {
             <section className={style["map__section"]}>
                 <div className={style["container"]}>
                     <h2>Find your tour on the map</h2>
-                    
-                    {/* <div className={style["map__img"]}>
-                        <img src={Mapp} alt="" />
-                    </div>
-                    <img src={LocationOne} alt="" className={style["location__one"]} />
-                    <img src={LocationTwo} alt="" className={style["location__two"]} />
-                    <img src={LocationThree} alt="" className={style["location__three"]} />
-                    <div className={style["map__bottom__icons"]}>
-                        <img src={BtnOne} alt="" className={style["cursor__pointer__icon"]} />
-                        <img src={BtnTwo} alt="" className={style["cursor__pointer__icon"]} />
-                        <img src={BtnThree} alt="" className={style["cursor__pointer__icon"]} />
-                    </div> */}
                     <Map tours={filteredTours} />
                     <div className={style["map__search__bar"]}>
                         <img src={Search} alt="" className={style["map__search__icon"]} />
@@ -195,13 +188,11 @@ function Home() {
                 <div className={style["container"]}>
                     <h2>Live tours to join now</h2>
                     <Carousel responsive={responsive}>
-                        <LiveToursCard />
-                        <LiveToursCard />
-                        <LiveToursCard />
-                        <LiveToursCard />
-                        <LiveToursCard />
-                        <LiveToursCard />
-
+                        {
+                            liveTours?.map((tour)=>{
+                                return <LiveToursCard key={tour._id} data={tour} />
+                            })
+                        }
                     </Carousel>
                 </div>
             </section>
@@ -211,18 +202,11 @@ function Home() {
                 <div className={style["container"]}>
                     <h2>Popular tour to book</h2>
                     <Carousel responsive={responsive}>
-                        {/* <PopularToursCard />
-                        <PopularToursCard />
-                        <PopularToursCard />
-                        <PopularToursCard />
-                        <PopularToursCard />
-                        <PopularToursCard /> */}
                         {
                             popularTours?.map((tour)=>{
                                 return <PopularToursCard key={tour._id} data={tour} />
                             })
                         }
-
                     </Carousel>
                 </div>
             </section >
@@ -254,12 +238,6 @@ function Home() {
                 <div className={style["container"]}>
                     <h2>What our travelers say</h2>
                     <Carousel responsive={responsive}>
-                        {/* <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard />
-                        <ReviewCard /> */}
                         {
                             popularReviews?.map((Review)=>{
                                 return <ReviewCard key={Review._id} data={Review} /> 

@@ -25,6 +25,7 @@ import Card from '../Card/Card';
 import { useParams } from 'react-router-dom';
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import Navbar from '../Navbar/Navbar'
+import StreamingSection from '../StreamingSection/StreamingSection'
 
 
 function TourDetails() {
@@ -43,6 +44,9 @@ function TourDetails() {
   const [showSuccessBookModal, setShowSuccessBookModal] = useState(false)
   const [showErrorBookModal, setShowErrorBookModal] = useState(false)
   const [showErrorMsg, setErrorMsg] = useState("")
+  const [isLive, setIsLive] = useState(false)
+  const [liveTourId, setLiveTourId] = useState([]);
+
   const location = useLocation();
 
   const { num } = useParams();
@@ -99,7 +103,34 @@ function TourDetails() {
       setVip(res.data)
     })
 
+    axios.get("http://localhost:5000/user/liveTours").then((res) => {
+      for (let i = 0; i < res.data.data.length; i++) {
+        if (res.data.data[i]._id === tour?._id) {
+          setIsLive(true)
+        }
+      }
+    })
+    axios.get("http://localhost:5000/user/liveTours")
+      .then((res) => {
+        const liveTourData = res.data.data;
+        const liveId = liveTourData.map((tour) => tour?._id);
+        setLiveTourId(liveId);
+      })
+      .catch((error) => {
+        console.error("Error fetching live tours:", error);
+      });
+
   }, [location.state])
+
+  useEffect(() => {
+    if (liveTourId.includes(tour?._id)) {
+      setIsLive(true);
+    } else {
+      setIsLive(false);
+    }
+  }, [liveTourId, tour]);
+
+
 
   const fullStars = Math.floor(tour?.avgRate || 0);
   const hasHalfStar = (tour?.avgRate || 0) - fullStars >= 0.5;
@@ -139,18 +170,19 @@ function TourDetails() {
               <h2>{tour?.title}</h2>
               <div className={style["stars"]}>
                 {starIcons}
-                {/* <img src={star} />
-
-                  <img src={star} />
-                  <img src={star} />
-                  <img src={star} />
-                  <img src={star} /> */}
                 <h5>({(tour?.avgRate?.toFixed(1))})</h5>
               </div>
             </div>
           </div>
         </div>
       </div>
+      {
+        isLive &&
+        <div style={{ marginTop: '50px', marginBottom: '20px' }}>
+          <StreamingSection />
+        </div>
+      }
+
       <div className={style["details"]}>
         <div className={style["container"]}>
           <div className={style["details__content"]}>
@@ -419,24 +451,24 @@ function TourDetails() {
                         <NavLink
                           to={`/viewtechnical/${tour?.arabicTourGuide?._id}/cameraOperator`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.arabicCameraOperator.name}</h3>
+                              <h5>Camera Operator</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
                         <NavLink
                           to={`/viewtechnical/${tour?.arabicDirector?._id}/director`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.arabicDirector?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.arabicDirector.name}</h3>
-                            <h5>Director</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.arabicDirector?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.arabicDirector.name}</h3>
+                              <h5>Director</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
                       </>
                     }
@@ -447,36 +479,36 @@ function TourDetails() {
                         <NavLink
                           to={`/viewtechnical/${tour?.englishTourGuide?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.englishTourGuide.name}</h3>
+                              <h5>Tour Guide</h5>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                      <NavLink
+                        </NavLink>
+                        <NavLink
                           to={`/viewtechnical/${tour?.englishCameraOperator?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.englishCameraOperator.name}</h3>
+                              <h5>Camera Operator</h5>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
-                      <NavLink
+                        </NavLink>
+                        <NavLink
                           to={`/viewtechnical/${tour?.englishDirector?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.englishDirector?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.englishDirector.name}</h3>
-                            <h5>Director</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.englishDirector?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.englishDirector.name}</h3>
+                              <h5>Director</h5>
+                            </div>
                           </div>
-                        </div>
-                      </NavLink>
+                        </NavLink>
                       </>
                     }
                     {
@@ -486,35 +518,35 @@ function TourDetails() {
                         <NavLink
                           to={`/viewtechnical/${tour?.italianTourGuide?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianTourGuide.name}</h3>
-                            <h5>Tour Guide</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.italianTourGuide.name}</h3>
+                              <h5>Tour Guide</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
                         <NavLink
                           to={`/viewtechnical/${tour?.italianCameraOperator?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianCameraOperator.name}</h3>
-                            <h5>Camera Operator</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.italianCameraOperator.name}</h3>
+                              <h5>Camera Operator</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
                         <NavLink
                           to={`/viewtechnical/${tour?.italianDirector?._id}/tourGuide`}
                         >
-                        <div className={style["person"]}>
-                          <img src={`http://localhost:5000/${tour?.italianDirector?.img}`} alt="avatar" />
-                          <div className={style["text"]}>
-                            <h3>{tour?.italianDirector.name}</h3>
-                            <h5>Director</h5>
+                          <div className={style["person"]}>
+                            <img src={`http://localhost:5000/${tour?.italianDirector?.img}`} alt="avatar" />
+                            <div className={style["text"]}>
+                              <h3>{tour?.italianDirector.name}</h3>
+                              <h5>Director</h5>
+                            </div>
                           </div>
-                        </div>
                         </NavLink>
                       </>
                     }

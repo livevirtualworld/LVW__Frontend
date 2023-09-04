@@ -5,11 +5,6 @@ import { NavLink } from 'react-router-dom';
 
 
 
-
-
-
-
-
 function PopularToursCard(props) {
     const fullStars = Math.floor(props.data.avgRate || 0);
     const hasHalfStar = (props.data.avgRate || 0) - fullStars >= 0.5;
@@ -38,11 +33,6 @@ function PopularToursCard(props) {
             <div className={style["card__content"]}>
                 <div className={style["card__rate"]}>
                     <div className={style["card__rate__icons"]}>
-                        {/* <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} />
-                        <i className="fa-solid fa-star" style={{ color: '#fe2629' }} /> */}
                         {starIcons}
                     </div>
                     <span>({props.data.avgRate?.toFixed(1)})</span>
