@@ -77,7 +77,6 @@ function UserProfile() {
   useEffect(() => {
     axios.post("http://localhost:5000/user/getOneUser", { id: userId })
       .then((res) => {
-        console.log(res.data);
         setUserData(res.data.data);
       })
       .catch((error) => {
@@ -172,7 +171,7 @@ function UserProfile() {
 
     const formData = new FormData();
     formData.append("coverImg", selectedCoverImage);
-    formData.append("id", JSON.parse(userId))
+    formData.append("id", userId)
 
     console.log("Selected cover image:", selectedCoverImage);
     console.log("FormData object:", formData);
@@ -225,13 +224,12 @@ function UserProfile() {
 
     const formData = new FormData();
     formData.append("img", selectedProfileImage);
-    formData.append("id", JSON.parse(userId))
+    formData.append("id", userId)
 
     console.log("Selected cover image:", selectedProfileImage);
     console.log("FormData object:", formData);
 
     axios.put("http://localhost:5000/user/editImage", formData).then((response) => {
-      console.log("Cover image updated successfully:", response.data);
       setShowProfileModal(false)
 
       axios.post("http://localhost:5000/user/getOneUser", { id: userId })
