@@ -23,6 +23,7 @@ import axios from 'axios';
 import Navbar from '../Navbar/Navbar'
 import Card from '../Card/Card';
 import { useParams } from 'react-router-dom';
+import TechnicalCard from '../Card/TechnicalCard'
 
 
 
@@ -42,11 +43,24 @@ function ViewTechnical() {
         const formattedDate = date.toLocaleDateString('en-US', options).replace(/,/g, '');
         const parts = formattedDate.split(' ');
         return `${parts[1]} ${parts[0]}, ${parts[2]}`;
-      };
+    };
+
+    const fullStars = Math.floor(technicalData?.avgRate || 0);
+    const hasHalfStar = (technicalData?.avgRate || 0) - fullStars >= 0.5;
+
+    // Generate an array of stars based on the calculated values
+    const starIcons = Array.from({ length: 5 }, (_, index) => {
+        if (index < fullStars) {
+            return <i key={index} className="fa-solid fa-star" style={{ color: '#fe2629' }} />;
+        } else if (hasHalfStar && index === fullStars) {
+            return <i key={index} className="fa-solid fa-star-half" style={{ color: '#fe2629' }} />;
+        } else {
+            return <i key={index} className="fa-regular fa-star" style={{ color: '#fe2629' }} />;
+        }
+    });
 
     useEffect(() => {
         if (role === "tourGuide") {
-            console.log("gggg")
             axios.post("http://localhost:5000/technical/getOneTourGuide", { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
@@ -66,7 +80,6 @@ function ViewTechnical() {
                 });
         }
         else if (role === "cameraOperator") {
-            console.log("gggg")
             axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
@@ -86,7 +99,6 @@ function ViewTechnical() {
                 });
         }
         else if (role === "director") {
-            console.log("gggg")
             axios.post("http://localhost:5000/technical/getOneDirector", { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
@@ -109,9 +121,8 @@ function ViewTechnical() {
     let x = []
     for (let i = 0; i < technicalData?.company?.length; i++) {
         x.push([technicalData?.position[i], technicalData?.company[i], technicalData?.startDate[i], technicalData?.endDate[i]])
-        console.log(x)
-      }
-      const hasAllInformation = technicalData?.faculty && technicalData?.university && technicalData?.startYear && technicalData?.graduateYear;
+    }
+    const hasAllInformation = technicalData?.faculty && technicalData?.university && technicalData?.startYear && technicalData?.graduateYear;
 
     return (
         <div>
@@ -140,9 +151,11 @@ function ViewTechnical() {
                                 {role === 'cameraOperator' && <h4>Camera Operator</h4>}
                                 {role === 'director' && <h4>Director</h4>}
                             </div>
-                            <div className={style['edit__button']}>
-                                <h4>AVG rate: {technicalData?.avgRate}</h4>
-                                {technicalData?.allRate}
+                            <div className={style['technical__rate']}>
+                            <div className={style["stars"]}>
+                                {starIcons}
+                            </div>
+                                <h5>({(technicalData?.avgRate?.toFixed(1))})</h5>
                             </div>
                         </div>
                     </div>
@@ -160,7 +173,7 @@ function ViewTechnical() {
                                     setTap("tours")
                                 }}>{technicalData?.name}’s Tours</a>
                             </div>
-                            <div className={style["text"]} id="text">
+                            <div className={style["text"]} id="text" style={{ display: tap == "tours" && 'flex', flexWrap: 'wrap' }}>
                                 {
                                     tap === "about" &&
                                     <>
@@ -211,7 +224,7 @@ function ViewTechnical() {
                                     <>
                                         {technicalData && technicalData?.tours.length > 0 ? (
                                             technicalData?.tours.map((item) => {
-                                                return <Card key={item._id} data={item} />
+                                                return <TechnicalCard key={item._id} data={item} />
                                             })
                                         ) : (
                                             <p style={{ margin: "10px 0" }}>You don't have any tour yet!</p>

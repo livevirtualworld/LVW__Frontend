@@ -103,6 +103,7 @@ a {
     letter-spacing: 0em;
     text-align: right;
     color: rgba(255, 255, 255, 1);
+    cursor: pointer;
 }
 
 .join__us__btn {
@@ -119,6 +120,7 @@ a {
     letter-spacing: 0em;
     text-align: right;
     color: rgba(54, 109, 175, 1);
+    cursor: pointer;
 }
 
 .chat__preview {
@@ -730,6 +732,7 @@ a {
     outline: none;
     color: white;
     font-size: 15px;
+    cursor: pointer;
 }
 
 .icon__text__newsletter {

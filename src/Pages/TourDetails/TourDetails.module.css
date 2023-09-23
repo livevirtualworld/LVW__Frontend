@@ -484,7 +484,7 @@ nav .menu i{
     position: absolute;
     content: "";
     left: 20px;
-    top: 70%;
+    top: 67%;
     width: calc(100% - 40px);
     height: 1px;
     background-color: rgba(6, 12, 19, 0.32);
@@ -672,6 +672,7 @@ select {
     color: white;
     border-radius: 12px;
     border: none;
+    cursor: pointer;
 }
 .details__book .by h4{
     font-size: 18px;

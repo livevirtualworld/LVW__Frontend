@@ -8,7 +8,7 @@ function loadChatScript() {
 
   // Add the Wonderchat script dynamically to your website
   const script = document.createElement('script');
-  script.src = "https://app.wonderchat.io/scripts/wonderchat.js";
+  script.src = "https://app.wonderchat.io/scripts/wonderchat.iife.js";
   script.dataset.name = 'wonderchat';
   script.dataset.address = 'app.wonderchat.io';
   script.dataset.id = 'cllo4b1c6006jo021jmcas7t3';

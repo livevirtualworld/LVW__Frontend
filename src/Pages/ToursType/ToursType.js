@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import $ from 'jquery';
-import style from './Tours.module.css'
+import style from './ToursType.module.css'
 import Vector from '../../assets/Vector.svg'
 import Vector1 from '../../assets/Vector (1).svg'
 import logo from '../../assets/logo.png'
 import United_Kingdom from '../../assets/United Kingdom (GB).png'
 import egypt from "../../assets/Egypt (EG).png"
-// import Map from '../../assets/Map.png'
 import SearchMap from '../../assets/Search.png'
 import LocationOne from '../../assets/Doc.svg'
 import LocationTwo from '../../assets/Doctor.svg'
@@ -27,14 +26,15 @@ import axios from 'axios';
 import Card from '../Card/Card';
 import Map from '../Home/Map'
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Navbar from '../Navbar/Navbar'
 
 
-function Tours() {
+function ToursType() {
+    const {type} = useParams();
   const [tours, setTours] = useState([])
   const [filteredTours, setFilteresTours] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,11 +58,17 @@ function Tours() {
 
   useEffect(() => {
     axios.get("http://localhost:5000/admin/allTours").then((res) => {
-      setTours(res.data.data)
-      setFilteresTours(res.data.data)
+        const ToursType = res.data.data.filter((tour)=>
+        tour?.tourType == type
+        )
+      setTours(ToursType)
+      setFilteresTours(ToursType)
     })
     axios.get("http://localhost:5000/user/liveTours").then((res)=>{
-      setLiveTours(res.data.data)
+        const liveToursType = res.data.data.filter((tour)=>
+        tour?.tourType == type
+        )
+      setLiveTours(liveToursType)
     })
   }, []);
   useEffect(() => {
@@ -285,4 +291,4 @@ function Tours() {
   );
 }
 
-export default Tours;
+export default ToursType;

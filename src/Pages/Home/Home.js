@@ -47,14 +47,17 @@ function Home() {
     const [menu, setMenu] = useState(false)
     const [lang, setLang] = useState("english")
     const [isChatOpen, setIsChatOpen] = useState(false);
-    const [tours,setTours] = useState([])
-    const [filteredTours,setFilteredTours] = useState([])
-    const [travelers,setTravelers] = useState(0)
-    const [publicTours,setPublicTours] = useState(0)
-    const [vip,setVip] = useState(0)
-    const [popularTours,setPopularTours] = useState([])
-    const [popularReviews,setPopularReviews] = useState([])
-    const [liveTours,setLiveTours] = useState([])
+    const [tours, setTours] = useState([])
+    const [filteredTours, setFilteredTours] = useState([])
+    const [travelers, setTravelers] = useState(0)
+    const [publicTours, setPublicTours] = useState(0)
+    const [vip, setVip] = useState(0)
+    const [popularTours, setPopularTours] = useState([])
+    const [popularReviews, setPopularReviews] = useState([])
+    const [liveTours, setLiveTours] = useState([])
+    const [subscribe, setSubscribe] = useState('');
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
 
 
     const toggleChat = () => {
@@ -62,28 +65,26 @@ function Home() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5000/admin//allTours").then((res)=>{
-            console.log(res.data.data)
+        axios.get("http://localhost:5000/admin//allTours").then((res) => {
             setTours(res.data.data)
             setFilteredTours(res.data.data)
         })
-        axios.get("http://localhost:5000/user/allTravelers").then((res)=>{
-            console.log(res.data.travelers)
+        axios.get("http://localhost:5000/user/allTravelers").then((res) => {
             setTravelers(res.data.travelers)
         })
-        axios.get("http://localhost:5000/user/public").then((res)=>{
-            setPublicTours(res.data.length)            
+        axios.get("http://localhost:5000/user/public").then((res) => {
+            setPublicTours(res.data.length)
         })
-        axios.get("http://localhost:5000/user/vip").then((res)=>{
+        axios.get("http://localhost:5000/user/vip").then((res) => {
             setVip(res.data.length)
         })
-        axios.get("http://localhost:5000/user/popularTours").then((res)=>{
+        axios.get("http://localhost:5000/user/popularTours").then((res) => {
             setPopularTours(res.data)
         })
-        axios.get("http://localhost:5000/user/popularReviews").then((res)=>{
+        axios.get("http://localhost:5000/user/popularReviews").then((res) => {
             setPopularReviews(res.data)
         })
-        axios.get("http://localhost:5000/user/liveTours").then((res)=>{
+        axios.get("http://localhost:5000/user/liveTours").then((res) => {
             setLiveTours(res.data.data)
         })
     }, []);
@@ -108,15 +109,28 @@ function Home() {
         }
     };
 
-    function search(text){
+    function search(text) {
         console.log(text)
-        const x = tours.filter((tour)=>{
+        const x = tours.filter((tour) => {
             console.log(tour.address)
-           return tour.address.toLowerCase().includes(text.toLowerCase())
+            return tour.address.toLowerCase().includes(text.toLowerCase())
         })
         setFilteredTours(x)
     }
 
+    function subscribeToNewsletter() {
+        axios.post("http://localhost:5000/subscribe", {
+            email: subscribe
+        }).then((res) => {
+            console.log(res.data)
+            if (res.data.status === 200) {
+                console.log("send successfully")
+            }
+            else if (res.data.status === 400) {
+                console.log("Error")
+            }
+        })
+    }
 
     return (
         <>
@@ -135,7 +149,9 @@ function Home() {
                                 nullam neque ultrices.</p>
                             <div className={style["hero__banner__buttons"]}>
                                 <NavLink to={"/tours"}><button className={style["find__tour__btn"]}>Find A Tour</button></NavLink>
-                                <button className={style["join__us__btn"]}>Work With Us</button>
+                                <NavLink to={"/login"}><button className={style["join__us__btn"]}>Work With Us</button></NavLink>
+
+
                             </div>
                         </div>
                         <div className={style["hero__banner__video"]}>
@@ -178,7 +194,7 @@ function Home() {
                     <Map tours={filteredTours} />
                     <div className={style["map__search__bar"]}>
                         <img src={Search} alt="" className={style["map__search__icon"]} />
-                        <input onChange={(e)=>{search(e.target.value)}} className={style["search"]} type="search" placeholder="Location..." />
+                        <input onChange={(e) => { search(e.target.value) }} className={style["search"]} type="search" placeholder="Location..." />
                     </div>
                 </div>
             </section>
@@ -189,7 +205,7 @@ function Home() {
                     <h2>Live tours to join now</h2>
                     <Carousel responsive={responsive}>
                         {
-                            liveTours?.map((tour)=>{
+                            liveTours?.map((tour) => {
                                 return <LiveToursCard key={tour._id} data={tour} />
                             })
                         }
@@ -203,7 +219,7 @@ function Home() {
                     <h2>Popular tour to book</h2>
                     <Carousel responsive={responsive}>
                         {
-                            popularTours?.map((tour)=>{
+                            popularTours?.map((tour) => {
                                 return <PopularToursCard key={tour._id} data={tour} />
                             })
                         }
@@ -218,16 +234,22 @@ function Home() {
                     <h2>Popular topics</h2>
                     <div className={style["popular__topics"]}>
                         <div className={style["popular__topics__item"]}>
-                            <img src={Education} alt="" />
-                            <h3 className={style["education__text"]}>Education</h3>
+                            <NavLink to="/tourtype/education">
+                                <img src={Education} alt="" />
+                                <h3 className={style["education__text"]}>Education</h3>
+                            </NavLink>
                         </div>
                         <div className={style["popular__topics__item"]}>
-                            <img src={Shopping} alt="" />
-                            <h3 className={style["shopping__text"]}>Shoping</h3>
+                            <NavLink to="/tourtype/shopping">
+                                <img src={Shopping} alt="" />
+                                <h3 className={style["shopping__text"]}>Shoping</h3>
+                            </NavLink>
                         </div>
                         <div className={style["popular__topics__item"]}>
-                            <img src={Tourism} alt="" />
-                            <h3 className={style["tourism__text"]}>Tourism</h3>
+                            <NavLink to="/tourtype/tourism">
+                                <img src={Tourism} alt="" />
+                                <h3 className={style["tourism__text"]}>Tourism</h3>
+                            </NavLink>
                         </div>
                     </div>
                 </div>
@@ -239,8 +261,8 @@ function Home() {
                     <h2>What our travelers say</h2>
                     <Carousel responsive={responsive}>
                         {
-                            popularReviews?.map((Review)=>{
-                                return <ReviewCard key={Review._id} data={Review} /> 
+                            popularReviews?.map((Review) => {
+                                return <ReviewCard key={Review._id} data={Review} />
                             })
                         }
                     </Carousel>
@@ -254,8 +276,14 @@ function Home() {
                         <div className={style["email__newsletter__text"]}>
                             <h2>Join our email newsletter to keep updated about new tours</h2>
                             <div className={style["email__input__and__btn"]}>
-                                <input type="email" placeholder="example@mail.com" className={style["email__input"]} />
-                                <button className={style["subscribe__btn"]}>Subscribe</button>
+                                <input
+                                    type="email"
+                                    placeholder="example@mail.com"
+                                    className={style["email__input"]}
+                                    value={subscribe}
+                                    onChange={(e) => setSubscribe(e.target.value)}
+                                />
+                                <button onClick={subscribeToNewsletter} className={style["subscribe__btn"]}>Subscribe</button>
                             </div>
                             <div className={style["icon__text__newsletter"]}>
                                 <i className={style["bx bxs-check-circle"]} style={{ color: '#ffffff' }} />

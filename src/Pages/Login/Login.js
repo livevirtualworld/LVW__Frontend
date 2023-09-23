@@ -87,11 +87,11 @@ function Login() {
           email: registerEmail,
           password: registerPassword
         }).then((res) => {
-          console.log(res.data)
           if (res.data.status === 200) {
             setShowSuccessRegisterModal(true);
             setTimeout(() => {
               setShowSuccessRegisterModal(false);
+              window.location.reload();
             }, 3000);
           }
           else if (res.data.status === 400) {
@@ -127,7 +127,6 @@ function Login() {
             hi ? setHi(false) : setHi(true)
             setTap("forget")
           }
-          console.log(res.data)
         })
       }
     }
@@ -193,7 +192,6 @@ function Login() {
                           email: loginEmail,
                           password: loginPassword
                         }).then((res) => {
-                          console.log(res.data)
                           if (res.data.status === 200) {
                             localStorage.setItem("id", JSON.stringify(res.data.data._id))
                             localStorage.setItem("role", JSON.stringify(res.data.user))
@@ -229,7 +227,6 @@ function Login() {
                             setShowErrorLoginModal(false);
                           }, 3000);
                         }
-                        console.log(res.data)
                       }
 
                     })
@@ -240,8 +237,7 @@ function Login() {
                   <a
                     style={{ marginLeft: '2px', cursor: 'pointer', fontWeight: '600' }}
                     onClick={() => {
-                      hi ? setHi(false) : setHi(true)
-                      setTap("forget")
+                      navigate("/forget")
                     }} >Click here</a>
                 </p>
               </div>
@@ -346,7 +342,6 @@ function Login() {
                           className={style['file-input']}
                           onChange={(e) => {
                             setRegisteredCv(e.target.files[0])
-                            console.log(e.target.files[0])
                           }}
                         />
                       </div>
@@ -386,28 +381,6 @@ function Login() {
               </form>
             }
             {/*--------------------- Forget Password Form-----------------------*/}
-            {
-              tap == "forget" &&
-              <form className={style["sign-up-form"]} id="forgForm">
-                <div className={style["logo logo__forg"]}>
-                  <img src={Logo} alt="" />
-                </div>
-                <div className={style["heading heading__forg"]}>
-                  <h2>Welcome Back</h2>
-                </div>
-                <div className={style["input-wrap"]}>
-                  <input type="password" className={style["input-field"]} id="new__pass" />
-                  <label>Password</label>
-                  <small />
-                </div>
-                <div className={style["input-wrap"]}>
-                  <input type="password" className={style["input-field"]} id="confirm__pass" />
-                  <label>Confirm Password</label>
-                  <small />
-                </div>
-                <input type="submit" defaultValue="Reset Password" className={style["sign-btnn"]} />
-              </form>
-            }
           </div>
           <div className={style["carousel"]}>
             <div className={style["carousel__welcome"]}>

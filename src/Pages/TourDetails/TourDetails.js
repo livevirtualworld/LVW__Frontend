@@ -19,13 +19,15 @@ import icon from "../../assets/icons.svg"
 import UK from '../../assets/United Kingdom (GB).svg'
 import LR from '../../assets/Line Rounded.svg'
 import icon1 from '../../assets/icons (1).svg'
-import { NavLink, json, useLocation } from 'react-router-dom';
+import { NavLink, Navigate, json, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import Card from '../Card/Card';
 import { useParams } from 'react-router-dom';
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import Navbar from '../Navbar/Navbar'
 import StreamingSection from '../StreamingSection/StreamingSection'
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+
 
 
 function TourDetails() {
@@ -46,8 +48,14 @@ function TourDetails() {
   const [showErrorMsg, setErrorMsg] = useState("")
   const [isLive, setIsLive] = useState(false)
   const [liveTourId, setLiveTourId] = useState([]);
+  const [isBookingDisabled, setIsBookingDisabled] = useState(false);
+  const [userData, setUserData] = useState("")
+
+
 
   const location = useLocation();
+  const navigate = useNavigate();
+
 
   const { num } = useParams();
 
@@ -74,18 +82,14 @@ function TourDetails() {
   }
   useEffect(() => {
 
-    console.log(location.state)
-    console.log(num)
     if (location.state) {
       axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
-        console.log(res.data)
         setTour(res.data)
         hours(res.data.hours)
         languages(res.data)
       })
     } else if (num) {
       axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
-        console.log(res.data)
         setTour(res.data)
         hours(res.data.hours)
         languages(res.data)
@@ -93,13 +97,11 @@ function TourDetails() {
     }
 
     axios.get("http://localhost:5000/user/public").then((res) => {
-      console.log(res.data)
       setPublicTours(res.data)
     })
 
 
     axios.get("http://localhost:5000/user/vip").then((res) => {
-      console.log(res.data)
       setVip(res.data)
     })
 
@@ -119,7 +121,13 @@ function TourDetails() {
       .catch((error) => {
         console.error("Error fetching live tours:", error);
       });
-
+    axios.post("http://localhost:5000/user/getOneUser", { id: JSON.parse(localStorage.getItem("id")) })
+      .then((res) => {
+        setUserData(res.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+      });
   }, [location.state])
 
   useEffect(() => {
@@ -145,10 +153,92 @@ function TourDetails() {
       return <i key={index} className="fa-regular fa-star" style={{ color: '#fe2629' }} />;
     }
   });
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const cardElement = elements.getElement('card')
+    if (!stripe || !elements || !cardElement) {
+      // Stripe.js has not loaded yet, wait for it to load.
+      return;
+    }
+
+    try {
+      // Fetch the client secret from your server
+      const response = await axios.post("http://localhost:5000/getClientSecret", {
+        amount: bookedHours * bookedNumber * tour?.price * 100, // Pass the payment amount and convert to cents
+        metadata: {
+          userId: JSON.parse(localStorage.getItem('id')),
+          userName: userData?.name, // Replace with the actual user name
+          userEmail: userData?.email, // Replace with the actual user email
+        },
+      });
+
+      const clientSecret = response.data.clientSecret;
+
+      // Confirm the payment with Stripe using the retrieved client secret
+      const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          type: 'card',
+          card: cardElement,
+        },
+      });
+
+      if (error) {
+        // Handle payment error
+        console.error('Payment failed:', error.message);
+      } else if (paymentIntent) {
+        // Payment succeeded, you can now access payment data
+        const paymentMethod = paymentIntent.payment_method;
+        const cardDetails = paymentMethod.card;
+        if (paymentMethod && cardDetails && cardDetails.last4) {
+          console.log('Last 4 digits:', cardDetails.last4);
+        }
+        const bookingData = {
+          user: JSON.parse(localStorage.getItem('id')),
+          tour: tour._id,
+          hours: bookedHours,
+          language: bookedLang,
+          num: bookedNumber,
+          price: bookedHours * bookedNumber * tour?.price,
+        };
+
+        const response = await axios.post('http://localhost:5000/user/bookTour', bookingData);
+
+        if (response.data.status === 200) {
+          // Handle success logic here, e.g., show a success message and navigate to a confirmation page
+          setShowSuccessBookModal(true);
+          setIsBookingDisabled(true); // Disable the button
+          setTimeout(() => {
+            setShowSuccessBookModal(false);
+          }, 3000);
+        } else if(response.status === 500){
+          setShowErrorBookModal(true);
+          setErrorMsg(response.data.message);
+          setTimeout(() => {
+            setShowErrorBookModal(false);
+          }, 3000);
+        }
+      }
+    } catch (error) {
+      // Handle server error or any other errors
+      console.error('Error processing payment:', error);
+
+      // Handle error logic here, e.g., show an error message
+      setErrorMsg('An error occurred while processing your payment.');
+      setShowErrorBookModal(true);
+      setTimeout(()=>{
+        setShowErrorBookModal(false);
+      },3000)
+    }
+  };
+
   return (
     <div>
       {
-        showSuccessBookModal && <SuccessandErrorModals success={true} message={"tour booked successfully"} />
+        showSuccessBookModal && <SuccessandErrorModals success={true} message={"Tour booked successfully"} />
       }
       {
         showErrorBookModal && <SuccessandErrorModals success={false} message={showErrorMsg} />
@@ -213,29 +303,21 @@ function TourDetails() {
                       <a><img src={icon} /> {tour?.address}</a>
                       <a><img src={icon1} /> {tour?.hours} hours</a>
                       {
-                        tour?.arabicTourGuide &&
+                        tour?.arabicCameraOperator &&
                         <a><img src={LR} /> Arabic</a>
                       }
                       {
-                        tour?.englishTourGuide &&
+                        tour?.englishCameraOperator &&
                         <a><img src={UK} /> English</a>
                       }
                       {
-                        tour?.italianTourGuide &&
+                        tour?.italianCameraOperator &&
                         <a><img src={UK} /> Italian</a>
                       }
                     </div>
-                    <p>{tour?.description ? tour?.description : "there's no description for this tour"}</p>
-                    {/* <p>Come join us as we take a ride through the desert around the Giza platue, taking in the last of the seven wonders of the world.</p>
-                  <p>We will get up close to the great pyramids as I take you back to the time of the builder and the pharaohs who commissioned them.</p>
-                  <p>We will start off by taking a look the great sphinx before mounting our camel and riding up the giant causeway making our way round the great pyramids out to one of the most iconic views on earth!</p> */}
+                    <p>{tour?.description ? tour?.description : "There's no description for this tour"}</p>
                     <div className={style["tags"]}>
-                      {/* <a>Egypt</a>
-                    <a>Pyramids</a>
-                    <a>Giza</a>
-                    <a>History</a>
-                    <a>Educational</a>
-                    <a>Tourism</a> */}
+
                       {tour?.tags && tour?.tags.map((tag, index) => (
                         <a key={index}>{tag}</a>
                       ))}
@@ -338,15 +420,10 @@ function TourDetails() {
               <>
                 <div className={style["details__book"]}>
                   <form className={style['booking__form__style']}>
-                    {/* <label>Select Date</label> */}
-                    {/* <input type="date" /> */}
-                    {/* <label>Select Time</label> */}
-                    {/* <input step={1800} type="time" ng-model="endTime" pattern="[0-9]*" defaultValue="04:00" /> */}
                     <label>Select Language</label>
                     <div className={style["select"]}>
                       <select onChange={(e) => {
                         setBookedLang(e.target.value)
-                        console.log(e.target.value)
                       }} defaultValue={0}>
                         <option disabled value={0}>select Language</option>
                         {language.map((l) => {
@@ -358,7 +435,6 @@ function TourDetails() {
                     <div className={style["select"]}>
                       <select onChange={(e) => {
                         setBookedHours(e.target.value)
-                        console.log(e.target.value)
                       }} defaultValue={0}>
                         <option value={0} disabled>Select hours</option>
                         {[...hour].reverse().map((h) => (
@@ -373,9 +449,8 @@ function TourDetails() {
                     <div className={style["select"]}>
                       <select onChange={(e) => {
                         setBookedNumber(e.target.value)
-                        console.log(e.target.value)
                       }} defaultValue={0}>
-                        <option disabled value={0}>select Number of Guists</option>
+                        <option disabled value={0}>select Number of Geusts</option>
                         <option value={1}>1 Gusts</option>
                         <option value={2}>2 Gusts</option>
                         <option value={4}>4 Gusts</option>
@@ -397,6 +472,26 @@ function TourDetails() {
                         <option value={20}>20 Gusts</option>
                       </select>
                     </div>
+                    <div style={{marginTop: '40px', marginBottom: '20px'}}>
+                    <CardElement
+                      options={{
+                        hidePostalCode: true,
+                        style: {
+                          base: {
+                            zIndex: '999',
+                            fontSize: '20px',
+                            color: '#424770',
+                            '::placeholder': {
+                              color: '#aab7c4',
+                            },
+                          },
+                          invalid: {
+                            color: '#9e2146',
+                          },
+                        },
+                      }}
+                    />
+                    </div>
                     <div className={style["price"]}>
 
                       <h4>Total</h4>
@@ -404,33 +499,13 @@ function TourDetails() {
                         bookedHours && !bookedNumber ? tour?.price * bookedHours : !bookedHours && bookedNumber ?
                           tour?.price * bookedNumber : tour?.price}$</h4>
                     </div>
-                    <button onClick={(e) => {
-                      e.preventDefault()
-                      axios.post("http://localhost:5000/user/bookTour", {
-                        user: JSON.parse(localStorage.getItem("id")),
-                        tour: tour._id,
-                        hours: bookedHours,
-                        language: bookedLang,
-                        num: bookedNumber,
-                        price: bookedHours * bookedNumber * tour?.price
-                      }).then((res) => {
-                        console.log(res.data)
-                        if (res.data.status === 400) {
-                          setShowSuccessBookModal(true);
-                          setTimeout(() => {
-                            setShowSuccessBookModal(false);
-                          }, 3000);
-                        }
-                        else if (res.data.status === 200) {
-                          console.log("iiiii")
-                          setErrorMsg(res.data.message)
-                          setShowErrorBookModal(true)
-                          setTimeout(() => {
-                            setShowErrorBookModal(false)
-                          }, 3000)
-                        }
-                      })
-                    }} type="submit">Book Now</button>
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      disabled={isBookingDisabled}
+                    >
+                      Book Now
+                    </button>
                   </form>
                   <div className={style["by"]}>
                     {

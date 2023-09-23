@@ -7,10 +7,7 @@ import logo from '../../assets/logo.png'
 import United_Kingdom from '../../assets/United Kingdom (GB).png'
 import egypt from "../../assets/Egypt (EG).png"
 import Italy from "../../assets/italy.png"
-
 import axios from 'axios';
-
-
 
 
 function Navbar() {
@@ -22,24 +19,10 @@ function Navbar() {
     const userRole = localStorage.getItem("role")
     const [showUserMenu, setShowUserMenu] = useState(false);
 
-    // useEffect(() => {
-    //      if (userRole === "user") {
-    //         axios.post("http://localhost:5000/user/getOneUser", { id: personId })
-    //             .then((res) => {
-    //                 console.log(res.data);
-    //                 setPersonData(res.data.data);
-    //             })
-    //             .catch((error) => {
-    //                 console.error("Error fetching Director data:", error);
-    //             });
-    //     }
-    // }, []);
-
     useEffect(() => {
         if (userRole === "user") {
             axios.post("http://localhost:5000/user/getOneUser", { id: personId })
                 .then((res) => {
-                    console.log(res.data);
                     setPersonData(res.data.data);
                 })
                 .catch((error) => {
@@ -51,7 +34,6 @@ function Navbar() {
             if (JSON.parse(personRole) === "tourGuide") {
                 axios.post("http://localhost:5000/technical/getOneTourGuide", { id: personId })
                     .then((res) => {
-                        console.log(res.data);
                         setPersonData(res.data.data);
                     })
                     .catch((error) => {
@@ -61,7 +43,6 @@ function Navbar() {
             if (JSON.parse(personRole) === "cameraOperator") {
                 axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: personId })
                     .then((res) => {
-                        console.log(res.data);
                         setPersonData(res.data.data);
                     })
                     .catch((error) => {
@@ -71,7 +52,6 @@ function Navbar() {
             if (JSON.parse(personRole) === "director") {
                 axios.post("http://localhost:5000/technical/getOneDirector", { id: personId })
                     .then((res) => {
-                        console.log(res.data);
                         setPersonData(res.data.data);
                     })
                     .catch((error) => {
@@ -81,7 +61,6 @@ function Navbar() {
         }
 
     }, []);
-
 
     const toggleUserMenu = () => {
         setShowUserMenu(!showUserMenu);
@@ -122,11 +101,9 @@ function Navbar() {
                         <i onClick={() => {
                             if (menu == false) {
                                 setMenu(true)
-                                console.log(true)
                             }
                             else {
                                 setMenu(false)
-                                console.log(false)
                             }
 
                         }} className="fas fa-bars" />
@@ -134,17 +111,16 @@ function Navbar() {
                             menu == true &&
                             <div className={style["drobdown"]}>
                                 <ul className={style["nav__links"]}>
-                                    <li className={style["active"]}><NavLink to="/home">Home</NavLink></li>
-                                    <li ><NavLink to="/tours">Tours <img src={Vector} alt='' /></NavLink>
-                                    </li>
-                                    <li><a href="#">Our Mission</a></li>
-                                    <li><a href="#">Contact Us</a></li>
+                                    <li className={isActive("/home")}><NavLink exact to="/home" activeClassName={style["active"]}>Home</NavLink></li>
+                                    <li className={isActive("/tours")}><NavLink to="/tours" activeClassName={style["active"]}>Tours</NavLink></li>
+                                    <li className={isActive("/our-mission")}><NavLink to="/our-mission" activeClassName={style["active"]}>Our Mission</NavLink></li>
+                                    <li className={isActive("/contact-us")}><NavLink to="/contact-us" activeClassName={style["active"]}>Contact Us</NavLink></li>
                                 </ul>
                             </div>
                         }
                     </div>
                     <div className={style["nav__left"]}>
-                        <div className={style["nav__langs"]}>
+                        {/* <div className={style["nav__langs"]}>
                             {
                                 lang == "english" &&
                                 <a style={{ color: 'black' }}><img src={United_Kingdom} alt='' /> English</a>
@@ -165,7 +141,7 @@ function Navbar() {
                                     setLang("italiano")
                                 }}><a style={{ color: 'black', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }} href="#"><img src={Italy} alt='' /> Italiano</a></li>
                             </ul>
-                        </div>
+                        </div> */}
                         <div className={style['nav__join']}>
                             {personData ? (
                                 <div>
@@ -192,17 +168,6 @@ function Navbar() {
                                                         <i class="fa-solid fa-user" style={{ color: '000000', marginRight: '20px', fontSize: '20px' }}></i>Profile
                                                     </NavLink>
                                                 </li>)}
-
-                                                {/* Profile link for camera operators and directors */}
-                                                {/* {(JSON.parse(personRole) === "tourGuide" || JSON.parse(personRole) === "cameraOperator" || JSON.parse(personRole) === "director") && (
-                                                    <li>
-                                                        <NavLink to="/technicalprofile" style={{ color: 'black' }}>
-                                                            <i class="fa-solid fa-user" style={{ color: '000000', marginRight: '20px', fontSize: '20px' }}></i>Profile
-                                                        </NavLink>
-                                                    </li>
-                                                )} */}
-
-                                                {/* Logout link */}
                                                 <li>
                                                     <a href="#" style={{ color: 'black' }}
                                                         onClick={handleLogout}

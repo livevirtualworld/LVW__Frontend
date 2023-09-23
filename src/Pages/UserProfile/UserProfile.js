@@ -34,7 +34,6 @@ function UserProfile() {
   const [userData, setUserData] = useState("")
   const userRole = localStorage.getItem("role")
   const userId = JSON.parse(localStorage.getItem("id"));
-  console.log("User ID from localStorage:", userId);
 
 
 
@@ -95,11 +94,9 @@ function UserProfile() {
     axios.get("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json")
       .then(res => {
         setData(res.data);
-        console.log(res.data)
         let countries = [...new Set(res.data.map(item => item.country))];
         countries.sort();
         setCountry(countries);
-        console.log(countries)
       })
       .catch(err => console.log(err))
   }, []);
@@ -125,12 +122,9 @@ function UserProfile() {
         city: editCity,
       })
         .then((res) => {
-
-          console.log("User data updated successfully:", res.data);
           setShowEditModal(false);
           axios.post("http://localhost:5000/user/getOneUser", { id: userId })
             .then((res) => {
-              console.log(res.data);
               setUserData(res.data.data);
               setShowSuccessModal(true);
               setTimeout(() => {
@@ -173,15 +167,12 @@ function UserProfile() {
     formData.append("coverImg", selectedCoverImage);
     formData.append("id", userId)
 
-    console.log("Selected cover image:", selectedCoverImage);
-    console.log("FormData object:", formData);
+ 
 
     axios.put("http://localhost:5000/user/editCoverImage", formData).then((response) => {
-      console.log("Cover image updated successfully:", response.data);
       setShowCoverModal(false)
       axios.post("http://localhost:5000/user/getOneUser", { id: userId })
         .then((res) => {
-          console.log(res.data);
           setUserData(res.data.data);
           setShowSuccessCoverModal(true);
           setTimeout(() => {
@@ -226,15 +217,13 @@ function UserProfile() {
     formData.append("img", selectedProfileImage);
     formData.append("id", userId)
 
-    console.log("Selected cover image:", selectedProfileImage);
-    console.log("FormData object:", formData);
+
 
     axios.put("http://localhost:5000/user/editImage", formData).then((response) => {
       setShowProfileModal(false)
 
       axios.post("http://localhost:5000/user/getOneUser", { id: userId })
         .then((res) => {
-          console.log(res.data);
           setUserData(res.data.data);
           setShowSuccessProfileModal(true);
           setTimeout(() => {

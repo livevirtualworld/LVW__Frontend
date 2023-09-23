@@ -8,8 +8,11 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { FaStar } from 'react-icons/fa'
 import axios from 'axios';
+import { param } from 'jquery';
 
-function Card(props) {
+
+
+function TechnicalCard(props) {
     const [tourRating, setTourRating] = useState(null)
     const [tourHover, setTourHover] = useState(null)
     const [tourComment, setTourComment] = useState("")
@@ -25,9 +28,10 @@ function Card(props) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [cardData , setcardData]= useState()
     // Calculate the number of full stars and half stars based on the rating value
-    const fullStars = Math.floor(props.data.avgRate || 0);
-    const hasHalfStar = (props.data.avgRate || 0) - fullStars >= 0.5;
+    const fullStars = Math.floor(cardData?.avgRate || 0);
+    const hasHalfStar = (cardData?.avgRate || 0) - fullStars >= 0.5;
 
     // Generate an array of stars based on the calculated values
     const starIcons = Array.from({ length: 5 }, (_, index) => {
@@ -40,20 +44,22 @@ function Card(props) {
         }
     });
     useEffect(() => {
-        // console.log(props.review)
-    }, [props.data])
+        axios.get("http://localhost:5000/user/oneTour", {params: {id: props?.data}})
+        .then((res)=>{
+            setcardData(res.data)
+        })
+    }, [cardData])
     return (
         <div className={style["tour__card"]}>
             <NavLink
-                to={`/tourDetails`} state={props.data._id}
+                to={`/tourDetails`} state={cardData?._id}
             >
                 <div className={style["tour__trip__image__buttons"]}>
-                    <img src={props.data.img?.length > 0 ? `http://localhost:5000/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
+                    <img src={cardData?.img?.length > 0 ? `http://localhost:5000/${cardData?.img && cardData?.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
                     <div className={style["tour__card__buttons"]}>
                         <button className={style["tour__public__btn"]}>
-                            {props.data.category === 'public' ? 'Public' : (props.data.category === 'VIP' ? 'VIP' : '')}
+                            {cardData?.category === 'public' ? 'Public' : (cardData?.category === 'VIP' ? 'VIP' : '')}
                         </button>
-                        <button className={style["tour__live__now__btn"]}>Live Now</button>
                     </div>
                 </div>
                 <div className={style["tour__card__content"]}>
@@ -61,10 +67,10 @@ function Card(props) {
                         <div className={style["card__rate__icons"]}>
                             {starIcons}
                         </div>
-                        <span>({props.data.avgRate && Math.round(props.data.avgRate)})</span>
+                        <span>({cardData?.avgRate && Math.round(cardData?.avgRate)})</span>
                     </div>
-                    <h4>{props.data.description}</h4>
-                    <p>{props.data.address}
+                    <h4>{cardData?.description}</h4>
+                    <p>{cardData?.address}
                     </p></div>
             </NavLink>
             {
@@ -269,4 +275,4 @@ function Card(props) {
     )
 }
 
-export default Card
+export default TechnicalCard
