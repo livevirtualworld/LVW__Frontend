@@ -438,6 +438,7 @@ function UserProfile() {
               </div>
               <div style={{
                 display: tap === "tours" ? "flex" : "",
+                flexWrap: tap === "tours" ? 'wrap': '',
                 justifyContent: tap === "tours" ? "space-between" : ""
               }} className={style["text"]} id="text">
                 {

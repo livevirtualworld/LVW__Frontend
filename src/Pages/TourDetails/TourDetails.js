@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import style from './TourDetails.module.css'
+import BookingStyle from './BookingRolesModal.module.css'
 import Vector from '../../assets/Vector.svg'
 import Vector1 from '../../assets/Vector (1).svg'
 import logo from '../../assets/logo.png'
@@ -27,6 +28,7 @@ import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModal
 import Navbar from '../Navbar/Navbar'
 import StreamingSection from '../StreamingSection/StreamingSection'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import UserCoverModalStyle from '../UserProfile/UserCoverModal.module.css'
 
 
 
@@ -38,6 +40,7 @@ function TourDetails() {
   const [tour, setTour] = useState()
   const [publicTours, setPublicTours] = useState()
   const [vip, setVip] = useState()
+  const [free, setFree] = useState()
   const [hour, setHour] = useState([])
   const [language, setLanguage] = useState([])
   const [bookedNumber, setBookedNumber] = useState()
@@ -46,10 +49,49 @@ function TourDetails() {
   const [showSuccessBookModal, setShowSuccessBookModal] = useState(false)
   const [showErrorBookModal, setShowErrorBookModal] = useState(false)
   const [showErrorMsg, setErrorMsg] = useState("")
+  const [showSuccessMsg, setSuccessMsg] = useState("")
   const [isLive, setIsLive] = useState(false)
   const [liveTourId, setLiveTourId] = useState([]);
   const [isBookingDisabled, setIsBookingDisabled] = useState(false);
+  const [showRolesModal, setShowRolesModal] = useState(false);
+  const [tourBookingData, setTourBookingData] = useState(false)
+  //UserData
   const [userData, setUserData] = useState("")
+  const [showCoverModal, setShowCoverModal] = useState(false);
+  const [selectedCoverImage, setSelectedCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState('');
+  //successModal
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessProfileModal, setShowSuccessProfileModal] = useState(false);
+  const [showSuccessCoverModal, setShowSuccessCoverModal] = useState(false);
+
+  //Error
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [showErrorCoverModal, setShowErrorCoverModal] = useState(false);
+  const [showErrorProfileModal, setShowErrorProfileModal] = useState(false)
+
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [editedDescription, setEditedDescription] = useState("");
+  const [successEditDesc, setSuccessEditDesc] = useState(false)
+  const [errorEditDesc, setErrorEditDesc] = useState(false)
+
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [successEditTitle, setSuccessEditTitle] = useState(false)
+  const [errorEditTitle, setErrorEditTitle] = useState(false)
+
+  const [editMedia, setEditMedia] = useState(false)
+  const [successEditMedia, setSuccessEditMedia] = useState(false)
+  const [errorEditMedia, setErrorEditMedia] = useState(false)
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const [mediaImagePreview, setMediaImagePreview] = useState('');
+
+  const [editAllMedia, setEditAllMedia] = useState(false)
+  const [mediaData, setMediaData] = useState([]); // State to store media data
+  const [newlyAddedImages, setNewlyAddedImages] = useState([]);
+
+  // const [allMediaFiles, setAllMediaFiles] = useState([]);
+  // const [allMediaPreviews, setAllMediaPreviews] = useState([]);
 
 
 
@@ -81,30 +123,50 @@ function TourDetails() {
     setLanguage(updatedLanguages)
   }
   useEffect(() => {
-
     if (location.state) {
       axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
         setTour(res.data)
         hours(res.data.hours)
         languages(res.data)
+        axios.get("http://localhost:5000/user/getTourBooks", { params: { id: res.data._id } }).then((bookres) => {
+          if (bookres.data.tour == "free") {
+            setTourBookingData(true)
+          } else {
+            for (let i = 0; i < bookres.data.length; i++) {
+              if (bookres.data[i].user == JSON.parse(localStorage.getItem("id"))) {
+                setTourBookingData(true)
+              }
+            }
+          }
+        })
       })
     } else if (num) {
       axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
         setTour(res.data)
         hours(res.data.hours)
         languages(res.data)
+        axios.get("http://localhost:5000/user/getTourBooks", { params: { id: res.data._id } }).then((bookres) => {
+          if (bookres.data.tour == "free") {
+            setTourBookingData(true)
+          } else {
+            for (let i = 0; i < bookres.data.length; i++) {
+              if (bookres.data[i].user == JSON.parse(localStorage.getItem("id"))) {
+                setTourBookingData(true)
+              }
+            }
+          }
+        })
       })
     }
-
     axios.get("http://localhost:5000/user/public").then((res) => {
       setPublicTours(res.data)
     })
-
-
     axios.get("http://localhost:5000/user/vip").then((res) => {
       setVip(res.data)
     })
-
+    axios.get("http://localhost:5000/user/free").then((res) => {
+      setFree(res.data)
+    })
     axios.get("http://localhost:5000/user/liveTours").then((res) => {
       for (let i = 0; i < res.data.data.length; i++) {
         if (res.data.data[i]._id === tour?._id) {
@@ -138,7 +200,11 @@ function TourDetails() {
     }
   }, [liveTourId, tour]);
 
-
+  const [isEditingInstructions, setIsEditingInstructions] = useState(false);
+  const [editedInstructions, setEditedInstructions] = useState(
+    Array.isArray(tour?.instructions) ? [...tour?.instructions] : []);
+  const [successEditInstruc, setSuccessEditInstruc] = useState(false)
+  const [errorEditInstruc, setErrorEditInstruc] = useState(false)
 
   const fullStars = Math.floor(tour?.avgRate || 0);
   const hasHalfStar = (tour?.avgRate || 0) - fullStars >= 0.5;
@@ -159,90 +225,556 @@ function TourDetails() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const cardElement = elements.getElement('card')
-    if (!stripe || !elements || !cardElement) {
-      // Stripe.js has not loaded yet, wait for it to load.
-      return;
-    }
-
-    try {
-      // Fetch the client secret from your server
-      const response = await axios.post("http://localhost:5000/getClientSecret", {
-        amount: bookedHours * bookedNumber * tour?.price * 100, // Pass the payment amount and convert to cents
-        metadata: {
-          userId: JSON.parse(localStorage.getItem('id')),
-          userName: userData?.name, // Replace with the actual user name
-          userEmail: userData?.email, // Replace with the actual user email
-        },
-      });
-
-      const clientSecret = response.data.clientSecret;
-
-      // Confirm the payment with Stripe using the retrieved client secret
-      const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          type: 'card',
-          card: cardElement,
-        },
-      });
-
-      if (error) {
-        // Handle payment error
-        console.error('Payment failed:', error.message);
-      } else if (paymentIntent) {
-        // Payment succeeded, you can now access payment data
-        const paymentMethod = paymentIntent.payment_method;
-        const cardDetails = paymentMethod.card;
-        if (paymentMethod && cardDetails && cardDetails.last4) {
-          console.log('Last 4 digits:', cardDetails.last4);
+    if (tour?.category != 'free') {
+      if (localStorage.getItem('role') == 'user') {
+        const cardElement = elements.getElement('card')
+        if (!stripe || !elements || !cardElement) {
+          // Stripe.js has not loaded yet, wait for it to load.
+          return;
         }
-        const bookingData = {
-          user: JSON.parse(localStorage.getItem('id')),
+
+        try {
+          // Fetch the client secret from your server
+          const response = await axios.post("http://localhost:5000/getClientSecret", {
+            amount: bookedHours * bookedNumber * tour?.price * 100, // Pass the payment amount and convert to cents
+            metadata: {
+              userId: JSON.parse(localStorage.getItem('id')),
+              userName: userData?.name, // Replace with the actual user name
+              userEmail: userData?.email, // Replace with the actual user email
+            },
+          });
+
+          const clientSecret = response.data.clientSecret;
+
+          // Confirm the payment with Stripe using the retrieved client secret
+          const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              type: 'card',
+              card: cardElement,
+            },
+          });
+
+          if (error) {
+            // Handle payment error
+            console.error('Payment failed:', error.message);
+          } else if (paymentIntent) {
+            // Payment succeeded, you can now access payment data
+            const paymentMethod = paymentIntent.payment_method;
+            const cardDetails = paymentMethod.card;
+            if (paymentMethod && cardDetails && cardDetails.last4) {
+              console.log('Last 4 digits:', cardDetails.last4);
+            }
+            const bookingData = {
+              user: JSON.parse(localStorage.getItem('id')),
+              tour: tour._id,
+              hours: bookedHours,
+              language: bookedLang,
+              num: bookedNumber,
+              price: bookedHours * bookedNumber * tour?.price,
+            };
+            const response = await axios.post('http://localhost:5000/user/bookTour', bookingData);
+
+            if (response.data.status === 200) {
+              // Handle success logic here, e.g., show a success message and navigate to a confirmation page
+              setShowSuccessBookModal(true);
+              setIsBookingDisabled(true); // Disable the button
+              setTimeout(() => {
+                setShowSuccessBookModal(false);
+                window.location.reload();
+              }, 3000);
+            } else if (response.status === 500) {
+              setShowErrorBookModal(true);
+              setErrorMsg(response.data.message);
+              setTimeout(() => {
+                setShowErrorBookModal(false);
+              }, 3000);
+            }
+          }
+        } catch (error) {
+          // Handle server error or any other errors
+          console.error('Error processing payment:', error);
+
+          // Handle error logic here, e.g., show an error message
+          setErrorMsg('An error occurred while processing your payment.');
+          setShowErrorBookModal(true);
+          setTimeout(() => {
+            setShowErrorBookModal(false);
+          }, 3000)
+        }
+      }
+    } else {
+      if (localStorage.getItem('role') == 'user') {
+        axios.post("http://localhost:5000/user/bookFreeTour", {
+          user: JSON.parse(localStorage.getItem("id")),
           tour: tour._id,
           hours: bookedHours,
           language: bookedLang,
           num: bookedNumber,
-          price: bookedHours * bookedNumber * tour?.price,
-        };
-
-        const response = await axios.post('http://localhost:5000/user/bookTour', bookingData);
-
-        if (response.data.status === 200) {
-          // Handle success logic here, e.g., show a success message and navigate to a confirmation page
-          setShowSuccessBookModal(true);
-          setIsBookingDisabled(true); // Disable the button
-          setTimeout(() => {
-            setShowSuccessBookModal(false);
-          }, 3000);
-        } else if(response.status === 500){
-          setShowErrorBookModal(true);
-          setErrorMsg(response.data.message);
-          setTimeout(() => {
-            setShowErrorBookModal(false);
-          }, 3000);
-        }
+        }).then((res) => {
+          if (res.data.status === 200) {
+            setShowSuccessBookModal(true);
+            setTimeout(() => {
+              setShowSuccessBookModal(false);
+            }, 3000);
+          }
+          else if (res.data.status === 400) {
+            setErrorMsg(res.data.message)
+            setShowErrorBookModal(true)
+            setTimeout(() => {
+              setShowErrorBookModal(false)
+            }, 3000)
+          }
+        })
       }
-    } catch (error) {
-      // Handle server error or any other errors
-      console.error('Error processing payment:', error);
-
-      // Handle error logic here, e.g., show an error message
-      setErrorMsg('An error occurred while processing your payment.');
-      setShowErrorBookModal(true);
-      setTimeout(()=>{
-        setShowErrorBookModal(false);
-      },3000)
     }
   };
+  const isFreeCategory = tour?.category === 'free';
 
+  const handleBookNowClick = (event) => {
+    event.preventDefault();
+    setShowRolesModal(true);
+  };
+
+  const handleCloseModal = (event) => {
+    event.preventDefault();
+    setShowRolesModal(false);
+  };
+  const handleCoverImageSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedCoverImage(file);
+      setCoverImagePreview(URL.createObjectURL(file));
+    }
+  };
+  const handleCoverImageSaveChanges = () => {
+
+    if (!selectedCoverImage) {
+      setShowErrorCoverModal(true);
+      setTimeout(() => {
+        setShowErrorCoverModal(false);
+      }, 3000);
+      return;
+    }
+    if (userData?.email !== "sara@gmail.com") {
+      console.error("User does not have permission to update the cover image");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("coverImg", selectedCoverImage);
+
+
+
+    axios.put(`http://localhost:5000/user/editTourCoverImage/${tour?._id}`, formData).then((response) => {
+      setShowCoverModal(false)
+      if (location.state) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+          setShowSuccessCoverModal(true);
+          setTimeout(() => {
+            setShowSuccessCoverModal(false);
+          }, 3000);
+        }).catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+      } else if (num) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+          setShowSuccessCoverModal(true);
+          setTimeout(() => {
+            setShowSuccessCoverModal(false);
+          }, 3000);
+        }).catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+      }
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
+  const handleEditDescriptionClick = () => {
+    if (userData?.email === "sara@gmail.com") {
+      setIsEditingDescription(!isEditingDescription);
+      if (!isEditingDescription) {
+        setEditedDescription(tour?.description || "");
+      }
+    }
+  };
+  const handleSaveDescription = () => {
+    axios
+      .put(`http://localhost:5000/user/editTourDescription/${tour?._id}`, {
+        description: editedDescription,
+      })
+      .then((res) => {
+        setTour((prevTour) => ({ ...prevTour, description: editedDescription }));
+        setIsEditingDescription(false);
+        if (location.state) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditDesc(true);
+            setTimeout(() => {
+              setSuccessEditDesc(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        } else if (num) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditDesc(true);
+            setTimeout(() => {
+              setSuccessEditDesc(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error updating tour description:", error);
+      });
+  };
+  const handleCancelEdit = () => {
+    setIsEditingDescription(false);
+    setEditedDescription(tour?.description || "");
+  };
+  const handleEditTitleClick = () => {
+    if (userData?.email === "sara@gmail.com") {
+      setIsEditingTitle(!isEditingTitle);
+      if (!isEditingTitle) {
+        setEditedTitle(tour?.title || "");
+      }
+    }
+  };
+  const handleSaveTitle = () => {
+    axios
+      .put(`http://localhost:5000/user/editTourTitle/${tour?._id}`, {
+        title: editedTitle,
+      })
+      .then((res) => {
+        setTour((prevTour) => ({ ...prevTour, title: editedTitle }));
+        setIsEditingTitle(false);
+        if (location.state) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditTitle(true);
+            setTimeout(() => {
+              setSuccessEditTitle(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        } else if (num) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditTitle(true);
+            setTimeout(() => {
+              setSuccessEditTitle(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error updating tour title:", error);
+      });
+  };
+  const handleCancelEditTitle = () => {
+    setIsEditingTitle(false);
+    setEditedTitle(tour?.title || "");
+  };
+  const handleEditMediaSelection = (event) => {
+    const file = event.currentTarget.files[0];
+    if (file) {
+      setSelectedMedia(file);
+      setMediaImagePreview(URL.createObjectURL(file));
+    }
+  };
+  const handleEditMediaSaveChanges = () => {
+
+    if (!selectedMedia) {
+      setErrorEditMedia(true);
+      setTimeout(() => {
+        setErrorEditMedia(false);
+      }, 3000);
+      return;
+    }
+    if (userData?.email !== "sara@gmail.com") {
+      console.error("User does not have permission to update the cover image");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("img", selectedMedia);
+
+
+
+    axios.put(`http://localhost:5000/user/editTourMedia/${tour?._id}`, formData).then((response) => {
+      setEditMedia(false)
+      if (location.state) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+          setSuccessEditMedia(true);
+          setTimeout(() => {
+            setSuccessEditMedia(false);
+          }, 3000);
+        }).catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+      } else if (num) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+          setSuccessEditMedia(true);
+          setTimeout(() => {
+            setSuccessEditMedia(false);
+          }, 3000);
+        }).catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+      }
+    }).catch((error) => {
+      console.error("Error updating cover image:", error);
+    });
+  };
+  const handleEditInstructionsClick = () => {
+    if (userData?.email === "sara@gmail.com") {
+      setIsEditingInstructions(!isEditingInstructions);
+      if (!isEditingInstructions) {
+        setEditedInstructions([...tour?.instructions]);
+      }
+    }
+  };
+  const handleInstructionChange = (e, index) => {
+    const updatedInstructions = [...editedInstructions];
+    updatedInstructions[index] = e.target.value;
+    setEditedInstructions(updatedInstructions);
+  };
+  const handleRemoveInstruction = (index) => {
+    const updatedInstructions = [...editedInstructions];
+    updatedInstructions.splice(index, 1);
+    setEditedInstructions(updatedInstructions);
+  };
+  const handleAddInstruction = () => {
+    setEditedInstructions([...editedInstructions, ""]);
+  };
+  const handleSaveInstructions = () => {
+    axios
+      .put(`http://localhost:5000/user/editTourInstructions/${tour?._id}`, {
+        instructions: editedInstructions,
+      })
+      .then((res) => {
+        setTour((prevTour) => ({ ...prevTour, instructions: editedInstructions }));
+        setIsEditingInstructions(false);
+        if (location.state) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditInstruc(true);
+            setTimeout(() => {
+              setSuccessEditInstruc(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        } else if (num) {
+          axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+            setTour(res.data)
+            hours(res.data.hours)
+            languages(res.data)
+            setSuccessEditInstruc(true);
+            setTimeout(() => {
+              setSuccessEditInstruc(false);
+            }, 3000);
+          }).catch((error) => {
+            console.error("Error fetching user data:", error);
+          });
+        }
+      })
+      .catch((error) => {
+        // Handle error
+        console.error("Error updating tour instructions:", error);
+      });
+  };
+  const handleCancelInstructionsEdit = () => {
+    // Exit edit mode and reset the editedInstructions to the current tour instructions
+    setIsEditingInstructions(false);
+    setEditedInstructions(Array.isArray(tour?.instructions) ? [...tour?.instructions] : []);
+  };
+  var myI = JSON.parse(localStorage.getItem("index")) || [];
+  const handleFileChange = (index, event) => {
+    const files = event.target.files;
+    myI.push(index)
+    localStorage.setItem("index", JSON.stringify(myI))
+    // Create a copy of the existing mediaData
+    const updatedMediaData = [...mediaData];
+
+    // Push each file into the updatedMediaData array
+    for (let i = 0; i < files.length; i++) {
+      updatedMediaData.push({ file: files[i], remove: false });
+    }
+
+    // Log the updated mediaData
+    console.log(updatedMediaData);
+
+    // Set the updated mediaData in the state
+    setMediaData(updatedMediaData);
+  };
+  const handleAddNewImages = (event) => {
+    const files = event.target.files;
+
+    // Create a copy of newlyAddedImages
+    const updatedNewlyAddedImages = [...newlyAddedImages];
+
+    for (let i = 0; i < files.length; i++) {
+      updatedNewlyAddedImages.push(files[i]);
+    }
+
+    // Set the updated newlyAddedImages in the state
+    setNewlyAddedImages(updatedNewlyAddedImages);
+  };
+  const [removeIm, setRemoveIm] = useState(JSON.parse(localStorage.getItem("remove")) || []);
+  useEffect(() => {
+    // Store the updated 'removeIm' array in local storage whenever it changes
+    localStorage.setItem("remove", JSON.stringify(removeIm));
+  }, [removeIm]);
+
+  const handleRemoveMedia = (index) => {
+    const updatedMediaData = [...mediaData];
+    updatedMediaData.splice(index, 1);
+
+    setMediaData(updatedMediaData);
+
+    // Update the 'removeIm' state by pushing the index
+    setRemoveIm([...removeIm, index]);
+  };
+  const handleSaveChanges = async () => {
+    const updatePromises = [];
+    const addNewPromises = [];
+    const removePromises = [];
+
+    // Update existing images
+    for (let i = 0; i < mediaData.length; i++) {
+      if (!mediaData[i].remove && mediaData[i].file) {
+        const formData = new FormData();
+        formData.append('img', mediaData[i].file);
+        console.log(mediaData[i].file)
+        console.log(myI)
+        console.log(typeof myI)
+        const theI = JSON.parse(localStorage.getItem("index"));
+
+        updatePromises.push(
+          axios.put(`http://localhost:5000/user/editTourMedia/${tour._id}/${theI[i]}`, formData)
+        );
+      }
+    }
+
+    // Add newly added images
+    for (let i = 0; i < newlyAddedImages.length; i++) {
+      const formData = new FormData();
+      formData.append('img', newlyAddedImages[i]);
+
+      addNewPromises.push(
+        axios.post(`http://localhost:5000/user/addTourMedia/${tour._id}`, formData)
+      );
+    }
+
+    // Remove items by sending their indices to the server
+    const theRemove = JSON.parse(localStorage.getItem("remove"));
+    for (let i = 0; i < theRemove.length; i++) {
+      removePromises.push(
+        axios.delete(`http://localhost:5000/user/removeTourMedia/${tour._id}/${theRemove[i]}`)
+      );
+    }
+    try {
+      await Promise.all([...updatePromises, ...addNewPromises, ...removePromises]);
+      setNewlyAddedImages([])
+      setRemoveIm([])
+      localStorage.removeItem("index")
+      if (location.state) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: location.state } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+        })
+      } else if (num) {
+        axios.get("http://localhost:5000/user/oneTour", { params: { id: num } }).then((res) => {
+          setTour(res.data)
+          hours(res.data.hours)
+          languages(res.data)
+        })
+      }
+      // window.location.reload();
+    } catch (error) {
+      console.error("Error updating images:", error);
+      // Handle errors as needed.
+    }
+
+    setEditAllMedia(false); // Close the edit media modal
+  };
+  const handleCancel = () => {
+    setEditAllMedia(false)
+    // localStorage.removeItem("remove")
+    // localStorage.removeItem("index")
+    setRemoveIm([])
+    // window.location.reload();
+  }
   return (
     <div>
       {
-        showSuccessBookModal && <SuccessandErrorModals success={true} message={"Tour booked successfully"} />
+        showSuccessBookModal && <SuccessandErrorModals success={true} message={"Tour Booked Successfully"} />
       }
       {
         showErrorBookModal && <SuccessandErrorModals success={false} message={showErrorMsg} />
       }
+      {
+        showSuccessCoverModal && <SuccessandErrorModals message={"Your Cover Edited Successfully"} success={true} />
+      }
+      {
+        showErrorCoverModal && <SuccessandErrorModals message={"No Cover image selected"} success={false} />
+      }
+      {
+        successEditDesc && <SuccessandErrorModals message={"Your description Edited Successfully"} success={true} />
+      }
+      {
+        errorEditDesc && <SuccessandErrorModals message={"Error updating tour description"} success={false} />
+      }
+      {
+        successEditMedia && <SuccessandErrorModals message={"Your Media Edited Successfully"} success={true} />
+      }
+      {
+        errorEditMedia && <SuccessandErrorModals message={"Error updating tour Media"} success={false} />
+      }
+      {
+        successEditTitle && <SuccessandErrorModals message={"Your Title Edited Successfully"} success={true} />
+      }
+      {
+        errorEditTitle && <SuccessandErrorModals message={"Error updating tour title"} success={false} />
+      }
+      {
+        successEditInstruc && <SuccessandErrorModals message={"Your Instructions Edited Successfully"} success={true} />
+      }
+      {
+        errorEditInstruc && <SuccessandErrorModals message={"Error updating tour instructions"} success={false} />
+      }
+
       <Navbar />
 
       <div className={style["hero"]}>
@@ -253,26 +785,87 @@ function TourDetails() {
               <img src={`http://localhost:5000/${tour?.img[0]}`} />
             }
             <div className={style["hero__icons"]}>
-              <img src={vecto2} />
-              <img src={vectorStroke} />
+              {userData?.email === "sara@gmail.com" && (
+                <i className="fa-solid fa-pen-to-square" style={{ position: 'absolute', fontSize: '20px', zIndex: '999', cursor: 'pointer' }}
+                  onClick={() => setShowCoverModal(true)}
+                ></i>
+              )}
+              {showCoverModal && (
+                <div className={UserCoverModalStyle['usercover-modal__overlay']}>
+                  <div className={UserCoverModalStyle['usercover-modal__content']}>
+                    <div className={UserCoverModalStyle['usercovermodal__header']}>
+                      <h2>Edit Cover Image</h2>
+                    </div>
+                    <div className={UserCoverModalStyle['usercovermodal__input']}>
+                      <input
+                        type="file"
+                        id="img"
+                        name="img"
+                        onChange={handleCoverImageSelection}
+                      />
+                      {coverImagePreview && (
+                        <img
+                          src={coverImagePreview}
+                          alt="Selected Cover"
+                          className={UserCoverModalStyle['usercover-preview']}
+                        />
+                      )}
+                      <div className={UserCoverModalStyle['usercovermodal__actions']}>
+                        <button onClick={() => setShowCoverModal(false)}>Cancel</button>
+                        <button onClick={() => handleCoverImageSaveChanges()}>Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {/* <img src={vecto2} />
+              <img src={vectorStroke} /> */}
             </div>
-            <div className={style["hero__text"]}>
-              <h2>{tour?.title}</h2>
-              <div className={style["stars"]}>
-                {starIcons}
-                <h5>({(tour?.avgRate?.toFixed(1))})</h5>
+            {isEditingTitle ? (
+              <div className={style['edit__title']}>
+                <input
+                  type="text"
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                />
+                <div className={style['input__buttons']}>
+                  <button onClick={handleCancelEditTitle}>Cancel</button>
+                  <button onClick={handleSaveTitle}>Save</button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={style["hero__text"]}>
+                <h2>{tour?.title}</h2>
+                {userData?.email === "sara@gmail.com" && (
+                  <i
+                    className="fa-solid fa-pen-to-square"
+                    style={{
+                      position: 'absolute',
+                      top: '16px',
+                      left: '40%',
+                      fontSize: '20px',
+                      cursor: 'pointer'
+                    }}
+                    onClick={handleEditTitleClick}
+                  ></i>
+                )}
+                <div className={style["stars"]}>
+                  {starIcons}
+                  <h5>({(tour?.avgRate?.toFixed(1))})</h5>
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </div>
       {
-        isLive &&
-        <div style={{ marginTop: '50px', marginBottom: '20px' }}>
-          <StreamingSection />
-        </div>
+        isLive && tourBookingData && (
+          <div style={{ marginTop: '50px', marginBottom: '20px' }}>
+            <StreamingSection />
+          </div>
+        )
       }
-
       <div className={style["details"]}>
         <div className={style["container"]}>
           <div className={style["details__content"]}>
@@ -315,9 +908,29 @@ function TourDetails() {
                         <a><img src={UK} /> Italian</a>
                       }
                     </div>
-                    <p>{tour?.description ? tour?.description : "There's no description for this tour"}</p>
-                    <div className={style["tags"]}>
+                    {isEditingDescription ? (
+                      <div className={style['textarea__description']}>
+                        <textarea
+                          rows="4"
+                          cols="50"
+                          value={editedDescription}
+                          onChange={(e) => setEditedDescription(e.target.value)}
+                        />
+                        <div className={style['textarea__buttons']}>
+                          <button onClick={handleCancelEdit}>Cancel</button>
+                          <button onClick={handleSaveDescription}>Save</button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <p>{tour?.description ? tour?.description : "There's no description for this tour"}</p>
+                        {userData?.email === "sara@gmail.com" && (
+                          <i className="fa-solid fa-pen-to-square" style={{ fontSize: '20px', cursor: 'pointer' }} onClick={handleEditDescriptionClick}></i>
+                        )}
+                      </div>
+                    )}
 
+                    <div className={style["tags"]}>
                       {tour?.tags && tour?.tags.map((tag, index) => (
                         <a key={index}>{tag}</a>
                       ))}
@@ -326,6 +939,44 @@ function TourDetails() {
                       tour?.img?.length > 0 &&
                       <img src={`http://localhost:5000/${tour?.img[1]}`} />
                     }
+                      {userData?.email === "sara@gmail.com" && (
+                        <i className="fa-solid fa-pen-to-square"
+                          onClick={() => setEditMedia(true)}
+                          style={{
+                            fontSize: '20px', position: 'absolute',
+                            top: '0',
+                            right: '0',
+                            cursor: 'pointer'
+                          }}></i>
+                      )}
+                      {editMedia && (
+                        <div className={UserCoverModalStyle['usercover-modal__overlay']}>
+                          <div className={UserCoverModalStyle['usercover-modal__content']}>
+                            <div className={UserCoverModalStyle['usercovermodal__header']}>
+                              <h2>Edit Media</h2>
+                            </div>
+                            <div className={UserCoverModalStyle['usercovermodal__input']}>
+                              <input
+                                type="file"
+                                id="img"
+                                name="img"
+                                onChange={handleEditMediaSelection}
+                              />
+                              {mediaImagePreview && (
+                                <img
+                                  src={mediaImagePreview}
+                                  alt="Selected Media"
+                                  className={UserCoverModalStyle['usercover-preview']}
+                                />
+                              )}
+                              <div className={UserCoverModalStyle['usercovermodal__actions']}>
+                                <button onClick={() => setEditMedia(false)}>Cancel</button>
+                                <button onClick={() => handleEditMediaSaveChanges()}>Save Changes</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </>
@@ -357,23 +1008,75 @@ function TourDetails() {
                   <a href="#">View More Reviews</a>
                 </div>
               )}
-              {
-                tap === "instructions" &&
-                (
-                  <div className={style["main-content"]}>
-                    {
-                      tour?.instructions.length > 0 ?
+              {tap === "instructions" && (
+                <div>
+                  {isEditingInstructions ? (
+                    <div className={style["main-content"]}>
+                      <div className={style['instruc__edit']}>
+                        {editedInstructions.map((instruction, index) => (
+                          <div className={style['instruc__input']} key={index}>
+                            <textarea
+                              rows="4"
+                              cols="50"
+                              type="text"
+                              value={instruction}
+                              onChange={(e) => handleInstructionChange(e, index)}
+                            />
+                            <button onClick={() => handleRemoveInstruction(index)}>
+                              Remove
+                            </button>
+                          </div>
+                        ))}
+                        <button onClick={handleAddInstruction}><i class="fa-solid fa-plus" style={{ color: 'white', marginRight: '5px' }}></i>Add Instruction</button>
+                        <div className={style['instruc__buttons']}>
+                          <button onClick={handleCancelInstructionsEdit}>Cancel</button>
+                          <button onClick={handleSaveInstructions}>Save</button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={style["main-content"]}>
+                      {tour?.instructions.length > 0 ? (
                         tour.instructions.map((instruction, index) => (
                           <h5 key={index}>{instruction}</h5>
-                        )) :
+                        ))
+                      ) : (
                         <h5>No Instructions for this tour</h5>
-                    }
-                  </div>
-                )
-              }
+                      )}
+                      {userData?.email === "sara@gmail.com" && (
+                        <i
+                          className="fa-solid fa-pen-to-square"
+                          style={{
+                            fontSize: '20px',
+                            position: 'absolute',
+                            top: '53%',
+                            left: '60%',
+                            cursor: 'pointer'
+                          }}
+                          onClick={handleEditInstructionsClick}
+                        ></i>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {
                 tap === "media" && (
                   <div className={style["main-content"]}>
+                    {userData?.email === "sara@gmail.com" && (
+                      <i
+                        className="fa-solid fa-pen-to-square"
+                        style={{
+                          fontSize: '20px',
+                          position: 'absolute',
+                          top: '53%',
+                          left: '60%',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setEditAllMedia(true)}
+                      ></i>
+                    )}
                     {tour?.img.length > 0 ? (
                       <div className={style["main-image"]}>
                         <img src={`http://localhost:5000/${tour?.img[0]}`} alt="Main Tour Image" />
@@ -389,7 +1092,56 @@ function TourDetails() {
                     {tour?.img.length <= 1 && (
                       <h5>There's no additional media for this tour</h5>
                     )}
+                    {editAllMedia && (
+                      <div className={UserCoverModalStyle['usercover-modal__overlay']}>
+                        <div className={UserCoverModalStyle['usercover-modal__content']}>
+                          <div className={UserCoverModalStyle['usercovermodal__header']}>
+                            <h2>Edit All Media</h2>
+                          </div>
+                          {tour?.img.length > 0 && (
+                            <div className={style["media-preview-container"]} style={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              flexWrap: 'wrap',
+                              paddingLeft: '10px',
+                              paddingRight: '10px'
+                            }}>
+                              {tour?.img.map((preview, index) => (
+                                <div key={index} className={`${style["media-preview"]} ${removeIm.includes(index) ? style["opacity-effect"] : ""}`}>
+                                  <img src={`http://localhost:5000/${preview}`} alt={`Media ${index}`} style={{ width: '70%', height: '150px' }} />
+                                  <div className={style['allmedia__btns']}>
+                                    <button onClick={() => handleRemoveMedia(index)}>Remove</button>
+                                    <input
+                                      type="file"
+                                      id={`media-input-${index}`}
+                                      name={`media-input-${index}`}
+                                      onChange={(e) => handleFileChange(index, e)}
+                                    />
+                                  </div>
+
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          <div className={UserCoverModalStyle['usercovermodal__input']}>
+                            <input
+                              type="file"
+                              id="images"
+                              name="images"
+                              multiple  // Allow multiple file selection
+                              onChange={handleAddNewImages}
+                            />
+                            <div className={UserCoverModalStyle['usercovermodal__actions']}>
+                              <button onClick={handleCancel}>Cancel</button>
+                              <button onClick={handleSaveChanges}>Save Changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                   </div>
+
                 )
               }
               {
@@ -405,6 +1157,12 @@ function TourDetails() {
                       }
                       {
                         tour?.category === "VIP" &&
+                        vip.slice(0, 16).map((item) => {
+                          return <Card key={item._id} data={item} />
+                        })
+                      }
+                      {
+                        tour?.category === "free" &&
                         vip.slice(0, 16).map((item) => {
                           return <Card key={item._id} data={item} />
                         })
@@ -453,6 +1211,7 @@ function TourDetails() {
                         <option disabled value={0}>select Number of Geusts</option>
                         <option value={1}>1 Gusts</option>
                         <option value={2}>2 Gusts</option>
+                        <option value={3}>3 Gusts</option>
                         <option value={4}>4 Gusts</option>
                         <option value={5}>5 Gusts</option>
                         <option value={6}>6 Gusts</option>
@@ -472,40 +1231,95 @@ function TourDetails() {
                         <option value={20}>20 Gusts</option>
                       </select>
                     </div>
-                    <div style={{marginTop: '40px', marginBottom: '20px'}}>
-                    <CardElement
-                      options={{
-                        hidePostalCode: true,
-                        style: {
-                          base: {
-                            zIndex: '999',
-                            fontSize: '20px',
-                            color: '#424770',
-                            '::placeholder': {
-                              color: '#aab7c4',
+                    {
+                      tour?.category != "free" &&
+                      <div style={{ marginTop: '40px', marginBottom: '20px' }}>
+                        <CardElement
+                          options={{
+                            hidePostalCode: true,
+                            style: {
+                              base: {
+                                zIndex: '999',
+                                fontSize: '20px',
+                                color: '#424770',
+                                '::placeholder': {
+                                  color: '#aab7c4',
+                                },
+                              },
+                              invalid: {
+                                color: '#9e2146',
+                              },
                             },
-                          },
-                          invalid: {
-                            color: '#9e2146',
-                          },
-                        },
-                      }}
-                    />
-                    </div>
+                          }}
+                        />
+                      </div>
+                    }
                     <div className={style["price"]}>
-
                       <h4>Total</h4>
-                      <h4>{bookedHours && bookedNumber ? bookedHours * bookedNumber * tour?.price :
-                        bookedHours && !bookedNumber ? tour?.price * bookedHours : !bookedHours && bookedNumber ?
-                          tour?.price * bookedNumber : tour?.price}$</h4>
+                      {
+                        tour?.category != 'free' ? (
+                          <h4>
+                            {bookedHours && bookedNumber
+                              ? bookedHours * bookedNumber * tour?.price
+                              : bookedHours && !bookedNumber
+                                ? tour?.price * bookedHours
+                                : !bookedHours && bookedNumber
+                                  ? tour?.price * bookedNumber
+                                  : tour?.price}
+                            $
+                          </h4>
+                        ) : (
+                          <h4>FREE</h4>
+                        )
+                      }
                     </div>
                     <button
-                      onClick={handleSubmit}
-                      type="submit"
+                      onClick={handleBookNowClick}
                       disabled={isBookingDisabled}
+                      style={{
+                        width: '100%',
+                        height: '48px',
+                        background: 'linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%)',
+                        color: 'white',
+                        borderRadius: '12px',
+                        border: 'none',
+                        cursor: 'pointer',
+                      }}
                     >
                       Book Now
                     </button>
+
+                    {
+                      showRolesModal && <div className={BookingStyle['booking__modall__content']}>
+                        <div className={BookingStyle['booking__modal__header']}>
+                          <h4>Confirm Booking</h4>
+                          <img src={logo1} alt='' />
+                        </div>
+                        <div className={BookingStyle['booking__modal__body']}>
+                          <h2>Are you sure you want to book this tour?</h2>
+                          <p>1) If you need to cancel the tour you have booked, you can do so up to 24 hours before the scheduled tour date.</p>
+                          <p>2) To request a tour cancellation, please contact us at <span>LVW@support.com</span>. We will guide you through the cancellation process and initiate a refund if the trip was pre-paid.</p>
+                          <p>3) There are no fees associated with the cancellation process.</p>
+                          <div className={BookingStyle['booking__modal__buttons']}>
+                            <button className={BookingStyle['booking__cancel__btn']} onClick={handleCloseModal}>Cancel</button>
+                            <button
+                              onClick={(event) => {
+                                event.preventDefault(); // Prevent form submission
+                                handleSubmit(event); // Pass the event object to handleSubmit
+                                setShowRolesModal(false);
+                              }}
+                              type="submit"
+                              disabled={isBookingDisabled}
+                              className={BookingStyle['booking__confirm__btn']}
+                            >
+                              Confirm
+                            </button>
+
+
+                          </div>
+                        </div>
+                      </div>
+                    }
                   </form>
                   <div className={style["by"]}>
                     {
@@ -679,7 +1493,7 @@ function TourDetails() {
           </div>
         </div>
       </footer>
-    </div>
+    </div >
   )
 }
 

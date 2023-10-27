@@ -26,8 +26,8 @@ function Card(props) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     // Calculate the number of full stars and half stars based on the rating value
-    const fullStars = Math.floor(props.data.avgRate || 0);
-    const hasHalfStar = (props.data.avgRate || 0) - fullStars >= 0.5;
+    const fullStars = Math.floor(props?.data?.avgRate || 0);
+    const hasHalfStar = (props?.data?.avgRate || 0) - fullStars >= 0.5;
 
     // Generate an array of stars based on the calculated values
     const starIcons = Array.from({ length: 5 }, (_, index) => {
@@ -40,18 +40,19 @@ function Card(props) {
         }
     });
     useEffect(() => {
-        // console.log(props.review)
+        // console.log(props)
     }, [props.data])
+
     return (
         <div className={style["tour__card"]}>
             <NavLink
-                to={`/tourDetails`} state={props.data._id}
+                to={`/tourDetails`} state={props?.data?._id}
             >
                 <div className={style["tour__trip__image__buttons"]}>
-                    <img src={props.data.img?.length > 0 ? `http://localhost:5000/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
+                    <img src={props?.data?.img?.length > 0 ? `http://localhost:5000/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
                     <div className={style["tour__card__buttons"]}>
                         <button className={style["tour__public__btn"]}>
-                            {props.data.category === 'public' ? 'Public' : (props.data.category === 'VIP' ? 'VIP' : '')}
+                            {props?.data?.category === 'public' ? 'Public' : (props?.data?.category === 'VIP' ? 'VIP' : (props?.data?.category === 'free' ? 'Free' : ''))}
                         </button>
                         <button className={style["tour__live__now__btn"]}>Live Now</button>
                     </div>
@@ -61,14 +62,14 @@ function Card(props) {
                         <div className={style["card__rate__icons"]}>
                             {starIcons}
                         </div>
-                        <span>({props.data.avgRate && Math.round(props.data.avgRate)})</span>
+                        <span>({props?.data?.avgRate && Math.round(props?.data?.avgRate)})</span>
                     </div>
-                    <h4>{props.data.description}</h4>
-                    <p>{props.data.address}
+                    <h4>{props?.data?.description}</h4>
+                    <p>{props?.data?.address}
                     </p></div>
             </NavLink>
             {
-                props.review && !props.isReview &&
+                props?.review && !props?.isReview &&
                 <>
                     <h6 onClick={handleOpen} className={style["make__reveiw__button"]}>Add Review</h6>
                     <Modal

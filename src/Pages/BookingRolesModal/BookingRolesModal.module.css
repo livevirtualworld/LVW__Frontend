@@ -1,0 +1,100 @@
+.modall__content {
+    z-index: 1000;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    background-color: white;
+    border-radius: 18px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    width: 550px;
+    height: 600px;
+}
+.modal__header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    background-color: black;
+    padding: 18px;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    border-top-right-radius: 18px;
+    border-top-left-radius: 18px;
+}
+
+.modal__header > h4{
+    color: white;
+}
+
+.modal__body{
+    padding: 20px;
+}
+.modal__body > h2{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+.modal__body > p{
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 30px;
+}
+.modal__body > p > span{
+    font-weight: 600;
+    text-decoration: underline;
+}
+.modal__body > p:last-of-type{
+    font-size: 20px;
+    margin-bottom: 0px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+.modal__body > p:last-of-type::after{
+    position: absolute;
+    content: "";
+    left: 20px;
+    top: 85%;
+    width: calc(100% - 40px);
+    height: 1px;
+    background-color: rgba(6, 12, 19, 0.32);
+}
+.modal__buttons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 50px;
+}
+.modal__buttons > button:first-of-type{
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: transparent;
+    border: 2px solid rgba(54, 109, 175, 1);
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: right;
+    color: rgba(54, 109, 175, 1);
+    cursor: pointer;
+}
+.modal__buttons > button:last-of-type{
+    padding: 10px 20px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(54, 109, 175, 1) 100%, rgba(65, 138, 226, 1) 100%);
+    /* background: rgba(54, 109, 175, 1); */
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: right;
+    color: rgba(255, 255, 255, 1);
+    cursor: pointer;
+}

@@ -92,7 +92,7 @@ function Navbar() {
                         <ul className={style["nav__links"]}>
                             <li className={isActive("/home")}><NavLink exact to="/home" activeClassName={style["active"]}>Home</NavLink></li>
                             <li className={isActive("/tours")}><NavLink to="/tours" activeClassName={style["active"]}>Tours</NavLink></li>
-                            <li className={isActive("/our-mission")}><NavLink to="/our-mission" activeClassName={style["active"]}>Our Mission</NavLink></li>
+                            <li className={isActive("/our-mission")}><NavLink to="/our-mission" activeClassName={style["active"]}>About Us</NavLink></li>
                             <li className={isActive("/contact-us")}><NavLink to="/contact-us" activeClassName={style["active"]}>Contact Us</NavLink></li>
                         </ul>
 

@@ -43,6 +43,7 @@ import { Reviews } from '@mui/icons-material'
 import Navbar from '../Navbar/Navbar'
 
 
+
 function Home() {
     const [menu, setMenu] = useState(false)
     const [lang, setLang] = useState("english")
