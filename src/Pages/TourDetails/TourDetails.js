@@ -1208,27 +1208,12 @@ function TourDetails() {
                       <select onChange={(e) => {
                         setBookedNumber(e.target.value)
                       }} defaultValue={0}>
-                        <option disabled value={0}>select Number of Geusts</option>
-                        <option value={1}>1 Gusts</option>
-                        <option value={2}>2 Gusts</option>
-                        <option value={3}>3 Gusts</option>
-                        <option value={4}>4 Gusts</option>
-                        <option value={5}>5 Gusts</option>
-                        <option value={6}>6 Gusts</option>
-                        <option value={7}>7 Gusts</option>
-                        <option value={8}>8 Gusts</option>
-                        <option value={9}>9 Gusts</option>
-                        <option value={10}>10 Gusts</option>
-                        <option value={11}>11 Gusts</option>
-                        <option value={12}>12 Gusts</option>
-                        <option value={13}>13 Gusts</option>
-                        <option value={14}>14 Gusts</option>
-                        <option value={15}>15 Gusts</option>
-                        <option value={16}>16 Gusts</option>
-                        <option value={17}>17 Gusts</option>
-                        <option value={18}>18 Gusts</option>
-                        <option value={19}>19 Gusts</option>
-                        <option value={20}>20 Gusts</option>
+                        <option disabled value={0}>select Number of Guests</option>
+                        <option value={1}>1 Guest</option>
+                        <option value={2}>2 Guests</option>
+                        <option value={3}>3 Guests</option>
+                        <option value={4}>4 Guests</option>
+                        <option value={5}>5 Guests</option>
                       </select>
                     </div>
                     {

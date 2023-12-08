@@ -168,7 +168,7 @@ nav .menu i{
     color: white;
 }
 .path{
-    background-color: rgba(209, 201, 232, 1);
+    background-color: #12243a4d;
 }
 .path__content{
     display: flex;
@@ -187,6 +187,7 @@ nav .menu i{
 .hero__content > img{
     width: 100%;
     height: 250px;
+    object-fit: cover;
 }
 .hero__content .overlay{
     position: absolute;

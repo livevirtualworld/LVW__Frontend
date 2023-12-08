@@ -58,10 +58,31 @@ function Tours() {
 
   useEffect(() => {
     axios.get("http://localhost:5000/admin/allTours").then((res) => {
-      setTours(res.data.data)
-      setFilteresTours(res.data.data)
+      axios.get("http://localhost:5000/user/getAllBooks").then((result) => {
+        console.log(result.data)
+        const groupedBokking = result.data.reduce((bookRes, obj) => {
+          console.log(bookRes)
+          console.log(obj)
+          const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
+          if (filteredGrouped) {
+            filteredGrouped.numberOfGuests += obj.numberOfGuests
+          } else {
+            bookRes.push({ id: obj?.tour, numberOfGuests: obj.numberOfGuests })
+          }
+          return bookRes;
+        }, []
+        )
+        // console.log(groupedBokking)
+        const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
+        // console.log(repeatedTours)
+        const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
+        // console.log(res.data)
+        // console.log(newFilteredBooked)
+        setTours(newFilteredBooked)
+        setFilteresTours(newFilteredBooked)
+      })
     })
-    axios.get("http://localhost:5000/user/liveTours").then((res)=>{
+    axios.get("http://localhost:5000/user/liveTours").then((res) => {
       setLiveTours(res.data.data)
     })
   }, []);
@@ -79,22 +100,22 @@ function Tours() {
 
   const handleSwitchChange = () => {
     setIsSwitchOn((prev) => !prev);
-    if(!isSwitchOn){
+    if (!isSwitchOn) {
       setFilteresTours(liveTours)
     }
   };
 
-  function search(text){
+  function search(text) {
     console.log(text)
-    const x = tours.filter((tour)=>{
-        console.log(tour.address)
-       return tour.address.toLowerCase().includes(text.toLowerCase())
+    const x = tours.filter((tour) => {
+      console.log(tour.address)
+      return tour.address.toLowerCase().includes(text.toLowerCase())
     })
     setFilteresTours(x)
-}
+  }
   return (
     <>
-           <Navbar />
+      <Navbar />
 
 
       <div className={style["path"]}>
@@ -206,7 +227,7 @@ function Tours() {
           <Map tours={filteredTours} />
           <div className={style["tours__map__search__bar"]}>
             <img src={SearchMap} alt="" className={style["tours__map__search__icon"]} />
-            <input onChange={(e)=>{search(e.target.value)}} className={style["search"]} type="search" placeholder="Location..." />
+            <input onChange={(e) => { search(e.target.value) }} className={style["search"]} type="search" placeholder="Location..." />
           </div>
         </div>
       </section>
