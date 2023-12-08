@@ -23,7 +23,7 @@ const Map = ({ tours }) => {
         });
 
         // Add markers for each tour
-        tours.forEach(tour => {
+        tours?.forEach(tour => {
             const { latitude, longitude, img, title, _id } = tour;
             if (latitude && longitude) {
                 const customIcon = L.divIcon({

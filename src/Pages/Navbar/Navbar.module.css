@@ -248,3 +248,20 @@ nav .menu i {
     top: 47px;
     background-color: rgba(0, 0, 0, 0.264);
 }
+
+
+@media(max-width:1200px) {
+
+    .nav__links {
+        display: none;
+    }
+
+    .nav__left {
+        display: none;
+    }
+
+    nav .menu {
+        display: block;
+    }
+
+}
