@@ -955,7 +955,7 @@ footer {
 
 @media(max-width:992px) {
     .hero__banner__section {
-        margin-bottom: 305px;
+        margin-bottom: 35px;
     }
     .chat__icon img{
         width: 80%;
@@ -988,7 +988,9 @@ footer {
     .hero__banner__buttons {
         justify-content: center;
     }
-
+    .hero__banner__content{
+        margin-bottom: 20px;
+    }
     .hero__banner__video {
         margin: 0 auto;
         margin-bottom: 20px;
