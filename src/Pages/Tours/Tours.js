@@ -76,10 +76,11 @@ function Tours() {
         const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
         // console.log(repeatedTours)
         const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
-        // console.log(res.data)
-        // console.log(newFilteredBooked)
-        setTours(newFilteredBooked)
-        setFilteresTours(newFilteredBooked)
+        console.log(newFilteredBooked)
+        const filteredBooke = newFilteredBooked.filter((book) => new Date(book.endTime) > new Date());
+
+        setTours(filteredBooke)
+        setFilteresTours(filteredBooke)
       })
     })
     axios.get("http://localhost:5000/user/liveTours").then((res) => {

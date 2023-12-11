@@ -251,7 +251,7 @@ function TourDetails() {
         <i
           key={index}
           className="fa-solid fa-star"
-          style={{ color: "#fe2629" }}
+          style={{ color: "#fe2629",fontSize:"24px" }}
         />
       );
     } else if (hasHalfStar && index === fullStars) {
@@ -259,7 +259,7 @@ function TourDetails() {
         <i
           key={index}
           className="fa-solid fa-star-half"
-          style={{ color: "#fe2629" }}
+          style={{ color: "#fe2629", fontSize:"24px" }}
         />
       );
     } else {
@@ -267,7 +267,7 @@ function TourDetails() {
         <i
           key={index}
           className="fa-regular fa-star"
-          style={{ color: "#fe2629" }}
+          style={{ color: "#fe2629" , fontSize:"24px"}}
         />
       );
     }
@@ -1011,6 +1011,7 @@ function TourDetails() {
               {/* <img src={vecto2} />
               <img src={vectorStroke} /> */}
             </div>
+          </div>
             {isEditingTitle ? (
               <div className={style["edit__title"]}>
                 <input
@@ -1041,11 +1042,11 @@ function TourDetails() {
                 )}
                 <div className={style["stars"]}>
                   {starIcons}
-                  <h5>({tour?.avgRate?.toFixed(1)})</h5>
+                  <h3>({tour?.avgRate?.toFixed(1)})</h3>
+                  <NavLink to={"/tours"}><button className={style["find__tour__btn"]}>Book It Private</button></NavLink>
                 </div>
               </div>
             )}
-          </div>
         </div>
       </div>
       {isLive && tourBookingData && (
