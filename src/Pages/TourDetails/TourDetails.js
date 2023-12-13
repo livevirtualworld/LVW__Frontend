@@ -35,6 +35,8 @@ import Navbar from "../Navbar/Navbar";
 import StreamingSection from "../StreamingSection/StreamingSection";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import UserCoverModalStyle from "../UserProfile/UserCoverModal.module.css";
+import Modalstyle from "../UserProfile/EditModal.module.css";
+import { Button, Input } from "@mui/material";
 
 function TourDetails() {
   const [lang, setLang] = useState("english");
@@ -67,6 +69,9 @@ function TourDetails() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showSuccessProfileModal, setShowSuccessProfileModal] = useState(false);
   const [showSuccessCoverModal, setShowSuccessCoverModal] = useState(false);
+  const [emails, setEmails] = useState([]);
+  const [modalLanguage,setModalLanguage] = useState("")
+  const [vipModal,setVipModal] = useState(false)
 
   //Error
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -251,7 +256,7 @@ function TourDetails() {
         <i
           key={index}
           className="fa-solid fa-star"
-          style={{ color: "#fe2629",fontSize:"24px" }}
+          style={{ color: "#fe2629", fontSize: "24px" }}
         />
       );
     } else if (hasHalfStar && index === fullStars) {
@@ -259,7 +264,7 @@ function TourDetails() {
         <i
           key={index}
           className="fa-solid fa-star-half"
-          style={{ color: "#fe2629", fontSize:"24px" }}
+          style={{ color: "#fe2629", fontSize: "24px" }}
         />
       );
     } else {
@@ -267,11 +272,22 @@ function TourDetails() {
         <i
           key={index}
           className="fa-regular fa-star"
-          style={{ color: "#fe2629" , fontSize:"24px"}}
+          style={{ color: "#fe2629", fontSize: "24px" }}
         />
       );
     }
   });
+
+  const handleAddEmail = () => {
+    setEmails([...emails, ""]);
+  };
+
+  const handleEmailChange = (index, value) => {
+    const updatedInstructions = [...emails];
+    updatedInstructions[index] = value;
+    setEmails(updatedInstructions);
+    console.log(emails);
+  };
 
   const stripe = useStripe();
   const elements = useElements();
@@ -1012,41 +1028,46 @@ function TourDetails() {
               <img src={vectorStroke} /> */}
             </div>
           </div>
-            {isEditingTitle ? (
-              <div className={style["edit__title"]}>
-                <input
-                  type="text"
-                  value={editedTitle}
-                  onChange={(e) => setEditedTitle(e.target.value)}
-                />
-                <div className={style["input__buttons"]}>
-                  <button onClick={handleCancelEditTitle}>Cancel</button>
-                  <button onClick={handleSaveTitle}>Save</button>
-                </div>
+          {isEditingTitle ? (
+            <div className={style["edit__title"]}>
+              <input
+                type="text"
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
+              />
+              <div className={style["input__buttons"]}>
+                <button onClick={handleCancelEditTitle}>Cancel</button>
+                <button onClick={handleSaveTitle}>Save</button>
               </div>
-            ) : (
-              <div className={style["hero__text"]}>
-                <h2>{tour?.title}</h2>
-                {userData?.email === "sara@gmail.com" && (
-                  <i
-                    className="fa-solid fa-pen-to-square"
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      left: "40%",
-                      fontSize: "20px",
-                      cursor: "pointer",
-                    }}
-                    onClick={handleEditTitleClick}
-                  ></i>
-                )}
-                <div className={style["stars"]}>
-                  {starIcons}
-                  <h3>({tour?.avgRate?.toFixed(1)})</h3>
-                  <NavLink to={"/tours"}><button className={style["find__tour__btn"]}>Book It Private</button></NavLink>
-                </div>
+            </div>
+          ) : (
+            <div className={style["hero__text"]}>
+              <h2>{tour?.title}</h2>
+              {userData?.email === "sara@gmail.com" && (
+                <i
+                  className="fa-solid fa-pen-to-square"
+                  style={{
+                    position: "absolute",
+                    top: "16px",
+                    left: "40%",
+                    fontSize: "20px",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleEditTitleClick}
+                ></i>
+              )}
+              <div className={style["stars"]}>
+                {starIcons}
+                <h3>({tour?.avgRate?.toFixed(1)})</h3>
+                
+                  <button onClick={()=>{
+                    setVipModal(true)
+                  }} className={style["find__tour__btn"]}>
+                    Book It Private
+                  </button>
               </div>
-            )}
+            </div>
+          )}
         </div>
       </div>
       {isLive && tourBookingData && (
@@ -1604,6 +1625,159 @@ function TourDetails() {
                     >
                       Book Now
                     </button>
+            {
+              vipModal &&
+                    <div className={Modalstyle["modal__overlay"]}>
+                      <div className={Modalstyle["modal__content"]}>
+                        <div className={Modalstyle["modal__header"]}>
+                          <h2>Edit Profile</h2>
+                          <i
+                            className="fa-regular fa-circle-xmark"
+                            style={{
+                              color: "#000000",
+                              fontSize: "25px",
+                              fontWeight: "600",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => setVipModal(false)}
+                          ></i>
+                        </div>
+                        <label style={{ padding: "0px 20px" }}>
+                          Select Language
+                        </label>
+                        <div className={Modalstyle["input__field"]}>
+                          <select
+                            onChange={(e) => {
+                              setModalLanguage(e.target.value);
+                            }}
+                            defaultValue={0}
+                          >
+                            <option disabled value={0}>
+                              select Language
+                            </option>
+                            {language.map((l) => {
+                              return (
+                                <option value={l} key={l}>
+                                  {l}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </div>
+                        <div className={Modalstyle["input__field"]}>
+                          <Button
+                            variant="brand"
+                            mt="40px"
+                            display="block"
+                            onClick={handleAddEmail}
+                          >
+                            Add Email
+                          </Button>
+                        </div>
+                        {emails.map((email, index) => (
+                          <div
+                            key={index}
+                            className={Modalstyle["input__field"]}
+                          >
+                            <label style={{ padding: "0px 20px" }}>email {index + 1}</label>
+                            <Input
+                              type="text"
+                              value={email}
+                              onChange={(e) =>
+
+                                handleEmailChange(index, e.target.value)
+                              }
+                            />
+                          </div>
+                        ))}
+                        <div style={{ marginTop: "40px", marginBottom: "20px" }}>
+                        <CardElement
+                          options={{
+                            hidePostalCode: true,
+                            style: {
+                              base: {
+                                zIndex: "999",
+                                fontSize: "20px",
+                                color: "#424770",
+                                "::placeholder": {
+                                  color: "#aab7c4",
+                                },
+                              },
+                              invalid: {
+                                color: "#9e2146",
+                              },
+                            },
+                          }}
+                        />
+                      </div>
+                        {/* <div className={Modalstyle["input__field"]}>
+                        <input
+                          type="text"
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle["input__field"]}>
+                        <label>Description:</label>
+                        <textarea
+                          value={editDescription}
+                          onChange={(e) => setEditDescription(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle["input__field"]}>
+                        <label>Phone:</label>
+                        <input
+                          type="text"
+                          value={editPhone}
+                          onChange={(e) => setEditPhone(e.target.value)}
+                        />
+                      </div>
+                      <div className={Modalstyle["input__field"]}>
+                        <label>Address:</label>
+                        <select
+                          value={editAddress}
+                          onChange={(e) => setEditAddress(e.target.value)}
+                        >
+                          <option>Select Country</option>
+                          {country?.map((item, index) => (
+                            <option key={index} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div className={Modalstyle["input__field"]}>
+                        <label>City:</label>
+                        <select
+                          value={editCity}
+                          onChange={(e) => setEditCity(e.target.value)}
+                        >
+                          <option>Select City</option>
+                          {editAddress !== "Select Country" &&
+                            data
+                              .filter((item) => item.country === editAddress)
+                              .map((item, index) => (
+                                <option key={index} value={item.name}>
+                                  {item.name}
+                                </option>
+                              ))}
+                        </select>
+                      </div> */}
+
+                        {/* <div className={Modalstyle["modal__actions"]}>
+                        <button onClick={() => setShowEditModal(false)}>
+                          Cancel
+                        </button>
+                        <button onClick={updateUserProfile}>
+                          Save Changes
+                        </button>
+                      </div> */}
+                      </div>
+                    </div>
+
+            }
+            
 
                     {showRolesModal && (
                       <div className={BookingStyle["booking__modall__content"]}>
