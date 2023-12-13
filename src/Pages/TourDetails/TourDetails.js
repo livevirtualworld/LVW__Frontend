@@ -1059,12 +1059,13 @@ function TourDetails() {
               <div className={style["stars"]}>
                 {starIcons}
                 <h3>({tour?.avgRate?.toFixed(1)})</h3>
-                
+                <NavLink to={"/vipform"}>
                   <button onClick={()=>{
                     setVipModal(true)
                   }} className={style["find__tour__btn"]}>
                     Book It Private
                   </button>
+                  </NavLink>
               </div>
             </div>
           )}
