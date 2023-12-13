@@ -1625,7 +1625,7 @@ function TourDetails() {
                     >
                       Book Now
                     </button>
-            {
+            {/* {
               vipModal &&
                     <div className={Modalstyle["modal__overlay"]}>
                       <div className={Modalstyle["modal__content"]}>
@@ -1691,92 +1691,13 @@ function TourDetails() {
                           </div>
                         ))}
                         <div style={{ marginTop: "40px", marginBottom: "20px" }}>
-                        <CardElement
-                          options={{
-                            hidePostalCode: true,
-                            style: {
-                              base: {
-                                zIndex: "999",
-                                fontSize: "20px",
-                                color: "#424770",
-                                "::placeholder": {
-                                  color: "#aab7c4",
-                                },
-                              },
-                              invalid: {
-                                color: "#9e2146",
-                              },
-                            },
-                          }}
-                        />
+                        
                       </div>
-                        {/* <div className={Modalstyle["input__field"]}>
-                        <input
-                          type="text"
-                          value={editName}
-                          onChange={(e) => setEditName(e.target.value)}
-                        />
-                      </div>
-                      <div className={Modalstyle["input__field"]}>
-                        <label>Description:</label>
-                        <textarea
-                          value={editDescription}
-                          onChange={(e) => setEditDescription(e.target.value)}
-                        />
-                      </div>
-                      <div className={Modalstyle["input__field"]}>
-                        <label>Phone:</label>
-                        <input
-                          type="text"
-                          value={editPhone}
-                          onChange={(e) => setEditPhone(e.target.value)}
-                        />
-                      </div>
-                      <div className={Modalstyle["input__field"]}>
-                        <label>Address:</label>
-                        <select
-                          value={editAddress}
-                          onChange={(e) => setEditAddress(e.target.value)}
-                        >
-                          <option>Select Country</option>
-                          {country?.map((item, index) => (
-                            <option key={index} value={item}>
-                              {item}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className={Modalstyle["input__field"]}>
-                        <label>City:</label>
-                        <select
-                          value={editCity}
-                          onChange={(e) => setEditCity(e.target.value)}
-                        >
-                          <option>Select City</option>
-                          {editAddress !== "Select Country" &&
-                            data
-                              .filter((item) => item.country === editAddress)
-                              .map((item, index) => (
-                                <option key={index} value={item.name}>
-                                  {item.name}
-                                </option>
-                              ))}
-                        </select>
-                      </div> */}
-
-                        {/* <div className={Modalstyle["modal__actions"]}>
-                        <button onClick={() => setShowEditModal(false)}>
-                          Cancel
-                        </button>
-                        <button onClick={updateUserProfile}>
-                          Save Changes
-                        </button>
-                      </div> */}
+                        
                       </div>
                     </div>
 
-            }
+            } */}
             
 
                     {showRolesModal && (
