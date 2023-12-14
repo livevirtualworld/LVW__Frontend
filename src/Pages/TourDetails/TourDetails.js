@@ -70,8 +70,8 @@ function TourDetails() {
   const [showSuccessProfileModal, setShowSuccessProfileModal] = useState(false);
   const [showSuccessCoverModal, setShowSuccessCoverModal] = useState(false);
   const [emails, setEmails] = useState([]);
-  const [modalLanguage,setModalLanguage] = useState("")
-  const [vipModal,setVipModal] = useState(false)
+  const [modalLanguage, setModalLanguage] = useState("");
+  const [vipModal, setVipModal] = useState(false);
 
   //Error
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -1059,13 +1059,16 @@ function TourDetails() {
               <div className={style["stars"]}>
                 {starIcons}
                 <h3>({tour?.avgRate?.toFixed(1)})</h3>
-                <NavLink to={"/vipform"}>
-                  <button onClick={()=>{
-                    setVipModal(true)
-                  }} className={style["find__tour__btn"]}>
+                <NavLink to={"/vipform"} state={{ id: tour?._id }}>
+                  <button
+                    onClick={() => {
+                      setVipModal(true);
+                    }}
+                    className={style["find__tour__btn"]}
+                  >
                     Book It Private
                   </button>
-                  </NavLink>
+                </NavLink>
               </div>
             </div>
           )}
@@ -1626,7 +1629,7 @@ function TourDetails() {
                     >
                       Book Now
                     </button>
-            {/* {
+                    {/* {
               vipModal &&
                     <div className={Modalstyle["modal__overlay"]}>
                       <div className={Modalstyle["modal__content"]}>
@@ -1699,7 +1702,6 @@ function TourDetails() {
                     </div>
 
             } */}
-            
 
                     {showRolesModal && (
                       <div className={BookingStyle["booking__modall__content"]}>
