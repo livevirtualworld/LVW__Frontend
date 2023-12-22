@@ -14,8 +14,14 @@ import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker
 import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 function VipForm() {
+  const navigate = useNavigate();
+
   const [modalLanguage, setModalLanguage] = useState("");
   const [emails, setEmails] = useState([]);
   const [selectedDate, setSelectedDate] = useState(dayjs().add(48, "hour"));
@@ -25,7 +31,7 @@ function VipForm() {
   const [showErrorMsg, setErrorMsg] = useState("");
   const [showSuccessMsg, setSuccessMsg] = useState("");
   const [tour, setTour] = useState();
-  const [userData,setUserData] = useState()
+  const [userData, setUserData] = useState()
   const [language, setLanguage] = useState([]);
 
   const stripe = useStripe();
@@ -58,11 +64,18 @@ function VipForm() {
   };
 
   useEffect(() => {
-    // Set the initial available date to 48 hours from the current date
-    const currentDate = dayjs();
-    const minDate = dayjs().add(48, "hour");
-    setSelectedDate(dayjs(minDate));
-    // Convert to dayjs object
+    let id = localStorage.getItem("id")
+    if (!id) {
+      navigate("/login");
+    } else {
+      axios
+        .post("http://localhost:5000/user/getOneUser", {
+          id: JSON.parse(localStorage.getItem("id")),
+        })
+        .then((res) => {
+          setUserData(res.data.data);
+        })
+    }
     axios
       .get("http://localhost:5000/user/oneTour", {
         params: { id: location.state.id },
@@ -71,20 +84,14 @@ function VipForm() {
         languages(res.data);
         setTour(res.data);
       });
-      axios
-      .post("http://localhost:5000/user/getOneUser", {
-        id: JSON.parse(localStorage.getItem("id")),
-      })
-      .then((res) => {
-        setUserData(res.data.data);
-      })
+
   }, []);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  async function submit(){
+  async function submit() {
     console.log(new Date(selectedDate))
     console.log(emails)
     console.log(modalLanguage)
@@ -132,13 +139,13 @@ function VipForm() {
           if (paymentMethod && cardDetails && cardDetails.last4) {
             console.log("Last 4 digits:", cardDetails.last4);
           }
-          axios.post("http://localhost:5000/user/makeRequest",{
-      tour:tour._id,
-      emails:emails,
-      language:modalLanguage,
-      user:JSON.parse(localStorage.getItem("id")),
-      startTime:new Date(selectedDate)
-    })
+          axios.post("http://localhost:5000/user/makeRequest", {
+            tour: tour._id,
+            emails: emails,
+            language: modalLanguage,
+            user: JSON.parse(localStorage.getItem("id")),
+            startTime: new Date(selectedDate)
+          })
 
           if (response.data.status === 200) {
             // Handle success logic here, e.g., show a success message and navigate to a confirmation page
@@ -169,7 +176,7 @@ function VipForm() {
       }
     }
 
-    
+
 
   }
 
@@ -188,13 +195,13 @@ function VipForm() {
         <div className={style["container"]}>
           <div className={style["hero__content"]}>
             <div className={style["overlay"]} />
-            {/* {tour?.img?.length > 0 && (
+            {tour?.img?.length > 0 && (
               <img src={`http://localhost:5000/${tour?.img[0]}`} />
-            )} */}
-            <img src={Img} />
+            )}
+            {/* <img src={Img} /> */}
           </div>
           <div className={style["hero__text"]}>
-            {/* <h2>{tour?.title}</h2> */}
+            <h2>{tour?.title}</h2>
           </div>
         </div>
       </div>
@@ -211,15 +218,11 @@ function VipForm() {
                 defaultValue={0}
               >
                 <option disabled value={0}>
-                  select Language
+                  Select Language
                 </option>
-                {language.map((l) => {
-                  return (
-                    <option value={l} key={l}>
-                      {l}
-                    </option>
-                  );
-                })}
+                <option value={"arabic"}>Arabic</option>
+                <option value={"english"}>English</option>
+                <option value={"italian"}>Italian</option>
               </select>
             </div>
             <div className={style["input__field"]}>
@@ -255,9 +258,9 @@ function VipForm() {
                 >
                   <DemoItem label="Static variant">
                     <StaticDateTimePicker
-                      defaultValue={selectedDate}
+                      defaultValue={dayjs().add(72, "hour")}
                       onChange={handleDateChange}
-                      minDate={dayjs().add(48, "hour")}
+                      minDate={dayjs().add(72, "hour")}
                     />
                   </DemoItem>
                 </DemoContainer>
@@ -281,7 +284,7 @@ function VipForm() {
                 },
               }}
             />
-            <button onClick={(e)=>{
+            <button onClick={(e) => {
               e.preventDefault()
               submit()
             }}>Send Request</button>
