@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import style from './ContactUs.module.css';
 import Footer from "../Footer/Footer";
+import Form from "./Form";
 
 function ContactUs() {
     const [visibleQuestion, setVisibleQuestion] = useState(null);
+    const [showForm, setShowForm] = useState(false)
 
     const faIconClass = (question) => {
         return visibleQuestion === question ? 'fa-caret-down' : 'fa-caret-up';
@@ -70,41 +72,50 @@ function ContactUs() {
     ];
     const navigateToProfile = (profileUrl) => {
         window.open(profileUrl, "_blank"); // Open the profile URL in a new tab
-      };
+    };
 
     return (
         <>
             <Navbar />
-            <div className={style['bgImage']}></div>
-            <div className={style['header__title']}>
-                <h1>Contact Us</h1>
-            </div>
-            <div className={style['container']}>
-                <div className={style['main__title']}>
-                    <h1>We are here to help you</h1>
-                </div>
-                <h2>Popular Questions</h2>
-                {questionsAndAnswers.map(({ question, answer }) => (
-                    faQuestionAnswer(question, answer)
-                ))}
-                <h3>Contact Us:</h3>
-                <div className={style['contacts']}>
-                    <div className={style['card']} onClick={() => window.location.href = "mailto:Info@lvw.live"}>
-                        <i class="fa-solid fa-envelope"></i>
-                        <p>Email</p>
+            {!showForm ? (
+                <>
+                    <div className={style['bgImage']}></div>
+                    <div className={style['header__title']}>
+                        <h1>Contact Us</h1>
                     </div>
-                    <div className={style['card']}>
-                        <i class="fa-solid fa-envelope"></i>
-                        <p>Ask a question</p>
+                    <div className={style['container']}>
+                        <div className={style['main__title']}>
+                            <h1>We are here to help you</h1>
+                        </div>
+                        <h2>Popular Questions</h2>
+                        {questionsAndAnswers.map(({ question, answer }, index) => (
+                            <div key={index}>
+                                {faQuestionAnswer(question, answer)}
+                            </div>
+                        ))}
+                        <h3>Contact Us:</h3>
+                        <div className={style['contacts']}>
+                            <div className={style['card']} onClick={() => window.location.href = "mailto:Info@lvw.live"}>
+                                <i className="fa-solid fa-envelope"></i>
+                                <p>Email</p>
+                            </div>
+                            <div className={style['card']} onClick={() => setShowForm(true)}>
+                                <i className="fa-solid fa-envelope"></i>
+                                <p>Ask a question</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div className={style['social__icons']}>
+                </>
+            ) : (
+                <Form />
+            )}
+            <div className={style['social__icons']}>
                 <i class="fa-brands fa-facebook-f" onClick={() => navigateToProfile("https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498")}></i>
                 <i class="fa-brands fa-instagram" onClick={() => navigateToProfile("https://www.instagram.com/live_virtual_world?igsh=MzRlODBiNWFlZA==")}></i>
                 <i class="fa-brands fa-linkedin-in" onClick={() => navigateToProfile("https://www.linkedin.com/company/live-virtual-world/")}></i>
                 <i class="fa-brands fa-youtube" onClick={() => navigateToProfile("https://youtube.com/@livevirtualworld7827?si=EnL3pBzNfYYrxW8W")}></i>
-                </div>
             </div>
+
             <Footer />
         </>
     );

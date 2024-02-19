@@ -1,0 +1,82 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #12243a0d;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 60px;
+    color: #12243A;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    margin: 50px;
+}
+
+form>input {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 8px;
+}
+
+form>input::placeholder {
+    color: rgb(112, 112, 112);
+    font-size: 17px;
+}
+
+form>textarea {
+    height: 400px;
+    padding: 20px;
+    resize: none;
+    border: 1px solid rgb(112, 112, 112);
+    border-radius: 8px;
+}
+
+form>textarea::placeholder {
+    color: rgb(112, 112, 112);
+    font-size: 17px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.button>button {
+    padding: 10px 30px;
+    background-color: #FF2629;
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    margin-left: 15px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    font-size: 17px;
+}
