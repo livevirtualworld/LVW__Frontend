@@ -14,6 +14,9 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import ToursType from './Pages/ToursType/ToursType';
 import VipForm from './Pages/VIPForm/VipForm';
+import WhatWeDo from './Pages/WhatWeDo/WhatWeDo';
+import WhoWeAre from './Pages/WhoWeAre/WhoWeAre';
+import ContactUs from './Pages/ContactUs/ContactUs';
 
 
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_KEY}`);
@@ -53,6 +56,9 @@ function AppContent() {
         <Route element={<ForgetPassword />} path="/forget" />
         <Route element={<ToursType />} path="/tourtype/:type" />
         <Route element={< VipForm />} path="/vipform" /> 
+        <Route element={< WhatWeDo />} path="/whatwedo" />
+        <Route element={< WhoWeAre />} path="/whoweare" />
+        <Route element={< ContactUs />} path="/contactus" />
 
       </Routes>
       {!hideChatbot && <WonderChat />}

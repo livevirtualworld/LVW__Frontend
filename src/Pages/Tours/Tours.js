@@ -32,6 +32,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Navbar from '../Navbar/Navbar'
+import Footer from '../Footer/Footer';
 
 
 function Tours() {
@@ -257,52 +258,7 @@ function Tours() {
 
         </div>
       </section>
-
-      <footer>
-        <div className={style["container"]}>
-          <div className={style["footer__content"]}>
-            <ul>
-              <li><img src={logo1} alt='' /></li>
-              <li>Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam mauris sed ma</li>
-              <li className={style["links"]}>
-                <a href="#"><img src={facebook} alt='' /></a>
-                <a href="#"><img src={twitter} alt='' /></a>
-                <a href="#"><img src={instagram} alt='' /></a>
-                <a href="#"><img src={linked} alt='' /></a>
-                <a href="#"><img src={youtube} alt='' /></a>
-              </li>
-            </ul>
-            <ul>
-              <li>Website</li>
-              <li>Tours</li>
-              <li>Pricing</li>
-              <li>Our Mission</li>
-              <li>Contact Us</li>
-            </ul>
-            <ul>
-              <li>Company</li>
-              <li>About</li>
-              <li>Careers</li>
-              <li>Blog</li>
-            </ul>
-            <ul>
-              <li>Support</li>
-              <li>Getting started</li>
-              <li>Help center</li>
-              <li>Report a bug</li>
-              <li>Chat support</li>
-            </ul>
-            <ul>
-              <li>Downloads</li>
-              <li><img src={frame97} alt='' /></li>
-              <li><img src={frame98} alt='' /></li>
-            </ul>
-          </div>
-          <div className={style["footer__footer"]}>
-            <h4>Copyright © 2023 LVW.</h4>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,106 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #12243a0d;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.bgImage {
+    width: 100%;
+    height: 500px;
+    background-image: url('../../assets/pexels-andrea-piacquadio-3778477.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.bgImage::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 500px;
+    top: 0;
+    left: 0;
+    background-color: #12243a8a;
+}
+
+.header__title {
+    position: absolute;
+    top: 300px;
+    left: 600px;
+    font-size: 30px;
+    color: #ffffff;
+}
+
+.main__title {
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.main__title h1 {
+    margin-top: 100px;
+    text-align: center;
+    font-size: 60px;
+    font-weight: 600;
+    color: #12243A;
+}
+
+.main__title::after {
+    content: '';
+    position: absolute;
+    width: 45%;
+    height: 2px;
+    bottom: -60px;
+    left: 28%;
+    background-color: rgb(112, 112, 112);
+}
+.body__content > h2{
+    color: #12243A;
+    font-size: 40px;
+    font-weight: 600;
+}
+.body__content > p{
+    margin: 30px 0;
+    font-size: 20px;
+    line-height: 30px;
+    color: rgb(112, 112, 112)
+}
+.last__div{
+    margin-top: 60px;
+    margin-bottom: 40px;
+}
+.last__div > h2{
+    color: #12243A;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+.last__div > button{
+    width: 137px;
+    height: 48px;
+    background-color: #FF2629;
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    border: 0;
+    outline: 0;
+  }
+  .last__div > button > a{
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+  }
