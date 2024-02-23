@@ -29,9 +29,11 @@ import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { MdCloudUpload , MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai"
+import { useRef } from 'react';
 
 function UserProfile() {
   //UserData
+  const inputRef = useRef(null);
   const [userData, setUserData] = useState("");
   const userRole = localStorage.getItem("role");
   const userId = JSON.parse(localStorage.getItem("id"));
@@ -254,7 +256,8 @@ function UserProfile() {
       .put("http://localhost:5000/user/editImage", formData)
       .then((response) => {
         setShowProfileModal(false);
-
+        setProfileImagePreview("")
+       setSelectedProfileImage(null)
         axios
           .post("http://localhost:5000/user/getOneUser", { id: userId })
           .then((res) => {
@@ -394,29 +397,48 @@ function UserProfile() {
                     <h2>Edit Profile Image</h2>
                   </div>
                   <div
+                  
                     className={UserProfileModalStyle["userprofilemodal__input"]}
+                    
                   >
-                    <input
+                    {/* <input
                       type="file"
                       id="img"
                       name="img"
                       onChange={handleProfileImageSelection}
-                    />
-                    {profileImagePreview && (
-                      <img
-                        src={profileImagePreview}
-                        alt="Selected Image"
-                        className={
-                          UserProfileModalStyle["userprofile-preview-modal"]
-                        }
-                      />
-                    )}
+                    /> */}
+                    <div style={{cursor:"pointer",display:"flex",flexDirection:"column" , justifyContent:"center" , alignItems:"center" , marginBottom:"20px"}} onClick={()=>inputRef.current.click()}>
+                    <input hidden type="file" accept="image/*" ref={inputRef} onChange={handleProfileImageSelection}
+                    name="img"/>
+                    { 
+                      selectedProfileImage ?
+                      <img src={profileImagePreview} width={250} height={250} />:
+                      <>
+                       <MdCloudUpload color="#1475cf" size={60} />
+                       <p>Browse Files to upload</p>
+                      </>
+                    }
+                    </div>
+                    <div className={
+                        UserProfileModalStyle["delete"]
+                      }>
+                      <AiFillFileImage color="1475cf" />
+                      <span style={{display:"flex" , alignItems:"center"}}>{selectedProfileImage? selectedProfileImage.name : "No selected file"} - <MdDelete onClick={()=>{
+                        setSelectedProfileImage(null)
+                        setProfileImagePreview("")
+                      }} /></span>
+                    </div>
                     <div
                       className={
                         UserProfileModalStyle["userprofilemodal__actions"]
                       }
                     >
-                      <button onClick={() => setShowProfileModal(false)}>
+                      <button onClick={() => {
+                        setShowProfileModal(false)
+                        setProfileImagePreview("")
+                        setSelectedProfileImage(null)
+                      }
+                    }>
                         Cancel
                       </button>
                       <button onClick={() => handleProfileImageSaveChanges()}>
