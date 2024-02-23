@@ -23,14 +23,18 @@ import axios from 'axios';
 import Modalstyle from './EditModal.module.css';
 import Card from '../Card/Card';
 import CoverModalStyle from './CoverModal.module.css';
-import ProfileModalStyle from './ProfileModal.module.css'
+import UserProfileModalStyle from '../UserProfile/UserProfileModal.module.css'
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals'
 import Navbar from '../Navbar/Navbar'
 import TechnicalCard from '../Card/TechnicalCard'
 import Footer from '../Footer/Footer'
+import { MdCloudUpload, MdDelete } from "react-icons/md";
+import { AiFillFileImage } from "react-icons/ai"
+import { useRef } from 'react';
 
 function TechnicalProfile() {
   //TechnicalData
+  const inputRef = useRef(null);
   const [technicalData, setTechnicalData] = useState("")
   const technicalRole = localStorage.getItem("role")
   console.log("Technical Role from localStorage:", technicalRole);
@@ -226,7 +230,7 @@ function TechnicalProfile() {
     const formData = new FormData();
     formData.append("coverImg", selectedCoverImage);
     formData.append("role", JSON.parse(technicalRole))
-    formData.append("id", JSON.parse(technicalId))
+    formData.append("id", technicalId)
 
     console.log("Selected cover image:", selectedCoverImage);
     console.log("FormData object:", formData);
@@ -298,7 +302,6 @@ function TechnicalProfile() {
   };
 
   const handleProfileImageSaveChanges = () => {
-
     if (!selectedProfileImage) {
       setShowErrorProfileModal(true);
       setTimeout(() => {
@@ -310,7 +313,7 @@ function TechnicalProfile() {
     const formData = new FormData();
     formData.append("img", selectedProfileImage);
     formData.append("role", JSON.parse(technicalRole))
-    formData.append("id", JSON.parse(technicalId))
+    formData.append("id", technicalId)
 
     console.log("Selected cover image:", selectedProfileImage);
     console.log("FormData object:", formData);
@@ -424,32 +427,67 @@ function TechnicalProfile() {
             {showErrorCoverModal && <SuccessandErrorModals message={"No Cover image selected"} success={false} />}
 
             {showCoverModal && (
-              <div className={CoverModalStyle['cover-modal__overlay']}>
-                <div className={CoverModalStyle['cover-modal__content']}>
-                  <div className={CoverModalStyle['covermodal__header']}>
-                    <h2>Edit Cover Image</h2>
+              <div
+              className={UserProfileModalStyle["userprofile-modal__overlay"]}
+            >
+              <div
+                className={
+                  UserProfileModalStyle["userprofile-modal__content"]
+                }
+              >
+                <div
+                  className={
+                    UserProfileModalStyle["userprofilemodal__header"]
+                  }
+                >
+                  <h2>Edit Cover Image</h2>
+                </div>
+                <div
+
+                  className={UserProfileModalStyle["userprofilemodal__input"]}
+
+                >
+                  <div style={{ cursor: "pointer", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "20px" }} onClick={() => inputRef.current.click()}>
+                    <input hidden type="file" accept="image/*" ref={inputRef} onChange={handleCoverImageSelection}
+                      name="img" />
+                    {
+                      selectedCoverImage ?
+                        <img src={coverImagePreview} width={250} height={250} /> :
+                        <>
+                          <MdCloudUpload color="#1475cf" size={60} />
+                          <p>Browse Files to upload</p>
+                        </>
+                    }
                   </div>
-                  <div className={CoverModalStyle['covermodal__input']}>
-                    <input
-                      type="file"
-                      id="img"
-                      name="img"
-                      onChange={handleCoverImageSelection}
-                    />
-                    {coverImagePreview && (
-                      <img
-                        src={coverImagePreview}
-                        alt="Selected Cover"
-                        className={CoverModalStyle['cover-preview']}
-                      />
-                    )}
-                    <div className={CoverModalStyle['covermodal__actions']}>
-                      <button onClick={() => setShowCoverModal(false)}>Cancel</button>
-                      <button onClick={() => handleCoverImageSaveChanges()}>Save Changes</button>
-                    </div>
+                  <div className={
+                    UserProfileModalStyle["delete"]
+                  }>
+                    <AiFillFileImage color="1475cf" />
+                    <span style={{ display: "flex", alignItems: "center" , cursor: "pointer" }}>{selectedCoverImage ? selectedCoverImage.name : "No selected file"} - <MdDelete onClick={() => {
+                      setSelectedCoverImage(null)
+                      setCoverImagePreview("")
+                    }} /></span>
+                  </div>
+                  <div
+                    className={
+                      UserProfileModalStyle["userprofilemodal__actions"]
+                    }
+                  >
+                    <button onClick={() => {
+                      setShowCoverModal(false)
+                      setCoverImagePreview("")
+                      setSelectedCoverImage(null)
+                    }
+                    }>
+                      Cancel
+                    </button>
+                    <button onClick={() => handleCoverImageSaveChanges()}>
+                      Save Changes
+                    </button>
                   </div>
                 </div>
               </div>
+            </div>
             )}
             <img src={`http://localhost:5000/${technicalData?.coverImg}`} alt='' />
           </div>
@@ -466,31 +504,92 @@ function TechnicalProfile() {
             {showErrorProfileModal && <SuccessandErrorModals message={"No Profile image selected"} success={false} />}
 
             {showProfileModal && (
-              <div className={ProfileModalStyle['profile-modal__overlay']}>
-                <div className={ProfileModalStyle['profile-modal__content']}>
-                  <div className={ProfileModalStyle['profilemodal__header']}>
+              // <div className={ProfileModalStyle['profile-modal__overlay']}>
+              //   <div className={ProfileModalStyle['profile-modal__content']}>
+              //     <div className={ProfileModalStyle['profilemodal__header']}>
+              //       <h2>Edit Profile Image</h2>
+              //     </div>
+              //     <div className={ProfileModalStyle['profilemodal__input']}>
+              //       <input
+              //         type="file"
+              //         id="img"
+              //         name="img"
+              //         onChange={handleProfileImageSelection}
+              //       />
+              //       {profileImagePreview && (
+              //         <img
+              //           src={profileImagePreview}
+              //           alt="Selected Image"
+              //           className={ProfileModalStyle['profile-preview-modal']}
+              //         // style={{marginTop: '10px',
+              //         //   width: '100%',
+              //         //   maxHeight: '350px'}}
+              //         />
+              //       )}
+              //       <div className={ProfileModalStyle['profilemodal__actions']}>
+              //         <button onClick={() => setShowProfileModal(false)}>Cancel</button>
+              //         <button onClick={() => handleProfileImageSaveChanges()}>Save Changes</button>
+              //       </div>
+              //     </div>
+              //   </div>
+              // </div>
+              <div
+                className={UserProfileModalStyle["userprofile-modal__overlay"]}
+              >
+                <div
+                  className={
+                    UserProfileModalStyle["userprofile-modal__content"]
+                  }
+                >
+                  <div
+                    className={
+                      UserProfileModalStyle["userprofilemodal__header"]
+                    }
+                  >
                     <h2>Edit Profile Image</h2>
                   </div>
-                  <div className={ProfileModalStyle['profilemodal__input']}>
-                    <input
-                      type="file"
-                      id="img"
-                      name="img"
-                      onChange={handleProfileImageSelection}
-                    />
-                    {profileImagePreview && (
-                      <img
-                        src={profileImagePreview}
-                        alt="Selected Image"
-                        className={ProfileModalStyle['profile-preview-modal']}
-                      // style={{marginTop: '10px',
-                      //   width: '100%',
-                      //   maxHeight: '350px'}}
-                      />
-                    )}
-                    <div className={ProfileModalStyle['profilemodal__actions']}>
-                      <button onClick={() => setShowProfileModal(false)}>Cancel</button>
-                      <button onClick={() => handleProfileImageSaveChanges()}>Save Changes</button>
+                  <div
+                  
+                    className={UserProfileModalStyle["userprofilemodal__input"]}
+                    
+                  >
+                    <div style={{cursor:"pointer",display:"flex",flexDirection:"column" , justifyContent:"center" , alignItems:"center" , marginBottom:"20px"}} onClick={()=>inputRef.current.click()}>
+                    <input hidden type="file" accept="image/*" ref={inputRef} onChange={handleProfileImageSelection}
+                    name="img"/>
+                    { 
+                      selectedProfileImage ?
+                      <img src={profileImagePreview} width={250} height={250} />:
+                      <>
+                       <MdCloudUpload color="#1475cf" size={60} />
+                       <p>Browse Files to upload</p>
+                      </>
+                    }
+                    </div>
+                    <div className={
+                        UserProfileModalStyle["delete"]
+                      }>
+                      <AiFillFileImage color="1475cf" />
+                      <span style={{display:"flex" , alignItems:"center"}}>{selectedProfileImage? selectedProfileImage.name : "No selected file"} - <MdDelete onClick={()=>{
+                        setSelectedProfileImage(null)
+                        setProfileImagePreview("")
+                      }} /></span>
+                    </div>
+                    <div
+                      className={
+                        UserProfileModalStyle["userprofilemodal__actions"]
+                      }
+                    >
+                      <button onClick={() => {
+                        setShowProfileModal(false)
+                        setProfileImagePreview("")
+                        setSelectedProfileImage(null)
+                      }
+                    }>
+                        Cancel
+                      </button>
+                      <button onClick={() => handleProfileImageSaveChanges()}>
+                        Save Changes
+                      </button>
                     </div>
                   </div>
                 </div>
