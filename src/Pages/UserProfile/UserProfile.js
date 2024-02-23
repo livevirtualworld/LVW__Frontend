@@ -27,6 +27,8 @@ import Card from "../Card/Card";
 import SuccessandErrorModals from "../SuccessandErorrModals/SuccessandErrorModals";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import { MdCloudUpload , MdDelete } from "react-icons/md";
+import { AiFillFileImage } from "react-icons/ai"
 
 function UserProfile() {
   //UserData
