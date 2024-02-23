@@ -213,3 +213,25 @@ a {
   .css-4pax7l-MuiPickersLayout-root {
     background-color: #ffffff85 !important;
 }
+.css-z3c6am-MuiFormControl-root-MuiTextField-root {
+  border: none !important;
+  outline: none !important;
+}
+.css-z3c6am-MuiFormControl-root-MuiTextField-root > .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 15px !important;
+  background-color: white !important;
+}
+.css-wb57ya-MuiFormControl-root-MuiTextField-root{
+  border: none !important;
+  outline: none !important;
+}
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  border-radius: 15px !important;
+  background-color: white !important;
+  margin: 15px 0;
+}
+.css-e784if-MuiTypography-root {
+  font-weight: 600 !important;
+  color: rgba(6, 12, 19, 0.6) !important;
+  font-size: 16px !important;
+}

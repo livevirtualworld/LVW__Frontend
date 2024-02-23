@@ -207,7 +207,7 @@ function Home() {
             {/*------------------------Live Tours Section--------------------*/}
             <section className={style["live__tours__section"]}>
                 <div className={style["container"]}>
-                    <h2>Live tours to join now</h2>
+                    <h2>Live Tours to Join Now</h2>
                     <Carousel responsive={responsive}>
                         {
                             liveTours?.map((tour) => {
@@ -221,7 +221,7 @@ function Home() {
             {/*------------------------Popular Tours Section-----------------*/}
             <section className={style["popular__tour__section"]}>
                 <div className={style["container"]}>
-                    <h2>Popular tour to book</h2>
+                    <h2>Popular Tour to Book</h2>
                     <Carousel responsive={responsive}>
                         {
                             popularTours?.map((tour) => {
@@ -263,7 +263,7 @@ function Home() {
             {/*------------------------Travellers Reviews Section-------------*/}
             <section className={style["travellers__reviews__section"]}>
                 <div className={style["container"]}>
-                    <h2>What our travelers say</h2>
+                    <h2>What Our Travelers Say</h2>
                     <Carousel responsive={responsive}>
                         {
                             popularReviews?.map((Review) => {

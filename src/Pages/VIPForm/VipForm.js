@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./vipform.module.css";
-import Img from "../../assets/image 5.png";
+import t from '../../assets/01.png'
 import { Button, Input } from "@mui/material";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import SuccessandErrorModals from "../SuccessandErorrModals/SuccessandErrorModals";
@@ -10,21 +10,31 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
-import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+import Navbar from "../Navbar/Navbar";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Footer from '../Footer/Footer'
+import { NavLink } from "react-router-dom";
 
 
 
 function VipForm() {
+
   const navigate = useNavigate();
 
   const [modalLanguage, setModalLanguage] = useState("");
   const [emails, setEmails] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(dayjs().add(48, "hour"));
+  const [selectedDate, setSelectedDate] = useState(dayjs().add(72, "hour"));
 
   const [showSuccessBookModal, setShowSuccessBookModal] = useState(false);
   const [showErrorBookModal, setShowErrorBookModal] = useState(false);
@@ -81,6 +91,7 @@ function VipForm() {
         params: { id: location.state.id },
       })
       .then((res) => {
+        console.log(res.data)
         languages(res.data);
         setTour(res.data);
       });
@@ -179,119 +190,357 @@ function VipForm() {
 
 
   }
+  const formattedDate = new Date(tour?.date).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   return (
     <>
-      {showSuccessBookModal && (
-        <SuccessandErrorModals
-          success={true}
-          message={"Tour Booked Successfully"}
-        />
-      )}
-      {showErrorBookModal && (
-        <SuccessandErrorModals success={false} message={showErrorMsg} />
-      )}
-      <div className={style["hero"]}>
-        <div className={style["container"]}>
-          <div className={style["hero__content"]}>
-            <div className={style["overlay"]} />
-            {tour?.img?.length > 0 && (
-              <img src={`http://localhost:5000/${tour?.img[0]}`} />
-            )}
-            {/* <img src={Img} /> */}
-          </div>
-          <div className={style["hero__text"]}>
-            <h2>{tour?.title}</h2>
-          </div>
-        </div>
+      <Navbar />
+      <div className={style['bgImage']}></div>
+      <div className={style['the__header__title']}>
+        <h1>Private Tour Booking</h1>
       </div>
-      <div className={style["container"]}>
-        <div className={style["main__div"]}>
-          <h1>VIP Request Form</h1>
-          <form>
-            <label style={{ padding: "0px 20px" }}>Select Language</label>
-            <div className={style["input__field"]}>
-              <select
-                onChange={(e) => {
-                  setModalLanguage(e.target.value);
-                }}
-                defaultValue={0}
-              >
-                <option disabled value={0}>
-                  Select Language
-                </option>
-                <option value={"arabic"}>Arabic</option>
-                <option value={"english"}>English</option>
-                <option value={"italian"}>Italian</option>
-              </select>
-            </div>
-            <div className={style["input__field"]}>
-              <Button
-                variant="brand"
-                mt="40px"
-                display="block"
-                onClick={handleAddEmail}
-              >
-                Add Email +
-              </Button>
-            </div>
-            {emails.map((email, index) => (
-              <div key={index} className={style["input__field"]}>
-                <label style={{ padding: "0px 20px" }}>email {index + 1}</label>
-                <Input
-                  type="text"
-                  value={email}
-                  onChange={(e) => handleEmailChange(index, e.target.value)}
-                />
+      <div className={style['vip__content']}>
+        <div className={style['container']}>
+          <div className={style['the__tour__details']}>
+            <div className={style['tour__left']}>
+              <h2>{tour?.title}</h2>
+              {/* <h2> Pyramids of Giza Tour</h2> */}
+              <p>{tour?.description}</p>
+              {/* <p>Come join us as we take a ride through the desert around the Giza platue, taking in the last of the seven wonders of the world.
+                We will get up close to the great pyramids as I take you back to the time of the builder and the pharaohs who commissioned them.
+                We will start off by taking a look the great sphinx before mounting our camel and riding up the giant causeway making our way round the great pyramids out to one of the most iconic views on earth!</p> */}
+              <div className={style['tour__icons']}>
+                <p><i class="fa-regular fa-clock"></i>Tour Duration: {tour?.hours}</p>
+                <p><i class="fa-solid fa-dollar-sign"></i>Tour Price: {tour?.price}</p>
+                <p><i class="fa-solid fa-users-line"></i>Number of Guests: 5</p>
+                <p><i class="fa-solid fa-calendar-check"></i>Tour Date: {formattedDate}</p>
               </div>
-            ))}
-            <div style={{ marginTop: "40px", marginBottom: "20px" }}></div>
-            <div className={style["date__time__div"]}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer
-                  components={[
-                    "DateTimePicker",
-                    "MobileDateTimePicker",
-                    "DesktopDateTimePicker",
-                    "StaticDateTimePicker",
-                  ]}
-                >
-                  <DemoItem label="Static variant">
-                    <StaticDateTimePicker
-                      defaultValue={dayjs().add(72, "hour")}
-                      onChange={handleDateChange}
-                      minDate={dayjs().add(72, "hour")}
-                    />
-                  </DemoItem>
-                </DemoContainer>
-              </LocalizationProvider>
             </div>
-            <CardElement
-              options={{
-                hidePostalCode: true,
-                style: {
-                  base: {
-                    zIndex: "999",
-                    fontSize: "20px",
-                    color: "#424770",
-                    "::placeholder": {
-                      color: "#aab7c4",
-                    },
-                  },
-                  invalid: {
-                    color: "#9e2146",
-                  },
-                },
-              }}
-            />
-            <button onClick={(e) => {
-              e.preventDefault()
-              submit()
-            }}>Send Request</button>
-          </form>
+            <div className={style['tour__right']}>
+              {
+                tour?.img.slice(0, 3).map((img) =>
+                  <img src={`http://localhost:5000/${img}`} />
+                )
+              }
+            </div>
+          </div>
+          <div className={style['booking__sec']}>
+            <div className={style['booking__form__left']}>
+              <h2>Tour Schedule</h2>
+              <div className={style['schedule__box']}>
+                <div className={style['box__container']}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer
+                      components={[
+                        'DateTimePicker',
+                        'MobileDateTimePicker',
+                        'DesktopDateTimePicker',
+                        'StaticDateTimePicker',
+                      ]}
+                    >
+                      <DemoItem label="Select Date and Time">
+                        <DateTimePicker
+                          defaultValue={dayjs().add(72, "hour")}
+                          onChange={handleDateChange}
+                          minDate={dayjs().add(72, "hour")}
+                        />
+                      </DemoItem>
+                    </DemoContainer>
+                  </LocalizationProvider>
+                  <div className={style['my__custom__label']}>
+                    <label className={style['my__custom__label']}>Select Language</label>
+                  </div>
+                  <FormControl sx={{ m: 1, width: "100%", margin: '0px', marginTop: '10px', border: 'none' }}>
+                    <Select
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label' }}
+                      onChange={(e) => {
+                        setModalLanguage(e.target.value);
+                      }}
+                      defaultValue={0}
+                      style={{ borderRadius: '15px', backgroundColor: 'white' }}
+                    >
+                      <MenuItem disabled value={0}>
+                        Select Language
+                      </MenuItem>
+                      <MenuItem value={"arabic"}>Arabic</MenuItem>
+                      <MenuItem value={"english"}>English</MenuItem>
+                      <MenuItem value={"italian"}>Italian</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <p>* If you want to invite anyone click on the button to add emails</p>
+                  <button
+                    className={style['addemail__but']}
+                    onClick={handleAddEmail}
+                  >Add Email +</button>
+                  {emails.map((email, index) => (
+                    <Box
+                      sx={{
+                        width: '100%',
+                        maxWidth: '100%',
+                      }}
+                    >
+                      <TextField
+                        value={email}
+                        onChange={(e) => handleEmailChange(index, e.target.value)}
+                        fullWidth id="fullWidth" placeholder="example@email.com" />
+                    </Box>
+                  ))}
+                  <div className={style['card__element']}>
+                    <CardElement
+                      options={{
+                        hidePostalCode: true,
+                        style: {
+                          base: {
+                            zIndex: "999",
+                            fontSize: "20px",
+                            color: "#424770",
+                            "::placeholder": {
+                              color: "#aab7c4",
+                            },
+                          },
+                          invalid: {
+                            color: "#9e2146",
+                          },
+                        },
+                      }}
+                    />
+                  </div>
+                  <div className={style['border__bottom__div']}></div>
+                  <div className={style['total']}>
+                    <p>Total</p>
+                    <p>{tour?.hours * 5 * tour?.price}$</p>
+                  </div>
+                  <button
+                    className={style['submit__btn']}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      submit()
+                    }}>Send Request</button>
+                </div>
+              </div>
+            </div>
+            <div className={style['tour__technicals']}>
+              <h2>This Tour By:</h2>
+              {
+                tour?.arabicTourGuide &&
+                <>
+                  <h2>Arabic Language:</h2>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.arabicTourGuide?._id}/tourGuide`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.arabicTourGuide?.name}</h3>
+                          <p>Tour Guide</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.arabicCameraOperator?._id}/CameraOperator`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.arabicCameraOperator?.name}</h3>
+                          <p>Camera Operator</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+
+                </>
+              }
+              {
+                tour?.englishTourGuide &&
+                <>
+                  <h2>English Language:</h2>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.englishTourGuide?._id}/tourGuide`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.englishTourGuide?.name}</h3>
+                          <p>Tour Guide</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.englishCameraOperator?._id}/CameraOperator`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.englishCameraOperator?.name}</h3>
+                          <p>Camera Operator</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+                </>
+              }
+              {
+                tour?.italianTourGuide &&
+                <>
+                  <h2>Italian Language:</h2>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.italianTourGuide?._id}/tourGuide`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.italianTourGuide?.name}</h3>
+                          <p>Tour Guide</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+                  <NavLink
+                    to={`/viewtechnical/${tour?.italianCameraOperator?._id}/CameraOperator`}
+                  >
+                    <div className={style['tec__box']}>
+                      <div className={style['tech__container']}>
+                        <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} />
+                        <div className={style['tec__info']}>
+                          <h3>{tour?.italianCameraOperator?.name}</h3>
+                          <p>Camera Operator</p>
+                        </div>
+                      </div>
+                    </div>
+                  </NavLink>
+                </>
+              }
+            </div>
+          </div>
         </div>
       </div>
+      <Footer />
     </>
+    // <>
+    //   {showSuccessBookModal && (
+    //     <SuccessandErrorModals
+    //       success={true}
+    //       message={"Tour Booked Successfully"}
+    //     />
+    //   )}
+    //   {showErrorBookModal && (
+    //     <SuccessandErrorModals success={false} message={showErrorMsg} />
+    //   )}
+    //   <div className={style["hero"]}>
+    //     <div className={style["container"]}>
+    //       <div className={style["hero__content"]}>
+    //         <div className={style["overlay"]} />
+    //         {tour?.img?.length > 0 && (
+    //           <img src={`http://localhost:5000/${tour?.img[0]}`} />
+    //         )}
+    //         {/* <img src={Img} /> */}
+    //       </div>
+    //       <div className={style["hero__text"]}>
+    //         <h2>{tour?.title}</h2>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div className={style["container"]}>
+    //     <div className={style["main__div"]}>
+    //       <h1>VIP Request Form</h1>
+    //       <form>
+    //         <label style={{ padding: "0px 20px" }}>Select Language</label>
+    //         <div className={style["input__field"]}>
+    //           <select
+    //             onChange={(e) => {
+    //               setModalLanguage(e.target.value);
+    //             }}
+    //             defaultValue={0}
+    //           >
+    //             <option disabled value={0}>
+    //               Select Language
+    //             </option>
+    //             <option value={"arabic"}>Arabic</option>
+    //             <option value={"english"}>English</option>
+    //             <option value={"italian"}>Italian</option>
+    //           </select>
+    //         </div>
+    //         <div className={style["input__field"]}>
+    //           <Button
+    //             variant="brand"
+    //             mt="40px"
+    //             display="block"
+    //             onClick={handleAddEmail}
+    //           >
+    //             Add Email +
+    //           </Button>
+    //         </div>
+    //         {emails.map((email, index) => (
+    //           <div key={index} className={style["input__field"]}>
+    //             <label style={{ padding: "0px 20px" }}>email {index + 1}</label>
+    //             <Input
+    //               type="text"
+    //               value={email}
+    //               onChange={(e) => handleEmailChange(index, e.target.value)}
+    //             />
+    //           </div>
+    //         ))}
+    //         <div style={{ marginTop: "40px", marginBottom: "20px" }}></div>
+    //         <div className={style["date__time__div"]}>
+    //           <LocalizationProvider dateAdapter={AdapterDayjs}>
+    //             <DemoContainer
+    //               components={[
+    //                 "DateTimePicker",
+    //                 "MobileDateTimePicker",
+    //                 "DesktopDateTimePicker",
+    //                 "StaticDateTimePicker",
+    //               ]}
+    //             >
+    //               <DemoItem label="Static variant">
+    //                 <StaticDateTimePicker
+    //                   defaultValue={dayjs().add(72, "hour")}
+    //                   onChange={handleDateChange}
+    //                   minDate={dayjs().add(72, "hour")}
+    //                 />
+    //               </DemoItem>
+    //             </DemoContainer>
+    //           </LocalizationProvider>
+    //         </div>
+    //         <CardElement
+    //           options={{
+    //             hidePostalCode: true,
+    //             style: {
+    //               base: {
+    //                 zIndex: "999",
+    //                 fontSize: "20px",
+    //                 color: "#424770",
+    //                 "::placeholder": {
+    //                   color: "#aab7c4",
+    //                 },
+    //               },
+    //               invalid: {
+    //                 color: "#9e2146",
+    //               },
+    //             },
+    //           }}
+    //         />
+    //         <button onClick={(e) => {
+    //           e.preventDefault()
+    //           submit()
+    //         }}>Send Request</button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </>
   );
 }
 

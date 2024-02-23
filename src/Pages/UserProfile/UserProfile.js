@@ -407,9 +407,6 @@ function UserProfile() {
                         className={
                           UserProfileModalStyle["userprofile-preview-modal"]
                         }
-                        // style={{marginTop: '10px',
-                        //   width: '100%',
-                        //   maxHeight: '350px'}}
                       />
                     )}
                     <div

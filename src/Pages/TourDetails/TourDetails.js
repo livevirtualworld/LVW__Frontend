@@ -1619,8 +1619,8 @@ function TourDetails() {
                       style={{
                         width: "100%",
                         height: "48px",
-                        background:
-                          "linear-gradient(72.64deg, #366DAF 51.72%, #418AE2 104.47%)",
+                        backgroundColor:
+                          "#fe2629",
                         color: "white",
                         borderRadius: "12px",
                         border: "none",

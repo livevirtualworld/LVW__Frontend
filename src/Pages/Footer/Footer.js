@@ -16,7 +16,7 @@ function Footer() {
                     <div className={style["footer__content"]}>
                         <ul>
                             <li><img src={logo1} alt='' /></li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipiscing elit aliquam mauris sed ma</li>
+                            <li>Click the icons below to explore our profiles and stay updated with our latest  news!</li>
                             <li className={style["links"]}>
                             <a href="https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498" target="_blank" rel="noopener noreferrer"><img src={facebook} alt='' /></a>
                             <a href="https://www.instagram.com/live_virtual_world?igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer"><img src={instagram} alt='' /></a>

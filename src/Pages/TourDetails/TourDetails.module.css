@@ -210,12 +210,11 @@ nav .menu i{
     margin-left: 8px;
 }
 .hero__text{
-    bottom: 10px;
     z-index: 6;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    left: 0%;
+    margin-top: 30px;
 }
 .hero__text h2{
     font-size: 28px;
@@ -793,7 +792,6 @@ select {
     /* Reset Select */
     appearance: none;
     outline: 0;
-
     box-shadow: none;
     /* Personalize */
     flex: 1;
@@ -803,7 +801,7 @@ select {
     background-image: none;
     cursor: pointer;
     width: 100%;
-    border-radius: 12px;
+    border-radius: 8px;
     height: 65px;
     font-size: 20px;
   }

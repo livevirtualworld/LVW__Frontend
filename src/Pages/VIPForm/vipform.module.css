@@ -1,61 +1,224 @@
-.container{
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
     width: 85%;
     margin: 0 auto;
 }
-.hero__content{
+
+.bgImage {
+    width: 100%;
+    height: 500px;
+    background-image: url('../../assets/vip.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     position: relative;
 }
-.hero__content > img{
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-.hero__content .overlay{
+
+.bgImage::after {
+    content: '';
     position: absolute;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 100%);
-    z-index: 5;
+    height: 500px;
+    top: 0;
+    left: 0;
+    background-color: #12243a8a;
 }
-.hero__icons{
+
+.the__header__title {
     position: absolute;
-    top: 5%;
-    right: 2%;
+    top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 35px;
+    color: #ffffff;
 }
-.hero__icons > img{
-    background-color: white;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
-    border-radius: 16px;
-    margin-left: 8px;
+
+.vip__content {
+    margin: 100px 0;
 }
-.hero__text{
-    bottom: 10px;
-    z-index: 6;
+
+.the__tour__details {
     display: flex;
     justify-content: space-between;
+}
+
+.tour__left {
+    width: 45%;
+}
+
+.tour__left>h2 {
+    color: #060C13;
+    font-size: 35px;
+}
+
+.tour__left>p {
+    color: rgba(6, 12, 19, 0.6);
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.tour__icons {
+    display: flex;
+    flex-direction: column;
+}
+
+.tour__icons>p {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.tour__icons>p>i {
+    margin-right: 30px;
+}
+
+.tour__right {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.tour__right > img{
+    width: 48%;
+    height: 212px;
+    margin-bottom: 22px;
+    border-radius: 15px;
+    
+}
+.tour__right > :last-of-type{
     width: 100%;
-    left: 0%;
+    height: 300px;
+    object-fit: fill;
+    border-radius: 15px;
 }
-.hero__text h2{
-    font-size: 28px;
-    font-weight: 800;
-    color: rgba(6, 12, 19, 0.87);
+
+.booking__sec {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
 }
-.hero__text .stars{
+
+.booking__form__left {
+    width: 50%;
+}
+
+.booking__form__left > h2{
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.schedule__box {
+    background-color: rgba(255, 255, 255, 0.32);
+    border-radius: 12px;
+}
+
+.box__container {
+    padding: 20px;
+}
+
+.my__custom__label {
+    margin-top: 15px;
+}
+
+.my__custom__label>label {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 600;
+    color: rgba(6, 12, 19, 0.6);
+    font-size: 16px;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+}
+
+.box__container>p {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: rgba(6, 12, 19, 0.6);
+    font-size: 16px;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+}
+.addemail__but{
+    width: 137px;
+    height: 48px;
+    background-color: #FF2629;
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+}
+.card__element{
+    margin-top: 25px;
+}
+.border__bottom__div{
+    background-color: #a9a9b0;
+    width: 100%;
+    height: 1px;
+    margin: 25px 0;
+}
+.total{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(6, 12, 19, 0.6);
+    font-size: 20px;
+    font-weight: 600;
+}
+.submit__btn{
+    width: 100%;
+    padding: 15px 0;
+    font-size: 17px;
+    background-color: #FF2629;
+    color: white;
+    text-align: center;
+    display: block;
+    border-radius: 12px;
+    border: 0;
+    outline: 0;
+    margin-top: 50px;
+    cursor: pointer;
+}
+.tour__technicals{
+    width: 45%;
+}
+.tour__technicals > h2{
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+.tec__box{
+    background-color: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+.tech__container{
+    padding: 10px;
     display: flex;
     align-items: center;
 }
-.hero__text .stars h5{
-    font-size: 14px;
-    font-weight: 400;
-    color: rgba(0, 0, 0, 1);
-    margin-left: 10px;
+.tech__container > img{
+    margin-right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
 }
-.main__div > h1{
-    margin-top: 50px;
+.tec__info > h3{
+    color: rgba(6, 12, 19, 0.6);
+    font-size: 20px;
+    margin-bottom: 5px;
 }
-.date__time__div{
-    width: 30%;
+.tec__info > p{
+    color: rgba(6, 12, 19, 0.32);
+    font-size: 15px;
 }

@@ -28,10 +28,10 @@ function Form() {
     };
     return (
         <>
-            <div className={style['container']}>
+            <div className={style['form__container']}>
                 <h1>Ask a question</h1>
                 <p>Fill out our form and well get back to you in 24 hours.</p>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className={style['contact__form']}>
                     <input type="text" placeholder="Full Name" onChange={(e) => setFullName(e.target.value)} />
                     <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                     <input type="text" placeholder="Subject" onChange={(e) => setSubject(e.target.value)} />
