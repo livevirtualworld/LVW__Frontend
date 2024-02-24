@@ -2,113 +2,265 @@ body {
   font-family: 'Lato', sans-serif;
   background-color: #12243a0d;
 }
+
 ul {
-    list-style: none;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.bgImage {
+  width: 100%;
+  height: 500px;
+  background-image: url('../../assets/johan-mouchet-MCTap3U0bFg-unsplash.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.bgImage::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  top: 0;
+  left: 0;
+  background-color: #12243a8a;
+}
+
+.header__title {
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: #ffffff;
+}
+
+.body__content {
+  margin-top: 150px;
+}
+
+.body__content>h3 {
+  color: rgb(86, 86, 86);
+  font-size: 30px;
+}
+
+.body__content>p {
+  margin-top: 20px;
+  color: rgb(112, 112, 112);
+  line-height: 30px;
+  font-size: 20px;
+}
+
+.body__content>p>span {
+  color: #FF2629;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.body__content>p:first-of-type {
+  /* margin-top: 20px; */
+  color: rgb(112, 112, 112);
+  line-height: 30px;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+.body__content>img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.blockquote>p {
+  text-align: center;
+  font-size: 40px;
+  padding: 0 200px;
+  color: #FF2629;
+  margin: 30px 0;
+  font-weight: 800;
+}
+
+.blockquote>p>span {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(86, 86, 86);
+}
+
+.nav__join {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.nav__join>button {
+  padding: 0px 30px;
+  background-color: #FF2629;
+  color: white;
+  text-align: center;
+  line-height: 48px;
+  display: block;
+  border-radius: 12px;
+  margin-left: 15px;
+  border: 0;
+  outline: 0;
+}
+
+.nav__join>button>a {
+  text-decoration: none;
+  color: white;
+  font-size: 17px;
+}
+
+.last__serv {
+  color: rgb(86, 86, 86);
+  font-size: 30px;
+  margin-top: 30px;
+}
+
+@media(max-width:1400px) {
+  .blockquote>p {
+    font-size: 35px;
   }
-  
-  a {
-    text-decoration: none;
+}
+
+@media(max-width:1200px) {
+  .blockquote>p {
+    padding: 0 150px;
   }
-  
-  .container {
-    width: 85%;
-    margin: 0 auto;
+}
+
+@media(max-width:1100px) {
+  .blockquote>p {
+    padding: 0 110px;
   }
-  .bgImage{
-    width: 100%;
-    height: 500px;
-    background-image: url('../../assets/johan-mouchet-MCTap3U0bFg-unsplash.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
+}
+
+@media(max-width:1000px) {
+  .blockquote>p {
+    padding: 0 70px;
   }
-  .bgImage::after{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 500px;
-    top: 0;
-    left: 0;
-    background-color: #12243a8a;
+}
+
+@media(max-width:900px) {
+  .blockquote>p {
+    padding: 0 30px;
   }
-  .header__title{
-    position: absolute;
-    top: 300px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 40px;
-    color: #ffffff;
+}
+
+@media(max-width:800px) {
+  .header__title {
+    font-size: 32px;
   }
-  .body__content{
-    margin-top: 150px;
+
+  .body__content {
+    margin-top: 90px;
   }
-  .body__content > h3{
-    color: rgb(86, 86, 86);
+
+  .body__content>p:first-of-type,
+  .body__content>p {
+    font-size: 18px;
+  }
+
+  .body__content>h3 {
+    font-size: 25px;
+  }
+
+  .blockquote>p {
+    padding: 0 5px;
+    font-size: 32px;
+  }
+}
+
+@media (max-width:700px) {
+  .header__title {
     font-size: 30px;
   }
-  .body__content > p{
-    margin-top: 20px;
-    color: rgb(112, 112, 112);
-    line-height: 30px;
-    font-size: 20px;
+
+  .blockquote>p {
+    padding: 0px;
+    font-size: 29px;
   }
-  .body__content > p > span{
-    color: #FF2629;
+}
+
+@media (max-width:600px) {
+  .header__title {
     font-size: 25px;
-    font-weight: 600;
   }
-  .body__content >p:first-of-type{
-    margin-top: 20px;
-    color: rgb(112, 112, 112);
-    line-height: 30px;
+
+  .body__content>p>span {
+    font-size: 23px;
+  }
+
+  .body__content {
+    margin-top: 70px;
+  }
+}
+
+@media (max-width:500px) {
+  .header__title {
+    font-size: 19px;
+  }
+
+  .body__content>h3 {
+    font-size: 22px;
+  }
+}
+
+@media (max-width:450px) {
+  .body__content>h3 {
     font-size: 20px;
-    margin-bottom: 30px;
+    font-weight: 700;
   }
-  .body__content > img{
-    width: 100%;
-    object-fit: contain;
-    border-radius: 20px;
-    margin-top: 50px;
-    margin-bottom: 30px;
-  }
-  .blockquote > p {
-    text-align: center;
-    font-size: 40px;
-    padding: 0 200px;
-    color: #FF2629;
-    margin: 30px 0;
-    font-weight: 800;
-  }
-  .blockquote > p > span{
-    font-size: 16px;
-    font-weight: 600;
-    color: rgb(86, 86, 86);
-  }
-  .nav__join{
-    display: flex;
-    justify-content: center;
-    margin: 50px 0;
-  }
-  .nav__join > button{
-    padding: 0px 30px;
-    background-color: #FF2629;
-    color: white;
-    text-align: center;
-    line-height: 48px;
-    display: block;
-    border-radius: 12px;
-    margin-left: 15px;
-    border: 0;
-    outline: 0;
-  }
-  .nav__join > button > a{
-    text-decoration: none;
-    color: white;
+}
+
+@media (max-width:400px) {
+  .header__title {
     font-size: 17px;
   }
-  .last__serv{
-    color: rgb(86, 86, 86);
-    font-size: 30px;
-    margin-top: 30px;
+}
+
+@media (max-width:375px) {
+  .header__title {
+    font-size: 16px;
   }
+}
+
+@media (max-width:351px) {
+  .header__title {
+    font-size: 15px;
+  }
+
+  .blockquote>p {
+    font-size: 25px;
+  }
+}
+
+@media (max-width:300px) {
+  .header__title {
+    font-size: 12px;
+  }
+
+  .body__content {
+    margin-top: 50px;
+  }
+
+  .body__content>p>span {
+    font-size: 20px;
+  }
+
+  .blockquote>p {
+    font-size: 23px;
+  }
+}

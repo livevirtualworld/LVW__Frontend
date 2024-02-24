@@ -232,9 +232,6 @@ function TechnicalProfile() {
     formData.append("role", JSON.parse(technicalRole))
     formData.append("id", technicalId)
 
-    console.log("Selected cover image:", selectedCoverImage);
-    console.log("FormData object:", formData);
-
     axios.put("http://localhost:5000/technical/editCoverImage", formData).then((response) => {
       console.log("Cover image updated successfully:", response.data);
       setShowCoverModal(false)
