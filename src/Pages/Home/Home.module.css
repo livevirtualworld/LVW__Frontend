@@ -659,7 +659,7 @@ a {
 .review__card {
     background-color: #ffffff;
     width: Fixed (395px);
-    height: Hug (260px);
+    height: 260px;
     padding: 20px 14px 20px 15px;
     border-radius: 16px;
     margin-right: 95px;
@@ -965,7 +965,7 @@ footer {
     }
 
     .hero__banner__text {
-        width: 100%;
+        /* width: 100%; */
         order: 2;
     }
 
@@ -973,7 +973,6 @@ footer {
     .explore,
     .world,
     .couch {
-        width: 100%;
         font-size: 60px;
         text-align: center;
     }
@@ -1334,6 +1333,18 @@ footer {
 
 }
 
+@media(max-width:500px) {
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 34px;
+    }
+    .email__newsletter__text {
+        padding-top: 10px;
+    }
+    .email__input__and__btn {
+        margin-left: 30px;
+        
+    }
+}
 @media(max-width:414px) {
     .details__about .main-content .btns a {
         width: 48%;
@@ -1368,8 +1379,40 @@ footer {
     .hero__banner__video {
         width: 100%;
     }
+    .join__us__btn {
+        padding: 15px 9px 15px 9px;
+    }
 }
-
+@media(max-width:400px){
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 28px;
+    }
+    .find__tour__btn {
+        padding: 15px 18px 15px 18px;
+    }
+    .email__input {
+        width: 260px;
+    }
+}
+@media(max-width:351px){
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 22px;
+    }
+    .find__tour__btn  , .join__us__btn{
+        padding: 15px 13px 15px 13px;
+        font-size: 14px;
+    }
+    .map__search__bar {
+        top: 128px;
+        left: 52px;
+    }
+    .education__text , .tourism__text , .shopping__text {
+        font-size: 24px;
+    }
+    .email__input {
+        width: 210px;
+    }
+}
 @media(max-width:319px) {
     .footer__content {
         text-align: center;
@@ -1413,5 +1456,13 @@ footer {
 
     .location__three {
         width: 35px;
+    }
+}
+@media(max-width:300px){
+    .hero__banner__text h1, .explore, .world, .couch {
+        font-size: 18px;
+    }
+    .find__tour__btn  , .join__us__btn{
+        font-size: 11px;
     }
 }
