@@ -270,12 +270,12 @@ function Navbar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/userprofile" style={{ color: "black" }}>
-                  <i
-                    class="fa-solid fa-user"
-                  ></i>
-                  Profile
-                </NavLink>
+                <NavLink to="/userprofile">Profile</NavLink>
+              </li>
+              <li>
+                <a href="#" onClick={handleLogout}>
+                  Logout
+                </a>
               </li>
             </ul>
           </div>

@@ -253,9 +253,14 @@ nav .menu i {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+.disblayMenu ul li{
+    width: 14%;
 }
 .disblayMenu ul li a{
     color: white;
+    cursor: pointer;
 }
 
 
@@ -274,10 +279,18 @@ nav .menu i {
     }
 
 }
-@media(max-width:500px) {
+@media(max-width:800px) {
+
+    .disblayMenu ul li{
+        width: 22%;
+        margin-bottom: 10px;
+    }
+
+}
+@media(max-width:551px) {
 
     .nav__search {
-        margin-right: 45px;
+        margin-right: 38px;
     }
 
 }
@@ -290,17 +303,24 @@ nav .menu i {
         width: 180px;
         padding: 0 0 0 20px;
     }
+    .disblayMenu ul li{
+        width: 30%;
+    }
 
 }
 @media(max-width:400px) {
+
+    .disblayMenu ul li{
+        width: 50%;
+    }
+
+}
+@media(max-width:351px) {
 
     .nav__search input {
         width: 160px;
         padding: 0 0 0 12px;
     }
-
-}
-@media(max-width:300px) {
 
     .nav__logo {
         margin-right: 0px;
@@ -311,5 +331,8 @@ nav .menu i {
     .nav__search {
         margin-right: 5px;
     }
+}
+@media(max-width:300px) {
+
 
 }
