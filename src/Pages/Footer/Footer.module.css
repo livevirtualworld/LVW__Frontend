@@ -93,7 +93,7 @@ footer {
         width: 30%;
     }
 }
-@media(max-width:400px){
+@media(max-width:414px){
     .footer__content ul:first-of-type {
         width: 100%;
     }

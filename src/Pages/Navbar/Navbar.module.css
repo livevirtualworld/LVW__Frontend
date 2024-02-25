@@ -329,6 +329,12 @@ nav .menu i {
 
 }
 
+@media(max-width:361px) {
+
+    .nav__logo {
+        margin-right: 10px;
+    }
+}
 @media(max-width:351px) {
 
     .nav__search input {

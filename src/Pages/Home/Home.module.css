@@ -1298,6 +1298,10 @@ footer {
     .couch {
         font-size: 45px;
     }
+    .email__input {
+        width: 225px;
+        margin-bottom: 0px;
+    }
 
 }
 
@@ -1398,10 +1402,7 @@ footer {
         font-size: 25px;
     }
 
-    .email__input {
-        width: 275px;
-        margin-bottom: 0px;
-    }
+    
 
     .location__two {
         display: none;
@@ -1518,6 +1519,9 @@ footer {
     .hero__banner__text {
         top: 265px;
     }
+    .email__input {
+        width: 220px;
+    }
 }
 
 @media (max-width:451px) {
@@ -1546,7 +1550,7 @@ footer {
     }
 }
 
-@media(max-width:414px) {
+@media(max-width:415px) {
     .details__about .main-content .btns a {
         width: 48%;
         margin-bottom: 5px;
@@ -1592,6 +1596,9 @@ footer {
     .hero__banner__text {
         top: 205px;
     }
+    .email__input {
+        width: 220px;
+    }
 }
 
 @media(max-width:400px) {
@@ -1627,6 +1634,9 @@ footer {
     .hero__banner__section {
         height: 167px;
     }
+    .email__input {
+        width: 220px;
+    }
 }
 
 @media (max-width:376px) {
@@ -1648,7 +1658,14 @@ footer {
     .hero__banner__text {
         top: 180px;
     }
+    .subscribe__btn {
+        font-size: 15px;
+    }
+    .email__input {
+        width: 210px;
+    }
 }
+
 
 @media(max-width:351px) {
     .hero__banner__section {
@@ -1690,6 +1707,18 @@ footer {
     }
 }
 
+@media(max-width:340px) {
+    .email__input {
+        width: 200px;
+    }
+    
+}
+@media(max-width:330px) {
+    .email__newsletter__section {
+        display: none;
+    }
+    
+}
 @media(max-width:320px) {
     .hero__banner__section {
         height: 137px;
@@ -1698,6 +1727,15 @@ footer {
 
     .hero__banner__text {
         top: 160px;
+    }
+    .subscribe__btn {
+        font-size: 12px;
+    }
+    .email__input {
+        width: 160px;
+    }
+    .email__newsletter__section {
+        display: none;
     }
 }
 
@@ -1739,9 +1777,7 @@ footer {
         height: 190px;
     }
 
-    .email__newsletter__section {
-        display: none;
-    }
+    
 
     .map__search__bar input {
         width: 146px;
