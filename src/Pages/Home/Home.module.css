@@ -33,7 +33,7 @@ a {
     height: 660px;
 }
 
-.hero__banner__section > video{
+.hero__banner__section>video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -73,9 +73,10 @@ a {
 
 .hero__banner__text h1,
 .explore
+
 /* .world, */
 /* .couch  */
-{
+    {
     display: block;
     font-size: 35px;
     font-weight: 800;
@@ -83,7 +84,8 @@ a {
     color: #fe2629;
     /* color: #cccccc; */
 }
-.world{
+
+.world {
     display: block;
     font-size: 60px;
     font-weight: 800;
@@ -91,7 +93,8 @@ a {
     /* color: #12243A; */
     color: #cccccc;
 }
-.couch{
+
+.couch {
     display: block;
     font-size: 60px;
     font-weight: 800;
@@ -99,7 +102,8 @@ a {
     /* color: #12243A; */
     color: #cccccc;
 }
-.journey{
+
+.journey {
     display: block;
     font-size: 50px;
     font-weight: 800;
@@ -107,6 +111,7 @@ a {
     /* color: #12243A; */
     color: #cccccc;
 }
+
 .hero__banner__text p {
     margin: 16px 0;
     font-size: 18px;
@@ -878,6 +883,9 @@ footer {
 }
 
 @media (max-width: 1400px) {
+    .hero__banner__section {
+        height: 597px;
+    }
 
     .hero__banner__text h1,
     .explore,
@@ -891,6 +899,17 @@ footer {
 
     .swiper-button-prev {
         left: 1090px;
+    }
+
+    .hero__banner__section>video {
+        object-fit: contain;
+        aspect-ratio: 16/9;
+    }
+}
+
+@media (max-width:1300px) {
+    .hero__banner__section {
+        height: 555px;
     }
 }
 
@@ -932,7 +951,7 @@ footer {
     .map__bottom__icons {
         right: 103px;
         bottom: 15px;
-    }    
+    }
 
     .chat__icon {
         right: 55px;
@@ -950,15 +969,40 @@ footer {
         margin-top: 90px;
         display: inline-block;
     }
+
+    .hero__banner__section {
+        height: 512px;
+    }
 }
+
+@media (max-width:1100px) {
+    .banner__section {
+        height: 469px;
+    }
+}
+
+@media (max-width:1000px) {
+    .hero__banner__section {
+        height: 427px;
+    }
+
+    .hero__banner__text {
+        top: 55px;
+        left: 76px;
+    }
+}
+
 
 @media(max-width:992px) {
     .hero__banner__section {
         margin-bottom: 35px;
+        height: 423px;
     }
-    .chat__icon img{
+
+    .chat__icon img {
         width: 80%;
     }
+
     .footer__content ul:first-of-type li {
         padding-right: 50px;
     }
@@ -972,7 +1016,7 @@ footer {
     .explore,
     .world,
     .couch {
-        font-size: 60px;
+        font-size: 45px;
         text-align: center;
     }
 
@@ -986,9 +1030,11 @@ footer {
     .hero__banner__buttons {
         justify-content: center;
     }
-    .hero__banner__content{
+
+    .hero__banner__content {
         margin-bottom: 20px;
     }
+
     .hero__banner__video {
         margin: 0 auto;
         margin-bottom: 20px;
@@ -1032,10 +1078,43 @@ footer {
     }
 }
 
+@media (max-width:900px) {
+    .hero__banner__section {
+        height: 384px;
+        margin-bottom: 350px;
+    }
+
+    .hero__banner__content {
+        display: block;
+    }
+
+    .hero__banner__text {
+        width: 100%;
+        top: 400px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width:800px) {
+    .hero__banner__section {
+        height: 342px;
+    }
+
+    .hero__banner__text {
+        top: 370px;
+    }
+}
+
 @media(max-width:768px) {
-    .hero__banner__text h1, .explore, .world, .couch {
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
         font-size: 55px;
     }
+
     .swiper-button-prev {
         left: 550px;
     }
@@ -1163,17 +1242,64 @@ footer {
         font-size: 13px;
         font-weight: 400;
     }
+
     .right__side p {
         font-size: 13px;
         font-weight: 400;
     }
+
     .write__message__box Textarea {
         font-size: 15px
     }
+
     .send__icon {
         bottom: 39px;
         width: 6%;
     }
+
+    .hero__banner__section {
+        height: 328px;
+    }
+
+    .hero__banner__text {
+        top: 355px;
+    }
+}
+
+@media (max-width:700px) {
+    .hero__banner__section {
+        height: 299px;
+    }
+
+    .hero__banner__text {
+        top: 325px;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        font-size: 50px;
+    }
+
+}
+
+@media (max-width:600px) {
+    .hero__banner__section {
+        height: 256px;
+    }
+
+    .hero__banner__text {
+        top: 290px;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        font-size: 45px;
+    }
+
 }
 
 @media(max-width:576px) {
@@ -1181,12 +1307,20 @@ footer {
         overflow-x: hidden;
     }
 
-    .hero__banner__text h1, .explore, .world, .couch {
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
         font-size: 40px;
     }
 
     .hero__banner__section {
-        margin-bottom: 205px;
+        margin-bottom: 370px;
+        height: 246px;
+    }
+
+    .hero__banner__text {
+        top: 275px;
     }
 
     .map__section h2 {
@@ -1320,40 +1454,105 @@ footer {
         right: 0px;
         bottom: 13px;
     }
+
     .review__card {
         margin-right: 150px;
-      }
-      .review__card p{
+    }
+
+    .review__card p {
         font-size: 16px;
-      }
-      .review__date {
+    }
+
+    .review__date {
         margin-top: 25px;
     }
 
 }
 
+@media (max-width:551px) {
+    .hero__banner__section {
+        height: 235px;
+    }
+
+    .hero__banner__text {
+        top: 265px;
+    }
+}
+
 @media(max-width:500px) {
-    .hero__banner__text h1, .explore, .world, .couch {
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
         font-size: 34px;
     }
+
     .email__newsletter__text {
         padding-top: 10px;
     }
+
     .email__input__and__btn {
         margin-left: 30px;
-        
+
     }
+
     .hero__banner__text {
-       
-        left: 25px;
+        top: 250px;
     }
-    
+
+    .hero__banner__section {
+        height: 214px;
+    }
+
 }
+
+@media (max-width:476px) {
+    .hero__banner__section {
+        height: 203px;
+    }
+
+    .hero__banner__text {
+        top: 230px;
+    }
+
+    .hero__banner__text {
+        top: 265px;
+    }
+}
+
+@media (max-width:451px) {
+    .hero__banner__section {
+        height: 192px;
+    }
+
+    .hero__banner__text {
+        top: 220px;
+    }
+}
+
+@media (max-width:430px) {
+    .hero__banner__section {
+        height: 184px;
+    }
+
+    .hero__banner__text {
+        top: 210px;
+    }
+}
+
+@media (max-width:428px) {
+    .hero__banner__section {
+        height: 183px;
+    }
+}
+
 @media(max-width:414px) {
     .details__about .main-content .btns a {
         width: 48%;
         margin-bottom: 5px;
     }
+
     .container {
         width: 100%;
     }
@@ -1382,41 +1581,136 @@ footer {
     .hero__banner__video {
         width: 100%;
     }
+
     .join__us__btn {
         padding: 15px 9px 15px 9px;
     }
-}
-@media(max-width:400px){
-    .hero__banner__text h1, .explore, .world, .couch {
-        font-size: 28px;
+
+    .hero__banner__section {
+        height: 177px;
     }
+
+    .hero__banner__text {
+        top: 205px;
+    }
+}
+
+@media(max-width:400px) {
+    .hero__banner__section {
+        height: 171px;
+        margin-bottom: 300px;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        font-size: 28px;
+        line-height: 50px;
+    }
+
     .find__tour__btn {
         padding: 15px 18px 15px 18px;
     }
+
     .email__input {
         width: 260px;
     }
 }
-@media(max-width:351px){
-    .hero__banner__text h1, .explore, .world, .couch {
-        font-size: 22px;
+
+@media (max-width:393px) {
+    .hero__banner__section {
+        height: 168px;
     }
-    .find__tour__btn  , .join__us__btn{
+}
+
+@media (max-width:390px) {
+    .hero__banner__section {
+        height: 167px;
+    }
+}
+
+@media (max-width:376px) {
+    .hero__banner__section {
+        height: 160px;
+    }
+
+    .hero__banner__text {
+        top: 190px;
+    }
+}
+@media (max-width:360px) {
+    .hero__banner__section {
+        height: 154px;
+        margin-bottom: 290px;
+    }
+
+    .hero__banner__text {
+        top: 180px;
+    }
+}
+
+@media(max-width:351px) {
+    .hero__banner__section {
+        height: 150px;
+        margin-bottom: 270px;
+    }
+
+    .hero__banner__text {
+        top: 170px;
+    }
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
+        font-size: 22px;
+        line-height: 45px;
+    }
+
+    .find__tour__btn,
+    .join__us__btn {
         padding: 15px 13px 15px 13px;
         font-size: 14px;
     }
+
     .map__search__bar {
         top: 128px;
         left: 52px;
     }
-    .education__text , .tourism__text , .shopping__text {
+
+    .education__text,
+    .tourism__text,
+    .shopping__text {
         font-size: 24px;
     }
+
     .email__input {
         width: 210px;
     }
 }
+
+@media(max-width:320px) {
+    .hero__banner__section {
+        height: 137px;
+        margin-bottom: 265px;
+    }
+
+    .hero__banner__text {
+        top: 160px;
+    }
+}
+
 @media(max-width:319px) {
+    .hero__banner__section {
+        height: 136px;
+        margin-bottom: 260px;
+    }
+
+    .hero__banner__text {
+        top: 160px;
+    }
+
     .footer__content {
         text-align: center;
     }
@@ -1461,11 +1755,18 @@ footer {
         width: 35px;
     }
 }
-@media(max-width:300px){
-    .hero__banner__text h1, .explore, .world, .couch {
+
+@media(max-width:300px) {
+
+    .hero__banner__text h1,
+    .explore,
+    .world,
+    .couch {
         font-size: 18px;
     }
-    .find__tour__btn  , .join__us__btn{
+
+    .find__tour__btn,
+    .join__us__btn {
         font-size: 11px;
     }
 }
