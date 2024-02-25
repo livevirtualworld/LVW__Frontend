@@ -138,9 +138,9 @@ a {
 }
 
 @media(max-width:576px) {
-  .react-multi-carousel-item {
+  /* .react-multi-carousel-item {
     margin-right: -130px !important;
-  }
+  } */
 
   .react-multiple-carousel__arrow--right {
     right: calc(38% + 1px) !important;
