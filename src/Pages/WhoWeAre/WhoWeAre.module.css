@@ -141,10 +141,8 @@ a {
 
 .cards {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
 }
 
 .card__box {
@@ -227,4 +225,168 @@ a {
   .lastquote>p {
     padding: 0 10px;
   }
+}
+
+@media (max-width:1000px) {
+  .cards {
+    justify-content: space-evenly;
+  }
+
+  .card__box {
+    width: 27%;
+  }
+}
+
+@media (max-width:900px) {
+  .header__title {
+    font-size: 35px;
+  }
+}
+
+@media (max-width:800px) {
+  .header__title {
+    font-size: 33px;
+  }
+
+  .main__title>h3 {
+    margin-top: 75px;
+    font-size: 20px;
+  }
+
+  .main__title>h3>span {
+    font-size: 23px;
+  }
+
+  .blockquote>p {
+    font-size: 25px;
+    padding: 0px;
+  }
+
+  .lastquote>p {
+    padding: 0px;
+    font-size: 25px;
+  }
+
+  .card__box {
+    width: 35%;
+  }
+
+  .team__content>h2 {
+    font-size: 25px;
+  }
+
+  .team__content>p {
+    font-size: 18px;
+  }
+}
+@media (max-width:700px) {
+  .header__title {
+    font-size: 30px;
+  }
+}
+@media (max-width:600px) {
+  .header__title {
+    font-size: 25px;
+  }
+  .main__title>h3>span {
+    font-size: 20px;
+}
+.main__title>h3 {
+  font-size: 18px;
+}
+.main__title {
+  margin-bottom: 70px;
+}
+.body__content>h2:first-of-type {
+  font-size: 30px;
+}
+.cards {
+  justify-content: space-between;
+}
+}
+@media (max-width:500px) {
+  .header__title {
+    font-size: 20px;
+}
+.card__box {
+  width: 43%;
+}
+.body__content>h2:first-of-type {
+  font-size: 25px;
+}
+.team__content>h2 {
+  font-size: 22px;
+}
+.team__content>p {
+  margin: 18px 0;
+  font-size: 18px;
+}
+.last__div>h2 {
+  font-size: 30px;
+}
+}
+@media (max-width:450px) {
+  .header__title {
+    font-size: 19px;
+}
+.blockquote>p {
+  font-size: 23px;
+}
+.lastquote>p {
+  font-size: 23px;
+}
+.cards {
+  justify-content: center;
+}
+.card__box {
+  width: 100%;
+}
+.team__content>h2 {
+  font-size: 18px;
+}
+.team__content>p {
+  font-size: 17px;
+}
+}
+@media (max-width:400px) {
+  .header__title {
+    font-size: 17px;
+}
+.main__title>h3>span {
+  font-size: 18px;
+}
+.team__content>h2 {
+  font-size: 19px;
+}
+}
+@media (max-width:376px) {
+  .header__title {
+    font-size: 15px;
+}
+.team__content>h2 {
+  font-size: 20px;
+}
+.last__div>h2 {
+  font-size: 27px;
+  margin-bottom: 30px;
+}
+}
+@media (max-width:351px) {
+  .main__title>h3 {
+    margin-top: 60px;
+}
+.blockquote>p {
+  margin: 17px 0;
+}
+.main__title>h3:last-of-type {
+  margin-top: 33px;
+}
+.main__title {
+  margin-bottom: 60px;
+}
+}
+@media (max-width:300px) {
+  .header__title {
+    font-size: 12px;
+}
 }
