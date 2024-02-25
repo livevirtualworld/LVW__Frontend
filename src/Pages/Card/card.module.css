@@ -140,3 +140,19 @@
   display: flex;
   gap: 10px;
 }
+
+@media(max-width:900px){
+  .tour__card {
+    width: 32%;
+  }
+}
+@media(max-width:700px){
+  .tour__card {
+    width: 49%;
+  }
+}
+@media(max-width:500px){
+  .tour__card {
+    width: 100%;
+  }
+}
