@@ -40,6 +40,7 @@ import { Button, Input } from "@mui/material";
 import Footer from "../Footer/Footer";
 
 function TourDetails() {
+  const viewportWidth = window.innerWidth;
   const [lang, setLang] = useState("english");
   const [tap, setTap] = useState("about");
   const [menu, setMenu] = useState(false);
@@ -1582,7 +1583,7 @@ function TourDetails() {
                             style: {
                               base: {
                                 zIndex: "999",
-                                fontSize: "20px",
+                                // fontSize: "20px",
                                 color: "#424770",
                                 "::placeholder": {
                                   color: "#aab7c4",
