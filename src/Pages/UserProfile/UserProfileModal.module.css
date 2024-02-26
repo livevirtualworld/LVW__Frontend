@@ -28,11 +28,13 @@
 
 .userprofile-modal__content {
     position: absolute;
-    top: 20%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     background-color: white;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    width: 40%;
+    width: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,3 +91,16 @@
     background-color: #e9f0ff;
     width: 100%;
 }
+
+@media (max-width: 1400px) {
+    .userprofilemodal__header {
+        
+        margin-bottom: 10px;
+        
+    }
+    .userprofilemodal__actions {
+
+        margin-top: 6px;
+     
+    }
+  }
