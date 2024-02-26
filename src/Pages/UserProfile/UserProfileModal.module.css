@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .userprofilemodal__header {
@@ -103,4 +104,21 @@
         margin-top: 6px;
      
     }
+  }
+@media (max-width: 650px) {
+    .userprofile-modal__content {
+        width: 400px;
+    }
+  }
+@media (max-width: 420px) {
+    .userprofile-modal__content {
+        width: 300px;
+    }
+    .userprofilemodal__actions {
+        flex-direction: column;
+    }
+    .userprofilemodal__actions button{
+        margin-bottom: 15px;
+    }
+
   }
