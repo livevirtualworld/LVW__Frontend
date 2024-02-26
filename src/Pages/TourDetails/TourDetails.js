@@ -100,8 +100,8 @@ function TourDetails() {
   const [mediaData, setMediaData] = useState([]); // State to store media data
   const [newlyAddedImages, setNewlyAddedImages] = useState([]);
 
-  // const [allMediaFiles, setAllMediaFiles] = useState([]);
-  // const [allMediaPreviews, setAllMediaPreviews] = useState([]);
+  const [fontSize, setFontSize] = useState("20px");
+
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -888,6 +888,49 @@ function TourDetails() {
     setRemoveIm([]);
     // window.location.reload();
   };
+  useEffect(() => {
+    const handleResize = () => {
+      const viewportWidth = window.innerWidth;
+      // Define viewport width to font size mapping
+      const fontSizeMapping = {
+        1200: "20px",
+        1100: "16px",
+        900: "14px",
+        800: "13px",
+        750: "17px",
+        470: "16px",
+        450: "15px",
+        429: "14px",
+        375: "15px",
+        360: "14px",
+        350: "14px",
+        340: "13px",
+        320: "12px",
+        300: "11px",
+      };
+
+      // Find the appropriate font size based on the current viewport width
+      let selectedFontSize = "20px"; // Default font size
+      for (let width in fontSizeMapping) {
+        if (viewportWidth <= parseInt(width)) {
+          selectedFontSize = fontSizeMapping[width];
+          break;
+        }
+      }
+      setFontSize(selectedFontSize);
+    };
+
+    // Call handleResize when window is resized
+    window.addEventListener('resize', handleResize);
+
+    // Call handleResize initially to set the font size on component mount
+    handleResize();
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div>
       {showSuccessBookModal && (
@@ -1583,7 +1626,8 @@ function TourDetails() {
                             style: {
                               base: {
                                 zIndex: "999",
-                                // fontSize: "20px",
+                                fontSize: fontSize,
+                                // fontWeight: 600,
                                 color: "#424770",
                                 "::placeholder": {
                                   color: "#aab7c4",
