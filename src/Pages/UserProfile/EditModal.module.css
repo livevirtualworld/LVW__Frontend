@@ -2,8 +2,9 @@
 
 .modal__overlay {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
@@ -17,7 +18,7 @@
     /* padding: 20px; */
     border-radius: 18px;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-    width: 30%;
+    width: 600px;
     max-height: 600px;
     overflow: scroll;
     /* height: 90%; */
@@ -96,3 +97,33 @@
     color: white;
     padding: 14px 24px;
 }
+
+@media (max-width: 1400px) {
+    .userprofilemodal__header {
+        
+        margin-bottom: 10px;
+        
+    }
+    .userprofilemodal__actions {
+
+        margin-top: 6px;
+     
+    }
+  }
+@media (max-width: 650px) {
+    .userprofile-modal__content {
+        width: 400px;
+    }
+  }
+@media (max-width: 420px) {
+    .userprofile-modal__content {
+        width: 300px;
+    }
+    .userprofilemodal__actions {
+        flex-direction: column;
+    }
+    .userprofilemodal__actions button{
+        margin-bottom: 15px;
+    }
+
+  }

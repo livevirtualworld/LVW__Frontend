@@ -512,10 +512,15 @@ footer {
     left: 123px;
   }
   .profile__info > i {
-    left: 135px;
+    left: 204px;
     bottom: 136px;
 
   }
+}
+@media (max-width: 430px) {
+    .profile-main-content__info .tabs a {
+        padding: 10px 9px;
+      }
 }
 @media (max-width: 414px) {
   .details__about .main-content .btns a {
@@ -535,7 +540,24 @@ footer {
   .nav__search {
     margin-right: 0;
   }
+  .profile__content > img {
+    height: 250px;
+  }
+  .profile__text {
+    padding: 0 10px;
+  }
 }
+@media (max-width: 350px) {
+    .edit__button a {
+        font-size: 15px;
+        width: 100px;
+        height: 35px;
+        line-height: 35px;
+      }
+      .profile-main-content__info .tabs a {
+        padding: 10px 2px;
+      }
+  }
 @media (max-width: 319px) {
   .footer__content {
     text-align: center;
