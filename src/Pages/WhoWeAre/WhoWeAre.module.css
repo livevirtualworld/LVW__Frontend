@@ -226,7 +226,6 @@ a {
     padding: 0 10px;
   }
 }
-
 @media (max-width:1000px) {
   .cards {
     justify-content: space-evenly;
@@ -236,16 +235,14 @@ a {
     width: 27%;
   }
 }
-
 @media (max-width:900px) {
   .header__title {
     font-size: 35px;
   }
 }
-
 @media (max-width:800px) {
   .header__title {
-    font-size: 33px;
+    font-size: 32px;
   }
 
   .main__title>h3 {
@@ -286,7 +283,7 @@ a {
 }
 @media (max-width:600px) {
   .header__title {
-    font-size: 25px;
+    font-size: 24px;
   }
   .main__title>h3>span {
     font-size: 20px;
@@ -302,6 +299,11 @@ a {
 }
 .cards {
   justify-content: space-between;
+}
+}
+@media (max-width:550px) {
+  .header__title {
+    font-size: 23px;
 }
 }
 @media (max-width:500px) {
