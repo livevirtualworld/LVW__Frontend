@@ -43,6 +43,8 @@ function VipForm() {
   const [tour, setTour] = useState();
   const [userData, setUserData] = useState()
   const [language, setLanguage] = useState([]);
+  const [fontSize, setFontSize] = useState("20px");
+
 
   const stripe = useStripe();
   const elements = useElements();
@@ -95,6 +97,45 @@ function VipForm() {
         languages(res.data);
         setTour(res.data);
       });
+
+      const handleResize = () => {
+        const viewportWidth = window.innerWidth;
+        // Define viewport width to font size mapping
+        const fontSizeMapping = {
+          1200: "20px",
+          1100: "16px",
+          900: "14px",
+          800: "13px",
+          750: "17px",
+          682: "20px",
+          390: "17px",
+          340: "16px",
+          320: "15px",
+          305: "14px",
+          286: "13px",
+        };
+  
+        // Find the appropriate font size based on the current viewport width
+        let selectedFontSize = "20px"; // Default font size
+        for (let width in fontSizeMapping) {
+          if (viewportWidth <= parseInt(width)) {
+            selectedFontSize = fontSizeMapping[width];
+            break;
+          }
+        }
+        setFontSize(selectedFontSize);
+      };
+  
+      // Call handleResize when window is resized
+      window.addEventListener('resize', handleResize);
+  
+      // Call handleResize initially to set the font size on component mount
+      handleResize();
+  
+      // Cleanup event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
 
   }, []);
 
@@ -209,11 +250,7 @@ function VipForm() {
           <div className={style['the__tour__details']}>
             <div className={style['tour__left']}>
               <h2>{tour?.title}</h2>
-              {/* <h2> Pyramids of Giza Tour</h2> */}
               <p>{tour?.description}</p>
-              {/* <p>Come join us as we take a ride through the desert around the Giza platue, taking in the last of the seven wonders of the world.
-                We will get up close to the great pyramids as I take you back to the time of the builder and the pharaohs who commissioned them.
-                We will start off by taking a look the great sphinx before mounting our camel and riding up the giant causeway making our way round the great pyramids out to one of the most iconic views on earth!</p> */}
               <div className={style['tour__icons']}>
                 <p><i class="fa-regular fa-clock"></i>Tour Duration: {tour?.hours}</p>
                 <p><i class="fa-solid fa-dollar-sign"></i>Tour Price: {tour?.price}</p>
@@ -298,7 +335,7 @@ function VipForm() {
                         style: {
                           base: {
                             zIndex: "999",
-                            fontSize: "20px",
+                            fontSize: fontSize,
                             color: "#424770",
                             "::placeholder": {
                               color: "#aab7c4",
@@ -430,117 +467,6 @@ function VipForm() {
       </div>
       <Footer />
     </>
-    // <>
-    //   {showSuccessBookModal && (
-    //     <SuccessandErrorModals
-    //       success={true}
-    //       message={"Tour Booked Successfully"}
-    //     />
-    //   )}
-    //   {showErrorBookModal && (
-    //     <SuccessandErrorModals success={false} message={showErrorMsg} />
-    //   )}
-    //   <div className={style["hero"]}>
-    //     <div className={style["container"]}>
-    //       <div className={style["hero__content"]}>
-    //         <div className={style["overlay"]} />
-    //         {tour?.img?.length > 0 && (
-    //           <img src={`http://localhost:5000/${tour?.img[0]}`} />
-    //         )}
-    //         {/* <img src={Img} /> */}
-    //       </div>
-    //       <div className={style["hero__text"]}>
-    //         <h2>{tour?.title}</h2>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className={style["container"]}>
-    //     <div className={style["main__div"]}>
-    //       <h1>VIP Request Form</h1>
-    //       <form>
-    //         <label style={{ padding: "0px 20px" }}>Select Language</label>
-    //         <div className={style["input__field"]}>
-    //           <select
-    //             onChange={(e) => {
-    //               setModalLanguage(e.target.value);
-    //             }}
-    //             defaultValue={0}
-    //           >
-    //             <option disabled value={0}>
-    //               Select Language
-    //             </option>
-    //             <option value={"arabic"}>Arabic</option>
-    //             <option value={"english"}>English</option>
-    //             <option value={"italian"}>Italian</option>
-    //           </select>
-    //         </div>
-    //         <div className={style["input__field"]}>
-    //           <Button
-    //             variant="brand"
-    //             mt="40px"
-    //             display="block"
-    //             onClick={handleAddEmail}
-    //           >
-    //             Add Email +
-    //           </Button>
-    //         </div>
-    //         {emails.map((email, index) => (
-    //           <div key={index} className={style["input__field"]}>
-    //             <label style={{ padding: "0px 20px" }}>email {index + 1}</label>
-    //             <Input
-    //               type="text"
-    //               value={email}
-    //               onChange={(e) => handleEmailChange(index, e.target.value)}
-    //             />
-    //           </div>
-    //         ))}
-    //         <div style={{ marginTop: "40px", marginBottom: "20px" }}></div>
-    //         <div className={style["date__time__div"]}>
-    //           <LocalizationProvider dateAdapter={AdapterDayjs}>
-    //             <DemoContainer
-    //               components={[
-    //                 "DateTimePicker",
-    //                 "MobileDateTimePicker",
-    //                 "DesktopDateTimePicker",
-    //                 "StaticDateTimePicker",
-    //               ]}
-    //             >
-    //               <DemoItem label="Static variant">
-    //                 <StaticDateTimePicker
-    //                   defaultValue={dayjs().add(72, "hour")}
-    //                   onChange={handleDateChange}
-    //                   minDate={dayjs().add(72, "hour")}
-    //                 />
-    //               </DemoItem>
-    //             </DemoContainer>
-    //           </LocalizationProvider>
-    //         </div>
-    //         <CardElement
-    //           options={{
-    //             hidePostalCode: true,
-    //             style: {
-    //               base: {
-    //                 zIndex: "999",
-    //                 fontSize: "20px",
-    //                 color: "#424770",
-    //                 "::placeholder": {
-    //                   color: "#aab7c4",
-    //                 },
-    //               },
-    //               invalid: {
-    //                 color: "#9e2146",
-    //               },
-    //             },
-    //           }}
-    //         />
-    //         <button onClick={(e) => {
-    //           e.preventDefault()
-    //           submit()
-    //         }}>Send Request</button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </>
   );
 }
 
