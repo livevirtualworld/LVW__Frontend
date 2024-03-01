@@ -252,7 +252,7 @@ function VipForm() {
               <h2>{tour?.title}</h2>
               <p>{tour?.description}</p>
               <div className={style['tour__icons']}>
-                <p><i class="fa-regular fa-clock"></i>Tour Duration: {tour?.hours}</p>
+                <p><i class="fa-regular fa-clock"></i><span>Tour Duration: {tour?.hours}</span></p>
                 <p><i class="fa-solid fa-dollar-sign"></i>Tour Price: {tour?.price}</p>
                 <p><i class="fa-solid fa-users-line"></i>Number of Guests: 5</p>
                 <p><i class="fa-solid fa-calendar-check"></i>Tour Date: {formattedDate}</p>

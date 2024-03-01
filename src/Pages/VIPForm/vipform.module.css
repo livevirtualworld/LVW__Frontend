@@ -47,6 +47,7 @@ a {
 .the__tour__details {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .tour__left {
@@ -65,6 +66,7 @@ a {
     margin-bottom: 40px;
 }
 
+
 .tour__icons {
     display: flex;
     flex-direction: column;
@@ -73,6 +75,16 @@ a {
 .tour__icons>p {
     margin-bottom: 10px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+.tour__icons>p i {
+    width: 4%;
+    text-align: center;
+}
+.tour__icons p span{
+    width: 96%;
 }
 
 .tour__icons>p>i {
@@ -293,6 +305,9 @@ a {
 @media (max-width:599px) {
     .the__header__title{
         font-size: 25px;
+    }
+    .tour__left {
+        width: 100%;
     }
 }
 @media (max-width:587px) {
