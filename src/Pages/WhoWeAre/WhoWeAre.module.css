@@ -226,7 +226,6 @@ a {
     padding: 0 10px;
   }
 }
-
 @media (max-width:1000px) {
   .cards {
     justify-content: space-evenly;
@@ -236,13 +235,11 @@ a {
     width: 27%;
   }
 }
-
 @media (max-width:900px) {
   .header__title {
     font-size: 35px;
   }
 }
-
 @media (max-width:800px) {
   .header__title {
     font-size: 32px;
@@ -279,13 +276,11 @@ a {
     font-size: 18px;
   }
 }
-
 @media (max-width:700px) {
   .header__title {
     font-size: 30px;
   }
 }
-
 @media (max-width:600px) {
   .header__title {
     font-size: 24px;
@@ -311,13 +306,11 @@ a {
     justify-content: space-between;
   }
 }
-
 @media (max-width:550px) {
   .header__title {
     font-size: 23px;
   }
 }
-
 @media (max-width:500px) {
   .header__title {
     font-size: 20px;
@@ -344,7 +337,6 @@ a {
     font-size: 30px;
   }
 }
-
 @media (max-width:450px) {
   .header__title {
     font-size: 19px;
@@ -379,7 +371,6 @@ a {
     font-size: 17px;
 }
 }
-
 @media (max-width:400px) {
   .header__title {
     font-size: 17px;
@@ -398,7 +389,6 @@ a {
     font-size: 16px;
 }
 }
-
 @media (max-width:376px) {
   .header__title {
     font-size: 15px;
@@ -413,7 +403,6 @@ a {
     margin-bottom: 30px;
   }
 }
-
 @media (max-width:351px) {
   .main__title>h3 {
     margin-top: 60px;
@@ -441,7 +430,6 @@ a {
     font-size: 13px;
 }
 }
-
 @media (max-width:304px) {
   .header__title {
     font-size: 12px;
