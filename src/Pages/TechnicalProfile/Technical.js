@@ -740,7 +740,7 @@ function TechnicalProfile() {
                 }}>About</a>
                 <a className={` ${tap === "tours" ? style.active : ""}`} onClick={() => {
                   setTap("tours")
-                }}>{technicalData?.name}’s Tours
+                }}>{technicalData?.name.substring(0, 10)}’s Tours
                 </a>
               </div>
               <div className={style["text"]} id="text" style={{display: tap == "tours" && 'flex', flexWrap: 'wrap'}}>

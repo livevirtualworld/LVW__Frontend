@@ -408,6 +408,9 @@ main.signn .carousel {
     .carousel__text {
         left: 65px;
     }
+    .parent__div {
+        margin-bottom: 30px;
+    }
 
     .carousel__text h1 {
         font-size: 37px;
@@ -481,7 +484,8 @@ main.signn .carousel {
         height: auto;
         width: 100%;
         padding: 3rem 2rem;
-        display: flex;
+        display: none;
+
     }
 
     .images-wrapper {
@@ -490,6 +494,9 @@ main.signn .carousel {
 
     .text-slider {
         width: 100%;
+    }
+    .heading{
+        margin-bottom: 30px;
     }
 }
 
@@ -560,6 +567,16 @@ main.signn .carousel {
         }
     }
 
+    @media (max-width: 400px) {
+        .sign-up-form, .sign-in-form {
+            padding: 1rem 1rem 1.5rem;
+    }
+}
+    @media (max-width: 3500px) {
+        .parent__div {
+            flex-direction: column;
+        }
+}
     @media (max-width: 319px) {
         .carousel {
             padding: 1.5rem .5rem 1rem;
@@ -584,6 +601,9 @@ main.signn .carousel {
             width: 33%;
             bottom: 23px;
             right: 43px;
+        }
+        .sign-up-form, .sign-in-form {
+            padding: 1rem 0.4rem 1.5rem;
         }
     }
 }

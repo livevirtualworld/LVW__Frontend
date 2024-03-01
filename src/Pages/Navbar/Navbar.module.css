@@ -255,6 +255,7 @@ nav .menu i {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    z-index: 100000;
 }
 
 .disblayMenu ul li {
