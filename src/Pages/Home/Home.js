@@ -67,10 +67,33 @@ function Home() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5000/admin//allTours").then((res) => {
-            setTours(res.data.data)
-            setFilteredTours(res.data.data)
-        })
+        // axios.get("http://localhost:5000/admin//allTours").then((res) => {
+        //     setTours(res.data.data)
+        //     setFilteredTours(res.data.data)
+        // })
+        axios.get("http://localhost:5000/admin/allTours").then((res) => {
+      axios.get("http://localhost:5000/user/getAllBooks").then((result) => {
+        const groupedBokking = result.data.reduce((bookRes, obj) => {
+          const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
+          if (filteredGrouped) {
+            filteredGrouped.numberOfGuests += obj.numberOfGuests
+          } else {
+            bookRes.push({ id: obj?.tour, numberOfGuests: obj.numberOfGuests })
+          }
+          return bookRes;
+        }, []
+        )
+        // console.log(groupedBokking)
+        const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
+        // console.log(repeatedTours)
+        const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
+        console.log(newFilteredBooked)
+        const filteredBooke = newFilteredBooked.filter((book) => new Date(book.endTime) > new Date());
+
+        setTours(filteredBooke)
+        setFilteredTours(filteredBooke)
+      })
+    })
         axios.get("http://localhost:5000/user/allTravelers").then((res) => {
             setTravelers(res.data.travelers)
         })
