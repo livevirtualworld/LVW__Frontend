@@ -435,7 +435,7 @@ function TourDetails() {
       }, 3000);
       return;
     }
-    if (userData?.email !== "sara@gmail.com") {
+    if (userData?.email !== "livevirtualworld.info@gmail.com") {
       console.error("User does not have permission to update the cover image");
       return;
     }
@@ -488,7 +488,7 @@ function TourDetails() {
       });
   };
   const handleEditDescriptionClick = () => {
-    if (userData?.email === "sara@gmail.com") {
+    if (userData?.email === "livevirtualworld.info@gmail.com") {
       setIsEditingDescription(!isEditingDescription);
       if (!isEditingDescription) {
         setEditedDescription(tour?.description || "");
@@ -550,7 +550,7 @@ function TourDetails() {
     setEditedDescription(tour?.description || "");
   };
   const handleEditTitleClick = () => {
-    if (userData?.email === "sara@gmail.com") {
+    if (userData?.email === "livevirtualworld.info@gmail.com") {
       setIsEditingTitle(!isEditingTitle);
       if (!isEditingTitle) {
         setEditedTitle(tour?.title || "");
@@ -623,7 +623,7 @@ function TourDetails() {
       }, 3000);
       return;
     }
-    if (userData?.email !== "sara@gmail.com") {
+    if (userData?.email !== "livevirtualworld.info@gmail.com") {
       console.error("User does not have permission to update the cover image");
       return;
     }
@@ -673,7 +673,7 @@ function TourDetails() {
       });
   };
   const handleEditInstructionsClick = () => {
-    if (userData?.email === "sara@gmail.com") {
+    if (userData?.email === "livevirtualworld.info@gmail.com") {
       setIsEditingInstructions(!isEditingInstructions);
       if (!isEditingInstructions) {
         setEditedInstructions([...tour?.instructions]);
@@ -1013,7 +1013,7 @@ function TourDetails() {
               <img src={`http://localhost:5000/${tour?.img[0]}`} />
             )}
             <div className={style["hero__icons"]}>
-              {userData?.email === "sara@gmail.com" && (
+              {userData?.email === "livevirtualworld.info@gmail.com" && (
                 <i
                   className="fa-solid fa-pen-to-square"
                   style={{
@@ -1088,7 +1088,7 @@ function TourDetails() {
           ) : (
             <div className={style["hero__text"]}>
               <h2>{tour?.title}</h2>
-              {userData?.email === "sara@gmail.com" && (
+              {userData?.email === "livevirtualworld.info@gmail.com" && (
                 <i
                   className="fa-solid fa-pen-to-square"
                   style={{
@@ -1224,7 +1224,7 @@ function TourDetails() {
                             ? tour?.description
                             : "There's no description for this tour"}
                         </p>
-                        {userData?.email === "sara@gmail.com" && (
+                        {userData?.email === "livevirtualworld.info@gmail.com" && (
                           <i
                             className="fa-solid fa-pen-to-square"
                             style={{ fontSize: "20px", cursor: "pointer" }}
@@ -1244,7 +1244,7 @@ function TourDetails() {
                       {tour?.img?.length > 0 && (
                         <img src={`http://localhost:5000/${tour?.img[1]}`} />
                       )}
-                      {userData?.email === "sara@gmail.com" && (
+                      {userData?.email === "livevirtualworld.info@gmail.com" && (
                         <i
                           className="fa-solid fa-pen-to-square"
                           onClick={() => setEditMedia(true)}
@@ -1396,7 +1396,7 @@ function TourDetails() {
                       ) : (
                         <h5>No Instructions for this tour</h5>
                       )}
-                      {userData?.email === "sara@gmail.com" && (
+                      {userData?.email === "livevirtualworld.info@gmail.com" && (
                         <i
                           className="fa-solid fa-pen-to-square"
                           style={{
@@ -1416,7 +1416,7 @@ function TourDetails() {
 
               {tap === "media" && (
                 <div className={style["main-content"]}>
-                  {userData?.email === "sara@gmail.com" && (
+                  {userData?.email === "livevirtualworld.info@gmail.com" && (
                     <i
                       className="fa-solid fa-pen-to-square"
                       style={{

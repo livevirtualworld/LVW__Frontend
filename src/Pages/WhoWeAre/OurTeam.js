@@ -1,9 +1,11 @@
 import React from "react";
 import style from './WhoWeAre.module.css';
-import Sanad from '../../assets/team/Picture1.jpg';
-import Enzo from '../../assets/team/Picture2.jpg';
-import Ariana from '../../assets/team/Picture3.jpg';
-import Rana from '../../assets/team/Picture4.jpg';
+import Sanad from '../../assets/team/sanad.png';
+import Enzo from '../../assets/team/Enzo.png';
+import Ariana from '../../assets/team/Arianna.png';
+import Anisa from '../../assets/team/Anisa.png';
+import Rana from '../../assets/team/Rana.png';
+import Mohamed from '../../assets/team/Mohamed Ali.png'
 import User from '../../assets/default-user.png'
 
 
@@ -11,7 +13,7 @@ const teamData = [
     {
         name: 'Sanad Hamdan',
         position: 'CEO / FOUNDER',
-        image: User,
+        image: Sanad,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
@@ -20,7 +22,7 @@ const teamData = [
     {
         name: 'Enzo La Rosa',
         position: 'Finance & Strategic Specialist',
-        image: User,
+        image: Enzo,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
@@ -29,7 +31,7 @@ const teamData = [
     {
         name: 'Rana Khalil',
         position: 'Chief Marketing Officer',
-        image: User,
+        image: Rana,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
@@ -38,7 +40,7 @@ const teamData = [
     {
         name: 'Arianna Colombani',
         position: 'Accessibility & Education Specialist',
-        image: User,
+        image: Ariana,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
@@ -47,7 +49,16 @@ const teamData = [
     {
         name: 'Mohammed Ali',
         position: 'Chief Operation Officer',
-        image: User,
+        image: Mohamed,
+        socialMedia: {
+            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
+        }
+    },
+    {
+        name: 'Anisa Bali',
+        position: 'Coordinator',
+        image: Anisa,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
@@ -62,24 +73,24 @@ const teamData = [
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
         }
     },
-    {
-        name: 'Karim Ahsraf',
-        position: 'Graphic Designer & Ui Ux',
-        image: User,
-        socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
-            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
-        }
-    },
-    {
-        name: 'Murad Al-Saidi',
-        position: 'Graphic Designer',
-        image: User,
-        socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
-            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
-        }
-    },
+    // {
+    //     name: 'Karim Ahsraf',
+    //     position: 'Graphic Designer & Ui Ux',
+    //     image: User,
+    //     socialMedia: {
+    //         facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+    //         linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
+    //     }
+    // },
+    // {
+    //     name: 'Murad Al-Saidi',
+    //     position: 'Graphic Designer',
+    //     image: User,
+    //     socialMedia: {
+    //         facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+    //         linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
+    //     }
+    // },
 ];
 
 function OurTeam() {
