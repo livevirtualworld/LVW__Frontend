@@ -143,7 +143,7 @@ function Home() {
 
             {/*------------------------Hero Banner Section------------------*/}
             <section className={style["hero__banner__section"]}>
-                <video src={videoBG} autoPlay loop muted />
+                <video src="https://res.cloudinary.com/duo8svqci/video/upload/v1711459145/68bosk_vqaoze.mp4" autoPlay loop muted />
                 <div className={style["container"]}>
                     <div className={style["hero__banner__content"]}>
                         <div className={style["hero__banner__text"]}>
