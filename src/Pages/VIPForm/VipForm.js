@@ -25,6 +25,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Footer from '../Footer/Footer'
 import { NavLink } from "react-router-dom";
+const uri = process.env.REACT_APP_BACKEND
+
 
 
 
@@ -81,7 +83,7 @@ function VipForm() {
       navigate("/login");
     } else {
       axios
-        .post("http://localhost:5000/user/getOneUser", {
+        .post(`${uri}/user/getOneUser`, {
           id: JSON.parse(localStorage.getItem("id")),
         })
         .then((res) => {
@@ -89,13 +91,15 @@ function VipForm() {
         })
     }
     axios
-      .get("http://localhost:5000/user/oneTour", {
+      .get(`${uri}/user/oneTour`, {
         params: { id: location.state.id },
       })
       .then((res) => {
-        console.log(res.data)
-        languages(res.data);
-        setTour(res.data);
+        if(res.data.status == 200){
+          console.log(res.data)
+          languages(res.data);
+          setTour(res.data);
+        }
       });
 
       const handleResize = () => {
@@ -157,7 +161,7 @@ function VipForm() {
       try {
         // Fetch the client secret from your server
         const response = await axios.post(
-          "http://localhost:5000/getClientSecret",
+          `${uri}/getClientSecret`,
           {
             amount: tour?.hours * 5 * tour?.price * 100, // Pass the payment amount and convert to cents
             metadata: {
@@ -191,7 +195,7 @@ function VipForm() {
           if (paymentMethod && cardDetails && cardDetails.last4) {
             console.log("Last 4 digits:", cardDetails.last4);
           }
-          axios.post("http://localhost:5000/user/makeRequest", {
+          axios.post(`${uri}/user/makeRequest`, {
             tour: tour._id,
             emails: emails,
             language: modalLanguage,
@@ -261,7 +265,7 @@ function VipForm() {
             <div className={style['tour__right']}>
               {
                 tour?.img.slice(0, 3).map((img) =>
-                  <img src={`http://localhost:5000/${img}`} />
+                  <img src={`${uri}/${img}`} />
                 )
               }
             </div>
@@ -373,7 +377,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`} />
+                        <img src={`${uri}/${tour?.arabicTourGuide?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.arabicTourGuide?.name}</h3>
                           <p>Tour Guide</p>
@@ -386,7 +390,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`} />
+                        <img src={`${uri}/${tour?.arabicCameraOperator?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.arabicCameraOperator?.name}</h3>
                           <p>Camera Operator</p>
@@ -406,7 +410,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.englishTourGuide?.img}`} />
+                        <img src={`${uri}/${tour?.englishTourGuide?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.englishTourGuide?.name}</h3>
                           <p>Tour Guide</p>
@@ -419,7 +423,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`} />
+                        <img src={`${uri}/${tour?.englishCameraOperator?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.englishCameraOperator?.name}</h3>
                           <p>Camera Operator</p>
@@ -438,7 +442,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.italianTourGuide?.img}`} />
+                        <img src={`${uri}/${tour?.italianTourGuide?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.italianTourGuide?.name}</h3>
                           <p>Tour Guide</p>
@@ -451,7 +455,7 @@ function VipForm() {
                   >
                     <div className={style['tec__box']}>
                       <div className={style['tech__container']}>
-                        <img src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`} />
+                        <img src={`${uri}/${tour?.italianCameraOperator?.img}`} />
                         <div className={style['tec__info']}>
                           <h3>{tour?.italianCameraOperator?.name}</h3>
                           <p>Camera Operator</p>

@@ -31,6 +31,8 @@ import Footer from '../Footer/Footer'
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai"
 import { useRef } from 'react';
+const uri = process.env.REACT_APP_BACKEND
+
 
 function TechnicalProfile() {
   //TechnicalData
@@ -87,11 +89,10 @@ function TechnicalProfile() {
   };
 
   useEffect(() => {
-    console.log("tesssst")
     if (JSON.parse(technicalRole) === "tourGuide") {
       console.log(typeof technicalRole)
       console.log("this is tech role", technicalRole)
-      axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+      axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
         .then((res) => {
           console.log(res.data);
           setTechnicalData(res.data.data);
@@ -101,7 +102,7 @@ function TechnicalProfile() {
         });
     }
     if (JSON.parse(technicalRole) === "cameraOperator") {
-      axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+      axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
         .then((res) => {
           console.log(res.data);
           setTechnicalData(res.data.data);
@@ -112,7 +113,7 @@ function TechnicalProfile() {
     }
     if (JSON.parse(technicalRole) === "director") {
       console.log(typeof technicalRole)
-      axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+      axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
         .then((res) => {
           console.log(res.data);
           setTechnicalData(res.data.data);
@@ -151,14 +152,14 @@ function TechnicalProfile() {
 
   // Function to handle selecting a language
   const handleLanguageSelect = (language) => {
-    axios.put("http://localhost:5000/technical/addLang", {
+    axios.put(`${uri}/technical/addLang`, {
       lang: language,
       id: JSON.parse(localStorage.getItem("id"))
     }).then((res) => {
       if (JSON.parse(technicalRole) === "tourGuide") {
         console.log(typeof technicalRole)
         console.log("this is tech role", technicalRole)
-        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+        axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -168,7 +169,7 @@ function TechnicalProfile() {
           });
       }
       if (JSON.parse(technicalRole) === "cameraOperator") {
-        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+        axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -179,7 +180,7 @@ function TechnicalProfile() {
       }
       if (JSON.parse(technicalRole) === "director") {
         console.log(typeof technicalRole)
-        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+        axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -232,12 +233,12 @@ function TechnicalProfile() {
     formData.append("role", JSON.parse(technicalRole))
     formData.append("id", technicalId)
 
-    axios.put("http://localhost:5000/technical/editCoverImage", formData).then((response) => {
+    axios.put(`${uri}/technical/editCoverImage`, formData).then((response) => {
       console.log("Cover image updated successfully:", response.data);
       setShowCoverModal(false)
       if (JSON.parse(technicalRole) === "tourGuide") {
         console.log("this is tech role", technicalRole)
-        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+        axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -251,7 +252,7 @@ function TechnicalProfile() {
           });
       }
       if (JSON.parse(technicalRole) === "cameraOperator") {
-        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+        axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -265,7 +266,7 @@ function TechnicalProfile() {
           });
       }
       if (JSON.parse(technicalRole) === "director") {
-        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+        axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -315,12 +316,12 @@ function TechnicalProfile() {
     console.log("Selected cover image:", selectedProfileImage);
     console.log("FormData object:", formData);
 
-    axios.put("http://localhost:5000/technical/editImage", formData).then((response) => {
+    axios.put(`${uri}/technical/editImage`, formData).then((response) => {
       console.log("Cover image updated successfully:", response.data);
       setShowProfileModal(false)
       if (JSON.parse(technicalRole) === "tourGuide") {
         console.log("this is tech role", technicalRole)
-        axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+        axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -334,7 +335,7 @@ function TechnicalProfile() {
           });
       }
       if (JSON.parse(technicalRole) === "cameraOperator") {
-        axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+        axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -348,7 +349,7 @@ function TechnicalProfile() {
           });
       }
       if (JSON.parse(technicalRole) === "director") {
-        axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+        axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
@@ -486,10 +487,10 @@ function TechnicalProfile() {
               </div>
             </div>
             )}
-            <img src={`http://localhost:5000/${technicalData?.coverImg}`} alt='' />
+            <img src={`${uri}/${technicalData?.coverImg}`} alt='' />
           </div>
           <div className={style["profile__info"]}>
-            <img className={style['profile__info__image']} src={`http://localhost:5000/${technicalData?.img}`} alt='' />
+            <img className={style['profile__info__image']} src={`${uri}/${technicalData?.img}`} alt='' />
             <i
               className="fa-solid fa-plus"
               style={{ color: '#000000', cursor: 'pointer' }}
@@ -672,7 +673,7 @@ function TechnicalProfile() {
                               setShowErrorModal(false); // Hide the error modal after 3 seconds
                             }, 3000);
                           }else{
-                          axios.put("http://localhost:5000/technical/editnfo", {
+                          axios.put(`${uri}/technical/editnfo`, {
                             role: JSON.parse(localStorage.getItem("role")),
                             id: JSON.parse(localStorage.getItem("id")),
                             name: editName,
@@ -685,7 +686,7 @@ function TechnicalProfile() {
                             if (JSON.parse(technicalRole) === "tourGuide") {
                               console.log(typeof technicalRole)
                               console.log("this is tech role", technicalRole)
-                              axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                              axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
@@ -699,7 +700,7 @@ function TechnicalProfile() {
                                 });
                             }
                             if (JSON.parse(technicalRole) === "cameraOperator") {
-                              axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                              axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
@@ -710,7 +711,7 @@ function TechnicalProfile() {
                             }
                             if (JSON.parse(technicalRole) === "director") {
                               console.log(typeof technicalRole)
-                              axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                              axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
@@ -808,7 +809,7 @@ function TechnicalProfile() {
                               setShowErrorEducationModal(false); // Hide the error modal after 3 seconds
                             }, 3000);
                           } else {
-                            axios.put("http://localhost:5000/technical/addEducation", {
+                            axios.put(`${uri}/technical/addEducation`, {
                               role: JSON.parse(localStorage.getItem("role")),
                               id: JSON.parse(localStorage.getItem("id")),
                               university: university,
@@ -826,7 +827,7 @@ function TechnicalProfile() {
                               if (JSON.parse(technicalRole) === "tourGuide") {
                                 console.log(typeof technicalRole)
                                 console.log("this is tech role", technicalRole)
-                                axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
@@ -836,7 +837,7 @@ function TechnicalProfile() {
                                   });
                               }
                               if (JSON.parse(technicalRole) === "cameraOperator") {
-                                axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
@@ -847,7 +848,7 @@ function TechnicalProfile() {
                               }
                               if (JSON.parse(technicalRole) === "director") {
                                 console.log(typeof technicalRole)
-                                axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
@@ -928,7 +929,7 @@ function TechnicalProfile() {
                               setShowErrorExperienceModal(false); // Hide the error modal after 3 seconds
                             }, 3000);
                           } else {
-                            axios.put("http://localhost:5000/technical/addExperience", {
+                            axios.put(`${uri}/technical/addExperience`, {
                               role: JSON.parse(localStorage.getItem("role")),
                               id: JSON.parse(localStorage.getItem("id")),
                               position: positions,
@@ -946,7 +947,7 @@ function TechnicalProfile() {
                               if (JSON.parse(technicalRole) === "tourGuide") {
                                 console.log(typeof technicalRole)
                                 console.log("this is tech role", technicalRole)
-                                axios.post("http://localhost:5000/technical/getOneTourGuide", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneTourGuide`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
@@ -956,7 +957,7 @@ function TechnicalProfile() {
                                   });
                               }
                               if (JSON.parse(technicalRole) === "cameraOperator") {
-                                axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneCameraOperator`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
@@ -967,7 +968,7 @@ function TechnicalProfile() {
                               }
                               if (JSON.parse(technicalRole) === "director") {
                                 console.log(typeof technicalRole)
-                                axios.post("http://localhost:5000/technical/getOneDirector", { id: technicalId })
+                                axios.post(`${uri}/technical/getOneDirector`, { id: technicalId })
                                   .then((res) => {
                                     console.log(res.data);
                                     setTechnicalData(res.data.data);
