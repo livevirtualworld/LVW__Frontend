@@ -3,6 +3,9 @@ import CardImg from "../../assets/image3.png"
 import style from './Home.module.css'
 import { NavLink } from 'react-router-dom';
 
+const uri = process.env.REACT_APP_BACKEND
+
+
 
 function LiveToursCard(props) {
     return (
@@ -12,7 +15,7 @@ function LiveToursCard(props) {
             <div className={style["card"]}>
                 <div className={style["trip__image__buttons"]}>
                     {props.data.img.length > 0 ? (
-                        <img src={`http://localhost:5000/${props.data?.img[0]}`} alt="" className={style["card-img"]} />) : (
+                        <img src={`${uri}/${props.data?.img[0]}`} alt="" className={style["card-img"]} />) : (
                         <img src={CardImg} alt="" className={style["card-img"]} />)
                     }
                     <span><i class="fa-regular fa-circle-stop" style={{color: '#fe2629', fontSize: '20px'}}></i></span>
