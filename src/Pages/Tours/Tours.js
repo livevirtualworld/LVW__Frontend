@@ -60,10 +60,7 @@ function Tours() {
   useEffect(() => {
     axios.get("http://localhost:5000/admin/allTours").then((res) => {
       axios.get("http://localhost:5000/user/getAllBooks").then((result) => {
-        console.log(result.data)
         const groupedBokking = result.data.reduce((bookRes, obj) => {
-          console.log(bookRes)
-          console.log(obj)
           const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
           if (filteredGrouped) {
             filteredGrouped.numberOfGuests += obj.numberOfGuests

@@ -44,6 +44,8 @@ import Navbar from '../Navbar/Navbar'
 import videoBG from '../../assets/intro.mp4'
 import Footer from '../Footer/Footer'
 
+const uri = process.env.REACT_APP_BACKEND
+
 
 function Home() {
     const [menu, setMenu] = useState(false)
@@ -67,27 +69,60 @@ function Home() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5000/admin//allTours").then((res) => {
-            setTours(res.data.data)
-            setFilteredTours(res.data.data)
+        axios.get(`${uri}/admin/allTours`).then((res) => {
+            if(res.data.status == 200){
+                axios.get(`${uri}/user/getAllBooks`).then((result) => {
+                    if(res.data.status == 200){
+                        const groupedBokking = result.data.reduce((bookRes, obj) => {
+                          const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
+                          if (filteredGrouped) {
+                            filteredGrouped.numberOfGuests += obj.numberOfGuests
+                          } else {
+                            bookRes.push({ id: obj?.tour, numberOfGuests: obj.numberOfGuests })
+                          }
+                          return bookRes;
+                        }, []
+                        )
+                        const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
+                        const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
+                        console.log(newFilteredBooked)
+                        const filteredBooke = newFilteredBooked.filter((book) => new Date(book.endTime) > new Date());
+                
+                        setTours(filteredBooke)
+                        setFilteredTours(filteredBooke)
+                    }
+                })
+            }
+    })
+        axios.get(`${uri}/user/allTravelers`).then((res) => {
+            if(res.data.status == 200){
+                setTravelers(res.data.travelers)
+            }
         })
-        axios.get("http://localhost:5000/user/allTravelers").then((res) => {
-            setTravelers(res.data.travelers)
+        axios.get(`${uri}/user/public`).then((res) => {
+            if(res.data.status == 200){
+                setPublicTours(res.data.length)
+            }
         })
-        axios.get("http://localhost:5000/user/public").then((res) => {
-            setPublicTours(res.data.length)
+        axios.get(`${uri}/user/vip`).then((res) => {
+            if(res.data.status == 200){
+                setVip(res.data.length)
+            }
         })
-        axios.get("http://localhost:5000/user/vip").then((res) => {
-            setVip(res.data.length)
+        axios.get(`${uri}/user/popularTours`).then((res) => {
+            if(res.data.status == 200){
+                setPopularTours(res.data)
+            }
         })
-        axios.get("http://localhost:5000/user/popularTours").then((res) => {
-            setPopularTours(res.data)
+        axios.get(`${uri}/user/popularReviews`).then((res) => {
+            if(res.data.status == 200){
+                setPopularReviews(res.data)
+            }
         })
-        axios.get("http://localhost:5000/user/popularReviews").then((res) => {
-            setPopularReviews(res.data)
-        })
-        axios.get("http://localhost:5000/user/liveTours").then((res) => {
-            setLiveTours(res.data.data)
+        axios.get(`${uri}/user/liveTours`).then((res) => {
+            if(res.data.status == 200){
+                setLiveTours(res.data.data)
+            }
         })
     }, []);
 
@@ -121,7 +156,7 @@ function Home() {
     }
 
     function subscribeToNewsletter() {
-        axios.post("http://localhost:5000/subscribe", {
+        axios.post(`${uri}/subscribe`, {
             email: subscribe
         }).then((res) => {
             console.log(res.data)
