@@ -8,6 +8,8 @@ import United_Kingdom from "../../assets/United Kingdom (GB).png";
 import egypt from "../../assets/Egypt (EG).png";
 import Italy from "../../assets/italy.png";
 import axios from "axios";
+const uri = process.env.REACT_APP_BACKEND
+
 
 function Navbar() {
   const [menu, setMenu] = useState(false);
@@ -22,9 +24,9 @@ function Navbar() {
   useEffect(() => {
     if (userRole === "user") {
       axios
-        .post("http://localhost:5000/user/getOneUser", { id: personId })
+        .post(`${uri}/user/getOneUser`, { id: personId })
         .then((res) => {
-          setPersonData(res.data.data);
+            setPersonData(res.data.data);
         })
         .catch((error) => {
           console.error("Error fetching Director data:", error);
@@ -32,7 +34,7 @@ function Navbar() {
     } else {
       if (JSON.parse(personRole) === "tourGuide") {
         axios
-          .post("http://localhost:5000/technical/getOneTourGuide", {
+          .post(`${uri}/technical/getOneTourGuide`, {
             id: personId,
           })
           .then((res) => {
@@ -44,7 +46,7 @@ function Navbar() {
       }
       if (JSON.parse(personRole) === "cameraOperator") {
         axios
-          .post("http://localhost:5000/technical/getOneCameraOperator", {
+          .post(`${uri}/technical/getOneCameraOperator`, {
             id: personId,
           })
           .then((res) => {
@@ -56,7 +58,7 @@ function Navbar() {
       }
       if (JSON.parse(personRole) === "director") {
         axios
-          .post("http://localhost:5000/technical/getOneDirector", {
+          .post(`${uri}/technical/getOneDirector`, {
             id: personId,
           })
           .then((res) => {

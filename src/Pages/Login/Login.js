@@ -10,6 +10,8 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
+const uri = process.env.REACT_APP_BACKEND
+
 
 
 
@@ -81,7 +83,7 @@ function Login() {
         setEmailError(false)
         setPasswordError(false)
         setTermsAccepted(true);
-        axios.post("http://localhost:5000/user/register", {
+        axios.post(`${uri}/user/register`, {
           userType: userType,
           name: registerName,
           email: registerEmail,
@@ -122,7 +124,7 @@ function Login() {
         formData.append("cv", registerCv);
         formData.append("license", registerLicense);
 
-        axios.post("http://localhost:5000/technical/register", formData).then((res) => {
+        axios.post(`${uri}/technical/register`, formData).then((res) => {
           if (res.data.status === 200) {
             hi ? setHi(false) : setHi(true)
             setTap("forget")
@@ -183,12 +185,12 @@ function Login() {
                   else {
                     setEmailError(false)
                     setPasswordError(false)
-                    axios.post("http://localhost:5000/user/login", {
+                    axios.post(`${uri}/user/login`, {
                       email: loginEmail,
                       password: loginPassword
                     }).then((res) => {
                       if (res.data.message === "Email not found") {
-                        axios.post("http://localhost:5000/technical/login", {
+                        axios.post(`${uri}/technical/login`, {
                           email: loginEmail,
                           password: loginPassword
                         }).then((res) => {
@@ -285,9 +287,9 @@ function Login() {
                       </div>
                       <div className={style['column__flex']}>
 
-                        <FormControlLabel onClick={() => {
+                        {/* <FormControlLabel onClick={() => {
                           setUserType("director")
-                        }} value="director" control={<Radio />} label="Director" />
+                        }} value="director" control={<Radio />} label="Director" /> */}
                         <FormControlLabel onClick={() => {
                           setUserType("user")
                         }} value="user" control={<Radio />} label="User" />

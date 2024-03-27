@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import { FaStar } from 'react-icons/fa'
 import axios from 'axios';
 import { param } from 'jquery';
+const uri = process.env.REACT_APP_BACKEND
+
 
 
 
@@ -44,7 +46,7 @@ function TechnicalCard(props) {
         }
     });
     useEffect(() => {
-        axios.get("http://localhost:5000/user/oneTour", {params: {id: props?.data}})
+        axios.get(`${uri}/user/oneTour`, {params: {id: props?.data}})
         .then((res)=>{
             setcardData(res.data)
         })
@@ -55,7 +57,7 @@ function TechnicalCard(props) {
                 to={`/tourDetails`} state={cardData?._id}
             >
                 <div className={style["tour__trip__image__buttons"]}>
-                    <img src={cardData?.img?.length > 0 ? `http://localhost:5000/${cardData?.img && cardData?.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
+                    <img src={cardData?.img?.length > 0 ? `${uri}/${cardData?.img && cardData?.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
                     <div className={style["tour__card__buttons"]}>
                         <button className={style["tour__public__btn"]}>
                             {cardData?.category === 'public' ? 'Public' : (cardData?.category === 'VIP' ? 'VIP' : '')}
@@ -241,7 +243,7 @@ function TechnicalCard(props) {
                                     variant="contained"
                                     onClick={() => {
                                         handleClose()
-                                        axios.post("http://localhost:5000/user/makeReview", {
+                                        axios.post(`${uri}/user/makeReview`, {
                                             user: JSON.parse(localStorage.getItem("id")),
                                             book: props.id,
                                             rate: tourRating,

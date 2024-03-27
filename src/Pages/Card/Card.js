@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { FaStar } from 'react-icons/fa'
 import axios from 'axios';
+const uri = process.env.REACT_APP_BACKEND
 
 function Card(props) {
     const [tourRating, setTourRating] = useState(null)
@@ -49,7 +50,7 @@ function Card(props) {
                 to={`/tourDetails`} state={props?.data?._id}
             >
                 <div className={style["tour__trip__image__buttons"]}>
-                    <img src={props?.data?.img?.length > 0 ? `http://localhost:5000/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
+                    <img src={props?.data?.img?.length > 0 ? `${uri}/${props.data.img && props.data.img[0]}` : TourCardImage} alt="" className={style["tour__card-img"]} />
                     <div className={style["tour__card__buttons"]}>
                         <button className={style["tour__public__btn"]}>
                             {props?.data?.category === 'public' ? 'Public' : (props?.data?.category === 'VIP' ? 'VIP' : (props?.data?.category === 'free' ? 'Free' : ''))}
@@ -236,7 +237,7 @@ function Card(props) {
                                     variant="contained"
                                     onClick={() => {
                                         handleClose()
-                                        axios.post("http://localhost:5000/user/makeReview", {
+                                        axios.post(`${uri}/user/makeReview`, {
                                             user: JSON.parse(localStorage.getItem("id")),
                                             book: props.id,
                                             rate: tourRating,

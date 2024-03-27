@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from './Form.module.css'
 import axios from 'axios'
+const uri = process.env.REACT_APP_BACKEND
 
 
 
@@ -15,7 +16,7 @@ function Form() {
         e.preventDefault();
         const formData = { fullName, email, subject, message };
         try {
-            const response = await axios.post('http://localhost:5000/user/contactus', formData);
+            const response = await axios.post(`${uri}/user/contactus`, formData);
             console.log(response.data);
             setFullName('');
             setEmail('');
