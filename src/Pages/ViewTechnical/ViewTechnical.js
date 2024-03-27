@@ -25,6 +25,8 @@ import Card from '../Card/Card';
 import { useParams } from 'react-router-dom';
 import TechnicalCard from '../Card/TechnicalCard'
 import Footer from '../Footer/Footer'
+const uri = process.env.REACT_APP_BACKEND
+
 
 
 
@@ -62,7 +64,7 @@ function ViewTechnical() {
 
     useEffect(() => {
         if (role === "tourGuide") {
-            axios.post("http://localhost:5000/technical/getOneTourGuide", { id: id.toString() }) // You can adjust the API endpoint as needed
+            axios.post(`${uri}/technical/getOneTourGuide`, { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
                         // Data was successfully retrieved
@@ -81,7 +83,7 @@ function ViewTechnical() {
                 });
         }
         else if (role === "cameraOperator") {
-            axios.post("http://localhost:5000/technical/getOneCameraOperator", { id: id.toString() }) // You can adjust the API endpoint as needed
+            axios.post(`${uri}/technical/getOneCameraOperator`, { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
                         // Data was successfully retrieved
@@ -100,7 +102,7 @@ function ViewTechnical() {
                 });
         }
         else if (role === "director") {
-            axios.post("http://localhost:5000/technical/getOneDirector", { id: id.toString() }) // You can adjust the API endpoint as needed
+            axios.post(`${uri}/technical/getOneDirector`, { id: id.toString() }) // You can adjust the API endpoint as needed
                 .then((response) => {
                     if (response.data.success) {
                         // Data was successfully retrieved
@@ -142,10 +144,10 @@ function ViewTechnical() {
             <div className={style["profile"]}>
                 <div className={style["container"]}>
                     <div className={style["profile__content"]}>
-                        <img src={`http://localhost:5000/${technicalData?.coverImg}`} alt='' />
+                        <img src={`${uri}/${technicalData?.coverImg}`} alt='' />
                     </div>
                     <div className={style["profile__info"]}>
-                        <img className={style['profile__info__image']} src={`http://localhost:5000/${technicalData?.img}`} alt='' />            <div className={style["profile__text"]}>
+                        <img className={style['profile__info__image']} src={`${uri}/${technicalData?.img}`} alt='' />            <div className={style["profile__text"]}>
                             <div>
                                 <h3>{technicalData?.name}</h3>
                                 {role === 'tourGuide' && <h4>Tour Guide</h4>}

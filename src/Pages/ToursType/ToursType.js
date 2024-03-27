@@ -31,10 +31,12 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Navbar from '../Navbar/Navbar'
+const uri = process.env.REACT_APP_BACKEND
+
 
 
 function ToursType() {
-    const {type} = useParams();
+  const { type } = useParams();
   const [tours, setTours] = useState([])
   const [filteredTours, setFilteresTours] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
@@ -57,18 +59,22 @@ function ToursType() {
   const [lang, setLang] = useState("english")
 
   useEffect(() => {
-    axios.get("http://localhost:5000/admin/allTours").then((res) => {
-        const ToursType = res.data.data.filter((tour)=>
-        tour?.tourType == type
+    axios.get(`${uri}/admin/allTours`).then((res) => {
+      if (res.data.status == 200) {
+        const ToursType = res.data.data.filter((tour) =>
+          tour?.tourType == type
         )
-      setTours(ToursType)
-      setFilteresTours(ToursType)
+        setTours(ToursType)
+        setFilteresTours(ToursType)
+      }
     })
-    axios.get("http://localhost:5000/user/liveTours").then((res)=>{
-        const liveToursType = res.data.data.filter((tour)=>
-        tour?.tourType == type
+    axios.get(`${uri}/user/liveTours`).then((res) => {
+      if (res.data.status == 200) {
+        const liveToursType = res.data.data.filter((tour) =>
+          tour?.tourType == type
         )
-      setLiveTours(liveToursType)
+        setLiveTours(liveToursType)
+      }
     })
   }, []);
   useEffect(() => {
@@ -85,22 +91,22 @@ function ToursType() {
 
   const handleSwitchChange = () => {
     setIsSwitchOn((prev) => !prev);
-    if(!isSwitchOn){
+    if (!isSwitchOn) {
       setFilteresTours(liveTours)
     }
   };
 
-  function search(text){
+  function search(text) {
     console.log(text)
-    const x = tours.filter((tour)=>{
-        console.log(tour.address)
-       return tour.address.toLowerCase().includes(text.toLowerCase())
+    const x = tours.filter((tour) => {
+      console.log(tour.address)
+      return tour.address.toLowerCase().includes(text.toLowerCase())
     })
     setFilteresTours(x)
-}
+  }
   return (
     <>
-           <Navbar />
+      <Navbar />
 
 
       <div className={style["path"]}>
@@ -212,7 +218,7 @@ function ToursType() {
           <Map tours={filteredTours} />
           <div className={style["tours__map__search__bar"]}>
             <img src={SearchMap} alt="" className={style["tours__map__search__icon"]} />
-            <input onChange={(e)=>{search(e.target.value)}} className={style["search"]} type="search" placeholder="Location..." />
+            <input onChange={(e) => { search(e.target.value) }} className={style["search"]} type="search" placeholder="Location..." />
           </div>
         </div>
       </section>

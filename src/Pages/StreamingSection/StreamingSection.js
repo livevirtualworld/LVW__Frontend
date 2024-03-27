@@ -5,12 +5,16 @@ import LiveImage from '../../assets/live/image 5.png'
 import Watch from '../../assets/live/icons.svg'
 import Send from '../../assets/live/Send.svg'
 import axios from 'axios'
+const uri = process.env.REACT_APP_BACKEND
+
 
 function StreamingSection() {
     const [liveTours, setLiveTours] = useState([])
     useEffect(() => {
-        axios.get("http://localhost:5000/user/liveTours").then((res) => {
-            setLiveTours(res.data.data)
+        axios.get(`${uri}/user/liveTours`).then((res) => {
+            if(res.data.status == 200){
+                setLiveTours(res.data.data)
+            }
         })
     }, []);
 

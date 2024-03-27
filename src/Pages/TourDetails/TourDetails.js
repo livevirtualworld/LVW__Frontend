@@ -38,6 +38,8 @@ import UserCoverModalStyle from "../UserProfile/UserCoverModal.module.css";
 import Modalstyle from "../UserProfile/EditModal.module.css";
 import { Button, Input } from "@mui/material";
 import Footer from "../Footer/Footer";
+const uri = process.env.REACT_APP_BACKEND
+
 
 function TourDetails() {
   const viewportWidth = window.innerWidth;
@@ -136,7 +138,7 @@ function TourDetails() {
   useEffect(() => {
     if (location.state) {
       axios
-        .get("http://localhost:5000/user/oneTour", {
+        .get(`${uri}/user/oneTour`, {
           params: { id: location.state },
         })
         .then((res) => {
@@ -144,7 +146,7 @@ function TourDetails() {
           hours(res.data.hours);
           languages(res.data);
           axios
-            .get("http://localhost:5000/user/getTourBooks", {
+            .get(`${uri}/user/getTourBooks`, {
               params: { id: res.data._id },
             })
             .then((bookres) => {
@@ -170,13 +172,13 @@ function TourDetails() {
         });
     } else if (num) {
       axios
-        .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+        .get(`${uri}/user/oneTour`, { params: { id: num } })
         .then((res) => {
           setTour(res.data);
           hours(res.data.hours);
           languages(res.data);
           axios
-            .get("http://localhost:5000/user/getTourBooks", {
+            .get(`${uri}/user/getTourBooks`, {
               params: { id: res.data._id },
             })
             .then((bookres) => {
@@ -195,34 +197,44 @@ function TourDetails() {
             });
         });
     }
-    axios.get("http://localhost:5000/user/public").then((res) => {
-      setPublicTours(res.data);
+    axios.get(`${uri}/user/public`).then((res) => {
+      if(res.data.status == 200){
+        setPublicTours(res.data);
+      }
     });
-    axios.get("http://localhost:5000/user/vip").then((res) => {
-      setVip(res.data);
+    axios.get(`${uri}/user/vip`).then((res) => {
+      if(res.data.status == 200){
+        setVip(res.data);
+      }
     });
-    axios.get("http://localhost:5000/user/free").then((res) => {
-      setFree(res.data);
+    axios.get(`${uri}/user/free`).then((res) => {
+      if(res.data.status == 200){
+        setFree(res.data);
+      }
     });
-    axios.get("http://localhost:5000/user/liveTours").then((res) => {
-      for (let i = 0; i < res.data.data.length; i++) {
-        if (res.data.data[i]._id === tour?._id) {
-          setIsLive(true);
+    axios.get(`${uri}/user/liveTours`).then((res) => {
+      if(res.data.status == 200){
+        for (let i = 0; i < res.data.data.length; i++) {
+          if (res.data.data[i]._id === tour?._id) {
+            setIsLive(true);
+          }
         }
       }
     });
     axios
-      .get("http://localhost:5000/user/liveTours")
+      .get(`${uri}/user/liveTours`)
       .then((res) => {
-        const liveTourData = res.data.data;
-        const liveId = liveTourData.map((tour) => tour?._id);
-        setLiveTourId(liveId);
+        if(res.data.status == 200){
+          const liveTourData = res.data.data;
+          const liveId = liveTourData.map((tour) => tour?._id);
+          setLiveTourId(liveId);
+        }
       })
       .catch((error) => {
         console.error("Error fetching live tours:", error);
       });
     axios
-      .post("http://localhost:5000/user/getOneUser", {
+      .post(`${uri}/user/getOneUser`, {
         id: JSON.parse(localStorage.getItem("id")),
       })
       .then((res) => {
@@ -307,7 +319,7 @@ function TourDetails() {
         try {
           // Fetch the client secret from your server
           const response = await axios.post(
-            "http://localhost:5000/getClientSecret",
+            `${uri}/getClientSecret`,
             {
               amount: bookedHours * bookedNumber * tour?.price * 100, // Pass the payment amount and convert to cents
               metadata: {
@@ -350,7 +362,7 @@ function TourDetails() {
               price: bookedHours * bookedNumber * tour?.price,
             };
             const response = await axios.post(
-              "http://localhost:5000/user/bookTour",
+              `${uri}/user/bookTour`,
               bookingData
             );
 
@@ -385,7 +397,7 @@ function TourDetails() {
     } else {
       if (localStorage.getItem("role") == "user") {
         axios
-          .post("http://localhost:5000/user/bookFreeTour", {
+          .post(`${uri}/user/bookFreeTour`, {
             user: JSON.parse(localStorage.getItem("id")),
             tour: tour._id,
             hours: bookedHours,
@@ -444,14 +456,14 @@ function TourDetails() {
 
     axios
       .put(
-        `http://localhost:5000/user/editTourCoverImage/${tour?._id}`,
+        `${uri}/user/editTourCoverImage/${tour?._id}`,
         formData
       )
       .then((response) => {
         setShowCoverModal(false);
         if (location.state) {
           axios
-            .get("http://localhost:5000/user/oneTour", {
+            .get(`${uri}/user/oneTour`, {
               params: { id: location.state },
             })
             .then((res) => {
@@ -468,7 +480,7 @@ function TourDetails() {
             });
         } else if (num) {
           axios
-            .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+            .get(`${uri}/user/oneTour`, { params: { id: num } })
             .then((res) => {
               setTour(res.data);
               hours(res.data.hours);
@@ -497,7 +509,7 @@ function TourDetails() {
   };
   const handleSaveDescription = () => {
     axios
-      .put(`http://localhost:5000/user/editTourDescription/${tour?._id}`, {
+      .put(`${uri}/user/editTourDescription/${tour?._id}`, {
         description: editedDescription,
       })
       .then((res) => {
@@ -508,7 +520,7 @@ function TourDetails() {
         setIsEditingDescription(false);
         if (location.state) {
           axios
-            .get("http://localhost:5000/user/oneTour", {
+            .get(`${uri}/user/oneTour`, {
               params: { id: location.state },
             })
             .then((res) => {
@@ -525,7 +537,7 @@ function TourDetails() {
             });
         } else if (num) {
           axios
-            .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+            .get(`${uri}/user/oneTour`, { params: { id: num } })
             .then((res) => {
               setTour(res.data);
               hours(res.data.hours);
@@ -559,7 +571,7 @@ function TourDetails() {
   };
   const handleSaveTitle = () => {
     axios
-      .put(`http://localhost:5000/user/editTourTitle/${tour?._id}`, {
+      .put(`${uri}/user/editTourTitle/${tour?._id}`, {
         title: editedTitle,
       })
       .then((res) => {
@@ -567,7 +579,7 @@ function TourDetails() {
         setIsEditingTitle(false);
         if (location.state) {
           axios
-            .get("http://localhost:5000/user/oneTour", {
+            .get(`${uri}/user/oneTour`, {
               params: { id: location.state },
             })
             .then((res) => {
@@ -584,7 +596,7 @@ function TourDetails() {
             });
         } else if (num) {
           axios
-            .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+            .get(`${uri}/user/oneTour`, { params: { id: num } })
             .then((res) => {
               setTour(res.data);
               hours(res.data.hours);
@@ -631,12 +643,12 @@ function TourDetails() {
     formData.append("img", selectedMedia);
 
     axios
-      .put(`http://localhost:5000/user/editTourMedia/${tour?._id}`, formData)
+      .put(`${uri}/user/editTourMedia/${tour?._id}`, formData)
       .then((response) => {
         setEditMedia(false);
         if (location.state) {
           axios
-            .get("http://localhost:5000/user/oneTour", {
+            .get(`${uri}/user/oneTour`, {
               params: { id: location.state },
             })
             .then((res) => {
@@ -653,7 +665,7 @@ function TourDetails() {
             });
         } else if (num) {
           axios
-            .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+            .get(`${uri}/user/oneTour`, { params: { id: num } })
             .then((res) => {
               setTour(res.data);
               hours(res.data.hours);
@@ -695,7 +707,7 @@ function TourDetails() {
   };
   const handleSaveInstructions = () => {
     axios
-      .put(`http://localhost:5000/user/editTourInstructions/${tour?._id}`, {
+      .put(`${uri}/user/editTourInstructions/${tour?._id}`, {
         instructions: editedInstructions,
       })
       .then((res) => {
@@ -706,7 +718,7 @@ function TourDetails() {
         setIsEditingInstructions(false);
         if (location.state) {
           axios
-            .get("http://localhost:5000/user/oneTour", {
+            .get(`${uri}/user/oneTour`, {
               params: { id: location.state },
             })
             .then((res) => {
@@ -723,7 +735,7 @@ function TourDetails() {
             });
         } else if (num) {
           axios
-            .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+            .get(`${uri}/user/oneTour`, { params: { id: num } })
             .then((res) => {
               setTour(res.data);
               hours(res.data.hours);
@@ -816,7 +828,7 @@ function TourDetails() {
 
         updatePromises.push(
           axios.put(
-            `http://localhost:5000/user/editTourMedia/${tour._id}/${theI[i]}`,
+            `${uri}/user/editTourMedia/${tour._id}/${theI[i]}`,
             formData
           )
         );
@@ -830,7 +842,7 @@ function TourDetails() {
 
       addNewPromises.push(
         axios.post(
-          `http://localhost:5000/user/addTourMedia/${tour._id}`,
+          `${uri}/user/addTourMedia/${tour._id}`,
           formData
         )
       );
@@ -841,7 +853,7 @@ function TourDetails() {
     for (let i = 0; i < theRemove.length; i++) {
       removePromises.push(
         axios.delete(
-          `http://localhost:5000/user/removeTourMedia/${tour._id}/${theRemove[i]}`
+          `${uri}/user/removeTourMedia/${tour._id}/${theRemove[i]}`
         )
       );
     }
@@ -856,7 +868,7 @@ function TourDetails() {
       localStorage.removeItem("index");
       if (location.state) {
         axios
-          .get("http://localhost:5000/user/oneTour", {
+          .get(`${uri}/user/oneTour`, {
             params: { id: location.state },
           })
           .then((res) => {
@@ -866,7 +878,7 @@ function TourDetails() {
           });
       } else if (num) {
         axios
-          .get("http://localhost:5000/user/oneTour", { params: { id: num } })
+          .get(`${uri}/user/oneTour`, { params: { id: num } })
           .then((res) => {
             setTour(res.data);
             hours(res.data.hours);
@@ -1010,7 +1022,7 @@ function TourDetails() {
           <div className={style["hero__content"]}>
             <div className={style["overlay"]} />
             {tour?.img?.length > 0 && (
-              <img src={`http://localhost:5000/${tour?.img[0]}`} />
+              <img src={`${uri}/${tour?.img[0]}`} />
             )}
             <div className={style["hero__icons"]}>
               {userData?.email === "livevirtualworld.info@gmail.com" && (
@@ -1242,7 +1254,7 @@ function TourDetails() {
                     </div>
                     <div className={style["media"]}>
                       {tour?.img?.length > 0 && (
-                        <img src={`http://localhost:5000/${tour?.img[1]}`} />
+                        <img src={`${uri}/${tour?.img[1]}`} />
                       )}
                       {userData?.email === "livevirtualworld.info@gmail.com" && (
                         <i
@@ -1432,7 +1444,7 @@ function TourDetails() {
                   {tour?.img.length > 0 ? (
                     <div className={style["main-image"]}>
                       <img
-                        src={`http://localhost:5000/${tour?.img[0]}`}
+                        src={`${uri}/${tour?.img[0]}`}
                         alt="Main Tour Image"
                       />
                     </div>
@@ -1442,7 +1454,7 @@ function TourDetails() {
                       {tour?.img.slice(1).map((img, index) => (
                         <img
                           key={index}
-                          src={`http://localhost:5000/${img}`}
+                          src={`${uri}/${img}`}
                           alt={`Tour Image ${index}`}
                         />
                       ))}
@@ -1489,7 +1501,7 @@ function TourDetails() {
                                   }`}
                               >
                                 <img
-                                  src={`http://localhost:5000/${preview}`}
+                                  src={`${uri}/${preview}`}
                                   alt={`Media ${index}`}
                                   style={{ width: "70%", height: "150px" }}
                                 />
@@ -1806,7 +1818,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.arabicTourGuide?.img}`}
+                              src={`${uri}/${tour?.arabicTourGuide?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1820,7 +1832,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.arabicCameraOperator?.img}`}
+                              src={`${uri}/${tour?.arabicCameraOperator?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1834,7 +1846,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.arabicDirector?.img}`}
+                              src={`${uri}/${tour?.arabicDirector?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1853,7 +1865,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.englishTourGuide?.img}`}
+                              src={`${uri}/${tour?.englishTourGuide?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1867,7 +1879,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.englishCameraOperator?.img}`}
+                              src={`${uri}/${tour?.englishCameraOperator?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1881,7 +1893,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.englishDirector?.img}`}
+                              src={`${uri}/${tour?.englishDirector?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1900,7 +1912,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.italianTourGuide?.img}`}
+                              src={`${uri}/${tour?.italianTourGuide?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1914,7 +1926,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.italianCameraOperator?.img}`}
+                              src={`${uri}/${tour?.italianCameraOperator?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
@@ -1928,7 +1940,7 @@ function TourDetails() {
                         >
                           <div className={style["person"]}>
                             <img
-                              src={`http://localhost:5000/${tour?.italianDirector?.img}`}
+                              src={`${uri}/${tour?.italianDirector?.img}`}
                               alt="avatar"
                             />
                             <div className={style["text"]}>
