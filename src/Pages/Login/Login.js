@@ -190,11 +190,13 @@ function Login() {
                       password: loginPassword
                     }).then((res) => {
                       if (res.data.message === "Email not found") {
+                        console.log("hhh")
                         axios.post(`${uri}/technical/login`, {
                           email: loginEmail,
                           password: loginPassword
                         }).then((result) => {
                           if (result.data.status === 200) {
+                            console.log(result.data)
                             localStorage.setItem("id", JSON.stringify(result.data.data._id))
                             localStorage.setItem("role", JSON.stringify(result.data.user))
                             setShowSuccessLoginModal(true);
