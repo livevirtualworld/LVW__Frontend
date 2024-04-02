@@ -1841,7 +1841,7 @@ function TourDetails() {
                             </div>
                           </div>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                           to={`/viewtechnical/${tour?.arabicDirector?._id}/director`}
                         >
                           <div className={style["person"]}>
@@ -1854,7 +1854,7 @@ function TourDetails() {
                               <h5>Director</h5>
                             </div>
                           </div>
-                        </NavLink>
+                        </NavLink> */}
                       </>
                     )}
                     {bookedLang === "English" && (
@@ -1888,7 +1888,7 @@ function TourDetails() {
                             </div>
                           </div>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                           to={`/viewtechnical/${tour?.englishDirector?._id}/tourGuide`}
                         >
                           <div className={style["person"]}>
@@ -1901,7 +1901,7 @@ function TourDetails() {
                               <h5>Director</h5>
                             </div>
                           </div>
-                        </NavLink>
+                        </NavLink> */}
                       </>
                     )}
                     {bookedLang === "Italian" && (
@@ -1935,7 +1935,7 @@ function TourDetails() {
                             </div>
                           </div>
                         </NavLink>
-                        <NavLink
+                        {/* <NavLink
                           to={`/viewtechnical/${tour?.italianDirector?._id}/tourGuide`}
                         >
                           <div className={style["person"]}>
@@ -1948,7 +1948,7 @@ function TourDetails() {
                               <h5>Director</h5>
                             </div>
                           </div>
-                        </NavLink>
+                        </NavLink> */}
                       </>
                     )}
                   </div>
