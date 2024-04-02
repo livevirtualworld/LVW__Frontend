@@ -272,7 +272,10 @@ function Navbar() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/userprofile">Profile</NavLink>
+                {
+                  userRole === "user" ?
+                  <NavLink to="/userprofile">Profile</NavLink> : <NavLink to="/technicalprofile">Profile</NavLink>
+                }
               </li>
               <li>
                 <a href="#" onClick={handleLogout}>
