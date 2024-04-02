@@ -190,6 +190,7 @@ function Login() {
                       password: loginPassword
                     }).then((res) => {
                       if (res.data.message === "Email not found") {
+                        console.log("hhh")
                         axios.post(`${uri}/technical/login`, {
                           email: loginEmail,
                           password: loginPassword
