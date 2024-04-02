@@ -667,6 +667,7 @@ function TechnicalProfile() {
                       <div className={Modalstyle['modal__actions']}>
                         <button onClick={() => setShowEditModal(false)}>Cancel</button>
                         <button onClick={() => {
+
                           if (!editName || !editPhone || !editDescription || !editAddress || !editCity) {
                             setShowErrorModal(true); // Show the error modal
                             setTimeout(() => {
@@ -704,6 +705,10 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
+                                  setShowSuccessModal(true);
+                                  setTimeout(() => {
+                                    setShowSuccessModal(false);
+                                  }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Camera Operator data:", error);
@@ -715,6 +720,10 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
+                                  setShowSuccessModal(true);
+                                  setTimeout(() => {
+                                    setShowSuccessModal(false);
+                                  }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Director data:", error);
