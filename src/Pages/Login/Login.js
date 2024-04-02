@@ -193,8 +193,8 @@ function Login() {
                         axios.post(`${uri}/technical/login`, {
                           email: loginEmail,
                           password: loginPassword
-                        }).then((res) => {
-                          if (res.data.status === 200) {
+                        }).then((result) => {
+                          if (result.data.status === 200) {
                             localStorage.setItem("id", JSON.stringify(res.data.data._id))
                             localStorage.setItem("role", JSON.stringify(res.data.user))
                             setShowSuccessLoginModal(true);
@@ -203,8 +203,8 @@ function Login() {
                               navigate("/home");
                             }, 3000);
                           }
-                          else if (res.data.status === 400) {
-                            setErrorLoginMsg(res.data.message)
+                          else if (result.data.status === 400) {
+                            setErrorLoginMsg(result.data.message)
                             setShowErrorLoginModal(true);
                             setTimeout(() => {
                               setShowErrorLoginModal(false);
