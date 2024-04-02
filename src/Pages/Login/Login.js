@@ -196,6 +196,7 @@ function Login() {
                           password: loginPassword
                         }).then((result) => {
                           if (result.data.status === 200) {
+                            console.log(result.data)
                             localStorage.setItem("id", JSON.stringify(result.data.data._id))
                             localStorage.setItem("role", JSON.stringify(result.data.user))
                             setShowSuccessLoginModal(true);
