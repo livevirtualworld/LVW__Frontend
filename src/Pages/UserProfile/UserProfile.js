@@ -29,6 +29,8 @@ import Footer from "../Footer/Footer";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai"
 import { useRef } from 'react';
+const uri = process.env.REACT_APP_BACKEND
+
 
 function UserProfile() {
   //UserData
@@ -77,40 +79,44 @@ function UserProfile() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/user/getOneUser", { id: userId })
+      .post(`${uri}/user/getOneUser`, { id: userId })
       .then((res) => {
-        setUserData(res.data.data);
+        if(res.data.status == 200){
+          setUserData(res.data.data);
+        }
       })
       .catch((error) => {
         console.error("Error fetching user data:", error);
       });
     axios
-      .get("http://localhost:5000/user/getBooks", {
+      .get(`${uri}/user/getBooks`, {
         params: { id: localStorage.getItem("id") },
       })
       .then((res) => {
-        console.log(res);
-        // setBooked(res.data)
-        const newBooked = [];
-        const others = []
-
-        for (let i = 0; i < res.data.length; i++) {
-          console.log(res.data[i])
-          const endTime = new Date(res.data[i].tour.endTime);
-
-          if (endTime < new Date()) {
-            console.log(endTime)
-            newBooked.push(res.data[i]);
+        if(res.data.status == 200){
+          console.log(res);
+          // setBooked(res.data)
+          const newBooked = [];
+          const others = []
+  
+          for (let i = 0; i < res.data.length; i++) {
+            console.log(res.data[i])
+            const endTime = new Date(res.data[i].tour.endTime);
+  
+            if (endTime < new Date()) {
+              console.log(endTime)
+              newBooked.push(res.data[i]);
+            }
+            else {
+              others.push(res.data[i]);
+              console.log(others)
+            }
           }
-          else {
-            others.push(res.data[i]);
-            console.log(others)
-          }
+  
+          // Add the newBooked items to the existing booked array
+          setBooked((prevBooked) => [...newBooked]);
+          setUnFinished((prevBooked) => [...others]);
         }
-
-        // Add the newBooked items to the existing booked array
-        setBooked((prevBooked) => [...newBooked]);
-        setUnFinished((prevBooked) => [...others]);
       });
   }, []);
 
@@ -147,7 +153,7 @@ function UserProfile() {
       }, 3000);
     } else {
       axios
-        .put(`http://localhost:5000/user/editInfo`, {
+        .put(`${uri}/user/editInfo`, {
           name: editName,
           id: userId,
           description: editDescription,
@@ -158,7 +164,7 @@ function UserProfile() {
         .then((res) => {
           setShowEditModal(false);
           axios
-            .post("http://localhost:5000/user/getOneUser", { id: userId })
+            .post(`${uri}/user/getOneUser`, { id: userId })
             .then((res) => {
               setUserData(res.data.data);
               setShowSuccessModal(true);
@@ -202,11 +208,11 @@ function UserProfile() {
     formData.append("id", userId);
 
     axios
-      .put("http://localhost:5000/user/editCoverImage", formData)
+      .put(`${uri}/user/editCoverImage`, formData)
       .then((response) => {
         setShowCoverModal(false);
         axios
-          .post("http://localhost:5000/user/getOneUser", { id: userId })
+          .post(`${uri}/user/getOneUser`, { id: userId })
           .then((res) => {
             setUserData(res.data.data);
             setShowSuccessCoverModal(true);
@@ -252,13 +258,13 @@ function UserProfile() {
     formData.append("id", userId);
 
     axios
-      .put("http://localhost:5000/user/editImage", formData)
+      .put(`${uri}/user/editImage`, formData)
       .then((response) => {
         setShowProfileModal(false);
         setProfileImagePreview("")
         setSelectedProfileImage(null)
         axios
-          .post("http://localhost:5000/user/getOneUser", { id: userId })
+          .post(`${uri}/user/getOneUser`, { id: userId })
           .then((res) => {
             setUserData(res.data.data);
             setShowSuccessProfileModal(true);
@@ -376,12 +382,12 @@ function UserProfile() {
                 </div>
               </div>
             )}
-            <img src={`http://localhost:5000/${userData.coverImg}`} alt="" />
+            <img src={`${uri}/${userData.coverImg}`} alt="" />
           </div>
           <div className={style["profile__info"]}>
             <img
               className={style["profile__info__image"]}
-              src={`http://localhost:5000/${userData.img}`}
+              src={`${uri}/${userData.img}`}
               alt=""
             />
             <i

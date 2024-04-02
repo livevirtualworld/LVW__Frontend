@@ -33,6 +33,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer';
+const uri = process.env.REACT_APP_BACKEND
 
 
 function Tours() {
@@ -58,31 +59,37 @@ function Tours() {
   const [lang, setLang] = useState("english")
 
   useEffect(() => {
-    axios.get("http://localhost:5000/admin/allTours").then((res) => {
-      axios.get("http://localhost:5000/user/getAllBooks").then((result) => {
-        const groupedBokking = result.data.reduce((bookRes, obj) => {
-          const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
-          if (filteredGrouped) {
-            filteredGrouped.numberOfGuests += obj.numberOfGuests
-          } else {
-            bookRes.push({ id: obj?.tour, numberOfGuests: obj.numberOfGuests })
+    axios.get(`${uri}/admin/allTours`).then((res) => {
+      if(res.data.status == 200){
+        axios.get(`${uri}/user/getAllBooks`).then((result) => {
+          if(res.data.status == 200){
+            const groupedBokking = result.data.reduce((bookRes, obj) => {
+              const filteredGrouped = bookRes.find(tour => tour?.id === obj?.tour)
+              if (filteredGrouped) {
+                filteredGrouped.numberOfGuests += obj.numberOfGuests
+              } else {
+                bookRes.push({ id: obj?.tour, numberOfGuests: obj.numberOfGuests })
+              }
+              return bookRes;
+            }, []
+            )
+            // console.log(groupedBokking)
+            const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
+            // console.log(repeatedTours)
+            const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
+            console.log(newFilteredBooked)
+            const filteredBooke = newFilteredBooked.filter((book) => new Date(book.endTime) > new Date());
+    
+            setTours(filteredBooke)
+            setFilteresTours(filteredBooke)
           }
-          return bookRes;
-        }, []
-        )
-        // console.log(groupedBokking)
-        const repeatedTours = groupedBokking.filter(obj => obj.numberOfGuests >= 5)
-        // console.log(repeatedTours)
-        const newFilteredBooked = res.data.data.filter(obj => !repeatedTours.some(objTwo => obj._id === objTwo.id))
-        console.log(newFilteredBooked)
-        const filteredBooke = newFilteredBooked.filter((book) => new Date(book.endTime) > new Date());
-
-        setTours(filteredBooke)
-        setFilteresTours(filteredBooke)
-      })
+        })
+      }
     })
-    axios.get("http://localhost:5000/user/liveTours").then((res) => {
-      setLiveTours(res.data.data)
+    axios.get(`${uri}/user/liveTours`).then((res) => {
+      if(res.data.status == 200){
+        setLiveTours(res.data.data)
+      }
     })
   }, []);
   useEffect(() => {

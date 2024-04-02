@@ -5,6 +5,7 @@ import Vector from '../../assets/Group 39467.svg'
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
+const uri = process.env.REACT_APP_BACKEND
 
 
 
@@ -49,7 +50,7 @@ function ForgetPassword() {
             setPasswordError(false)
             setConfirmPasswordError(false)
             setMatchingError(false);
-            axios.put("http://localhost:5000/user/updatePassword", {
+            axios.put(`${uri}/user/updatePassword`, {
                 email: forgetEmail,
                 password: forgetPassword
             }).then((res) => {
@@ -100,7 +101,7 @@ function ForgetPassword() {
                                     }
                                     else {
                                         setEmailError(false)
-                                        axios.post("http://localhost:5000/user/checkEmail", {
+                                        axios.post(`${uri}/user/checkEmail`, {
                                             email: forgetEmail,
                                         }).then((res) => {
                                             if (res.data.status === 200) {

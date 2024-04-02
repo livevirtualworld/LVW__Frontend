@@ -4,6 +4,9 @@ import 'leaflet/dist/leaflet.css';
 import LocationOne from "../../assets/Doctor.svg"
 import style from './Map.module.css';
 
+const uri = process.env.REACT_APP_BACKEND
+
+
 const Map = ({ tours }) => {
     const mapRef = useRef(null); // Use a ref to hold the map instance
 
@@ -30,7 +33,7 @@ const Map = ({ tours }) => {
                     className: 'custom-marker',
                     html: `
                         <a href="/tourDetails/${_id}">
-                            ${img ? `<img style="width:25px" src="http://localhost:5000/${img[0]}" alt="${title}" />` : ''}
+                            ${img ? `<img style="width:25px" src="${uri}/${img[0]}" alt="${title}" />` : ''}
                             <span class="marker-text">${title}</span>
                         </a>
                     `,
