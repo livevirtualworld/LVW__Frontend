@@ -195,8 +195,8 @@ function Login() {
                           password: loginPassword
                         }).then((result) => {
                           if (result.data.status === 200) {
-                            localStorage.setItem("id", JSON.stringify(res.data.data._id))
-                            localStorage.setItem("role", JSON.stringify(res.data.user))
+                            localStorage.setItem("id", JSON.stringify(result.data.data._id))
+                            localStorage.setItem("role", JSON.stringify(result.data.user))
                             setShowSuccessLoginModal(true);
                             setTimeout(() => {
                               setShowSuccessLoginModal(false);
