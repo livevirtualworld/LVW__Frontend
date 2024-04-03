@@ -27,6 +27,10 @@ const teamDescriptions = [
         description: "**No Content Available**"
     },
     {
+        name: 'Anisa Bali (Coordinator)',
+        description: "**No Content Available**"
+    },
+    {
         name: 'Fatma Khalil (Chief Technology Officer)',
         description: "**No Content Available**"
     },
