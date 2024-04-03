@@ -95,51 +95,49 @@ function VipForm() {
         params: { id: location.state.id },
       })
       .then((res) => {
-        if(res.data.status == 200){
           console.log(res.data)
           languages(res.data);
           setTour(res.data);
-        }
       });
 
-      const handleResize = () => {
-        const viewportWidth = window.innerWidth;
-        // Define viewport width to font size mapping
-        const fontSizeMapping = {
-          1200: "20px",
-          1100: "16px",
-          900: "14px",
-          800: "13px",
-          750: "17px",
-          682: "20px",
-          390: "17px",
-          340: "16px",
-          320: "15px",
-          305: "14px",
-          286: "13px",
-        };
-  
-        // Find the appropriate font size based on the current viewport width
-        let selectedFontSize = "20px"; // Default font size
-        for (let width in fontSizeMapping) {
-          if (viewportWidth <= parseInt(width)) {
-            selectedFontSize = fontSizeMapping[width];
-            break;
-          }
+    const handleResize = () => {
+      const viewportWidth = window.innerWidth;
+      // Define viewport width to font size mapping
+      const fontSizeMapping = {
+        1200: "20px",
+        1100: "16px",
+        900: "14px",
+        800: "13px",
+        750: "17px",
+        682: "20px",
+        390: "17px",
+        340: "16px",
+        320: "15px",
+        305: "14px",
+        286: "13px",
+      };
+
+      // Find the appropriate font size based on the current viewport width
+      let selectedFontSize = "20px"; // Default font size
+      for (let width in fontSizeMapping) {
+        if (viewportWidth <= parseInt(width)) {
+          selectedFontSize = fontSizeMapping[width];
+          break;
         }
-        setFontSize(selectedFontSize);
-      };
-  
-      // Call handleResize when window is resized
-      window.addEventListener('resize', handleResize);
-  
-      // Call handleResize initially to set the font size on component mount
-      handleResize();
-  
-      // Cleanup event listener on component unmount
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
+      }
+      setFontSize(selectedFontSize);
+    };
+
+    // Call handleResize when window is resized
+    window.addEventListener('resize', handleResize);
+
+    // Call handleResize initially to set the font size on component mount
+    handleResize();
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
 
   }, []);
 
