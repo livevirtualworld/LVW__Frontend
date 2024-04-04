@@ -171,7 +171,7 @@ function Login() {
                     <input onChange={(e) => {
                       setLoginPassword(e.target.value)
 
-                    }} type="password" className={style["input-field"]} id="log__pass" />
+                    }} type='password' className={style["input-field"]} id="log__pass" />
                     <label>Password</label>
                     {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
@@ -320,7 +320,7 @@ function Login() {
                     </div>
                     <div className={style["input-wrap"]}>
                       <input
-                        type="password"
+                        type='password'
                         id="pass"
                         className={style["input-field"]}
                         onChange={(e) => {
