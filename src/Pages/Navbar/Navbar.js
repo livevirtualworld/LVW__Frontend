@@ -88,6 +88,7 @@ function Navbar() {
   }
 
   return (
+    <>
     <nav>
       <div className={style["container"]}>
         <div className={style["nav__content"]}>
@@ -243,8 +244,13 @@ function Navbar() {
             </div>
           </div>
         </div>
+      </div>
+    </nav>
         {showDisblayMenu && (
           <div className={style["disblayMenu"]}>
+            {
+                personData ? <p>Welcome, {personData?.name} </p>: <NavLink to="/login">Join Us Now</NavLink>
+            }
             <ul>
               <li className={isActive("/home")}>
                 <NavLink exact to="/home" activeClassName={style["active"]}>
@@ -286,17 +292,12 @@ function Navbar() {
                 </a>
               </li>
               </> :
-              <li>
-              <NavLink to="/login">
-                Join us
-              </NavLink>
-            </li>
+              ""
         }
             </ul>
           </div>
         )}
-      </div>
-    </nav>
+        </>
   );
 }
 export default Navbar;
