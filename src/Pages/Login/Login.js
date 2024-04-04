@@ -167,13 +167,19 @@ function Login() {
                     {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <div className={style["input-wrap"]}>
-                    <input onChange={(e) => {setLoginPassword(e.target.value)}}
-                    type={showPassword ? 'text' : 'password'} 
-                    className={style["input-field"]} id="log__pass"
+                    <input onChange={(e) => { setLoginPassword(e.target.value) }}
+                      type={showPassword ? 'text' : 'password'}
+                      className={style["input-field"]} id="log__pass"
                     />
                     <label>Password</label>
                     <i
                       className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                      style={{
+                        position: 'absolute',
+                        right: '15px',
+                        top: '14px',
+                        color: '#848181'
+                      }}
                       onClick={() => setShowPassword(!showPassword)}
                     ></i>
                     {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
@@ -323,7 +329,7 @@ function Login() {
                     </div>
                     <div className={style["input-wrap"]}>
                       <input
-                        type='password'
+                        type={showPassword ? 'text' : 'password'}
                         id="pass"
                         className={style["input-field"]}
                         onChange={(e) => {
@@ -331,6 +337,16 @@ function Login() {
                         }}
                       />
                       <label>Password</label>
+                      <i
+                      className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                      style={{
+                        position: 'absolute',
+                        right: '15px',
+                        top: '14px',
+                        color: '#848181'
+                      }}
+                      onClick={() => setShowPassword(!showPassword)}
+                    ></i>
                       {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                     </div>
                     {userType === 'director' || userType === 'cameraOperator' || userType === 'tourGuide' ? (
