@@ -248,11 +248,13 @@ function Navbar() {
       </nav>
       {showDisblayMenu && (
         <div className={style["disblayMenu"]}>
-          <i class="fa-regular fa-rectangle-xmark" 
-          style={{color: 'white'}}
-          onClick={() => setShowDisblayMenu(false)}
-          >
-          </i>
+          <div className={style["close__icon"]}>
+            <i class="fa-regular fa-rectangle-xmark"
+              style={{ color: 'white' , fontSize: '20px'}}
+              onClick={() => setShowDisblayMenu(false)}
+            >
+            </i>
+          </div>
           <div className={style["display__menu__container"]}>
 
             {
