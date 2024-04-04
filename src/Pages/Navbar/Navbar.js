@@ -272,7 +272,7 @@ function Navbar() {
                 </NavLink>
               </li>
         {
-          personData && 
+          personData ?
           <>
               <li>
                 {
@@ -285,7 +285,12 @@ function Navbar() {
                   Logout
                 </a>
               </li>
-              </>
+              </> :
+              <li>
+              <NavLink to="/login">
+                Join us
+              </NavLink>
+            </li>
         }
             </ul>
           </div>
