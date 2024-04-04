@@ -10,6 +10,8 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const uri = process.env.REACT_APP_BACKEND
 
 
@@ -135,6 +137,8 @@ function Login() {
   }
 
   return (
+    <>
+    <ToastContainer />
     <main className={`${hi === true ? style.signn : ""}`}>
       <div className={style["form__box"]}>
         <div className={style["inner-box"]}>
@@ -190,50 +194,37 @@ function Login() {
                       password: loginPassword
                     }).then((res) => {
                       if (res.data.message === "Email not found!") {
-                        console.log("hhh")
                         axios.post(`${uri}/technical/login`, {
                           email: loginEmail,
                           password: loginPassword
                         }).then((result) => {
                           if (result.data.status === 200) {
-                            console.log(result.data)
                             localStorage.setItem("id", JSON.stringify(result.data.data._id))
                             localStorage.setItem("role", JSON.stringify(result.data.user))
-                            setShowSuccessLoginModal(true);
-                            setTimeout(() => {
-                              setShowSuccessLoginModal(false);
-                              navigate("/home");
-                            }, 3000);
-                          }
-                          else if (result.data.status === 400) {
-                            setErrorLoginMsg(result.data.message)
-                            setShowErrorLoginModal(true);
-                            setTimeout(() => {
-                              setShowErrorLoginModal(false);
-                            }, 3000);
+                            toast.success('Login successful!', {
+                              autoClose: 3000,
+                              onClose: () => navigate("/home")
+                            });
+                          } else if (result.data.status === 400) {
+                            toast.error(result.data.message, { autoClose: 3000 });
                           }
                         })
-                      }
-                      else {
+                      } else {
                         if (res.data.status === 200) {
                           localStorage.setItem("id", JSON.stringify(res.data.data._id))
                           localStorage.setItem("role", "user")
-                          setShowSuccessLoginModal(true);
-                          setTimeout(() => {
-                            setShowSuccessLoginModal(false);
-                            navigate("/home");
-                          }, 3000);
-                        }
-                        else if (res.data.status === 400) {
-                          setErrorLoginMsg(res.data.message)
-                          setShowErrorLoginModal(true);
-                          setTimeout(() => {
-                            setShowErrorLoginModal(false);
-                          }, 3000);
+                          toast.success('Login successful!', {
+                            autoClose: 3000,
+                            onClose: () => navigate("/home")
+                          });
+                        } else if (res.data.status === 400) {
+                          toast.error(res.data.message, { autoClose: 3000 });
                         }
                       }
-
-                    })
+                    }).catch(error => {
+                      console.error("Error:", error);
+                      toast.error("An error occurred. Please try again later.", { autoClose: 3000 });
+                    });                    
                   }
                 }} type="submit" defaultValue="Login" className={style["sign-btn"]} />
                 <p className={style["forgo"]}>
@@ -399,6 +390,7 @@ function Login() {
         </div>
       </div>
     </main>
+    </>
   );
 }
 
