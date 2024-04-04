@@ -20,7 +20,7 @@ const uri = process.env.REACT_APP_BACKEND
 
 function Login() {
   const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
   const [tap, setTap] = useState("signUp")
   const [hi, setHi] = useState(false)
   const [userType, setUserType] = useState("user");
@@ -167,11 +167,15 @@ function Login() {
                     {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <div className={style["input-wrap"]}>
-                    <input onChange={(e) => {
-                      setLoginPassword(e.target.value)
-
-                    }} type='password' className={style["input-field"]} id="log__pass" />
+                    <input onChange={(e) => {setLoginPassword(e.target.value)}}
+                    type={showPassword ? 'text' : 'password'} 
+                    className={style["input-field"]} id="log__pass"
+                    />
                     <label>Password</label>
+                    <i
+                      className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                      onClick={() => setShowPassword(!showPassword)}
+                    ></i>
                     {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <input onClick={(e) => {
