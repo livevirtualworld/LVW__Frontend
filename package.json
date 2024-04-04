@@ -31,6 +31,8 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.4",
     "react-star-rating-component": "^1.4.1",
+    "react-toast-notifications": "^2.5.1",
+    "react-toastify": "^10.0.5",
     "swiper": "^10.0.4",
     "web-vitals": "^2.1.4"
   },
