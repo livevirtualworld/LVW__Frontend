@@ -10,8 +10,10 @@ import FormLabel from '@mui/material/FormLabel';
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ShowToast from '../../utils/ToastifyMessage'
+import showToast from '../../utils/ToastifyMessage';
 const uri = process.env.REACT_APP_BACKEND
 
 
@@ -92,30 +94,22 @@ function Login() {
           password: registerPassword
         }).then((res) => {
           if (res.data.status === 200) {
-            setShowSuccessRegisterModal(true);
+            showToast("Registered Successfully", 2000, "success")
             setTimeout(() => {
-              setShowSuccessRegisterModal(false);
               window.location.reload();
-            }, 3000);
+            }, 2000);
           }
           else if (res.data.status === 400) {
             setErrorRegisterMsg(res.data.message)
-            setShowErrorRegisterModal(true);
-            setTimeout(() => {
-              setShowErrorRegisterModal(false);
-            }, 3000);
+            showToast(errorRegisterMsg, 2000, "error")
           }
         })
 
       }
-
     }
     else {
       if (!registerName || !registerEmail || !registerPassword || !registerCv || !registerLicense) {
-        setShowErrorModal(true);
-        setTimeout(() => {
-          setShowErrorModal(false);
-        }, 3000);
+        showToast("This field can't be empty!", 2000, "error")
         return;
       } else {
         const formData = new FormData();
@@ -128,8 +122,12 @@ function Login() {
 
         axios.post(`${uri}/technical/register`, formData).then((res) => {
           if (res.data.status === 200) {
+            showToast("Registered Successfully", 2000, "success")
             hi ? setHi(false) : setHi(true)
             setTap("forget")
+          } else if (res.data.status === 400) {
+            setErrorRegisterMsg(res.data.message)
+            showToast(errorRegisterMsg, 2000, "error")
           }
         })
       }
@@ -138,258 +136,263 @@ function Login() {
 
   return (
     <>
-    <ToastContainer />
-    <main className={`${hi === true ? style.signn : ""}`}>
-      <div className={style["form__box"]}>
-        <div className={style["inner-box"]}>
-          <div className={style["forms-wrap"]}>
-            {/*--------------------- Sign In Form-----------------------*/}
-            {/* Success Modal */}
-            {showSuccessLoginModal && <SuccessandErrorModals message={"Welcome Back!"} success={true} />}
-            {
-              showErrorLoginModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
-            }
-            <form className={style["sign-in-form"]} id="sign__in__form" >
-              <div className={style["logo"]}>
-                <img src={Logo} alt="" />
-              </div>
-              <div className={style["heading"]}>
-                <h2>Welcome Back</h2>
-                <h6>Not registred yet?</h6>
-                <a className={style["toggle"]} onClick={() => {
-                  hi ? setHi(false) : setHi(true)
-                  setTap("signUp")
-                }}>Sign up</a>
-              </div>
-              <div className={style["actual-form"]}>
-                <div className={style["input-wrap"]}>
-                  <input onChange={(e) => {
-                    setLoginEmail(e.target.value)
-                  }} type="email" className={style["input-field"]} id="log__email" />
-                  <label>Email</label>
-                  {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
-                </div>
-                <div className={style["input-wrap"]}>
-                  <input onChange={(e) => {
-                    setLoginPassword(e.target.value)
-
-                  }} type="password" className={style["input-field"]} id="log__pass" />
-                  <label>Password</label>
-                  {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
-                </div>
-                <input onClick={(e) => {
-                  e.preventDefault()
-                  if (!loginEmail) {
-                    setEmailError(true)
-                    return;
-                  }
-                  else if (!loginPassword) {
-                    setPasswordError(true)
-                  }
-                  else {
-                    setEmailError(false)
-                    setPasswordError(false)
-                    axios.post(`${uri}/user/login`, {
-                      email: loginEmail,
-                      password: loginPassword
-                    }).then((res) => {
-                      if (res.data.message === "Email not found!") {
-                        axios.post(`${uri}/technical/login`, {
-                          email: loginEmail,
-                          password: loginPassword
-                        }).then((result) => {
-                          if (result.data.status === 200) {
-                            localStorage.setItem("id", JSON.stringify(result.data.data._id))
-                            localStorage.setItem("role", JSON.stringify(result.data.user))
-                            toast.success('Login successful!', {
-                              autoClose: 3000,
-                              onClose: () => navigate("/home")
-                            });
-                          } else if (result.data.status === 400) {
-                            toast.error(result.data.message, { autoClose: 3000 });
-                          }
-                        })
-                      } else {
-                        if (res.data.status === 200) {
-                          localStorage.setItem("id", JSON.stringify(res.data.data._id))
-                          localStorage.setItem("role", "user")
-                          toast.success('Login successful!', {
-                            autoClose: 3000,
-                            onClose: () => navigate("/home")
-                          });
-                        } else if (res.data.status === 400) {
-                          toast.error(res.data.message, { autoClose: 3000 });
-                        }
-                      }
-                    }).catch(error => {
-                      console.error("Error:", error);
-                      toast.error("An error occurred. Please try again later.", { autoClose: 3000 });
-                    });                    
-                  }
-                }} type="submit" defaultValue="Login" className={style["sign-btn"]} />
-                <p className={style["forgo"]}>
-                  Forget your password?
-                  <a
-                    style={{ marginLeft: '2px', cursor: 'pointer', fontWeight: '600' }}
-                    onClick={() => {
-                      navigate("/forget")
-                    }} >Click here</a>
-                </p>
-              </div>
-            </form>
-            {/*--------------------- Sign up Form-----------------------*/}
-
-            {/* Success Modal */}
-            {showSuccessRegisterModal && <SuccessandErrorModals message={"Registered Successfully"} success={true} />}
-            {
-              showErrorRegisterModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
-            }
-            {
-
-              tap === "signUp" &&
-              <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit} enctype="multipart/form-data">
-                <div className={style["logo sign__logo"]}>
+      <ToastContainer />
+      <main className={`${hi === true ? style.signn : ""}`}>
+        <div className={style["form__box"]}>
+          <div className={style["inner-box"]}>
+            <div className={style["forms-wrap"]}>
+              {/*--------------------- Sign In Form-----------------------*/}
+              {/* Success Modal */}
+              {showSuccessLoginModal && <SuccessandErrorModals message={"Welcome Back!"} success={true} />}
+              {
+                showErrorLoginModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
+              }
+              <form className={style["sign-in-form"]} id="sign__in__form" >
+                <div className={style["logo"]}>
                   <img src={Logo} alt="" />
                 </div>
                 <div className={style["heading"]}>
-                  <h2>Get Started</h2>
-                  <h6>Already have an account?</h6>
-                  <a onClick={() => {
+                  <h2>Welcome Back</h2>
+                  <h6>Not registred yet?</h6>
+                  <a className={style["toggle"]} onClick={() => {
                     hi ? setHi(false) : setHi(true)
-                    setTap("login")
-                  }} className={style["toggle"]} id="signUp">Login</a>
+                    setTap("signUp")
+                  }}>Sign up</a>
                 </div>
-                <FormControl>
-                  <FormLabel id="demo-row-radio-buttons-group-label">Sign Up as :</FormLabel>
-                  <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                    value={userType}
-                  // onChange={handleInputChange}
-                  >
-                    <div className={style['parent__div']}>
-                      <div className={style['column__flex']}>
-
-                        <FormControlLabel onClick={() => {
-                          setUserType("tourGuide")
-                        }} value="tourGuide" control={<Radio />} label="Tour Guide" />
-                        <FormControlLabel onClick={() => {
-                          setUserType("cameraOperator")
-                        }} value="cameraOperator" control={<Radio />} label="Camera Operator" />
-                      </div>
-                      <div className={style['column__flex']}>
-
-                        {/* <FormControlLabel onClick={() => {
-                          setUserType("director")
-                        }} value="director" control={<Radio />} label="Director" /> */}
-                        <FormControlLabel onClick={() => {
-                          setUserType("user")
-                        }} value="user" control={<Radio />} label="User" />
-                      </div>
-                    </div>
-                  </RadioGroup>
-                </FormControl>
-                <div className={style["actual-form sign__form"]}>
+                <div className={style["actual-form"]}>
                   <div className={style["input-wrap"]}>
-                    <input
-                      type="text"
-                      id="name"
-                      className={style["input-field"]}
-                      onChange={(e) => {
-                        setRegisterName(e.target.value)
-                      }}
-                    />
-                    <label>Name</label>
-                    {nameError && <small className={style["error-message__small"]}>This field can't be empty</small>}
-                  </div>
-                  <div className={style["input-wrap"]}>
-                    <input
-                      type="email"
-                      id="email"
-                      className={style["input-field"]}
-                      onChange={(e) => {
-                        setRegisterEmail(e.target.value)
-                      }}
-                    />
+                    <input onChange={(e) => {
+                      setLoginEmail(e.target.value)
+                    }} type="email" className={style["input-field"]} id="log__email" />
                     <label>Email</label>
                     {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
                   <div className={style["input-wrap"]}>
-                    <input
-                      type="password"
-                      id="pass"
-                      className={style["input-field"]}
-                      onChange={(e) => {
-                        setRegisterPassword(e.target.value)
-                      }}
-                    />
+                    <input onChange={(e) => {
+                      setLoginPassword(e.target.value)
+
+                    }} type="password" className={style["input-field"]} id="log__pass" />
                     <label>Password</label>
                     {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                   </div>
-                  {userType === 'director' || userType === 'cameraOperator' || userType === 'tourGuide' ? (
-                    <div className={style['files__input']}>
-                      <div>
-                        <label className={style['files__label']}>Upload CV</label>
-                        <input
-                          type="file"
-                          id="cv"
-                          className={style['file-input']}
-                          onChange={(e) => {
-                            setRegisteredCv(e.target.files[0])
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <label className={style['files__label']}>Upload License</label>
-                        <input
-                          type="file"
-                          id="license"
-                          className={style['file-input']}
-                          onChange={(e) => {
-                            setRegisteredLicense(e.target.files[0])
-                          }}
-                        />
-                      </div>
-                    </div>
+                  <input onClick={(e) => {
+                    e.preventDefault()
+                    if (!loginEmail) {
+                      setEmailError(true)
+                      return;
+                    }
+                    else if (!loginPassword) {
+                      setPasswordError(true)
+                    }
+                    else {
+                      setEmailError(false)
+                      setPasswordError(false)
+                      axios.post(`${uri}/user/login`, {
+                        email: loginEmail,
+                        password: loginPassword
+                      }).then((res) => {
+                        if (res.data.message === "Email not found!") {
+                          console.log("hhh")
+                          axios.post(`${uri}/technical/login`, {
+                            email: loginEmail,
+                            password: loginPassword
+                          }).then((result) => {
+                            if (result.data.status === 200) {
+                              console.log(result.data)
+                              localStorage.setItem("id", JSON.stringify(result.data.data._id))
+                              localStorage.setItem("role", JSON.stringify(result.data.user))
+                              showToast("Welcome Back!", 2000, "success")
+                              setTimeout(() => {
+                                navigate("/home");
+                              }, 2000);
+                            }
+                            else if (result.data.status === 400) {
+                              setErrorLoginMsg(result.data.message)
+                              showToast(errorLoginMsg, 2000, "error")
+                            }
+                          })
+                        }
+                        else {
+                          if (res.data.status === 200) {
+                            localStorage.setItem("id", JSON.stringify(res.data.data._id))
+                            localStorage.setItem("role", "user")
+                            showToast("Welcome Back!", 2000, "success")
+                            setTimeout(() => {
+                              navigate("/home");
+                            }, 2000);
+                          }
+                          else if (res.data.status === 400) {
+                            setErrorLoginMsg(res.data.message)
+                            showToast(errorLoginMsg, 2000, "error")
+                          }
+                        }
 
-                  ) : null}
-
-
-                  <input type="submit" className={style["sign-btn"]} />
-                  <p className={style["text"]}>
-                    <input
-                      type="checkbox"
-                      checked={agreed}
-                      onChange={handleCheckboxChange}
-                    />
-                    {' '}
-                    By signing up, I agree to the
-                    <a href="#" style={{ margin: '0 3px' }}>Terms of Services</a> and
-                    <a href="#" style={{ margin: '0 3px' }}>Privacy Policy</a>
+                      })
+                    }
+                  }} type="submit" defaultValue="Login" className={style["sign-btn"]} />
+                  <p className={style["forgo"]}>
+                    Forget your password?
+                    <a
+                      style={{ marginLeft: '2px', cursor: 'pointer', fontWeight: '600' }}
+                      onClick={() => {
+                        navigate("/forget")
+                      }} >Click here</a>
                   </p>
-
-                  {termsAccepted ? null : (
-                    <p className={style["error-message"]}>Can't register without accepting the terms.</p>
-                  )}
                 </div>
               </form>
-            }
-            {/*--------------------- Forget Password Form-----------------------*/}
-          </div>
-          <div className={style["carousel"]}>
-            <div className={style["carousel__welcome"]}>
-              <h2>Welcome to</h2>
-              <img src={Logo} alt="" className={style["carousel__logo"]} />
+              {/*--------------------- Sign up Form-----------------------*/}
+
+              {/* Success Modal */}
+              {showSuccessRegisterModal && <SuccessandErrorModals message={"Registered Successfully"} success={true} />}
+              {
+                showErrorRegisterModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
+              }
+              {
+
+                tap === "signUp" &&
+                <form className={style["sign-up-form"]} id="sign__up__form" onSubmit={handleSubmit} enctype="multipart/form-data">
+                  <div className={style["logo sign__logo"]}>
+                    <img src={Logo} alt="" />
+                  </div>
+                  <div className={style["heading"]}>
+                    <h2>Get Started</h2>
+                    <h6>Already have an account?</h6>
+                    <a onClick={() => {
+                      hi ? setHi(false) : setHi(true)
+                      setTap("login")
+                    }} className={style["toggle"]} id="signUp">Login</a>
+                  </div>
+                  <FormControl>
+                    <FormLabel id="demo-row-radio-buttons-group-label">Sign Up as :</FormLabel>
+                    <RadioGroup
+                      row
+                      aria-labelledby="demo-row-radio-buttons-group-label"
+                      name="row-radio-buttons-group"
+                      value={userType}
+                    // onChange={handleInputChange}
+                    >
+                      <div className={style['parent__div']}>
+                        <div className={style['column__flex']}>
+
+                          <FormControlLabel onClick={() => {
+                            setUserType("tourGuide")
+                          }} value="tourGuide" control={<Radio />} label="Tour Guide" />
+                          <FormControlLabel onClick={() => {
+                            setUserType("cameraOperator")
+                          }} value="cameraOperator" control={<Radio />} label="Camera Operator" />
+                        </div>
+                        <div className={style['column__flex']}>
+
+                          {/* <FormControlLabel onClick={() => {
+                          setUserType("director")
+                        }} value="director" control={<Radio />} label="Director" /> */}
+                          <FormControlLabel onClick={() => {
+                            setUserType("user")
+                          }} value="user" control={<Radio />} label="User" />
+                        </div>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <div className={style["actual-form sign__form"]}>
+                    <div className={style["input-wrap"]}>
+                      <input
+                        type="text"
+                        id="name"
+                        className={style["input-field"]}
+                        onChange={(e) => {
+                          setRegisterName(e.target.value)
+                        }}
+                      />
+                      <label>Name</label>
+                      {nameError && <small className={style["error-message__small"]}>This field can't be empty</small>}
+                    </div>
+                    <div className={style["input-wrap"]}>
+                      <input
+                        type="email"
+                        id="email"
+                        className={style["input-field"]}
+                        onChange={(e) => {
+                          setRegisterEmail(e.target.value)
+                        }}
+                      />
+                      <label>Email</label>
+                      {emailError && <small className={style["error-message__small"]}>This field can't be empty</small>}
+                    </div>
+                    <div className={style["input-wrap"]}>
+                      <input
+                        type="password"
+                        id="pass"
+                        className={style["input-field"]}
+                        onChange={(e) => {
+                          setRegisterPassword(e.target.value)
+                        }}
+                      />
+                      <label>Password</label>
+                      {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
+                    </div>
+                    {userType === 'director' || userType === 'cameraOperator' || userType === 'tourGuide' ? (
+                      <div className={style['files__input']}>
+                        <div>
+                          <label className={style['files__label']}>Upload CV</label>
+                          <input
+                            type="file"
+                            id="cv"
+                            className={style['file-input']}
+                            onChange={(e) => {
+                              setRegisteredCv(e.target.files[0])
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <label className={style['files__label']}>Upload License</label>
+                          <input
+                            type="file"
+                            id="license"
+                            className={style['file-input']}
+                            onChange={(e) => {
+                              setRegisteredLicense(e.target.files[0])
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                    ) : null}
+
+
+                    <input type="submit" className={style["sign-btn"]} />
+                    <p className={style["text"]}>
+                      <input
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={handleCheckboxChange}
+                      />
+                      {' '}
+                      By signing up, I agree to the
+                      <a href="#" style={{ margin: '0 3px' }}>Terms of Services</a> and
+                      <a href="#" style={{ margin: '0 3px' }}>Privacy Policy</a>
+                    </p>
+
+                    {termsAccepted ? null : (
+                      <p className={style["error-message"]}>Can't register without accepting the terms.</p>
+                    )}
+                  </div>
+                </form>
+              }
+              {/*--------------------- Forget Password Form-----------------------*/}
             </div>
-            <div className={style["carousel__text"]}>
-              <h1>Book your Tour Now!</h1>
+            <div className={style["carousel"]}>
+              <div className={style["carousel__welcome"]}>
+                <h2>Welcome to</h2>
+                <img src={Logo} alt="" className={style["carousel__logo"]} />
+              </div>
+              <div className={style["carousel__text"]}>
+                <h1>Book your Tour Now!</h1>
+              </div>
+              <img src={Vector} alt="" className={style["carousel__vector"]} />
             </div>
-            <img src={Vector} alt="" className={style["carousel__vector"]} />
           </div>
         </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }
