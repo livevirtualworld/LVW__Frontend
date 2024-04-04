@@ -122,7 +122,7 @@ nav {
     border-radius: 12px;
     margin-left: 15px;
 }
- .disblayMenu > a {
+ .disblayMenu .display__menu__container > a {
     width: 137px;
     height: 48px;
     background-color: #FF2629;
@@ -278,12 +278,12 @@ nav .menu i {
     z-index: 100000000;
 }
 .display__menu__container{
-    margin-top: 100px;
+    margin-top: 300px;
 }
 .disblayMenu ul li {
     margin-bottom: 30px;
 }
-.disblayMenu ul li a{
+.disblayMenu ul li > a{
     color: white;
 }
 /* .disblayMenu ul li {
