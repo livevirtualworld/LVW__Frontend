@@ -248,8 +248,12 @@ function Navbar() {
       </nav>
       {showDisblayMenu && (
         <div className={style["disblayMenu"]}>
+          <i class="fa-regular fa-rectangle-xmark" 
+          style={{color: 'white'}}
+          onClick={() => setShowDisblayMenu(false)}
+          >
+          </i>
           <div className={style["display__menu__container"]}>
-
 
             {
               personData ? <p>Welcome, {personData?.name} </p> : <NavLink to="/login">Join Us Now</NavLink>
