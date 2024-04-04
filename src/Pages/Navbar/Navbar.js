@@ -250,7 +250,6 @@ function Navbar() {
         <div className={style["disblayMenu"]}>
           <div className={style["close__icon"]}>
             <i class="fa-regular fa-rectangle-xmark"
-              style={{ color: 'white' , fontSize: '20px'}}
               onClick={() => setShowDisblayMenu(false)}
             >
             </i>
