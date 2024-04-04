@@ -26,7 +26,7 @@ function Navbar() {
       axios
         .post(`${uri}/user/getOneUser`, { id: personId })
         .then((res) => {
-            setPersonData(res.data.data);
+          setPersonData(res.data.data);
         })
         .catch((error) => {
           console.error("Error fetching Director data:", error);
@@ -89,50 +89,50 @@ function Navbar() {
 
   return (
     <>
-    <nav>
-      <div className={style["container"]}>
-        <div className={style["nav__content"]}>
-          <div className={style["nav__right"]}>
-            <div className={style["nav__logo"]}>
-              <img src={logo} alt="logo" />
+      <nav>
+        <div className={style["container"]}>
+          <div className={style["nav__content"]}>
+            <div className={style["nav__right"]}>
+              <div className={style["nav__logo"]}>
+                <img src={logo} alt="logo" />
+              </div>
+              <div className={style["nav__search"]}>
+                <input type="text" placeholder="Tour name or location..." />
+              </div>
+              <ul className={style["nav__links"]}>
+                <li className={isActive("/home")}>
+                  <NavLink exact to="/home" activeClassName={style["active"]}>
+                    Home
+                  </NavLink>
+                </li>
+                <li className={isActive("/whatwedo")}>
+                  <NavLink exact to="/whatwedo" activeClassName={style["active"]}>
+                    What We Do
+                  </NavLink>
+                </li>
+                <li className={isActive("/tours")}>
+                  <NavLink to="/tours" activeClassName={style["active"]}>
+                    Tours
+                  </NavLink>
+                </li>
+                <li className={isActive("/whoweare")}>
+                  <NavLink to="/whoweare" activeClassName={style["active"]}>
+                    Who We Are
+                  </NavLink>
+                </li>
+                <li className={isActive("/contactus")}>
+                  <NavLink to="/contactus" activeClassName={style["active"]}>
+                    Contact Us
+                  </NavLink>
+                </li>
+              </ul>
             </div>
-            <div className={style["nav__search"]}>
-              <input type="text" placeholder="Tour name or location..." />
-            </div>
-            <ul className={style["nav__links"]}>
-              <li className={isActive("/home")}>
-                <NavLink exact to="/home" activeClassName={style["active"]}>
-                  Home
-                </NavLink>
-              </li>
-              <li className={isActive("/whatwedo")}>
-                <NavLink exact to="/whatwedo" activeClassName={style["active"]}>
-                  What We Do
-                </NavLink>
-              </li>
-              <li className={isActive("/tours")}>
-                <NavLink to="/tours" activeClassName={style["active"]}>
-                  Tours
-                </NavLink>
-              </li>
-              <li className={isActive("/whoweare")}>
-                <NavLink to="/whoweare" activeClassName={style["active"]}>
-                  Who We Are
-                </NavLink>
-              </li>
-              <li className={isActive("/contactus")}>
-                <NavLink to="/contactus" activeClassName={style["active"]}>
-                  Contact Us
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-          <div className={style["menu"]}>
-            <i
-              onClick={() => setShowDisblayMenu(!showDisblayMenu)}
-              className="fas fa-bars"
-            />
-            {/* {
+            <div className={style["menu"]}>
+              <i
+                onClick={() => setShowDisblayMenu(!showDisblayMenu)}
+                className="fas fa-bars"
+              />
+              {/* {
                             menu == true &&
                             <div className={style["drobdown"]}>
                                 <ul className={style["nav__links"]}>
@@ -143,9 +143,9 @@ function Navbar() {
                                 </ul>
                             </div>
                         } */}
-          </div>
-          <div className={style["nav__left"]}>
-            {/* <div className={style["nav__langs"]}>
+            </div>
+            <div className={style["nav__left"]}>
+              {/* <div className={style["nav__langs"]}>
                             {
                                 lang == "english" &&
                                 <a style={{ color: 'black' }}><img src={United_Kingdom} alt='' /> English</a>
@@ -167,89 +167,92 @@ function Navbar() {
                                 }}><a style={{ color: 'black', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }} href="#"><img src={Italy} alt='' /> Italiano</a></li>
                             </ul>
                         </div> */}
-            <div className={style["nav__join"]}>
-              {personData ? (
-                <div>
-                  <p className={style["nav__username"]}>
-                    Welcome, {personData?.name}{" "}
-                    <img
-                      style={{ marginLeft: "3px", cursor: "pointer" }}
-                      src={Vector}
-                      alt=""
-                      onClick={toggleUserMenu}
-                    />
-                  </p>
-                  {showUserMenu && (
-                    <div className={style["propro"]}>
-                      <ul>
-                        {userRole === "user" ? (
+              <div className={style["nav__join"]}>
+                {personData ? (
+                  <div>
+                    <p className={style["nav__username"]}>
+                      Welcome, {personData?.name}{" "}
+                      <img
+                        style={{ marginLeft: "3px", cursor: "pointer" }}
+                        src={Vector}
+                        alt=""
+                        onClick={toggleUserMenu}
+                      />
+                    </p>
+                    {showUserMenu && (
+                      <div className={style["propro"]}>
+                        <ul>
+                          {userRole === "user" ? (
+                            <li>
+                              <NavLink
+                                to="/userprofile"
+                                style={{ color: "black" }}
+                              >
+                                <i
+                                  class="fa-solid fa-user"
+                                  style={{
+                                    color: "000000",
+                                    marginRight: "20px",
+                                    fontSize: "20px",
+                                  }}
+                                ></i>
+                                Profile
+                              </NavLink>
+                            </li>
+                          ) : (
+                            <li>
+                              <NavLink
+                                to="/technicalprofile"
+                                style={{ color: "black" }}
+                              >
+                                <i
+                                  class="fa-solid fa-user"
+                                  style={{
+                                    color: "000000",
+                                    marginRight: "20px",
+                                    fontSize: "20px",
+                                  }}
+                                ></i>
+                                Profile
+                              </NavLink>
+                            </li>
+                          )}
                           <li>
-                            <NavLink
-                              to="/userprofile"
+                            <a
+                              href="#"
                               style={{ color: "black" }}
+                              onClick={handleLogout}
                             >
                               <i
-                                class="fa-solid fa-user"
+                                class="fa-solid fa-right-from-bracket"
                                 style={{
                                   color: "000000",
                                   marginRight: "20px",
                                   fontSize: "20px",
                                 }}
                               ></i>
-                              Profile
-                            </NavLink>
+                              Logout
+                            </a>
                           </li>
-                        ) : (
-                          <li>
-                            <NavLink
-                              to="/technicalprofile"
-                              style={{ color: "black" }}
-                            >
-                              <i
-                                class="fa-solid fa-user"
-                                style={{
-                                  color: "000000",
-                                  marginRight: "20px",
-                                  fontSize: "20px",
-                                }}
-                              ></i>
-                              Profile
-                            </NavLink>
-                          </li>
-                        )}
-                        <li>
-                          <a
-                            href="#"
-                            style={{ color: "black" }}
-                            onClick={handleLogout}
-                          >
-                            <i
-                              class="fa-solid fa-right-from-bracket"
-                              style={{
-                                color: "000000",
-                                marginRight: "20px",
-                                fontSize: "20px",
-                              }}
-                            ></i>
-                            Logout
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <NavLink to="/login">Join Us Now</NavLink>
-              )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <NavLink to="/login">Join Us Now</NavLink>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </nav>
-        {showDisblayMenu && (
-          <div className={style["disblayMenu"]}>
+      </nav>
+      {showDisblayMenu && (
+        <div className={style["disblayMenu"]}>
+          <div className={style["display__menu__container"]}>
+
+
             {
-                personData ? <p>Welcome, {personData?.name} </p>: <NavLink to="/login">Join Us Now</NavLink>
+              personData ? <p>Welcome, {personData?.name} </p> : <NavLink to="/login">Join Us Now</NavLink>
             }
             <ul>
               <li className={isActive("/home")}>
@@ -277,27 +280,28 @@ function Navbar() {
                   Contact Us
                 </NavLink>
               </li>
-        {
-          personData ?
-          <>
-              <li>
-                {
-                  userRole === "user" ?
-                  <NavLink to="/userprofile">Profile</NavLink> : <NavLink to="/technicalprofile">Profile</NavLink>
-                }
-              </li>
-              <li>
-                <a href="#" onClick={handleLogout}>
-                  Logout
-                </a>
-              </li>
-              </> :
-              ""
-        }
+              {
+                personData ?
+                  <>
+                    <li>
+                      {
+                        userRole === "user" ?
+                          <NavLink to="/userprofile">Profile</NavLink> : <NavLink to="/technicalprofile">Profile</NavLink>
+                      }
+                    </li>
+                    <li>
+                      <a href="#" onClick={handleLogout}>
+                        Logout
+                      </a>
+                    </li>
+                  </> :
+                  ""
+              }
             </ul>
           </div>
-        )}
-        </>
+        </div>
+      )}
+    </>
   );
 }
 export default Navbar;
