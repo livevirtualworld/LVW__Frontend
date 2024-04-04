@@ -1822,7 +1822,7 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.arabicTourGuide.name}</h3>
+                              <h3>{tour?.arabicTourGuide?.name}</h3>
                               <h5>Tour Guide</h5>
                             </div>
                           </div>
@@ -1836,22 +1836,8 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.arabicCameraOperator.name}</h3>
+                              <h3>{tour?.arabicCameraOperator?.name}</h3>
                               <h5>Camera Operator</h5>
-                            </div>
-                          </div>
-                        </NavLink>
-                        <NavLink
-                          to={`/viewtechnical/${tour?.arabicDirector?._id}/director`}
-                        >
-                          <div className={style["person"]}>
-                            <img
-                              src={`${uri}/${tour?.arabicDirector?.img}`}
-                              alt="avatar"
-                            />
-                            <div className={style["text"]}>
-                              <h3>{tour?.arabicDirector.name}</h3>
-                              <h5>Director</h5>
                             </div>
                           </div>
                         </NavLink>
@@ -1869,7 +1855,7 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.englishTourGuide.name}</h3>
+                              <h3>{tour?.englishTourGuide?.name}</h3>
                               <h5>Tour Guide</h5>
                             </div>
                           </div>
@@ -1883,22 +1869,8 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.englishCameraOperator.name}</h3>
+                              <h3>{tour?.englishCameraOperator?.name}</h3>
                               <h5>Camera Operator</h5>
-                            </div>
-                          </div>
-                        </NavLink>
-                        <NavLink
-                          to={`/viewtechnical/${tour?.englishDirector?._id}/tourGuide`}
-                        >
-                          <div className={style["person"]}>
-                            <img
-                              src={`${uri}/${tour?.englishDirector?.img}`}
-                              alt="avatar"
-                            />
-                            <div className={style["text"]}>
-                              <h3>{tour?.englishDirector.name}</h3>
-                              <h5>Director</h5>
                             </div>
                           </div>
                         </NavLink>
@@ -1916,7 +1888,7 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.italianTourGuide.name}</h3>
+                              <h3>{tour?.italianTourGuide?.name}</h3>
                               <h5>Tour Guide</h5>
                             </div>
                           </div>
@@ -1930,22 +1902,8 @@ function TourDetails() {
                               alt="avatar"
                             />
                             <div className={style["text"]}>
-                              <h3>{tour?.italianCameraOperator.name}</h3>
+                              <h3>{tour?.italianCameraOperator?.name}</h3>
                               <h5>Camera Operator</h5>
-                            </div>
-                          </div>
-                        </NavLink>
-                        <NavLink
-                          to={`/viewtechnical/${tour?.italianDirector?._id}/tourGuide`}
-                        >
-                          <div className={style["person"]}>
-                            <img
-                              src={`${uri}/${tour?.italianDirector?.img}`}
-                              alt="avatar"
-                            />
-                            <div className={style["text"]}>
-                              <h3>{tour?.italianDirector.name}</h3>
-                              <h5>Director</h5>
                             </div>
                           </div>
                         </NavLink>

@@ -18,7 +18,7 @@ function Footer() {
                             <li><img src={logo1} alt='' /></li>
                             <li>Click the icons below to explore our profiles and stay updated with our latest  news!</li>
                             <li className={style["links"]}>
-                            <a href="https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498" target="_blank" rel="noopener noreferrer"><img src={facebook} alt='' /></a>
+                            <a href="https://www.facebook.com/livevirtualworld" target="_blank" rel="noopener noreferrer"><img src={facebook} alt='' /></a>
                             <a href="https://www.instagram.com/live_virtual_world?igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer"><img src={instagram} alt='' /></a>
                             <a href="https://www.linkedin.com/company/live-virtual-world" target="_blank" rel="noopener noreferrer"><img src={linked} alt='' /></a>
                             <a href="https://www.youtube.com/@livevirtualworld7827?si=EnL3pBzNfYYrxW8W" target="_blank" rel="noopener noreferrer"><img src={youtube} alt='' /></a>

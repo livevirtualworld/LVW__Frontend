@@ -21,7 +21,7 @@ const teamData = [
     },
     {
         name: 'Enzo La Rosa',
-        position: 'Finance & Strategic Specialist',
+        position: 'CFO',
         image: Enzo,
         socialMedia: {
             facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
@@ -30,67 +30,58 @@ const teamData = [
     },
     {
         name: 'Rana Khalil',
-        position: 'Chief Marketing Officer',
+        position: 'CMO',
         image: Rana,
         socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+            facebook: 'https://www.facebook.com/livevirtualworld',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
         }
     },
     {
         name: 'Arianna Colombani',
-        position: 'Accessibility & Education Specialist',
+        position: 'Director Of Education',
         image: Ariana,
         socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+            facebook: 'https://www.facebook.com/livevirtualworld',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
         }
     },
     {
         name: 'Mohammed Ali',
-        position: 'Chief Operation Officer',
+        position: 'COO',
         image: Mohamed,
         socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
-            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
-        }
-    },
-    {
-        name: 'Anisa Bali',
-        position: 'Coordinator',
-        image: Anisa,
-        socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+            facebook: 'https://www.facebook.com/livevirtualworld',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
         }
     },
     {
         name: 'Fatma Khalil',
-        position: 'Chief Technology Officer',
+        position: 'CTO',
         image: User,
         socialMedia: {
-            facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
+            facebook: 'https://www.facebook.com/livevirtualworld',
             linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
         }
     },
-    // {
-    //     name: 'Karim Ahsraf',
-    //     position: 'Graphic Designer & Ui Ux',
-    //     image: User,
-    //     socialMedia: {
-    //         facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
-    //         linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
-    //     }
-    // },
-    // {
-    //     name: 'Murad Al-Saidi',
-    //     position: 'Graphic Designer',
-    //     image: User,
-    //     socialMedia: {
-    //         facebook: 'https://www.facebook.com/story.php?story_fbid=406443851756849&substory_index=898726195041079&id=100071737136498',
-    //         linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
-    //     }
-    // },
+    {
+        name: 'Amedeo Cristorafo',
+        position: 'Advisor',
+        image: User,
+        socialMedia: {
+            facebook: 'https://www.facebook.com/livevirtualworld',
+            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
+        }
+    },
+    {
+        name: 'Karim Ahsraf',
+        position: 'Ui & Ux',
+        image: User,
+        socialMedia: {
+            facebook: 'https://www.facebook.com/livevirtualworld',
+            linkedin: 'https://www.linkedin.com/company/live-virtual-world/'
+        }
+    },
 ];
 
 function OurTeam() {
