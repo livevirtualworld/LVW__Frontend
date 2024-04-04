@@ -25,6 +25,9 @@ import Card from '../Card/Card';
 import CoverModalStyle from './CoverModal.module.css';
 import UserProfileModalStyle from '../UserProfile/UserProfileModal.module.css'
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ShowToast from '../../utils/ToastifyMessage'
 import Navbar from '../Navbar/Navbar'
 import TechnicalCard from '../Card/TechnicalCard'
 import Footer from '../Footer/Footer'
@@ -196,10 +199,11 @@ function TechnicalProfile() {
     // Check if all languages have been selected
     if (selectedLanguages.length === 2) {
       setDisplayLanguageSelect(false);
-      setShowSuccessLanguageModal(true);
-      setTimeout(() => {
-        setShowSuccessLanguageModal(false);
-      }, 3000);
+      // setShowSuccessLanguageModal(true);
+      // setTimeout(() => {
+      //   setShowSuccessLanguageModal(false);
+      // }, 3000);
+      ShowToast("Your language edited successfully", 2000, "success")
     }
   };
 
@@ -221,10 +225,7 @@ function TechnicalProfile() {
   const handleCoverImageSaveChanges = () => {
 
     if (!selectedCoverImage) {
-      setShowErrorCoverModal(true);
-      setTimeout(() => {
-        setShowErrorCoverModal(false);
-      }, 3000);
+      ShowToast("Your must select an image", 2000, "error")
       return;
     }
 
@@ -242,10 +243,11 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessCoverModal(true);
-            setTimeout(() => {
-              setShowSuccessCoverModal(false);
-            }, 3000);
+            // setShowSuccessCoverModal(true);
+            // setTimeout(() => {
+            //   setShowSuccessCoverModal(false);
+            // }, 3000);
+            ShowToast("Your Cover edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Tour Guide data:", error);
@@ -256,10 +258,7 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessCoverModal(true);
-            setTimeout(() => {
-              setShowSuccessCoverModal(false);
-            }, 3000);
+            ShowToast("Your cover edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Camera Operator data:", error);
@@ -270,10 +269,7 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessCoverModal(true);
-            setTimeout(() => {
-              setShowSuccessCoverModal(false);
-            }, 3000);
+            ShowToast("Your cover edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Director data:", error);
@@ -301,10 +297,7 @@ function TechnicalProfile() {
 
   const handleProfileImageSaveChanges = () => {
     if (!selectedProfileImage) {
-      setShowErrorProfileModal(true);
-      setTimeout(() => {
-        setShowErrorProfileModal(false);
-      }, 3000);
+      ShowToast("Your avatar edited successfully", 2000, "success")
       return;
     }
 
@@ -325,10 +318,7 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessProfileModal(true);
-            setTimeout(() => {
-              setShowSuccessProfileModal(false);
-            }, 3000);
+            ShowToast("Your avatar edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Tour Guide data:", error);
@@ -339,10 +329,7 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessProfileModal(true);
-            setTimeout(() => {
-              setShowSuccessProfileModal(false);
-            }, 3000);
+            ShowToast("Your avatar edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Camera Operator data:", error);
@@ -353,10 +340,7 @@ function TechnicalProfile() {
           .then((res) => {
             console.log(res.data);
             setTechnicalData(res.data.data);
-            setShowSuccessProfileModal(true);
-            setTimeout(() => {
-              setShowSuccessProfileModal(false);
-            }, 3000);
+            ShowToast("Your avatar edited successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching Director data:", error);
@@ -420,9 +404,10 @@ function TechnicalProfile() {
               onClick={() => setShowCoverModal(true)}
             ></i>
             {/* Success Modal */}
-            {showSuccessCoverModal && <SuccessandErrorModals message={"Your Cover Edited Successfully"} success={true} />}
+            <ToastContainer />
+            {/* {showSuccessCoverModal && <SuccessandErrorModals message={"Your Cover Edited Successfully"} success={true} />} */}
             {/* Error Modal */}
-            {showErrorCoverModal && <SuccessandErrorModals message={"No Cover image selected"} success={false} />}
+            {/* {showErrorCoverModal && <SuccessandErrorModals message={"No Cover image selected"} success={false} />} */}
 
             {showCoverModal && (
               <div
@@ -497,9 +482,9 @@ function TechnicalProfile() {
               onClick={() => setShowProfileModal(true)}
             ></i>
             {/* Success Modal */}
-            {showSuccessProfileModal && <SuccessandErrorModals message={"Your Picture Edited Successfully"} success={true} />}
+            {/* {showSuccessProfileModal && <SuccessandErrorModals message={"Your Picture Edited Successfully"} success={true} />} */}
             {/* Error Modal */}
-            {showErrorProfileModal && <SuccessandErrorModals message={"No Profile image selected"} success={false} />}
+            {/* {showErrorProfileModal && <SuccessandErrorModals message={"No Profile image selected"} success={false} />} */}
 
             {showProfileModal && (
               // <div className={ProfileModalStyle['profile-modal__overlay']}>
@@ -603,9 +588,9 @@ function TechnicalProfile() {
               <div className={style['edit__button']}>
                 <a href="#" onClick={() => setShowEditModal(true)}>Edit Profile</a>
                 {/* Success Modal */}
-                {showSuccessModal && <SuccessandErrorModals message={"Your Information Edited Successfully"} success={true} />}
+                {/* {showSuccessModal && <SuccessandErrorModals message={"Your Information Edited Successfully"} success={true} />} */}
                 {/* Error Modal */}
-                {showErrorModal && <SuccessandErrorModals message={"Please Fill All Fields."} success={false} />}
+                {/* {showErrorModal && <SuccessandErrorModals message={"Please Fill All Fields."} success={false} />} */}
 
                 {/* Modal */}
                 {showEditModal && (
@@ -669,10 +654,7 @@ function TechnicalProfile() {
                         <button onClick={() => {
 
                           if (!editName || !editPhone || !editDescription || !editAddress || !editCity) {
-                            setShowErrorModal(true); // Show the error modal
-                            setTimeout(() => {
-                              setShowErrorModal(false); // Hide the error modal after 3 seconds
-                            }, 3000);
+                            ShowToast("Your must complete all fields", 2000, "error")
                           }else{
                           axios.put(`${uri}/technical/editnfo`, {
                             role: JSON.parse(localStorage.getItem("role")),
@@ -691,10 +673,11 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
-                                  setShowSuccessModal(true);
-                                  setTimeout(() => {
-                                    setShowSuccessModal(false);
-                                  }, 3000);
+                                  ShowToast("Your information edited successfully", 2000, "success")
+                                  // setShowSuccessModal(true);
+                                  // setTimeout(() => {
+                                  //   setShowSuccessModal(false);
+                                  // }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Tour Guide data:", error);
@@ -705,10 +688,11 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
-                                  setShowSuccessModal(true);
-                                  setTimeout(() => {
-                                    setShowSuccessModal(false);
-                                  }, 3000);
+                                  ShowToast("Your information edited successfully", 2000, "success")
+                                  // setShowSuccessModal(true);
+                                  // setTimeout(() => {
+                                  //   setShowSuccessModal(false);
+                                  // }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Camera Operator data:", error);
@@ -720,10 +704,11 @@ function TechnicalProfile() {
                                 .then((res) => {
                                   console.log(res.data);
                                   setTechnicalData(res.data.data);
-                                  setShowSuccessModal(true);
-                                  setTimeout(() => {
-                                    setShowSuccessModal(false);
-                                  }, 3000);
+                                  ShowToast("Your information edited successfully", 2000, "success")
+                                  // setShowSuccessModal(true);
+                                  // setTimeout(() => {
+                                  //   setShowSuccessModal(false);
+                                  // }, 3000);
                                 })
                                 .catch((error) => {
                                   console.error("Error fetching Director data:", error);
@@ -764,9 +749,9 @@ function TechnicalProfile() {
                       <p style={{ margin: "10px 0" }}>You don't have description yet!</p>
                     }
                     {/* Success Modal */}
-                    {showSuccessEducationModal && <SuccessandErrorModals message={"Your Education Edited Successfully"} success={true} />}
+                    {/* {showSuccessEducationModal && <SuccessandErrorModals message={"Your Education Edited Successfully"} success={true} />} */}
                     {/* Error Modal */}
-                    {showErrorEducationModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />}
+                    {/* {showErrorEducationModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />} */}
 
                     <h4>Education</h4>
                     {
@@ -813,10 +798,11 @@ function TechnicalProfile() {
                         </div>
                         <button className={style['button']} onClick={() => {
                           if (!university || !faculty || !startYear || !graduateYear) {
-                            setShowErrorEducationModal(true); // Show the error modal
-                            setTimeout(() => {
-                              setShowErrorEducationModal(false); // Hide the error modal after 3 seconds
-                            }, 3000);
+                            // setShowErrorEducationModal(true); // Show the error modal
+                            // setTimeout(() => {
+                            //   setShowErrorEducationModal(false); // Hide the error modal after 3 seconds
+                            // }, 3000);
+                            ShowToast("Your must complete your information", 2000, "error")
                           } else {
                             axios.put(`${uri}/technical/addEducation`, {
                               role: JSON.parse(localStorage.getItem("role")),
@@ -829,10 +815,11 @@ function TechnicalProfile() {
                               setIsEditing(false)
                               console.log(res)
                               setShowEditIcon(true);
-                              setShowSuccessEducationModal(true);
-                              setTimeout(() => {
-                                setShowSuccessEducationModal(false);
-                              }, 3000);
+                              ShowToast("Your education edited successfully", 2000, "success")
+                              // setShowSuccessEducationModal(true);
+                              // setTimeout(() => {
+                              //   setShowSuccessEducationModal(false);
+                              // }, 3000);
                               if (JSON.parse(technicalRole) === "tourGuide") {
                                 console.log(typeof technicalRole)
                                 console.log("this is tech role", technicalRole)
@@ -881,9 +868,9 @@ function TechnicalProfile() {
                         onClick={handleEditClick}></i>
                     }
                     {/* Success Modal */}
-                    {showSuccessExperienceModal && <SuccessandErrorModals message={"Your Experience Edited Successfully"} success={true} />}
+                    {/* {showSuccessExperienceModal && <SuccessandErrorModals message={"Your Experience Edited Successfully"} success={true} />} */}
                     {/* Error Modal */}
-                    {showErrorExperienceModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />}
+                    {/* {showErrorExperienceModal && <SuccessandErrorModals message={"Please Fill All Feilds"} success={false} />} */}
 
                     <h4>Experiences</h4>
                     <div style={{ position: 'relative' }}>
@@ -933,10 +920,11 @@ function TechnicalProfile() {
                         </div>
                         <button className={style['button']} onClick={() => {
                           if (!positions || !companies || !startDates || !endDates) {
-                            setShowErrorExperienceModal(true); // Show the error modal
-                            setTimeout(() => {
-                              setShowErrorExperienceModal(false); // Hide the error modal after 3 seconds
-                            }, 3000);
+                            // setShowErrorExperienceModal(true); // Show the error modal
+                            // setTimeout(() => {
+                            //   setShowErrorExperienceModal(false); // Hide the error modal after 3 seconds
+                            // }, 3000);
+                            ShowToast("Your must complete all fields", 2000, "error")
                           } else {
                             axios.put(`${uri}/technical/addExperience`, {
                               role: JSON.parse(localStorage.getItem("role")),
@@ -949,10 +937,11 @@ function TechnicalProfile() {
                               setIsEditingExperience(false)
                               console.log(res)
                               setShowEditIcon(true);
-                              setShowSuccessExperienceModal(true);
-                              setTimeout(() => {
-                                setShowSuccessExperienceModal(false);
-                              }, 3000);
+                              // setShowSuccessExperienceModal(true);
+                              // setTimeout(() => {
+                              //   setShowSuccessExperienceModal(false);
+                              // }, 3000);
+                              ShowToast("Your education edited successfully", 2000, "success")
                               if (JSON.parse(technicalRole) === "tourGuide") {
                                 console.log(typeof technicalRole)
                                 console.log("this is tech role", technicalRole)
@@ -1023,7 +1012,7 @@ function TechnicalProfile() {
               </div>
             </div>
             {/* Success Modal */}
-            {showSuccessLanguageModal && <SuccessandErrorModals message={"Your Languages Added Successfully"} success={true} />}
+            {/* {showSuccessLanguageModal && <SuccessandErrorModals message={"Your Languages Added Successfully"} success={true} />} */}
 
             <div className={style["languages"]}>
               <h3>Languages</h3>

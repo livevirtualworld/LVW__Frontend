@@ -30,6 +30,9 @@ import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai"
 import { useRef } from 'react';
 const uri = process.env.REACT_APP_BACKEND
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ShowToast from '../../utils/ToastifyMessage'
 
 
 function UserProfile() {
@@ -147,10 +150,7 @@ function UserProfile() {
       !editAddress ||
       !editCity
     ) {
-      setShowErrorModal(true); // Show the error modal
-      setTimeout(() => {
-        setShowErrorModal(false); // Hide the error modal after 3 seconds
-      }, 3000);
+      ShowToast("Please Fill All Fields.", 2000, "error")
     } else {
       axios
         .put(`${uri}/user/editInfo`, {
@@ -167,10 +167,7 @@ function UserProfile() {
             .post(`${uri}/user/getOneUser`, { id: userId })
             .then((res) => {
               setUserData(res.data.data);
-              setShowSuccessModal(true);
-              setTimeout(() => {
-                setShowSuccessModal(false);
-              }, 3000);
+              ShowToast("Your Information Edited Successfully", 2000, "success")
             });
         })
         .catch((error) => {
@@ -196,10 +193,7 @@ function UserProfile() {
 
   const handleCoverImageSaveChanges = () => {
     if (!selectedCoverImage) {
-      setShowErrorCoverModal(true);
-      setTimeout(() => {
-        setShowErrorCoverModal(false);
-      }, 3000);
+      ShowToast("No Cover image selected", 2000, "error")
       return;
     }
 
@@ -215,10 +209,7 @@ function UserProfile() {
           .post(`${uri}/user/getOneUser`, { id: userId })
           .then((res) => {
             setUserData(res.data.data);
-            setShowSuccessCoverModal(true);
-            setTimeout(() => {
-              setShowSuccessCoverModal(false);
-            }, 3000);
+            ShowToast("Your Cover Edited Successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching user data:", error);
@@ -246,10 +237,7 @@ function UserProfile() {
 
   const handleProfileImageSaveChanges = () => {
     if (!selectedProfileImage) {
-      setShowErrorProfileModal(true);
-      setTimeout(() => {
-        setShowErrorProfileModal(false);
-      }, 3000);
+      ShowToast("Your Picture Edited Successfully", 2000, "error")
       return;
     }
 
@@ -267,10 +255,7 @@ function UserProfile() {
           .post(`${uri}/user/getOneUser`, { id: userId })
           .then((res) => {
             setUserData(res.data.data);
-            setShowSuccessProfileModal(true);
-            setTimeout(() => {
-              setShowSuccessProfileModal(false);
-            }, 3000);
+            ShowToast("Your Picture Edited Successfully", 2000, "success")
           })
           .catch((error) => {
             console.error("Error fetching user data:", error);
@@ -304,20 +289,21 @@ function UserProfile() {
               style={{ color: "#000000", cursor: "pointer" }}
               onClick={() => setShowCoverModal(true)}
             ></i>
+            <ToastContainer />
             {/* Success Modal */}
-            {showSuccessCoverModal && (
+            {/* {showSuccessCoverModal && (
               <SuccessandErrorModals
                 message={"Your Cover Edited Successfully"}
                 success={true}
               />
-            )}
+            )} */}
             {/* Error Modal */}
-            {showErrorCoverModal && (
+            {/* {showErrorCoverModal && (
               <SuccessandErrorModals
                 message={"No Cover image selected"}
                 success={false}
               />
-            )}
+            )} */}
 
             {showCoverModal && (
               <div
@@ -396,19 +382,19 @@ function UserProfile() {
               onClick={() => setShowProfileModal(true)}
             ></i>
             {/* Success Modal */}
-            {showSuccessProfileModal && (
+            {/* {showSuccessProfileModal && (
               <SuccessandErrorModals
                 message={"Your Picture Edited Successfully"}
                 success={true}
               />
-            )}
+            )} */}
             {/* Error Modal */}
-            {showErrorProfileModal && (
+            {/* {showErrorProfileModal && (
               <SuccessandErrorModals
                 message={"No Profile image selected"}
                 success={false}
               />
-            )}
+            )} */}
 
             {showProfileModal && (
               <div
@@ -483,19 +469,19 @@ function UserProfile() {
                   Edit Profile
                 </a>
                 {/* Success Modal */}
-                {showSuccessModal && (
+                {/* {showSuccessModal && (
                   <SuccessandErrorModals
                     message={"Your Information Edited Successfully"}
                     success={true}
                   />
-                )}
+                )} */}
                 {/* Error Modal */}
-                {showErrorModal && (
+                {/* {showErrorModal && (
                   <SuccessandErrorModals
                     message={"Please Fill All Fields."}
                     success={false}
                   />
-                )}
+                )} */}
 
                 {/* Modal */}
                 {showEditModal && (
