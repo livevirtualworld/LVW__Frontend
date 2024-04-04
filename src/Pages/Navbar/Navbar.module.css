@@ -111,7 +111,7 @@ nav {
     color: white;
 }
 
-.nav__join>a {
+.nav__join>a  {
     width: 137px;
     height: 48px;
     background-color: #FF2629;
@@ -121,6 +121,18 @@ nav {
     display: block;
     border-radius: 12px;
     margin-left: 15px;
+}
+ .disblayMenu > a {
+    width: 137px;
+    height: 48px;
+    background-color: #FF2629;
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    display: block;
+    border-radius: 12px;
+    transform: translateX(-50%);
+    margin: 40px 0 80px 50%;
 }
 
 .nav__langs {
@@ -250,22 +262,35 @@ nav .menu i {
 }
 
 .disblayMenu ul {
-    margin-top: 20px;
-    width: 100%;
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    z-index: 100000;
+    flex-direction: column;
+    padding-left: 50px;
+    margin-bottom: 40px;
 }
-
+.disblayMenu{
+    width: 300px;
+    z-index: 100000000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    min-height: 120vh;
+}
 .disblayMenu ul li {
-    width: 14%;
+    margin-bottom: 30px;
 }
-
+.disblayMenu ul li a{
+    color: black;
+}
+/* .disblayMenu ul li {
+    width: 14%;
+} */
+/* 
 .disblayMenu ul li a {
     color: white;
     cursor: pointer;
-}
+} */
 
 @media (max-width:1300px) {
     .nav__search {
@@ -288,14 +313,14 @@ nav .menu i {
     }
 }
 
-@media(max-width:800px) {
+/* @media(max-width:800px) {
 
     .disblayMenu ul li {
         width: 22%;
         margin-bottom: 10px;
     }
 
-}
+} */
 
 @media(max-width:551px) {
 
