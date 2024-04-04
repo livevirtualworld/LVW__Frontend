@@ -5,6 +5,8 @@ import Vector from '../../assets/Group 39467.svg'
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import showToast from '../../utils/ToastifyMessage';
 const uri = process.env.REACT_APP_BACKEND
 
 
@@ -24,13 +26,7 @@ function ForgetPassword() {
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [matchingError, setMatchingError] = useState(false);
 
-
-    const [showSuccessRegisterModal, setShowSuccessRegisterModal] = useState(false);
-    const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
-
     //Error
-    const [showErrorRegisterModal, setShowErrorRegisterModal] = useState(false);
-    const [showErrorLoginModal, setShowErrorLoginModal] = useState(false);
     const [errorLoginMsg, setErrorLoginMsg] = useState("");
 
 
@@ -55,29 +51,22 @@ function ForgetPassword() {
                 password: forgetPassword
             }).then((res) => {
                 if (res.data.status === 200) {
-                    setShowSuccessRegisterModal(true);
+                    showToast("Password Updated Successfully", 2000, "success")
                     setTimeout(() => {
-                        setShowSuccessRegisterModal(false);
                         navigate("/login");
-                    }, 3000);
+                    }, 2000);
                 }
             })
 
         }
 
     }
-
-
-
     return (
         <main className={`${hi === true ? style.signn : ""}`}>
             <div className={style["form__box"]}>
                 <div className={style["inner-box"]}>
                     <div className={style["forms-wrap"]}>
                         {/*--------------------- Sign In Form-----------------------*/}
-                        {
-                            showErrorLoginModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
-                        }
                         <form className={style["sign-in-form"]} id="sign__in__form" >
                             <div className={style["logo"]}>
                                 <img src={Logo} alt="" />
@@ -110,10 +99,7 @@ function ForgetPassword() {
                                             }
                                             else if (res.data.status === 400) {
                                                 setErrorLoginMsg(res.data.message)
-                                                setShowErrorLoginModal(true);
-                                                setTimeout(() => {
-                                                    setShowErrorLoginModal(false);
-                                                }, 3000);
+                                                showToast(errorLoginMsg, 2000, "error")
                                             }
 
                                         })
@@ -122,9 +108,6 @@ function ForgetPassword() {
                             </div>
                         </form>
                         {/*--------------------- Sign up Form-----------------------*/}
-
-                        {/* Success Modal */}
-                        {showSuccessRegisterModal && <SuccessandErrorModals message={"Password updated successfully"} success={true} />}
                         {
 
                             tap === "signUp" &&
