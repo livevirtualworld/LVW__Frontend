@@ -14,6 +14,7 @@ const uri = process.env.REACT_APP_BACKEND
 function ForgetPassword() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [tap, setTap] = useState("signUp")
     const [hi, setHi] = useState(false)
     const [forgetEmail, setForgetEmail] = useState("")
@@ -152,14 +153,14 @@ function ForgetPassword() {
                                         />
                                         <label>Confirm Password</label>
                                         <i
-                                            className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                                            className={`fa-solid ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}
                                             style={{
                                                 position: 'absolute',
                                                 right: '15px',
                                                 top: '14px',
                                                 color: '#848181'
                                             }}
-                                            onClick={() => setShowPassword(!showPassword)}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                         ></i>
                                         {confirmPasswordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                                         {matchingError && <small className={style["error-message__small"]}>Password are not matching</small>}
