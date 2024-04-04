@@ -278,13 +278,17 @@ nav .menu i {
     z-index: 100000000;
 }
 .display__menu__container{
-    margin-top: 200px;
+    margin-top: 150px;
 }
 .disblayMenu ul li {
     margin-bottom: 30px;
 }
 .disblayMenu ul li > a{
     color: white;
+}
+.close__icon{
+    display: flex;
+    justify-content: right;
 }
 /* .disblayMenu ul li {
     width: 14%;
