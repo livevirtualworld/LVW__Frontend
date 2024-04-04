@@ -12,7 +12,6 @@ import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModal
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ShowToast from '../../utils/ToastifyMessage'
 import showToast from '../../utils/ToastifyMessage';
 const uri = process.env.REACT_APP_BACKEND
 
