@@ -271,6 +271,9 @@ function Navbar() {
                   Contact Us
                 </NavLink>
               </li>
+        {
+          personData ?
+          <>
               <li>
                 {
                   userRole === "user" ?
@@ -282,6 +285,13 @@ function Navbar() {
                   Logout
                 </a>
               </li>
+              </> :
+              <li>
+              <NavLink to="/login">
+                Join us
+              </NavLink>
+            </li>
+        }
             </ul>
           </div>
         )}
