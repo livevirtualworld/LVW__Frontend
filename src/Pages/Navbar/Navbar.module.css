@@ -122,7 +122,7 @@ nav {
     border-radius: 12px;
     margin-left: 15px;
 }
- .disblayMenu > a {
+ .disblayMenu .display__menu__container > a {
     width: 137px;
     height: 48px;
     background-color: #FF2629;
@@ -269,19 +269,38 @@ nav .menu i {
     margin-bottom: 40px;
 }
 .disblayMenu{
-    width: 300px;
-    z-index: 100000000;
+    background-color: #12243a;
+    right: 0;
+    min-height: 100vh;
     position: fixed;
     top: 0;
-    left: 0;
-    background-color: white;
-    min-height: 120vh;
+    width: 270px;
+    z-index: 100000000;
+}
+.display__menu__container{
+    margin-top: 110px;
 }
 .disblayMenu ul li {
     margin-bottom: 30px;
 }
-.disblayMenu ul li a{
-    color: black;
+.disblayMenu ul li > a{
+    color: white;
+}
+.close__icon{
+    display: flex;
+    justify-content: right;
+}
+.close__icon > i{
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+    margin-right: 30px;
+}
+.display__menu__container > p{
+    color: white;
+    padding-left: 47px;
+    margin-bottom: 50px;
+    font-size: 20px;
 }
 /* .disblayMenu ul li {
     width: 14%;

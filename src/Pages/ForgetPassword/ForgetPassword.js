@@ -5,13 +5,16 @@ import Vector from '../../assets/Group 39467.svg'
 import axios from "axios";
 import SuccessandErrorModals from '../SuccessandErorrModals/SuccessandErrorModals';
 import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import showToast from '../../utils/ToastifyMessage';
 const uri = process.env.REACT_APP_BACKEND
 
 
 
 function ForgetPassword() {
     const navigate = useNavigate();
-
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [tap, setTap] = useState("signUp")
     const [hi, setHi] = useState(false)
     const [forgetEmail, setForgetEmail] = useState("")
@@ -24,13 +27,7 @@ function ForgetPassword() {
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [matchingError, setMatchingError] = useState(false);
 
-
-    const [showSuccessRegisterModal, setShowSuccessRegisterModal] = useState(false);
-    const [showSuccessLoginModal, setShowSuccessLoginModal] = useState(false);
-
     //Error
-    const [showErrorRegisterModal, setShowErrorRegisterModal] = useState(false);
-    const [showErrorLoginModal, setShowErrorLoginModal] = useState(false);
     const [errorLoginMsg, setErrorLoginMsg] = useState("");
 
 
@@ -55,29 +52,22 @@ function ForgetPassword() {
                 password: forgetPassword
             }).then((res) => {
                 if (res.data.status === 200) {
-                    setShowSuccessRegisterModal(true);
+                    showToast("Password Updated Successfully", 2000, "success")
                     setTimeout(() => {
-                        setShowSuccessRegisterModal(false);
                         navigate("/login");
-                    }, 3000);
+                    }, 2000);
                 }
             })
 
         }
 
     }
-
-
-
     return (
         <main className={`${hi === true ? style.signn : ""}`}>
             <div className={style["form__box"]}>
                 <div className={style["inner-box"]}>
                     <div className={style["forms-wrap"]}>
                         {/*--------------------- Sign In Form-----------------------*/}
-                        {
-                            showErrorLoginModal && <SuccessandErrorModals message={errorLoginMsg} success={false} />
-                        }
                         <form className={style["sign-in-form"]} id="sign__in__form" >
                             <div className={style["logo"]}>
                                 <img src={Logo} alt="" />
@@ -110,10 +100,7 @@ function ForgetPassword() {
                                             }
                                             else if (res.data.status === 400) {
                                                 setErrorLoginMsg(res.data.message)
-                                                setShowErrorLoginModal(true);
-                                                setTimeout(() => {
-                                                    setShowErrorLoginModal(false);
-                                                }, 3000);
+                                                showToast(errorLoginMsg, 2000, "error")
                                             }
 
                                         })
@@ -122,9 +109,6 @@ function ForgetPassword() {
                             </div>
                         </form>
                         {/*--------------------- Sign up Form-----------------------*/}
-
-                        {/* Success Modal */}
-                        {showSuccessRegisterModal && <SuccessandErrorModals message={"Password updated successfully"} success={true} />}
                         {
 
                             tap === "signUp" &&
@@ -138,7 +122,7 @@ function ForgetPassword() {
                                 <div className={style["actual-form sign__form"]}>
                                     <div className={style["input-wrap"]}>
                                         <input
-                                            type='password'
+                                            type={showPassword ? 'text' : 'password'}
                                             id="name"
                                             className={style["input-field"]}
                                             onChange={(e) => {
@@ -146,11 +130,21 @@ function ForgetPassword() {
                                             }}
                                         />
                                         <label>Password</label>
+                                        <i
+                                            className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                                            style={{
+                                                position: 'absolute',
+                                                right: '15px',
+                                                top: '14px',
+                                                color: '#848181'
+                                            }}
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        ></i>
                                         {passwordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                                     </div>
                                     <div className={style["input-wrap"]}>
                                         <input
-                                            type='password'
+                                            type={showPassword ? 'text' : 'password'}
                                             id="pass"
                                             className={style["input-field"]}
                                             onChange={(e) => {
@@ -158,9 +152,19 @@ function ForgetPassword() {
                                             }}
                                         />
                                         <label>Confirm Password</label>
+                                        <i
+                                            className={`fa-solid ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}
+                                            style={{
+                                                position: 'absolute',
+                                                right: '15px',
+                                                top: '14px',
+                                                color: '#848181'
+                                            }}
+                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        ></i>
                                         {confirmPasswordError && <small className={style["error-message__small"]}>This field can't be empty</small>}
                                         {matchingError && <small className={style["error-message__small"]}>Password are not matching</small>}
-                                    
+
                                     </div>
                                     <input type="submit" className={style["sign-btn"]} />
                                 </div>
