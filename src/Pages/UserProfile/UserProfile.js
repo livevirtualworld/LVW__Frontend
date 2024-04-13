@@ -215,7 +215,7 @@ const [imageUrl,setImageUrl]=useState("");
     
   
     axios
-      .post(`https://api.cloudinary.com/v1_1/duo8svqci/image/upload`, data)
+      .put(`https://api.cloudinary.com/v1_1/duo8svqci/image/upload`, data)
       .then((response) => {     
         console.log(response.url);      
         setShowCoverModal(false);
