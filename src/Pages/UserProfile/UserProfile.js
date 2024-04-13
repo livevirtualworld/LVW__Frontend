@@ -182,7 +182,7 @@ function UserProfile() {
   //edit cover Image
 
   const [showCoverModal, setShowCoverModal] = useState(false);
-
+const [imageUrl,setImageUrl]=useState("");
   const [selectedCoverImage, setSelectedCoverImage] = useState(null);
   const [coverImagePreview, setCoverImagePreview] = useState("");
 
@@ -202,14 +202,22 @@ function UserProfile() {
       }, 3000);
       return;
     }
-
-    const formData = new FormData();
-    formData.append("coverImg", selectedCoverImage);
-    formData.append("id", userId);
-
+    const data = new FormData();
+    data.append("file", {uri:photo,type:"test/jpg",name:"amacphoto"});
+    data.append(
+      "upload_preset",
+      "z8q1vykv"
+    );
+    data.append("cloud_name","duo8svqci");
+    data.append("folder", "samples");
+    
+    
+    
+  
     axios
-      .put(`${uri}/user/editCoverImage`, formData)
-      .then((response) => {
+      .post(`https://api.cloudinary.com/v1_1/duo8svqci/image/upload`, data)
+      .then((response) => {     
+        console.log(response.url);      
         setShowCoverModal(false);
         axios
           .post(`${uri}/user/getOneUser`, { id: userId })
