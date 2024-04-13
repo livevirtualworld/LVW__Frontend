@@ -203,7 +203,7 @@ const [imageUrl,setImageUrl]=useState("");
       return;
     }
     const data = new FormData();
-    data.append("file", {uri:photo,type:"test/jpg",name:"amacphoto"});
+    data.append("file", {uri:selectedCoverImage,type:"test/jpg",name:"amacphoto"});
     data.append(
       "upload_preset",
       "z8q1vykv"
