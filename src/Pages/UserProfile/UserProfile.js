@@ -29,10 +29,9 @@ import Footer from "../Footer/Footer";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai"
 import { useRef } from 'react';
-const uri = process.env.REACT_APP_BACKEND
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ShowToast from '../../utils/ToastifyMessage'
+import { ToastContainer } from 'react-toastify';
 
 
 function UserProfile() {
@@ -69,6 +68,7 @@ function UserProfile() {
   const [showErrorCoverModal, setShowErrorCoverModal] = useState(false);
   const [showErrorProfileModal, setShowErrorProfileModal] = useState(false);
 
+const uri = process.env.REACT_APP_BACKEND
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     const date = new Date(dateString);
