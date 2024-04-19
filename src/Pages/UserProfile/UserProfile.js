@@ -237,7 +237,7 @@ function UserProfile() {
 
   const handleProfileImageSaveChanges = () => {
     if (!selectedProfileImage) {
-      ShowToast("Your Picture Edited Successfully", 2000, "error")
+      ShowToast("No profile image selected", 2000, "error")
       return;
     }
 

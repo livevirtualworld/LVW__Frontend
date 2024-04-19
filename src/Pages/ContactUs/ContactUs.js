@@ -42,33 +42,29 @@ function ContactUs() {
 
     const questionsAndAnswers = [
         {
-            question: "What is LVW and how does it work?",
-            answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec tincidunt neque. Duis nulla lectus, tristique ac mattis quis, efficitur ac nunc. Integer mollis, dolor at dictum vulputate, arcu ipsum commodo neque, nec imperdiet diam dui feugiat libero. Donec eget tempus ante, id posuere turpis. Fusce molestie nisi tincidunt augue.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec tincidunt neque."
+            question: "What is LVW about?",
+            answer: "LVW offers immersive live virtual experiences, including flagship Live Virtual Tours that transport you to captivating locations through Full-HD Quality live streams. Engage in real-time conversations with skilled specialists and tour guides, creating a personalized adventure. A professional camera operator ensures a cinematic live-stream, while a virtual director enhances the experience with specialized media content. LVW also provides Live Virtual Educational Experiences, offering interactive journeys through time led by verified professional tour guides and subject experts. With captivating virtual field trips, LVW brings innovative and enriching educational approaches to learners, regardless of their group's location."
         },
         {
-            question: "Question 2",
-            answer: "Answer 2"
+            question: "What happens if I encounter technical issues during the tour?",
+            answer: "If you experience any technical issues, please reach out to our dedicated support team at info@livevirtualworld.com . Our team is ready to assist you and address any concerns you may have."
         },
         {
-            question: "Question 3",
-            answer: "Answer 3"
+            question: "What devices can I use to access LVW tours?",
+            answer: "You can enjoy LVW tours on any streaming-enabled device, including laptops, tablets, computers, and smartphones."
         },
         {
-            question: "Question 4",
-            answer: "Answer 4"
+            question: "Are there specific browsers I need to use?",
+            answer: "We seamlessly support all major browsers to ensure a smooth experience. You can access LVW tours using the latest versions of popular browsers such as Google Chrome, Mozilla Firefox, Safari, and Microsoft Edge."
         },
         {
-            question: "Question 5",
-            answer: "Answer 5"
+            question: "Do I need a stable internet connection to access LVW tours?",
+            answer: "Yes, a stable internet connection is essential for uninterrupted enjoyment of LVW tours. Please ensure you have a reliable internet connection to fully experience our virtual tours."
         },
         {
-            question: "Question 6",
-            answer: "Answer 6"
+            question: "In case of cancellation?",
+            answer: "LVW tours are subject to cancellation or rescheduling due to inclement weather, health concerns, or unforeseen circumstances. If your tour is canceled or rescheduled, you'll receive a full credit, allowing you to join another tour or the rescheduled session. In case you miss the start time of your LVW tour, you can still join while the tour is in progress."
         },
-        {
-            question: "Question 7",
-            answer: "Answer 7"
-        }
     ];
     const navigateToProfile = (profileUrl) => {
         window.open(profileUrl, "_blank"); // Open the profile URL in a new tab
