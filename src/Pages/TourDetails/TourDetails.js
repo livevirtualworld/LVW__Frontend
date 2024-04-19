@@ -38,6 +38,9 @@ import UserCoverModalStyle from "../UserProfile/UserCoverModal.module.css";
 import Modalstyle from "../UserProfile/EditModal.module.css";
 import { Button, Input } from "@mui/material";
 import Footer from "../Footer/Footer";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ShowToast from '../../utils/ToastifyMessage'
 const uri = process.env.REACT_APP_BACKEND
 
 
@@ -368,18 +371,20 @@ function TourDetails() {
 
             if (response.data.status === 200) {
               // Handle success logic here, e.g., show a success message and navigate to a confirmation page
-              setShowSuccessBookModal(true);
               setIsBookingDisabled(true); // Disable the button
+              // setShowSuccessBookModal(true);
+              ShowToast("Your tour is booked successfully", 2000, "success")
               setTimeout(() => {
-                setShowSuccessBookModal(false);
+                // setShowSuccessBookModal(false);
                 window.location.reload();
-              }, 3000);
+              }, 2000);
             } else if (response.status === 500) {
-              setShowErrorBookModal(true);
-              setErrorMsg(response.data.message);
-              setTimeout(() => {
-                setShowErrorBookModal(false);
-              }, 3000);
+              // setShowErrorBookModal(true);
+              // setErrorMsg(response.data.message);
+              // setTimeout(() => {
+              //   setShowErrorBookModal(false);
+              // }, 3000);
+              ShowToast(response.data.message, 2000, "error")
             }
           }
         } catch (error) {
@@ -387,11 +392,8 @@ function TourDetails() {
           console.error("Error processing payment:", error);
 
           // Handle error logic here, e.g., show an error message
-          setErrorMsg("An error occurred while processing your payment.");
-          setShowErrorBookModal(true);
-          setTimeout(() => {
-            setShowErrorBookModal(false);
-          }, 3000);
+          // setErrorMsg("An error occurred while processing your payment.");
+          ShowToast("An error occurred while processing your payment.", 2000, "error")
         }
       }
     } else {
@@ -406,16 +408,10 @@ function TourDetails() {
           })
           .then((res) => {
             if (res.data.status === 200) {
-              setShowSuccessBookModal(true);
-              setTimeout(() => {
-                setShowSuccessBookModal(false);
-              }, 3000);
+              ShowToast("Your tour is booked successfully", 2000, "success")
             } else if (res.data.status === 400) {
-              setErrorMsg(res.data.message);
-              setShowErrorBookModal(true);
-              setTimeout(() => {
-                setShowErrorBookModal(false);
-              }, 3000);
+              // setErrorMsg(res.data.message);
+              ShowToast(res.data.message, 2000, "error")
             }
           });
       }
@@ -441,10 +437,7 @@ function TourDetails() {
   };
   const handleCoverImageSaveChanges = () => {
     if (!selectedCoverImage) {
-      setShowErrorCoverModal(true);
-      setTimeout(() => {
-        setShowErrorCoverModal(false);
-      }, 3000);
+      ShowToast("Your must select a cover image", 2000, "success")
       return;
     }
     if (userData?.email !== "livevirtualworld.info@gmail.com") {
@@ -470,10 +463,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setShowSuccessCoverModal(true);
-              setTimeout(() => {
-                setShowSuccessCoverModal(false);
-              }, 3000);
+              ShowToast("The image is edited successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -485,10 +475,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setShowSuccessCoverModal(true);
-              setTimeout(() => {
-                setShowSuccessCoverModal(false);
-              }, 3000);
+              ShowToast("the image is edited successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -527,10 +514,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditDesc(true);
-              setTimeout(() => {
-                setSuccessEditDesc(false);
-              }, 3000);
+              ShowToast("Your description is edited successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -542,10 +526,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditDesc(true);
-              setTimeout(() => {
-                setSuccessEditDesc(false);
-              }, 3000);
+              ShowToast("Your description is edited successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -586,10 +567,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditTitle(true);
-              setTimeout(() => {
-                setSuccessEditTitle(false);
-              }, 3000);
+              ShowToast("Your Title Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -601,10 +579,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditTitle(true);
-              setTimeout(() => {
-                setSuccessEditTitle(false);
-              }, 3000);
+              ShowToast("Your Title Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -629,10 +604,7 @@ function TourDetails() {
   };
   const handleEditMediaSaveChanges = () => {
     if (!selectedMedia) {
-      setErrorEditMedia(true);
-      setTimeout(() => {
-        setErrorEditMedia(false);
-      }, 3000);
+      ShowToast("Error updating tour Media", 2000, "error")
       return;
     }
     if (userData?.email !== "livevirtualworld.info@gmail.com") {
@@ -655,10 +627,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditMedia(true);
-              setTimeout(() => {
-                setSuccessEditMedia(false);
-              }, 3000);
+              ShowToast("Your Media Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -670,10 +639,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditMedia(true);
-              setTimeout(() => {
-                setSuccessEditMedia(false);
-              }, 3000);
+              ShowToast("Your Media Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -725,10 +691,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditInstruc(true);
-              setTimeout(() => {
-                setSuccessEditInstruc(false);
-              }, 3000);
+              ShowToast("Your Instructions Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -740,10 +703,7 @@ function TourDetails() {
               setTour(res.data);
               hours(res.data.hours);
               languages(res.data);
-              setSuccessEditInstruc(true);
-              setTimeout(() => {
-                setSuccessEditInstruc(false);
-              }, 3000);
+              ShowToast("Your Instructions Edited Successfully", 2000, "success")
             })
             .catch((error) => {
               console.error("Error fetching user data:", error);
@@ -945,75 +905,76 @@ function TourDetails() {
   }, []);
   return (
     <div>
-      {showSuccessBookModal && (
+      <ToastContainer />
+      {/* {showSuccessBookModal && (
         <SuccessandErrorModals
           success={true}
           message={"Tour Booked Successfully"}
         />
-      )}
-      {showErrorBookModal && (
+      )} */}
+      {/* {showErrorBookModal && (
         <SuccessandErrorModals success={false} message={showErrorMsg} />
-      )}
-      {showSuccessCoverModal && (
+      )} */}
+      {/* {showSuccessCoverModal && (
         <SuccessandErrorModals
           message={"Your Cover Edited Successfully"}
           success={true}
         />
-      )}
-      {showErrorCoverModal && (
+      )} */}
+      {/* {showErrorCoverModal && (
         <SuccessandErrorModals
           message={"No Cover image selected"}
           success={false}
         />
-      )}
-      {successEditDesc && (
+      )} */}
+      {/* {successEditDesc && (
         <SuccessandErrorModals
           message={"Your description Edited Successfully"}
           success={true}
         />
-      )}
-      {errorEditDesc && (
+      )} */}
+      {/* {errorEditDesc && (
         <SuccessandErrorModals
           message={"Error updating tour description"}
           success={false}
         />
-      )}
-      {successEditMedia && (
+      )} */}
+      {/* {successEditMedia && (
         <SuccessandErrorModals
           message={"Your Media Edited Successfully"}
           success={true}
         />
-      )}
-      {errorEditMedia && (
+      )} */}
+      {/* {errorEditMedia && (
         <SuccessandErrorModals
           message={"Error updating tour Media"}
           success={false}
         />
-      )}
-      {successEditTitle && (
+      )} */}
+      {/* {successEditTitle && (
         <SuccessandErrorModals
           message={"Your Title Edited Successfully"}
           success={true}
         />
-      )}
-      {errorEditTitle && (
+      )} */}
+      {/* {errorEditTitle && (
         <SuccessandErrorModals
           message={"Error updating tour title"}
           success={false}
         />
-      )}
-      {successEditInstruc && (
+      )} */}
+      {/* {successEditInstruc && (
         <SuccessandErrorModals
           message={"Your Instructions Edited Successfully"}
           success={true}
         />
-      )}
-      {errorEditInstruc && (
+      )} */}
+      {/* {errorEditInstruc && (
         <SuccessandErrorModals
           message={"Error updating tour instructions"}
           success={false}
         />
-      )}
+      )} */}
 
       <Navbar />
 
