@@ -4,6 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import style from './WhoWeAre.module.css'
 import Footer from "../Footer/Footer";
 import OurTeam from "./OurTeam";
+import Signature from '../../assets/signature.png'
 
 // const teamDescriptions = [
 //     {
@@ -65,7 +66,34 @@ function WhoWeAre() {
                 </div>
                 <div className={style['body__content']}>
                     <h2>OUR Team:</h2>
-                    <OurTeam /> 
+                    <OurTeam />
+                    <div className={style['ceo__letter']}>
+                        <div className={style['container']}>
+                            <div className={style['letter__content']}>
+                            <h3>WITH AN EYE ON TOMORROW</h3>
+                            <h2>"At LVW, reality meets imagination, boundaries fade,<br />
+                                and adventures await.<br />
+                                We're not just bridging worlds; we're redefining exploration."
+                            </h2>
+                            <p>At Live Virtual World (LVW), we are committed to revolutionizing the way people explore and experience the world.
+                                Our mission is to digitally bridge the gap between the physical and virtual worlds,
+                                offering immersive and interactive virtual tours that transport you to magical destinations around the globe.</p>
+                                <p>I am proud to lead a team of dedicated professionals who are passionate about delivering high-quality live streams and captivating storytelling.
+                                    Our goal is to provide personalized experiences that engage and inspire our audience, whether you are a traveler seeking adventure,
+                                    an educator enhancing learning experiences, or a business looking to offer innovative experiences to your clients.</p>
+                                    <p>This is an exciting time for LVW as we continue to expand our geographic reach, enhance user experiences,
+                                        and diversify our offerings.
+                                        We are constantly innovating and exploring new markets to ensure that we remain at the forefront of the virtual tourism industry.</p>
+                                        <p>I invite you to join us on this journey of exploration and discovery. </p>
+                                        <p>Together, we can create a more immersive, inclusive, and impactful world.</p>
+                                        <div className={style['signature']}>
+                                            <img src={Signature} alt="signature" />
+                                            <h3>Sanad B. Hamdan</h3>
+                                            <p>Founder and Chief Executive Officer</p>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
                     {/* {teamDescriptions.map((member, index) => (
                         <div className={style['team__content']} key={index}>
                             <h2>{index + 1}- {member.name}</h2>
