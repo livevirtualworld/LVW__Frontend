@@ -258,6 +258,9 @@ a {
   font-size: 22px;
   line-height: 32px;
 }
+.signature{
+  margin-top: 20px;
+}
 .signature > img{
   width: 25%;
 }
@@ -352,6 +355,9 @@ a {
   .cards {
     justify-content: space-between;
   }
+  .signature>img {
+    width: 40%;
+}
 }
 @media (max-width:550px) {
   .header__title {
@@ -383,6 +389,9 @@ a {
   .last__div>h2 {
     font-size: 30px;
   }
+  .signature__dqxPQ>img {
+    width: 60%;
+}
 }
 @media (max-width:450px) {
   .header__title {
