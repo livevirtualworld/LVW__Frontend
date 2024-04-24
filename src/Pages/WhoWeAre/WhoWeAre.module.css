@@ -217,6 +217,49 @@ a {
   margin-top: 10px;
 }
 
+.letter__content > h3{
+  font-size: 35px;
+    font-weight: 500;
+    text-align: center;
+    color: #12243a;
+}
+
+.letter__content > h2{
+  text-align: center;
+    color: #ff2629;
+    margin-top: 20px;
+    line-height: 55px;
+    font-size: 33px;
+}
+.letter__content > p:first-of-type{
+  font-size: 22px;
+  line-height: 32px;
+  margin-bottom: 35px;
+  margin-top: 50px;
+}
+.letter__content > p:nth-last-of-type(2),
+.letter__content > p:nth-last-of-type(3),
+.letter__content > p:nth-last-of-type(4)
+{
+  font-size: 22px;
+  line-height: 32px;
+  margin-bottom: 35px;
+}
+.letter__content > p:nth-last-of-type(5){
+  font-size: 22px;
+    line-height: 32px;
+    margin-bottom: 35px;
+}
+.letter__content > p:last-of-type{
+  font-size: 22px;
+  line-height: 32px;
+}
+.signature > img{
+  width: 25%;
+}
+.signature > h3{
+  margin-bottom: 15px;
+}
 @media (max-width:1200px) {
   .blockquote>p {
     padding: 0 90px;
