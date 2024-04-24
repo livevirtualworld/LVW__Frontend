@@ -217,6 +217,10 @@ a {
   margin-top: 10px;
 }
 
+.ceo__letter{
+  margin-top: 100px;
+}
+
 .letter__content > h3{
   font-size: 35px;
     font-weight: 500;
