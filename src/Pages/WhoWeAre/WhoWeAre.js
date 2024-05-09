@@ -88,18 +88,12 @@ function WhoWeAre() {
                                         <p>Together, we can create a more immersive, inclusive, and impactful world.</p>
                                         <div className={style['signature']}>
                                             <img src={Signature} alt="signature" />
-                                            <h3>Sanad B. Hamdan</h3>
+                                            <h3>Sanad Hamdan</h3>
                                             <p>Founder and Chief Executive Officer</p>
                                         </div>
                             </div>
                         </div>
                     </div>
-                    {/* {teamDescriptions.map((member, index) => (
-                        <div className={style['team__content']} key={index}>
-                            <h2>{index + 1}- {member.name}</h2>
-                            <p>{member.description}</p>
-                        </div>
-                    ))} */}
                 </div>
                 <div className={style['last__div']}>
                     <h2>Start Your Tour</h2>

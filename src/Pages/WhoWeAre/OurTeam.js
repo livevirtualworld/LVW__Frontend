@@ -29,7 +29,7 @@ const teamData = [
         }
     },
     {
-        name: 'Rana Khalil',
+        name: 'Rana Ekhail',
         position: 'CMO',
         image: Rana,
         socialMedia: {

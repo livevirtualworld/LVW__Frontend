@@ -182,25 +182,18 @@ function Home() {
                 <div className={style["container"]}>
                     <div className={style["hero__banner__content"]}>
                         <div className={style["hero__banner__text"]}>
+                        <h1><span className={style["explore"]}>Live Virtual World</span><span className={style["world"]}>Every stream A journey</span><span className={style["couch"]}>Every experience A connection</span></h1>
+                            {/* <h1><span className={style["explore"]}>Live Virtual World</span><span className={style["world"]}>A World Without</span><span className={style["couch"]}>Borders</span></h1> */}
                             {/* <h1><span className={style["explore"]}>Explore</span> <span className={style["world"]}>The World Right From</span> <span className={style["couch"]}>Your Couch</span></h1> */}
-                            <h1><span className={style["explore"]}>Live Virtual World</span><span className={style["world"]}>A World Without</span><span className={style["couch"]}>Borders</span></h1>
                             {/* <h1><span className={style["world"]}>Every stream, <span className={style['journey']}>A journey</span></span><span className={style["couch"]}>Every experience, <span className={style['journey']}>A connection</span></span></h1> */}
                             {/* <h1><span className={style["explore"]}>We're here to ensure</span> <span className={style["world"]}>every LIVE virtual</span> <span className={style["couch"]}>tour is a success!</span></h1> */}
                             {/* <p>Dive into the world with LVW.  We bring exclusive locations to the comfort of your home, allowing you to interact live with experts, professors, and individuals renowned for their arts and specialties.</p> */}
                             <div className={style["hero__banner__buttons"]}>
                                 <NavLink to={"/tours"}><button className={style["find__tour__btn"]}>Find A Tour</button></NavLink>
                                 <NavLink to={"/login"}><button className={style["join__us__btn"]}>Work With Us</button></NavLink>
-
-
                             </div>
                         </div>
-                        {/* <div className={style["hero__banner__video"]}>
-                            <figure>
-                                <img src={video} alt="" />
-                            </figure>
-                        </div> */}
                     </div>
-                    {/* <EchatBot /> */}
                 </div>
             </section>
 
